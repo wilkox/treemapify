@@ -2,10 +2,10 @@
 library(ggplot2)
 
 #work with a subset of the midwest data set
-testData <- midwest[c("county","area","percollege")][1:20,]
+midwestData <- midwest[c("county","area","percollege")][1:20,]
 
 #rename "area" to "landarea" to prevent confusion
-names(testData) <- c("county", "landarea", "percollege")
+names(midwestData) <- c("county", "landarea", "percollege")
 
 treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,100)) {
 
@@ -26,15 +26,19 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
     stop("Invalid ylim (try something like \"ylim=c(0,100)\")")
   }
 
-  #make a sorted list by area
-  testData <- testData[with(testData, order(-landarea)), ]
+  #build the treeMapData data frame
+  treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill])
+  names(treeMapData) <- c("area", "fill")
 
-  #scale areas to sum to 10,000 (i.e. 100 x 100)
-  scaleFactor <- 10000 / sum(testData$landarea)
-  testData$landarea <- scaleFactor * testData$landarea
+  #sorted by area, largest to smallest
+  treeMapData <- treeMapData[with(treeMapData, order(-area)), ]
+
+  #scale areas to sum to total plot area
+  scaleFactor <- 10000 / sum(treeMapData$area)
+  treeMapData$area <- scaleFactor * treeMapData$area
 
   #this is the "master" output data frame, holding the locations of all the treemap rects
-  treeMap <- data.frame(county=factor(), landarea=numeric(), percollege=numeric(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+  treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
 
   #these variables track the empty space remaining in the tree map
   emptyxMin <- 0
@@ -83,13 +87,13 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
     while (continue) {
 
       #initialise a trial row
-      treeMapRow <- data.frame(county=factor(), landarea=numeric(), percollege=numeric(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+      treeMapRow <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
 
       #reset the stack pointer to the start of this row
       stackPointer <- stackPointerRow
 
       #get the total area that will be filled by this row
-      totalRowArea <- sum(testData$landarea[stackPointer:(stackPointer + nInRow - 1)])
+      totalRowArea <- sum(treeMapData$area[stackPointer:(stackPointer + nInRow - 1)])
 
       #get the short dimension for the row
       rowShortDimension <- totalRowArea / rowLongDimension
@@ -109,11 +113,11 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
       for (i in 1:nInRow) {
 
         #pop a rect from the stack to place
-        thisRect <- testData[stackPointer,]
+        thisRect <- treeMapData[stackPointer,]
         stackPointer <- stackPointer + 1
 
         #figure out the rect subdivide length
-        rectSubdivideLength <- thisRect$landarea / rowShortDimension
+        rectSubdivideLength <- thisRect$area / rowShortDimension
         
         #store the coordinates for the rect
         if (subdivideDirection == "horizontal") {
@@ -131,7 +135,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
         }
 
         #store the new rect in the row
-        newRect <- data.frame(county=thisRect$county, landarea=thisRect$landarea, percollege=thisRect$percollege, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
+        newRect <- data.frame(area=thisRect$area, fill=thisRect$fill, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
         treeMapRow <- rbind(treeMapRow, newRect)
 
         #update the aspect ratio if this rect contains the worst one so far in the row
@@ -166,7 +170,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
       } else {
 
         #if there are still rects left to place, prepare for the next round
-        if (stackPointer - 1 < nrow(testData)) {
+        if (stackPointer - 1 < nrow(treeMapData)) {
 
           #increment the number of rects to try
           nInRow <- nInRow + 1
@@ -189,7 +193,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
     }
 
     #if this row has resulted in all rects being placed, exit
-    if (stackPointer - 1 == nrow(testData)) {
+    if (stackPointer - 1 == nrow(treeMapData)) {
       continue <- FALSE
     } else {
       continue <- TRUE
@@ -200,7 +204,14 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
   return(treeMap)
 }
 
-#set up the 100 by 100 plot area
-#p <- ggplot(treeMap)
-#p <- p + coord_cartesian(xlim = c(0, 100), ylim = c(0,100)) 
-#p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=county))
+#this is mostly to speed up testing
+ggplotify <- function(treeMap) {
+
+  xlim <- c(min(treeMap["xmin"]), max(treeMap["xmax"]))
+  ylim <- c(min(treeMap["ymin"]), max(treeMap["ymax"]))
+
+  p <- ggplot(treeMap)
+  p <- p + coord_cartesian(xlim = xlim, ylim = ylim) 
+  p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=fill))
+  return(p)
+}
