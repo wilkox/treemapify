@@ -2,12 +2,12 @@
 library(ggplot2)
 
 #work with a subset of the midwest data set
-midwestData <- midwest[c("county","area","percollege")][1:20,]
+midwestData <- midwest[c("county","area","percollege", "category")][1:20,]
 
 #rename "area" to "landarea" to prevent confusion
-names(midwestData) <- c("county", "landarea", "percollege")
+names(midwestData) <- c("county", "landarea", "percollege", "category")
 
-treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,100)) {
+treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,100), ylim=c(0,100)) {
 
   #check the arguments
   if (missing(dataFrame) || is.data.frame(dataFrame) == FALSE) {
@@ -18,6 +18,9 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
   }
   if (missing(fill) || fill %in% colnames(dataFrame) == FALSE) {
     stop("Must specify a fill aesthetic with fill=\"colname\" (and it must exist in the data frame)")
+  }
+  if (missing(group) == FALSE && group %in% colnames(dataFrame) == FALSE) {
+    stop("If you want a group aesthetic (optional), it must be specified with group=\"colname\" (and it must exist in the data frame)")
   }
   if (is.numeric(xlim) == FALSE || length(xlim) != 2) {
     stop("Invalid xlim (try something like \"xlim=c(0,100)\")")
@@ -34,19 +37,20 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, xlim=c(0,100), ylim=c(0,
   treeMapData <- treeMapData[with(treeMapData, order(-area)), ]
 
   #scale areas to sum to total plot area
-  scaleFactor <- 10000 / sum(treeMapData$area)
+  plotArea <- prod(diff(xlim), diff(ylim))
+  scaleFactor <- plotArea / sum(treeMapData$area)
   treeMapData$area <- scaleFactor * treeMapData$area
 
   #this is the "master" output data frame, holding the locations of all the treemap rects
   treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
 
   #these variables track the empty space remaining in the tree map
-  emptyxMin <- 0
-  emptyxMax <- 100
-  emptyyMin <- 0
-  emptyyMax <- 100
+  emptyxMin <- xlim[1]
+  emptyxMax <- xlim[2]
+  emptyyMin <- ylim[1]
+  emptyyMax <- ylim[2]
 
-    #this tells us the row number of the top unplaced rect
+  #this tells us the row number of the top unplaced rect
   stackPointer <- 1
 
   #keep making new rows until all rects are placed
