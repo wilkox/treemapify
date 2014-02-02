@@ -7,6 +7,9 @@ midwestData <- midwest[c("county","area","percollege", "category")][1:20,]
 #rename "area" to "landarea" to prevent confusion
 names(midwestData) <- c("county", "landarea", "percollege", "category")
 
+#make sure "category" is a factor
+midwestData$category <- factor(midwestData$category)
+
 treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,100), ylim=c(0,100)) {
 
   #check the arguments
@@ -22,11 +25,55 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
   if (missing(group) == FALSE && group %in% colnames(dataFrame) == FALSE) {
     stop("If you want a group aesthetic (optional), it must be specified with group=\"colname\" (and it must exist in the data frame)")
   }
+  if (missing(group) == FALSE && is.factor(dataFrame[[group]]) == FALSE) {
+    stop("Group aesthetic must be a factor")
+  }
   if (is.numeric(xlim) == FALSE || length(xlim) != 2) {
     stop("Invalid xlim (try something like \"xlim=c(0,100)\")")
   }
   if (is.numeric(ylim) == FALSE || length(ylim) != 2) {
     stop("Invalid ylim (try something like \"ylim=c(0,100)\")")
+  }
+
+  #handle groups, if so requested
+  if (missing(group) == FALSE) {
+
+    #build the treeMapData data frame
+    treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], group=dataFrame[group])
+    names(treeMapData) <- c("area", "fill", "group")
+
+    #scale areas to sum to total plot area
+    plotArea <- prod(diff(xlim), diff(ylim))
+    scaleFactor <- plotArea / sum(treeMapData$area)
+    treeMapData$area <- scaleFactor * treeMapData$area
+
+    #to get the placement for each group, sum the area
+    # and generate a treemap that places each group
+    groups <- levels(dataFrame[[group]])
+    groupData <- data.frame(group=factor(),area=numeric(), fill=numeric())
+    for (thisGroup in groups) {
+      groupAreaSum <- sum(treeMapData[treeMapData[,"group"] == thisGroup,]["area"])
+      thisGroupRow <- data.frame(group=thisGroup, area=groupAreaSum, fill=thisGroup)
+      groupData <- rbind(groupData, thisGroupRow)
+    }
+    groupTreeMap <- treemapify(groupData, area="area", fill="fill", xlim=xlim, ylim=ylim)
+
+    #build the output data frame
+    treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+
+    #for each group, generate a treemap within the area allocated for the group
+    for (thisGroup in groups) {
+      thisGroupData <- treeMapData[treeMapData[,"group"] == thisGroup,]
+      xmin <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["xmin"])
+      xmax <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["xmax"])
+      ymin <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["ymin"])
+      ymax <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["ymax"])
+      thisGroupRects <- treemapify(thisGroupData, fill="fill", area="area", xlim=c(xmin, xmax), ylim=c(ymin, ymax))
+      treeMap <- rbind(treeMap, thisGroupRects)
+    }
+
+    #return the grouped treemap
+    return(treeMap)
   }
 
   #build the treeMapData data frame
@@ -40,6 +87,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
   plotArea <- prod(diff(xlim), diff(ylim))
   scaleFactor <- plotArea / sum(treeMapData$area)
   treeMapData$area <- scaleFactor * treeMapData$area
+
 
   #this is the "master" output data frame, holding the locations of all the treemap rects
   treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
