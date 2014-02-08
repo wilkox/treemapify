@@ -1,5 +1,6 @@
 #load ggplot2
 library(ggplot2)
+library(plyr)
 
 #work with a subset of the midwest data set
 midwestData <- midwest[c("county","area","percollege", "category")][1:20,]
@@ -278,9 +279,10 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
   #place labels, if asked to
   if (missing(label) == FALSE) {
 
-    #add label position columns
+    #add label aesthetic columns
     treeMap["labelx"] <- NA
     treeMap["labely"] <- NA
+    treeMap["labelsize"] <- NA
 
     #"hundredths"
     xHundredth <- diff(xlim) / 100
@@ -289,7 +291,14 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     #place in top left
     treeMap["labelx"] <- treeMap["xmin"] + (2 * xHundredth)
     treeMap["labely"] <- treeMap["ymax"] - (2 * yHundredth)
-    
+
+    #select an appropriate size
+    #TODO this should scale with plot area
+    resize <- function(treeMapRow) {
+      treeMapRow["labelsize"] <- (treeMapRow$xmax - treeMapRow$xmin) / nchar(as.character(treeMapRow$label))
+      return(treeMapRow)
+    }
+    treeMap <- ddply(treeMap, ~ label, .fun = resize)
   }
   
   #ta-da
@@ -307,7 +316,7 @@ ggplotify <- function(treeMap) {
   p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=fill))
 
   if ("label" %in% colnames(treeMap)) {
-    p <- p + geom_text(aes(label=label, x=labelx, y=labely), hjust=0)
+    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2.5,8))
   }
 
   return(p)
