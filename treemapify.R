@@ -305,5 +305,10 @@ ggplotify <- function(treeMap) {
   p <- ggplot(treeMap)
   p <- p + coord_cartesian(xlim = xlim, ylim = ylim) 
   p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=fill))
+
+  if ("label" %in% colnames(treeMap)) {
+    p <- p + geom_text(aes(label=label, x=labelx, y=labely), hjust=0)
+  }
+
   return(p)
 }
