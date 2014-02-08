@@ -7,10 +7,11 @@ midwestData <- midwest[c("county","area","percollege", "category")][1:20,]
 #rename "area" to "landarea" to prevent confusion
 names(midwestData) <- c("county", "landarea", "percollege", "category")
 
-#make sure "category" is a factor
+#factors as factors
 midwestData$category <- factor(midwestData$category)
+midwestData$county <- factor(midwestData$county)
 
-treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,100), ylim=c(0,100)) {
+treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE, xlim=c(0,100), ylim=c(0,100)) {
 
   #check the arguments
   if (missing(dataFrame) || is.data.frame(dataFrame) == FALSE) {
@@ -27,6 +28,12 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
   }
   if (missing(group) == FALSE && is.factor(dataFrame[[group]]) == FALSE) {
     stop("Group aesthetic must be a factor")
+  }
+  if (missing(label) == FALSE && label %in% colnames(dataFrame) == FALSE) {
+    stop("If you want labels (optional), they must be specified with label=\"colname\" (and the column must exist in the data frame)")
+  }
+  if (missing(label) == FALSE && is.factor(dataFrame[[label]]) == FALSE) {
+    stop("Label column must be a factor")
   }
   if (is.numeric(xlim) == FALSE || length(xlim) != 2) {
     stop("Invalid xlim (try something like \"xlim=c(0,100)\")")
@@ -77,8 +84,13 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
   }
 
   #build the treeMapData data frame
-  treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill])
-  names(treeMapData) <- c("area", "fill")
+  if (missing(label)) {
+    treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill])
+    names(treeMapData) <- c("area", "fill")
+  } else {
+    treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], label=dataFrame[label])
+    names(treeMapData) <- c("area", "fill", "label")
+  }
 
   #sorted by area, largest to smallest
   treeMapData <- treeMapData[with(treeMapData, order(-area)), ]
@@ -86,10 +98,14 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
   #scale areas to sum to total plot area
   plotArea <- prod(diff(xlim), diff(ylim))
   scaleFactor <- plotArea / sum(treeMapData$area)
-  treeMapData$scaledArea <- scaleFactor * treeMapData$area
+  treeMapData$area <- scaleFactor * treeMapData$area
 
   #this is the "master" output data frame, holding the locations of all the treemap rects
-  treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+  if (missing(label)) {
+    treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+  } else {
+    treeMap <- data.frame(area=numeric(), fill=factor(), label=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+  }
 
   #these variables track the empty space remaining in the tree map
   emptyxMin <- xlim[1]
@@ -138,13 +154,17 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
     while (continue) {
 
       #initialise a trial row
-      treeMapRow <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+      if (missing(label)) {
+        treeMapRow <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+      } else {
+        treeMapRow <- data.frame(area=numeric(), fill=factor(), label=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+      }
 
       #reset the stack pointer to the start of this row
       stackPointer <- stackPointerRow
 
       #get the total area that will be filled by this row
-      totalRowArea <- sum(treeMapData$scaledArea[stackPointer:(stackPointer + nInRow - 1)])
+      totalRowArea <- sum(treeMapData$area[stackPointer:(stackPointer + nInRow - 1)])
 
       #get the short dimension for the row
       rowShortDimension <- totalRowArea / rowLongDimension
@@ -168,7 +188,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
         stackPointer <- stackPointer + 1
 
         #figure out the rect subdivide length
-        rectSubdivideLength <- thisRect$scaledArea / rowShortDimension
+        rectSubdivideLength <- thisRect$area / rowShortDimension
         
         #store the coordinates for the rect
         if (subdivideDirection == "horizontal") {
@@ -186,7 +206,11 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
         }
 
         #store the new rect in the row
-        newRect <- data.frame(area=thisRect$scaledArea, fill=thisRect$fill, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
+        if (missing(label)) {
+          newRect <- data.frame(area=thisRect$area, fill=thisRect$fill, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
+        } else {
+          newRect <- data.frame(area=thisRect$area, fill=thisRect$fill, label=thisRect$label, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
+        }
         treeMapRow <- rbind(treeMapRow, newRect)
 
         #update the aspect ratio if this rect contains the worst one so far in the row
