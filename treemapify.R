@@ -293,9 +293,17 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     treeMap["labely"] <- treeMap["ymax"] - (2 * yHundredth)
 
     #select an appropriate size
-    #TODO this should scale with plot area
     resize <- function(treeMapRow) {
-      treeMapRow["labelsize"] <- (treeMapRow$xmax - treeMapRow$xmin) / nchar(as.character(treeMapRow$label))
+
+      #hide the label for small rects
+      if (treeMapRow["area"] / plotArea < 0.01) {
+        treeMapRow["labelsize"] <- 0
+        treeMapRow["label"] <- NA
+
+      } else {
+        treeMapRow["labelsize"] <- (treeMapRow$xmax - treeMapRow$xmin) / nchar(as.character(treeMapRow$label))
+      }
+
       return(treeMapRow)
     }
     treeMap <- ddply(treeMap, ~ label, .fun = resize)
