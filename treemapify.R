@@ -274,6 +274,23 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
       continue <- TRUE
     }
   }
+
+  #place labels, if asked to
+  if (missing(label) == FALSE) {
+
+    #add label position columns
+    treeMap["labelx"] <- NA
+    treeMap["labely"] <- NA
+
+    #"hundredths"
+    xHundredth <- diff(xlim) / 100
+    yHundredth <- diff(ylim) / 100
+
+    #place in top left
+    treeMap["labelx"] <- treeMap["xmin"] + (2 * xHundredth)
+    treeMap["labely"] <- treeMap["ymax"] - (2 * yHundredth)
+    
+  }
   
   #ta-da
   return(treeMap)
