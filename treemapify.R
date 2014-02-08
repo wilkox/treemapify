@@ -86,8 +86,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
   #scale areas to sum to total plot area
   plotArea <- prod(diff(xlim), diff(ylim))
   scaleFactor <- plotArea / sum(treeMapData$area)
-  treeMapData$area <- scaleFactor * treeMapData$area
-
+  treeMapData$scaledArea <- scaleFactor * treeMapData$area
 
   #this is the "master" output data frame, holding the locations of all the treemap rects
   treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
@@ -145,7 +144,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
       stackPointer <- stackPointerRow
 
       #get the total area that will be filled by this row
-      totalRowArea <- sum(treeMapData$area[stackPointer:(stackPointer + nInRow - 1)])
+      totalRowArea <- sum(treeMapData$scaledArea[stackPointer:(stackPointer + nInRow - 1)])
 
       #get the short dimension for the row
       rowShortDimension <- totalRowArea / rowLongDimension
@@ -169,7 +168,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
         stackPointer <- stackPointer + 1
 
         #figure out the rect subdivide length
-        rectSubdivideLength <- thisRect$area / rowShortDimension
+        rectSubdivideLength <- thisRect$scaledArea / rowShortDimension
         
         #store the coordinates for the rect
         if (subdivideDirection == "horizontal") {
@@ -187,7 +186,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, xlim=c(0,10
         }
 
         #store the new rect in the row
-        newRect <- data.frame(area=thisRect$area, fill=thisRect$fill, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
+        newRect <- data.frame(area=thisRect$scaledArea, fill=thisRect$fill, xmin=rectxMin, xmax=rectxMax, ymin=rectyMin, ymax=rectyMax)
         treeMapRow <- rbind(treeMapRow, newRect)
 
         #update the aspect ratio if this rect contains the worst one so far in the row
