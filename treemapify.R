@@ -73,9 +73,9 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
 
     #build the output data frame
     if (missing(label)) {
-      treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+      treeMap <- data.frame(area=numeric(), fill=factor(), group=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
     } else {
-      treeMap <- data.frame(area=numeric(), fill=factor(), label=character(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+      treeMap <- data.frame(area=numeric(), fill=factor(), group=factor(), label=character(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
     }
 
     #for each group, generate a treemap within the area allocated for the group
@@ -90,6 +90,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
       } else {
         thisGroupRects <- treemapify(thisGroupData, fill="fill", area="area", label="label", xlim=c(xmin, xmax), ylim=c(ymin, ymax))
       }
+      thisGroupRects["group"] <- thisGroup
       treeMap <- rbind(treeMap, thisGroupRects)
     }
 
@@ -348,6 +349,20 @@ ggplotify <- function(treeMap) {
   p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=fill))
   p <- p + theme(axis.ticks = element_blank(), axis.title = element_blank(), axis.text=element_blank())
   p <- p + guides(fill=guide_legend(title=attributes(treeMap)$fillName))
+
+  #if the rects are grouped, add a nice border around each group
+  if ("group" %in% colnames(treeMap)) {
+  
+    groupRects <- ddply(treeMap, c("group"), summarise, 
+      xmin <- min(xmin),
+      xmax <- max(xmax),
+      ymin <- min(ymin),
+      ymax <- max(ymax)
+    )
+    names(groupRects) <- c("group", "xmin", "xmax", "ymin", "ymax")
+    print(groupRects)
+    p <- p + geom_rect(data=groupRects, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="grey", fill=NA)
+  }
 
   #optionally add labels
   if ("label" %in% colnames(treeMap)) {
