@@ -61,9 +61,11 @@ county state  area popdensity
 The `treemapify` function takes a data frame and generates coordinates for a treemap where each observation is represented by a rectangle. For this example, we'll also get it to group the observations, in this case grouping counties by state.
 
 ```R
+```
 
 
 
 ##TODO
+- Finish walkthrough
 - Credit squarify paper
 - Full description of function options
