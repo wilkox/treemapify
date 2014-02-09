@@ -55,13 +55,10 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
 
     #to get the placement for each group, sum the area
     # and generate a treemap that places each group
-    groups <- levels(dataFrame[[group]])
-    groupData <- data.frame(group=factor(),area=numeric(), fill=numeric())
-    for (thisGroup in groups) {
-      groupAreaSum <- sum(treeMapData[treeMapData[,"group"] == thisGroup,]["area"])
-      thisGroupRow <- data.frame(group=thisGroup, area=groupAreaSum, fill=thisGroup)
-      groupData <- rbind(groupData, thisGroupRow)
-    }
+    groupData <- ddply(treeMapData, "group", summarise, 
+      area = sum(area),
+      fill = group[1]
+    )
     groupTreeMap <- treemapify(groupData, area="area", fill="fill", xlim=xlim, ylim=ylim)
 
     #build the output data frame
@@ -72,12 +69,12 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     }
 
     #for each group, generate a treemap within the area allocated for the group
-    for (thisGroup in groups) {
-      thisGroupData <- treeMapData[treeMapData[,"group"] == thisGroup,]
+    for (thisGroup in groupTreeMap[["fill"]]) {
       xmin <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["xmin"])
       xmax <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["xmax"])
       ymin <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["ymin"])
       ymax <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["ymax"])
+      thisGroupData <- treeMapData[treeMapData[,"group"] == thisGroup,]
       if (missing(label)) {
         thisGroupRects <- treemapify(thisGroupData, fill="fill", area="area", xlim=c(xmin, xmax), ylim=c(ymin, ymax))
       } else {
