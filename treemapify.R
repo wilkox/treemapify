@@ -345,23 +345,19 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
     if ("label" %in% colnames(treeMap)) {
       groupLabels <- ddply(treeMap, c("group"), summarise, 
         x <- max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
-        y <- min(ymin) + 3,
-        size <- max(xmax) - min(xmin) / nchar(as.character(group[1]))
+        y <- min(ymin) + 1,
+        size <- (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
       )
     } else {
       groupLabels <- ddply(treeMap, c("group"), summarise, 
         x <- max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
         y <- max(ymax) - ((max(ymax) - min(ymin)) * 0.5),
-        size <- max(xmax) - min(xmin) / nchar(as.character(group[1]))
+        size <- (max(xmax) - min(xmin)) / (nchar(as.character(group[1])))
       )
     }
     names(groupLabels) <- c("group", "x", "y", "size")
-    if ("labelsize" %in% colnames(treeMap)) {
-      groupLabelSize <- max(treeMap["labelsize"]) * 1.2
-    } else {
-      groupLabelSize <- 6
-    }
-    p <- p + geom_text(data=groupLabels, aes(label=group, x=x, y=y), size=groupLabelSize, colour="darkgrey", fontface="bold", hjust=0.5, vjust=0.5)
+    print(groupLabels)
+    p <- p + annotate("text", x=groupLabels$x, y=groupLabels$y, label=groupLabels$group, size=groupLabels$size, colour="darkgrey", fontface="bold", hjust=0.5, vjust=0)
     
   }
 
