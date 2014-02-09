@@ -2,9 +2,7 @@
 library(ggplot2)
 library(plyr)
 
-#work with a subset of the mpg data set
-mpgData <- mpg[c("hwy", "displ", "class", "model")][sample(nrow(mpg), 20),]
-
+#the treemapify function
 treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE, xlim=c(0,100), ylim=c(0,100)) {
 
   #check the arguments
@@ -309,7 +307,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
   return(treeMap)
 }
 
-#this is mostly to speed up testing
+#the ggplotify function
 ggplotify <- function(treeMap, label.groups=TRUE) {
 
   #check the arguments
