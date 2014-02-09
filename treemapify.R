@@ -336,7 +336,7 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
       ymax <- max(ymax)
     )
     names(groupRects) <- c("group", "xmin", "xmax", "ymin", "ymax")
-    p <- p + geom_rect(data=groupRects, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="grey", fill=NA)
+    p <- p + geom_rect(data=groupRects, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="grey", fill=NA, size=1.2) + theme(panel.border = element_rect(size=2, fill=NA, colour="grey"))
   }
 
   #optionally add group labels
@@ -356,14 +356,13 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
       )
     }
     names(groupLabels) <- c("group", "x", "y", "size")
-    print(groupLabels)
     p <- p + annotate("text", x=groupLabels$x, y=groupLabels$y, label=groupLabels$group, size=groupLabels$size, colour="darkgrey", fontface="bold", hjust=0.5, vjust=0)
     
   }
 
   #optionally add labels
   if ("label" %in% colnames(treeMap)) {
-    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2.2,8), guide=FALSE)
+    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2,8), guide=FALSE)
   }
 
   return(p)
