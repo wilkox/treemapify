@@ -308,6 +308,9 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     }
     treeMap <- ddply(treeMap, ~ label, .fun = resize)
   }
+
+  #add the fill name as an attribute - useful for plotting later
+  attr(treeMap, "fillName") <- fill
   
   #ta-da
   return(treeMap)
@@ -316,15 +319,23 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
 #this is mostly to speed up testing
 ggplotify <- function(treeMap) {
 
+  #check the arguments
+  if (missing(treeMap) || is.data.frame(treeMap) == FALSE) {
+    stop("Must provide a data frame")
+  }
+
   xlim <- c(min(treeMap["xmin"]), max(treeMap["xmax"]))
   ylim <- c(min(treeMap["ymin"]), max(treeMap["ymax"]))
 
   p <- ggplot(treeMap)
   p <- p + coord_cartesian(xlim = xlim, ylim = ylim) 
   p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=fill))
+  p <- p + theme(axis.ticks = element_blank(), axis.title = element_blank(), axis.text=element_blank())
+  p <- p + guides(fill=guide_legend(title=attributes(treeMap)$fillName))
 
+  #optionally add labels
   if ("label" %in% colnames(treeMap)) {
-    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2.5,8))
+    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2.5,8), guide=FALSE)
   }
 
   return(p)
