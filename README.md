@@ -21,9 +21,9 @@ library(devtools)
 source_url("https://raw.github.com/wilkox/treemapify/master/treemapify.R")
 ```
 
-##Your data
+##The data
 
-You'll need a data frame containing at least the following columns:
+For any treemap, you'll need a data frame containing at least the following columns:
   - A numeric column, which will determine the area of each treemap rectangle; and
   - Another numeric column, which will determine the fill colour of each treemap rectangle.
 
@@ -35,6 +35,8 @@ Here's some example data (a subset of the "midwest" dataset provided by ggplot2)
 
 ```R
 > midwestData <- midwest[c("county", "state", "area", "popdensity")][seq(1, 437, 30), ]
+> midwestData["county"] <- as.factor(midwestData["county"])
+> midwestData["state"] <- as.factor(midwestData["state"])
 > midwestData
 county state  area popdensity
 1         ADAMS    IL 0.052  1270.9615
@@ -53,6 +55,13 @@ county state  area popdensity
 391        IRON    WI 0.047   130.9149
 421    ST CROIX    WI 0.044  1142.0682
 ```
+
+##The `treemapify` function
+
+The `treemapify` function takes a data frame and generates coordinates for a treemap where each observation is represented by a rectangle. For this example, we'll also get it to group the observations, in this case grouping counties by state.
+
+```R
+
 
 
 ##TODO
