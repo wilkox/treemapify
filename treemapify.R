@@ -2,15 +2,8 @@
 library(ggplot2)
 library(plyr)
 
-#work with a subset of the midwest data set
-midwestData <- midwest[c("county","area","percollege", "category")][1:20,]
-
-#rename "area" to "landarea" to prevent confusion
-names(midwestData) <- c("county", "landarea", "percollege", "category")
-
-#factors as factors
-midwestData$category <- factor(midwestData$category)
-midwestData$county <- factor(midwestData$county)
+#work with a subset of the mpg data set
+mpgData <- mpg[c("hwy", "displ", "class", "model")][sample(nrow(mpg), 20),]
 
 treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE, xlim=c(0,100), ylim=c(0,100)) {
 
@@ -302,23 +295,14 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     treeMap["labelsize"] <- NA
 
     #select an appropriate size
-    resize <- function(treeMapRow) {
+    treeMap <- ddply(treeMap, "label", mutate,
 
-      treeMapRow["labelsize"] <- (treeMapRow$xmax - treeMapRow$xmin) / nchar(as.character(treeMapRow$label))
+      #place in top left
+      labelx = xmin + 1,
+      labely = ymax - 1,
 
-      #hide over-length labels
-      if (nchar(as.character(treeMapRow$label)) * treeMapRow["labelsize"] > treeMapRow$xmax - treeMapRow$xmin) {
-        treeMapRow["labelsize"] <- 0
-      }
-
-      return(treeMapRow)
-    }
-    treeMap <- ddply(treeMap, ~ label, .fun = resize)
-
-    #place in top left
-    treeMap["labelx"] <- treeMap["xmin"] + 1
-    treeMap["labely"] <- treeMap["ymax"] - 1
-
+      labelsize = (xmax - xmin) / nchar(as.character(label)),
+    )
   }
 
   #add the fill name as an attribute - useful for plotting later
@@ -329,7 +313,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
 }
 
 #this is mostly to speed up testing
-ggplotify <- function(treeMap) {
+ggplotify <- function(treeMap, label.groups=TRUE) {
 
   #check the arguments
   if (missing(treeMap) || is.data.frame(treeMap) == FALSE) {
@@ -355,8 +339,21 @@ ggplotify <- function(treeMap) {
       ymax <- max(ymax)
     )
     names(groupRects) <- c("group", "xmin", "xmax", "ymin", "ymax")
-    print(groupRects)
     p <- p + geom_rect(data=groupRects, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="grey", fill=NA)
+  }
+
+  #optionally add group labels
+  if (label.groups == TRUE && "group" %in% colnames(treeMap)) {
+
+    groupLabels <- ddply(treeMap, c("group"), summarise, 
+      x <- max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
+      y <- min(ymin) + 3,
+      size <- max(xmax) - min(xmin) / nchar(as.character(group[1]))
+    )
+    names(groupLabels) <- c("group", "x", "y", "size")
+    print(groupLabels)
+    p <- p + geom_text(data=groupLabels, aes(label=group, x=x, y=y, size=size), colour="white", fill="black", fontface="bold", hjust=0.5, vjust=0.5)
+    
   }
 
   #optionally add labels
