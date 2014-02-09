@@ -47,8 +47,13 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
   if (missing(group) == FALSE) {
 
     #build the treeMapData data frame
-    treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], group=dataFrame[group])
-    names(treeMapData) <- c("area", "fill", "group")
+    if (missing(label)) {
+      treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], group=dataFrame[group])
+      names(treeMapData) <- c("area", "fill", "group")
+    } else {
+      treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], group=dataFrame[group], label=dataFrame[label])
+      names(treeMapData) <- c("area", "fill", "group", "label")
+    }
 
     #scale areas to sum to total plot area
     plotArea <- prod(diff(xlim), diff(ylim))
@@ -67,7 +72,11 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     groupTreeMap <- treemapify(groupData, area="area", fill="fill", xlim=xlim, ylim=ylim)
 
     #build the output data frame
-    treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+    if (missing(label)) {
+      treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+    } else {
+      treeMap <- data.frame(area=numeric(), fill=factor(), label=character(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+    }
 
     #for each group, generate a treemap within the area allocated for the group
     for (thisGroup in groups) {
@@ -76,9 +85,16 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
       xmax <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["xmax"])
       ymin <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["ymin"])
       ymax <- as.numeric(groupTreeMap[groupTreeMap[,"fill"] == thisGroup,]["ymax"])
-      thisGroupRects <- treemapify(thisGroupData, fill="fill", area="area", xlim=c(xmin, xmax), ylim=c(ymin, ymax))
+      if (missing(label)) {
+        thisGroupRects <- treemapify(thisGroupData, fill="fill", area="area", xlim=c(xmin, xmax), ylim=c(ymin, ymax))
+      } else {
+        thisGroupRects <- treemapify(thisGroupData, fill="fill", area="area", label="label", xlim=c(xmin, xmax), ylim=c(ymin, ymax))
+      }
       treeMap <- rbind(treeMap, thisGroupRects)
     }
+
+    #add the fill name as an attribute - useful for plotting later
+    attr(treeMap, "fillName") <- fill
 
     #return the grouped treemap
     return(treeMap)
@@ -105,7 +121,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
   if (missing(label)) {
     treeMap <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
   } else {
-    treeMap <- data.frame(area=numeric(), fill=factor(), label=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+    treeMap <- data.frame(area=numeric(), fill=factor(), label=character(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
   }
 
   #these variables track the empty space remaining in the tree map
@@ -158,7 +174,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
       if (missing(label)) {
         treeMapRow <- data.frame(area=numeric(), fill=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
       } else {
-        treeMapRow <- data.frame(area=numeric(), fill=factor(), label=factor(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
+        treeMapRow <- data.frame(area=numeric(), fill=factor(), label=character(), xmin=numeric(), xmax=numeric(), ymin=numeric(), ymax=numeric())
       }
 
       #reset the stack pointer to the start of this row
