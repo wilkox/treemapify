@@ -301,29 +301,24 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     treeMap["labely"] <- NA
     treeMap["labelsize"] <- NA
 
-    #"hundredths"
-    xHundredth <- diff(xlim) / 100
-    yHundredth <- diff(ylim) / 100
-
-    #place in top left
-    treeMap["labelx"] <- treeMap["xmin"] + (2 * xHundredth)
-    treeMap["labely"] <- treeMap["ymax"] - (2 * yHundredth)
-
     #select an appropriate size
     resize <- function(treeMapRow) {
 
-      #hide the label for small rects
-      if (treeMapRow["area"] / plotArea < 0.01) {
-        treeMapRow["labelsize"] <- 0
-        treeMapRow["label"] <- NA
+      treeMapRow["labelsize"] <- (treeMapRow$xmax - treeMapRow$xmin) / nchar(as.character(treeMapRow$label))
 
-      } else {
-        treeMapRow["labelsize"] <- (treeMapRow$xmax - treeMapRow$xmin) / nchar(as.character(treeMapRow$label))
+      #hide over-length labels
+      if (nchar(as.character(treeMapRow$label)) * treeMapRow["labelsize"] > treeMapRow$xmax - treeMapRow$xmin) {
+        treeMapRow["labelsize"] <- 0
       }
 
       return(treeMapRow)
     }
     treeMap <- ddply(treeMap, ~ label, .fun = resize)
+
+    #place in top left
+    treeMap["labelx"] <- treeMap["xmin"] + 1
+    treeMap["labely"] <- treeMap["ymax"] - 1
+
   }
 
   #add the fill name as an attribute - useful for plotting later
@@ -366,7 +361,7 @@ ggplotify <- function(treeMap) {
 
   #optionally add labels
   if ("label" %in% colnames(treeMap)) {
-    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2.5,8), guide=FALSE)
+    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2.2,8), guide=FALSE)
   }
 
   return(p)
