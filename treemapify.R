@@ -86,6 +86,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     attr(treeMap, "fillName") <- fill
 
     #return the grouped treemap
+    treeMap$area <- NULL
     return(treeMap)
   }
 
@@ -285,6 +286,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
   attr(treeMap, "fillName") <- fill
   
   #ta-da
+  treeMap$area <- NULL
   return(treeMap)
 }
 
