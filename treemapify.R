@@ -281,25 +281,6 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     }
   }
 
-  #place labels, if asked to
-  if (missing(label) == FALSE) {
-
-    #add label aesthetic columns
-    treeMap["labelx"] <- NA
-    treeMap["labely"] <- NA
-    treeMap["labelsize"] <- NA
-
-    #select an appropriate size
-    treeMap <- ddply(treeMap, "label", mutate,
-
-      #place in top left
-      labelx = xmin + 1,
-      labely = ymax - 1,
-
-      labelsize = (1.5 * (xmax - xmin)) / nchar(as.character(label)),
-    )
-  }
-
   #add the fill name as an attribute - useful for plotting later
   attr(treeMap, "fillName") <- fill
   
@@ -360,7 +341,24 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
 
   #optionally add labels
   if ("label" %in% colnames(treeMap)) {
-    p <- p + geom_text(aes(label=label, x=labelx, y=labely), hjust=0, vjust=1, colour="white", size=min(treeMap$labelsize))
+
+    #add label aesthetic columns
+    treeMap["labelx"] <- NA
+    treeMap["labely"] <- NA
+    treeMap["labelsize"] <- NA
+
+    #select an appropriate size
+    treeMap <- ddply(treeMap, "label", mutate,
+
+      #place in top left
+      labelx = xmin + 1,
+      labely = ymax - 1,
+
+      labelsize = (1.5 * (xmax - xmin)) / nchar(as.character(label)),
+    )
+    treeMap
+
+    p <- p + geom_text(data=treeMap, aes(label=label, x=labelx, y=labely), hjust=0, vjust=1, colour="white", size=min(treeMap$labelsize))
   }
 
   return(p)
