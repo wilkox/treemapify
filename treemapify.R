@@ -326,7 +326,7 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
     if ("label" %in% colnames(treeMap)) {
       groupLabels <- ddply(treeMap, c("group"), summarise, 
         x <- max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
-        y <- min(ymin) + 1,
+        y <- min(ymin) + 2,
         size <- (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
       )
     } else {
