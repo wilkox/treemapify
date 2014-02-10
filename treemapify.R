@@ -296,7 +296,7 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
       labelx = xmin + 1,
       labely = ymax - 1,
 
-      labelsize = (xmax - xmin) / nchar(as.character(label)),
+      labelsize = (1.5 * (xmax - xmin)) / nchar(as.character(label)),
     )
   }
 
@@ -360,7 +360,7 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
 
   #optionally add labels
   if ("label" %in% colnames(treeMap)) {
-    p <- p + geom_text(aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(2,8), guide=FALSE)
+    p <- p + geom_text(aes(label=label, x=labelx, y=labely), hjust=0, vjust=1, colour="white", size=min(treeMap$labelsize))
   }
 
   return(p)
