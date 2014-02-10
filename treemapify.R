@@ -356,7 +356,7 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
       labelx = xmin + 1,
       labely = ymax - 1,
 
-      labelsize = (1.5 * (xmax - xmin)) / nchar(as.character(label)),
+      labelsize = (1.8 * (xmax - xmin)) / nchar(as.character(label)),
     )
     treeMap
 
