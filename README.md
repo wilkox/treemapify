@@ -1,6 +1,14 @@
-#Introduction
+##TODO
+- Finish walkthrough (need better example data)
+- Credit squarify paper
+- Full description of function options
+- Thin lines between rects
 
-Treemapify provides two R functions to help you make treemaps quickly and easy, especially when using ggplot2.
+---
+
+Treemapify helps you draw treemaps.
+
+---
 
 #Walkthrough
 
@@ -31,7 +39,7 @@ For this example, we'll also use a couple of optional columns:
   - A factor column, containing the labels for each rectangle; and
   - A factor column, containg group names to group the rectangles.
 
-We'll use subset of the "midwest" dataset provided by ggplot2 for this walkthrough:
+Let's make a treemap of oesophageal cancer deaths, broken down by age group and alcohol consumption.
 
 ```R
 > midwestData <- midwest[c("county", "state", "popdensity", "percollege")][seq(1, 437, 30), ]
@@ -111,8 +119,3 @@ As the name suggests, this function takes a data frame of treemap coordinates pr
 ```
 
 ![Treemap of midwest data, produced with ggplotify](examples/midwest.png)
-
-##TODO
-- Finish walkthrough
-- Credit squarify paper
-- Full description of function options
