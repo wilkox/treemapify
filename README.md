@@ -1,4 +1,8 @@
-##TODO
+#Note to anybody stumbling across this repo
+
+This README is a work in progress. The treemapify code pretty much works though. Go ahead and try it out.
+
+#TODO
 - Finish walkthrough (need better example data)
 - Credit squarify paper
 - Full description of function options
