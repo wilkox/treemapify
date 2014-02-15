@@ -123,7 +123,30 @@ As the name suggests, this function takes a data frame of treemap coordinates pr
 
 ![Treemap of G20 data, produced with ggplotify](examples/G20.png)
 
-The function will try to scale labels to fit each rectangle.
+The function will try to scale labels to fit each rectangle. It's not perfect.
+
+Because ggplot is clever, it will automatically figure out whether to use a discrete or continuous fill scale:
+
+```R
+> treeMapCoordinates <- treemapify(G20, area="Nom.GDP.mil.USD", fill="Economic.classification", label="Country", group="Region")
+> treeMapPlot <- ggplotify(treeMapCoordinates)
+> print(treeMapPlot)
+```
+
+![Treemap of G20 data, produced with ggplotify, with fill mapped to a discrete scale](examples/G20_discrete.png)
+
+And because it's ggplot, you can also add custom scales and other tweaks.
+
+```R
+> treeMapPlot <- treeMapPlot + scale_fill_manual(values=c("blue", "green"))
+> treeMapPlot <- treeMapPlot + theme(legend.text = element_text(family="serif"))
+> treeMapPlot <- treeMapPlot + ggtitle("The G-20 in stunning TechniColor")
+> print(treeMapPlot)
+```
+
+![Treemap of G20 data, produced with ggplotify, with fill mapped to a discrete scale, a custom fill scale and other 'improvements'](examples/G20_splendid.png)
+
+For full control over the graphic output, you really should build the ggplot object yourself from the output of `treemapify`.
 
 #Full function details
 
