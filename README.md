@@ -10,7 +10,7 @@ This README is a work in progress. The code pretty much works though. Go ahead a
 
 ---
 
-Treemapify helps you draw treemaps.
+Treemapify makes it easier to draw treemaps with R and ggplot2.
 
 ---
 
@@ -45,8 +45,8 @@ For this example, we'll also use a couple of optional columns:
 
 Let's plot some economic data about the G-20 group of nations.
 
-
 ```R
+> 
 > midwestData <- midwest[c("county", "state", "popdensity", "percollege")][seq(1, 437, 30), ]
 > midwestData$county <- as.factor(midwestData$county)
 > midwestData$state <- as.factor(midwestData$state)
