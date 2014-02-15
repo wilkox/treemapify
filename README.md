@@ -1,15 +1,4 @@
-#Note to anybody stumbling across this repo
-
-This README is a work in progress. The code pretty much works though. Go ahead and try it out.
-
-#TODO
-- Full description of function options
-
----
-
 Treemapify makes it easier to draw treemaps with R and ggplot2.
-
----
 
 #Walkthrough
 
@@ -136,9 +125,35 @@ As the name suggests, this function takes a data frame of treemap coordinates pr
 
 The function will try to scale labels to fit each rectangle.
 
+#Full function details
+
+##`treemapify`
+
+Mandatory arguments:
+
+- **data frame**: data frame containing data to be mapped.
+- **area=<column>**: string naming column in data frame to be mapped to area.
+- **fill=<column>**: string naming column in data frame to be mapped to fill.
+
+Optional arguments:
+
+- **group=<column>**: string naming column in data frame by which observations should be grouped. Must be a factor.
+- **label=<column>**: string naming column in data frame containing observation labels. Must be a factor.
+- **xlim=<vector>, ylim=<vector>**: vectors with two elements specifying the x and y limits in which the plot should be constructed (defaults to a 100 * 100 plot).
+
+Output: a dataframe containing the fill aesthetic, xmin, xmax, ymin and ymax for each observation, and (optionally) group and label factors.
+
+##`ggplotify`
+
+Mandatory argument: a data frame output by `treemapify`.
+
+Optional argument: **label.groups=<TRUE|FALSE>**, a booleen specifying whether to draw group labels. Defaults to true if a group aesthetic was supplied to `treemapify`.
+
+Output: a ggplot object. Can be modified with additional scales, geoms etc.
+
 #Credit
 
-`treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing, Jarke van Wijk.
+`treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk.
 
 #G20 Data
 The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the [Creative Commons Attribution-Share-Alike License 3.0](Creative Commons Attribution-Share-Alike License 3.0).
