@@ -357,11 +357,11 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
       labelx = xmin + 1,
       labely = ymax - 1,
 
-      labelsize = (1.8 * (xmax - xmin)) / nchar(as.character(label)),
+      labelsize = (xmax - xmin) / (nchar(as.character(label))),
     )
     treeMap
 
-    p <- p + geom_text(data=treeMap, aes(label=label, x=labelx, y=labely), hjust=0, vjust=1, colour="white", size=min(treeMap$labelsize))
+    p <- p + geom_text(data=treeMap, aes(label=label, x=labelx, y=labely, size=labelsize), hjust=0, vjust=1, colour="white") + scale_size(range=c(1,8), guide=FALSE)
   }
 
   return(p)
