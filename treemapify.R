@@ -1,6 +1,7 @@
-#load ggplot2
+#load libraries
 library(ggplot2)
 library(plyr)
+library(reshape2)
 
 #the treemapify function
 treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE, xlim=c(0,100), ylim=c(0,100)) {

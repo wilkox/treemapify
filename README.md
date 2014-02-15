@@ -43,7 +43,8 @@ For this example, we'll also use a couple of optional columns:
   - A factor column, containing the labels for each rectangle; and
   - A factor column, containg group names to group the rectangles.
 
-Let's make a treemap of oesophageal cancer deaths, broken down by age group and alcohol consumption.
+Let's plot some economic data about the G-20 group of nations.
+
 
 ```R
 > midwestData <- midwest[c("county", "state", "popdensity", "percollege")][seq(1, 437, 30), ]
@@ -123,3 +124,7 @@ As the name suggests, this function takes a data frame of treemap coordinates pr
 ```
 
 ![Treemap of midwest data, produced with ggplotify](examples/midwest.png)
+
+
+#G20 Data
+The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the [Creative Commons Attribution-Share-Alike License 3.0](Creative Commons Attribution-Share-Alike License 3.0).
