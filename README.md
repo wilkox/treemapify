@@ -3,7 +3,6 @@
 This README is a work in progress. The code pretty much works though. Go ahead and try it out.
 
 #TODO
-- Credit squarify paper
 - Full description of function options
 
 ---
@@ -136,6 +135,10 @@ As the name suggests, this function takes a data frame of treemap coordinates pr
 ![Treemap of G20 data, produced with ggplotify](examples/G20.png)
 
 The function will try to scale labels to fit each rectangle.
+
+#Credit
+
+`treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing, Jarke van Wijk.
 
 #G20 Data
 The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the [Creative Commons Attribution-Share-Alike License 3.0](Creative Commons Attribution-Share-Alike License 3.0).
