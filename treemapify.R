@@ -305,6 +305,7 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
   p <- ggplot(treeMap)
   p <- p + coord_cartesian(xlim = xlim, ylim = ylim) 
   p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=fill))
+  p <- p + geom_rect(aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), fill=NA, colour="grey", size=0.2)
   p <- p + theme(axis.ticks = element_blank(), axis.title = element_blank(), axis.text=element_blank())
   p <- p + guides(fill=guide_legend(title=attributes(treeMap)$fillName))
 
@@ -318,7 +319,8 @@ ggplotify <- function(treeMap, label.groups=TRUE) {
       ymax <- max(ymax)
     )
     names(groupRects) <- c("group", "xmin", "xmax", "ymin", "ymax")
-    p <- p + geom_rect(data=groupRects, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="grey", fill=NA, size=1.2) + theme(panel.border = element_rect(size=2, fill=NA, colour="grey"))
+    p <- p + geom_rect(data=groupRects, mapping=aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax), colour="grey", fill=NA, size=1.2) 
+    p <- p + theme(panel.border = element_rect(size=2, fill=NA, colour="grey"))
   }
 
   #optionally add group labels
