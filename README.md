@@ -155,14 +155,14 @@ For full control over the graphic output, you really should build the ggplot obj
 Mandatory arguments:
 
 - **data frame**: data frame containing data to be mapped.
-- **area=<column>**: string naming column in data frame to be mapped to area.
-- **fill=<column>**: string naming column in data frame to be mapped to fill.
+- **area=_column_**: string naming column in data frame to be mapped to area.
+- **fill=_column_**: string naming column in data frame to be mapped to fill.
 
 Optional arguments:
 
-- **group=<column>**: string naming column in data frame by which observations should be grouped. Must be a factor.
-- **label=<column>**: string naming column in data frame containing observation labels. Must be a factor.
-- **xlim=<vector>, ylim=<vector>**: vectors with two elements specifying the x and y limits in which the plot should be constructed (defaults to a 100 * 100 plot).
+- **group=_column_**: string naming column in data frame by which observations should be grouped. Must be a factor.
+- **label=_column_**: string naming column in data frame containing observation labels. Must be a factor.
+- **xlim=_vector_, ylim=_vector_**: vectors with two elements specifying the x and y limits in which the plot should be constructed (defaults to a 100 * 100 plot).
 
 Output: a dataframe containing the fill aesthetic, xmin, xmax, ymin and ymax for each observation, and (optionally) group and label factors.
 
