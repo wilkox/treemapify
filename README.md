@@ -1,6 +1,6 @@
 #Note to anybody stumbling across this repo
 
-This README is a work in progress. The treemapify code pretty much works though. Go ahead and try it out.
+This README is a work in progress. The code pretty much works though. Go ahead and try it out.
 
 #TODO
 - Finish walkthrough (need better example data)
