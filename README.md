@@ -162,7 +162,7 @@ Optional arguments:
 
 - **group=_column_**: string naming column in data frame by which observations should be grouped. Must be a factor.
 - **label=_column_**: string naming column in data frame containing observation labels. Must be a factor.
-- **xlim=_vector_, ylim=_vector_**: two-element vectors (e.g. `c(0,120)`) specifying the x and y limits in which the plot should be constructed (defaults to a 100 * 100 plot).
+- **xlim=_vector_, ylim=_vector_**: two-element vectors (e.g. `c(0,120)`) specifying the x and y limits in which the plot should be constructed (defaults to a 100 ✕ 100 plot).
 
 Output: a dataframe containing the fill aesthetic, xmin, xmax, ymin and ymax for each observation, and (optionally) group and label factors.
 
