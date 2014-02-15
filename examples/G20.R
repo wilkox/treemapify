@@ -1,4 +1,5 @@
-Region	Member	Trade mil. USD (2012)	Nom. GDP mil. USD (2012)	PPP GDP mil. USD (2012)	Nom. GDP per capita USD (2012)	PPP GDP per capita USD (2012)	HDI (2012)	Population	P5	G8	BRICS	DAC	OECD	Economic classification (IMF)
+str <- 
+"Region	Member	Trade mil. USD (2012)	Nom. GDP mil. USD (2012)	PPP GDP mil. USD (2012)	Nom. GDP per capita USD (2012)	PPP GDP per capita USD (2012)	HDI (2012)	Population	P5	G8	BRICS	DAC	OECD	Economic classification (IMF)
 Africa	 South Africa	208000	384315	582391	7506	11375	0.629	53000000	N	N	Y	N	N	Developing
 North America	 United States	3969000	15684750	15684750	49922	49922	0.937	316173000	Y	Y	N	Y	Y	Advanced
 North America	 Canada	962600	1819081	1488311	52231	42734	0.911	34088000	N	Y	N	Y	Y	Advanced
@@ -18,4 +19,5 @@ Europe	 France	1226400	2608699	2254067	41140	35547	0.893	65447374	Y	Y	N	Y	Y	Adva
 Europe	 United Kingdom	1127000	2440505	2336295	38588	36941	0.875	62041708	Y	Y	N	Y	Y	Advanced
 Europe	 Italy	953000	2014079	1832916	33115	30136	0.881	60325805	N	Y	N	Y	Y	Advanced
 Middle East	 Saudi Arabia	518300	727307	906806	25084	31275	0.782	27123977	N	N	N	N	N	Developing
-Oceania	 Australia	522000	1541797	970764	67722	42640	0.938	22328632	N	N	N	Y	Y	Advanced
+Oceania	 Australia	522000	1541797	970764	67722	42640	0.938	22328632	N	N	N	Y	Y	Advanced"
+G20 <- read.csv(textConnection(str), header=TRUE, row.names=NULL, sep="\t", check.names=FALSE)
