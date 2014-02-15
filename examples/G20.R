@@ -13,6 +13,7 @@ Asia	 India	809400	1824832	0.554	1210193422	Developing
 Asia	 Indonesia	384100	878198	0.629	237556363	Developing
 Eurasia	 Russia	900600	2021960	0.788	143400000	Developing
 Eurasia	 Turkey	370800	794468	0.722	72561312	Developing
+Europe	European Union	4567000	16414483	0.876	501259840	Advanced
 Europe	 Germany	2768000	3400579	0.92	81757600	Advanced
 Europe	 France	1226400	2608699	0.893	65447374	Advanced
 Europe	 United Kingdom	1127000	2440505	0.875	62041708	Advanced
