@@ -2,9 +2,9 @@ Treemapify makes it easier to draw treemaps with R and ggplot2.
 
 #Walkthrough
 
-##Installing dependancies, sourcing treemapify
+##Dependancies
 
-- Install ggplot2, plyr and devtools if you don't have them already.
+Install ggplot2, plyr and devtools if you don't have them already.
 
 ```R
 > install.packages("ggplot2")
@@ -12,7 +12,9 @@ Treemapify makes it easier to draw treemaps with R and ggplot2.
 > install.packages("devtools")
 ```
 
-- Source the treemapify functions.
+##Get the code
+
+Source the treemapify functions.
 
 ```R
 > library(devtools)
@@ -80,7 +82,7 @@ Let's plot some economic data for the G-20 group of major world economies.
 
 ##The `treemapify` function
 
-The `treemapify` function takes a data frame and generates coordinates for a treemap where each observation is represented by a rectangle. In this example, each observation is a country; the rectangle's area will be mapped to the country's nominal GDP, while the fill colour will be mapped to the Human Development Index (HDI). We'll also group the countries by region.
+The `treemapify` function generates coordinates for a treemap in which each observation is represented by a rectangle. In this example, each observation is a country; the rectangle's area will be mapped to the country's nominal GDP, while the fill colour will be mapped to the Human Development Index (HDI). We'll also group the countries by region.
 
 ```R
 > treeMapCoordinates <- treemapify(G20, area="Nom.GDP.mil.USD", fill="HDI", label="Country", group="Region")
@@ -110,11 +112,11 @@ The `treemapify` function takes a data frame and generates coordinates for a tre
 
 The "xmin", "xmax", "ymin" and "ymax" columns give the boundaries of each rectangle.
 
-For publication-quality graphics, it's recommended that you stop at this point and use the coordinates provided to draw your own plot with custom parameters. For quick-and-dirty exploratory graphics, however, treemapify provides an additional function to draw the treemap with ggplot2.
+For publication-quality graphics, it's recommended that you stop at this point and use the coordinates to draw your own plot with custom parameters. For quick-and-dirty exploratory graphics, however, treemapify provides an additional helper function.
 
 ##The `ggplotify` function
 
-As the name suggests, this function takes a data frame of treemap coordinates produced by `treemapify` and produces a ggplot object containing a graphical layout of the treemap.
+As the name suggests, this function takes output from `treemapify` and produces a ggplot object containing a graphical layout of the treemap.
 
 ```R
 > treeMapPlot <- ggplotify(treeMapCoordinates)
@@ -123,9 +125,9 @@ As the name suggests, this function takes a data frame of treemap coordinates pr
 
 ![Treemap of G20 data, produced with ggplotify](examples/G20.png)
 
-The function will try to scale labels to fit each rectangle. It's not perfect.
+The function will try to scale labels to fit rectangles. It's not perfect.
 
-Because ggplot is clever, it will automatically figure out whether to use a discrete or continuous fill scale:
+Because ggplot *is* perfect, it will automatically figure out whether to use a discrete or continuous fill scale:
 
 ```R
 > treeMapCoordinates <- treemapify(G20, area="Nom.GDP.mil.USD", fill="Economic.classification", label="Country", group="Region")
@@ -135,7 +137,7 @@ Because ggplot is clever, it will automatically figure out whether to use a disc
 
 ![Treemap of G20 data, produced with ggplotify, with fill mapped to a discrete scale](examples/G20_discrete.png)
 
-And because it's ggplot, you can also add custom scales and other tweaks.
+And because the output is a ggplot object, you can add custom scales and other tweaks.
 
 ```R
 > treeMapPlot <- treeMapPlot + scale_fill_manual(values=c("blue", "green"))
@@ -148,7 +150,7 @@ And because it's ggplot, you can also add custom scales and other tweaks.
 
 For full control over the graphic output, you really should build the ggplot object yourself from the output of `treemapify`.
 
-#Full function details
+#Full details
 
 ##`treemapify`
 
