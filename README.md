@@ -29,7 +29,7 @@ For this example, we'll also use a couple of optional columns:
   - A factor column, containing the labels for each rectangle; and
   - A factor column, containg group names to group the rectangles.
 
-Let's plot some economic data for the G-20 group of major world economies ().
+Let's plot some economic data for the G-20 group of major world economies.
 
 ```R
 > source_url("https://raw.github.com/wilkox/treemapify/master/examples/G20.R")
