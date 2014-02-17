@@ -172,7 +172,7 @@ Output: a dataframe containing the fill aesthetic, xmin, xmax, ymin and ymax for
 
 Mandatory argument: a data frame output by `treemapify`.
 
-Optional argument: **label.groups=<TRUE|FALSE>**, a booleen specifying whether to draw group labels. Defaults to true if a group aesthetic was supplied to `treemapify`.
+Optional argument: **label.groups_TRUE|FALSE_**, a booleen specifying whether to draw group labels. Defaults to true if a group aesthetic was supplied to `treemapify`.
 
 Output: a ggplot object. Can be modified with additional scales, geoms etc.
 
