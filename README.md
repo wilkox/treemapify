@@ -2,7 +2,7 @@ Treemapify makes it easier to draw [treemaps](http://en.wikipedia.org/wiki/Treem
 
 #Walkthrough
 
-##Dependancies
+##Dependencies
 
 Install ggplot2, plyr and devtools if you don't have them already.
 
@@ -29,7 +29,7 @@ For any treemap, you'll need a data frame containing at least the following colu
 
 For this example, we'll also use a couple of optional columns:
   - A factor column, containing the labels for each rectangle; and
-  - A factor column, containg group names to group the rectangles.
+  - A factor column, containing group names to group the rectangles.
 
 Let's plot some economic data for the G-20 group of major world economies.
 
@@ -142,7 +142,7 @@ And because the output is a ggplot object, you can add custom scales and other t
 ```R
 > treeMapPlot <- treeMapPlot + scale_fill_manual(values=c("blue", "green"))
 > treeMapPlot <- treeMapPlot + theme(legend.text = element_text(family="serif"))
-> treeMapPlot <- treeMapPlot + ggtitle("The G-20 in stunning TechniColor")
+> treeMapPlot <- treeMapPlot + ggtitle("The G-20 in stunning Technicolor")
 > print(treeMapPlot)
 ```
 
@@ -172,7 +172,7 @@ Output: a dataframe containing the fill aesthetic, xmin, xmax, ymin and ymax for
 
 Mandatory argument: a data frame output by `treemapify`.
 
-Optional argument: **label.groups=_TRUE|FALSE_**, a booleen specifying whether to draw group labels. Defaults to true if a group aesthetic was supplied to `treemapify`.
+Optional argument: **label.groups=_TRUE_**, a boolean specifying whether to draw group labels. Defaults to true if a group aesthetic was supplied to `treemapify`.
 
 Output: a ggplot object. Can be modified with additional scales, geoms etc.
 
