@@ -1,4 +1,34 @@
-treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE, xlim=c(0,100), ylim=c(0,100)) {
+#' @title Generate coordinates for a treemap
+#' @export
+#'
+#' @description
+#' 
+#' Takes a data frame of observations, with variables mapped to area and fill colour, and produces the coordinates for a treemap expressing these observations and mappings.
+#' These coordinates can be used to draw a customised treemap (recommended) or passed directly to the "ggplotify" function to produce an exploratory projection.
+#'
+#' Input data frame must be in tidy format, i.e. each row must represent a single observation and each column a single variable.
+#' The area and fill parameters are mandatory; grouping and label factors are optional.
+#' Note that while adding a label will not change the treemap layout, adding a group will, as observations from the same group will be kept together.
+#'
+#' Rect placement proceeds from the bottom left corner, alternating between moving rightwards and moving upwards.
+#' See reference below for the full algorithm.
+#'
+#' @param data a tidy data frame, containing at least variables to be mapped to area (size of rect) and fill (fill colour of rect).
+#' @param area variable to be mapped to area; must be a column in data
+#' @param fill variable to be mapped to fill; must be a column in data
+#' @param group (optional) variable to be mapped to group; must be a column in the data frame
+#' @param label (optional) variable to be used as the label for each observation; must be a column in the data frame
+#' @param xlim,ylim (optional) two-element vectors specifying the x and y limits of the area in which the rects will be placed
+#'
+#' @seealso ggplotify
+#' 
+#' @references
+#' treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk:
+#' 
+#' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp. 33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE TCVG Symposium on Visualization.
+#'
+#' \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+treemapify <- function(data, area=NULL, fill=NULL, group=FALSE, label=FALSE, xlim=c(0,100), ylim=c(0,100)) {
 
     #Libraries
     require(ggplot2)
@@ -6,25 +36,25 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
     require(reshape2)
 
   #check the arguments
-  if (missing(dataFrame) || is.data.frame(dataFrame) == FALSE) {
+  if (missing(data) || is.data.frame(data) == FALSE) {
     stop("Must provide a data frame")
   }
-  if (missing(area) || area %in% colnames(dataFrame) == FALSE) {
+  if (missing(area) || area %in% colnames(data) == FALSE) {
     stop("Must specify an area aesthetic with area=\"colname\" (and it must exist in the data frame)")
   }
-  if (missing(fill) || fill %in% colnames(dataFrame) == FALSE) {
+  if (missing(fill) || fill %in% colnames(data) == FALSE) {
     stop("Must specify a fill aesthetic with fill=\"colname\" (and it must exist in the data frame)")
   }
-  if (missing(group) == FALSE && group %in% colnames(dataFrame) == FALSE) {
+  if (missing(group) == FALSE && group %in% colnames(data) == FALSE) {
     stop("If you want a group aesthetic (optional), it must be specified with group=\"colname\" (and it must exist in the data frame)")
   }
-  if (missing(group) == FALSE && is.factor(dataFrame[[group]]) == FALSE) {
+  if (missing(group) == FALSE && is.factor(data[[group]]) == FALSE) {
     stop("Group aesthetic must be a factor")
   }
-  if (missing(label) == FALSE && label %in% colnames(dataFrame) == FALSE) {
+  if (missing(label) == FALSE && label %in% colnames(data) == FALSE) {
     stop("If you want labels (optional), they must be specified with label=\"colname\" (and the column must exist in the data frame)")
   }
-  if (missing(label) == FALSE && is.factor(dataFrame[[label]]) == FALSE) {
+  if (missing(label) == FALSE && is.factor(data[[label]]) == FALSE) {
     stop("Label column must be a factor")
   }
   if (is.numeric(xlim) == FALSE || length(xlim) != 2) {
@@ -39,10 +69,10 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
 
     #build the treeMapData data frame
     if (missing(label)) {
-      treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], group=dataFrame[group])
+      treeMapData <- data.frame(area=data[area], fill=data[fill], group=data[group])
       names(treeMapData) <- c("area", "fill", "group")
     } else {
-      treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], group=dataFrame[group], label=dataFrame[label])
+      treeMapData <- data.frame(area=data[area], fill=data[fill], group=data[group], label=data[label])
       names(treeMapData) <- c("area", "fill", "group", "label")
     }
 
@@ -92,10 +122,10 @@ treemapify <- function(dataFrame, area=NULL, fill=NULL, group=FALSE, label=FALSE
 
   #build the treeMapData data frame
   if (missing(label)) {
-    treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill])
+    treeMapData <- data.frame(area=data[area], fill=data[fill])
     names(treeMapData) <- c("area", "fill")
   } else {
-    treeMapData <- data.frame(area=dataFrame[area], fill=dataFrame[fill], label=dataFrame[label])
+    treeMapData <- data.frame(area=data[area], fill=data[fill], label=data[label])
     names(treeMapData) <- c("area", "fill", "label")
   }
 
