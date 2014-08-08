@@ -4,10 +4,11 @@ Treemapify makes it easier to draw [treemaps](http://en.wikipedia.org/wiki/Treem
 
 ##Dependencies
 
-Install ggplot2, plyr and devtools if you don't have them already.
+Install ggplot2, reshape2, plyr and devtools if you don't have them already.
 
 ```R
 > install.packages("ggplot2")
+> install.packages("reshape2")
 > install.packages("plyr")
 > install.packages("devtools")
 ```
@@ -19,6 +20,7 @@ Install treemapify.
 ```R
 > library(devtools)
 > install_github("wilkox/treemapify")
+> library(treemapify)
 ```
 
 ##Some example data
@@ -34,7 +36,7 @@ For this example, we'll also use a couple of optional columns:
 Let's plot some economic data for the G-20 group of major world economies.
 
 ```R
-> source_url("https://raw.github.com/wilkox/treemapify/master/examples/G20.R")
+> data(G20)
 > G20
 	Region         Country Trade.mil.USD Nom.GDP.mil.USD   HDI Population
 1         Africa    South Africa        208000          384315 0.629   53000000
@@ -150,34 +152,8 @@ And because the output is a ggplot object, you can add custom scales and other t
 
 For full control over the graphic output, you really should build the ggplot object yourself from the output of `treemapify`.
 
-#Full details
-
-##`treemapify`
-
-Mandatory arguments:
-
-- **data frame**: data frame containing data to be mapped.
-- **area=_column_**: string naming column in data frame to be mapped to area.
-- **fill=_column_**: string naming column in data frame to be mapped to fill.
-
-Optional arguments:
-
-- **group=_column_**: string naming column in data frame by which observations should be grouped. Must be a factor.
-- **label=_column_**: string naming column in data frame containing observation labels. Must be a factor.
-- **xlim=_vector_, ylim=_vector_**: two-element vectors (e.g. `c(0,120)`) specifying the x and y limits in which the plot should be constructed (defaults to a 100 ✕ 100 plot).
-
-Output: a dataframe containing the fill aesthetic, xmin, xmax, ymin and ymax for each observation, and (optionally) group and label factors.
-
-##`ggplotify`
-
-Mandatory argument: a data frame output by `treemapify`.
-
-Optional argument: **label.groups=_TRUE_**, a boolean specifying whether to draw group labels. Defaults to true if a group aesthetic was supplied to `treemapify`.
-
-Output: a ggplot object. Can be modified with additional scales, geoms etc.
-
 #Credit
 
 `treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk.
 
-The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the [Creative Commons Attribution-Share-Alike License 3.0](Creative Commons Attribution-Share-Alike License 3.0).
+The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the Creative Commons Attribution-Share-Alike License 3.0.
