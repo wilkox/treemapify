@@ -12,13 +12,13 @@ Install ggplot2, plyr and devtools if you don't have them already.
 > install.packages("devtools")
 ```
 
-##Get the code
+##Install
 
-Source the treemapify functions.
+Install treemapify.
 
 ```R
 > library(devtools)
-> source_url("https://raw.github.com/wilkox/treemapify/master/treemapify.R")
+> install_github("wilkox/treemapify")
 ```
 
 ##Some example data

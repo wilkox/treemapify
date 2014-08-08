@@ -11,7 +11,7 @@ ggplotify(treeMap, label.groups = TRUE)
 \item{label.groups}{should groups be labeled? (Individual observations will be automatically labelled if a "label" parameter was passed to "treemapify")}
 }
 \description{
-Takes a data frame produced by "treemapify" and draws an exploratory treemap.
+Takes a data frame of treemap coordinates produced by "treemapify" and draws an exploratory treemap.
 The output is a ggplot2 plot, so it can be further manipulated e.g. a title added.
 }
 \seealso{
