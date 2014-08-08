@@ -3,8 +3,8 @@
 \alias{treemapify}
 \title{Generate coordinates for a treemap}
 \usage{
-treemapify(data, area = NULL, fill = NULL, group = FALSE, label = FALSE,
-  xlim = c(0, 100), ylim = c(0, 100))
+treemapify(data, area, fill, group = FALSE, label = FALSE, xlim = c(0,
+  100), ylim = c(0, 100))
 }
 \arguments{
 \item{data}{a tidy data frame, containing at least variables to be mapped to area (size of rect) and fill (fill colour of rect).}
@@ -38,6 +38,6 @@ Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp. 33-42). 
 \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 }
 \seealso{
-ggplotify
+Other treemapify: \code{\link{ggplotify}}
 }
 

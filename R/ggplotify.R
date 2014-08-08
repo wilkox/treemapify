@@ -1,3 +1,14 @@
+#' @title Draw an exploratory treemap
+#' @export
+#' @family treemapify
+#'
+#' @description
+#'
+#' Takes a data frame of treemap coordinates produced by "treemapify" and draws an exploratory treemap.
+#' The output is a ggplot2 plot, so it can be further manipulated e.g. a title added.
+#'
+#' @param treeMap a data frame of treemap coordinates produced by "treemapify"
+#' @param label.groups should groups be labeled? (Individual observations will be automatically labelled if a "label" parameter was passed to "treemapify")
 ggplotify <- function(treeMap, label.groups = TRUE) {
 
     #Libraries
