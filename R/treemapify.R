@@ -10,14 +10,15 @@
 #' customised treemap (recommended) or passed directly to the "ggplotify"
 #' function to produce an exploratory projection.
 #'
-#' Input data frame must be in tidy format, i.e. each row must represent a
-#' single observation and each column a single variable.  The area and fill
-#' parameters are mandatory; grouping and label factors are optional.  Note
-#' that while adding a label will not change the treemap layout, adding a group
-#' will, as observations from the same group will be kept together.
+#' Input data frame must be in tidy format (see article by Hadley Wickham,
+#' below), i.e. each row must represent a single observation and each column a
+#' single variable.  The area and fill parameters are mandatory; grouping and
+#' label factors are optional.  Note that while adding a label will not change
+#' the treemap layout, adding a group will, as observations from the same group
+#' will be kept together.
 #'
 #' Rect placement proceeds from the bottom left corner, alternating between
-#' moving rightwards and moving upwards.  See reference below for the full
+#' moving rightwards and moving upwards.  See Bruls et al. 1999 for the full
 #' algorithm.
 #'
 #' @param data a tidy data frame, containing at least variables to be mapped to
@@ -40,6 +41,9 @@
 #' TCVG Symposium on Visualization.
 #'
 #' \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+#'
+#' "Tidy Data" is described by Hadley Wickham in an unpublished manuscript:
+#' \url{http://vita.had.co.nz/papers/tidy-data.pdf}
 
 treemapify <- function(data, 
                        area, 
