@@ -1,8 +1,8 @@
 Treemapify makes it easier to draw [treemaps](http://en.wikipedia.org/wiki/Treemap) with R and ggplot2.
 
-#Walkthrough
+# Walkthrough
 
-##Dependencies
+## Dependencies
 
 Install ggplot2, reshape2, plyr and devtools if you don't have them already.
 
@@ -13,7 +13,7 @@ Install ggplot2, reshape2, plyr and devtools if you don't have them already.
 > install.packages("devtools")
 ```
 
-##Install
+## Install
 
 Install treemapify.
 
@@ -23,15 +23,15 @@ Install treemapify.
 > library(treemapify)
 ```
 
-##Some example data
+## Some example data
 
 For any treemap, you'll need a data frame containing at least the following columns:
-  - A numeric column, which will determine the area of each treemap rectangle; and
-  - Another numeric column, which will determine the fill colour of each treemap rectangle.
+- A numeric column, which will determine the area of each treemap rectangle; and
+- Another numeric column, which will determine the fill colour of each treemap rectangle.
 
 For this example, we'll also use a couple of optional columns:
-  - A factor column, containing the labels for each rectangle; and
-  - A factor column, containing group names to group the rectangles.
+- A factor column, containing the labels for each rectangle; and
+- A factor column, containing group names to group the rectangles.
 
 Let's plot some economic data for the G-20 group of major world economies.
 
@@ -82,12 +82,12 @@ Let's plot some economic data for the G-20 group of major world economies.
 20                Advanced
 ```
 
-##The `treemapify` function
+## The `treemapify` function
 
 The `treemapify` function generates coordinates for a treemap in which each observation is represented by a rectangle. In this example, each observation is a country; the rectangle's area will be mapped to the country's nominal GDP, while the fill colour will be mapped to the Human Development Index (HDI). We'll also group the countries by region.
 
 ```R
-> treeMapCoordinates <- treemapify(G20, area="Nom.GDP.mil.USD", fill="HDI", label="Country", group="Region")
+> treeMapCoordinates <- treemapify(G20, area = "Nom.GDP.mil.USD", fill = "HDI", label = "Country", group = "Region")
 > treeMapCoordinates
   fill           label     xmin      xmax     ymin      ymax         group
 1  0.876  European Union  0.00000  38.66972  0.00000  58.99641        Europe
@@ -116,9 +116,9 @@ The "xmin", "xmax", "ymin" and "ymax" columns give the boundaries of each rectan
 
 For publication-quality graphics, it's recommended that you stop at this point and use the coordinates to draw your own plot with custom parameters. For quick-and-dirty exploratory graphics, however, treemapify provides an additional helper function.
 
-##The `ggplotify` function
+## The `ggplotify` function
 
-As the name suggests, this function takes output from `treemapify` and produces a ggplot object containing a graphical layout of the treemap.
+As the name suggests, this function takes output from `treemapify` and produces a [ggplot](http://ggplot2.org) object containing a graphical layout of the treemap.
 
 ```R
 > treeMapPlot <- ggplotify(treeMapCoordinates)
@@ -132,7 +132,7 @@ The function will try to scale labels to fit rectangles. It's not perfect.
 Because ggplot *is* perfect, it will automatically figure out whether to use a discrete or continuous fill scale:
 
 ```R
-> treeMapCoordinates <- treemapify(G20, area="Nom.GDP.mil.USD", fill="Economic.classification", label="Country", group="Region")
+> treeMapCoordinates <- treemapify(G20, area = "Nom.GDP.mil.USD", fill = "Economic.classification", label = "Country", group = "Region")
 > treeMapPlot <- ggplotify(treeMapCoordinates)
 > print(treeMapPlot)
 ```
@@ -142,8 +142,8 @@ Because ggplot *is* perfect, it will automatically figure out whether to use a d
 And because the output is a ggplot object, you can add custom scales and other tweaks.
 
 ```R
-> treeMapPlot <- treeMapPlot + scale_fill_manual(values=c("blue", "green"))
-> treeMapPlot <- treeMapPlot + theme(legend.text = element_text(family="serif"))
+> treeMapPlot <- treeMapPlot + scale_fill_manual(values = c("blue", "green"))
+> treeMapPlot <- treeMapPlot + theme(legend.text = element_text(family = "serif"))
 > treeMapPlot <- treeMapPlot + ggtitle("The G-20 in stunning Technicolor")
 > print(treeMapPlot)
 ```
@@ -152,7 +152,7 @@ And because the output is a ggplot object, you can add custom scales and other t
 
 For full control over the graphic output, you really should build the ggplot object yourself from the output of `treemapify`.
 
-#Credit
+# Credit
 
 `treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk.
 
