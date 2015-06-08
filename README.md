@@ -87,7 +87,11 @@ Let's plot some economic data for the G-20 group of major world economies.
 The `treemapify` function generates coordinates for a treemap in which each observation is represented by a rectangle. In this example, each observation is a country; the rectangle's area will be mapped to the country's nominal GDP, while the fill colour will be mapped to the Human Development Index (HDI). We'll also group the countries by region.
 
 ```R
-> treeMapCoordinates <- treemapify(G20, area = "Nom.GDP.mil.USD", fill = "HDI", label = "Country", group = "Region")
+> treeMapCoordinates <- treemapify(G20,
+                                   area = "Nom.GDP.mil.USD",
+                                   fill = "HDI",
+                                   label = "Country",
+                                   group = "Region")
 > treeMapCoordinates
   fill           label     xmin      xmax     ymin      ymax         group
 1  0.876  European Union  0.00000  38.66972  0.00000  58.99641        Europe
@@ -132,7 +136,11 @@ The function will try to scale labels to fit rectangles. It's not perfect.
 Because ggplot *is* perfect, it will automatically figure out whether to use a discrete or continuous fill scale:
 
 ```R
-> treeMapCoordinates <- treemapify(G20, area = "Nom.GDP.mil.USD", fill = "Economic.classification", label = "Country", group = "Region")
+> treeMapCoordinates <- treemapify(G20,
+                                   area = "Nom.GDP.mil.USD",
+                                   fill = "Economic.classification",
+                                   label = "Country",
+                                   group = "Region")
 > treeMapPlot <- ggplotify(treeMapCoordinates)
 > print(treeMapPlot)
 ```
