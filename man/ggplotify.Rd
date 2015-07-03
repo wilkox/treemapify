@@ -4,7 +4,8 @@
 \alias{ggplotify}
 \title{Draw an exploratory treemap}
 \usage{
-ggplotify(treeMap, label.groups = TRUE)
+ggplotify(treeMap, label.groups = TRUE, label.colour = "white",
+  group.label.colour = "darkgrey")
 }
 \arguments{
 \item{treeMap}{a data frame of treemap coordinates produced by "treemapify"}
@@ -12,6 +13,10 @@ ggplotify(treeMap, label.groups = TRUE)
 \item{label.groups}{should groups be labeled? (Individual observations will
 be automatically labelled if a "label" parameter was passed to
 "treemapify")}
+
+\item{label.colour}{colour for individual rect labels; defaults to white}
+
+\item{group.label.colour}{colour for group labels; defaults to darkgrey}
 }
 \description{
 Takes a data frame of treemap coordinates produced by "treemapify" and

@@ -12,8 +12,14 @@
 #' @param label.groups should groups be labeled? (Individual observations will
 #' be automatically labelled if a "label" parameter was passed to
 #' "treemapify")
+#' @param label.colour colour for individual rect labels; defaults to white
+#' @param group.label.colour colour for group labels; defaults to darkgrey
 
-ggplotify <- function(treeMap, label.groups = TRUE) {
+ggplotify <- function(treeMap,
+                      label.groups = TRUE,
+                      label.colour = "white",
+                      group.label.colour = "darkgrey"
+                      ) {
 
   # Libraries
   require(ggplot2)
@@ -114,7 +120,7 @@ ggplotify <- function(treeMap, label.groups = TRUE) {
                             y = groupLabels$y,
                             label = groupLabels$group,
                             size = groupLabels$size,
-                            colour = "darkgrey",
+                            colour = group.label.colour,
                             fontface = "bold",
                             hjust = 0.5,
                             vjust = 0)
@@ -144,7 +150,7 @@ ggplotify <- function(treeMap, label.groups = TRUE) {
                                  size = labelsize),
                              hjust = 0,
                              vjust = 1,
-                             colour = "white")
+                             colour = label.colour)
 
     # Scale labels
     Plot <- Plot + scale_size(range = c(1,8), guide = FALSE)
