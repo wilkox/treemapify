@@ -14,11 +14,17 @@
 #' "treemapify")
 #' @param label.colour colour for individual rect labels; defaults to white
 #' @param group.label.colour colour for group labels; defaults to darkgrey
+#' @param label.size.factor scaling factor for text size of individual rect
+#' labels; defaults to 1
+#' @param group.label.size.factor scaling factor for text size of group
+#' labels; defaults to 1
 
 ggplotify <- function(treeMap,
                       label.groups = TRUE,
                       label.colour = "white",
-                      group.label.colour = "darkgrey"
+                      group.label.colour = "darkgrey",
+                      label.size.factor = 1,
+                      group.label.size.factor = 1
                       ) {
 
   # Libraries
@@ -99,20 +105,22 @@ ggplotify <- function(treeMap,
       groupLabels <- ddply(treeMap,
                            c("group"),
                            summarise, 
-                           x <- max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
-                           y <- min(ymin) + 2,
-                           size <- (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
+                           x = max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
+                           y = min(ymin) + 2,
+                           size = (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
                            )
+      groupLabels$size <- groupLabels$size * group.label.size.factor
 
       # Otherwise, place in the middle
     } else {
       groupLabels <- ddply(treeMap,
                            c("group"),
                            summarise, 
-                           x <- max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
-                           y <- max(ymax) - ((max(ymax) - min(ymin)) * 0.5),
-                           size <- (max(xmax) - min(xmin)) / (nchar(as.character(group[1])))
+                           x = max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
+                           y = max(ymax) - ((max(ymax) - min(ymin)) * 0.5),
+                           size = (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
                            )
+      groupLabels$size <- groupLabels$size * group.label.size.factor
     }
     names(groupLabels) <- c("group", "x", "y", "size")
     Plot <- Plot + annotate("text",
@@ -153,7 +161,7 @@ ggplotify <- function(treeMap,
                              colour = label.colour)
 
     # Scale labels
-    Plot <- Plot + scale_size(range = c(1,8), guide = FALSE)
+    Plot <- Plot + scale_size(range = c(1,8) * label.size.factor, guide = FALSE)
   }
 
   return(Plot)
