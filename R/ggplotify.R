@@ -70,7 +70,7 @@ ggplotify <- function(treeMap,
   # Blank out extraneous plot elements
   Plot <- Plot + theme(axis.ticks = element_blank(),
                        axis.title = element_blank(),
-                       axis.text=element_blank())
+                       axis.text = element_blank())
 
   # Draw legend
   Plot <- Plot + guides(fill = guide_legend(title = attributes(treeMap)$fillName))
@@ -153,7 +153,8 @@ ggplotify <- function(treeMap,
                             alpha = groupLabels$alpha,
                             fontface = "bold",
                             hjust = 0.5,
-                            vjust = 0)
+                            vjust = 0,
+                            show_guide = FALSE)
   }
 
   # Add labels for individual rects, if they are present
@@ -194,7 +195,8 @@ ggplotify <- function(treeMap,
                                  alpha = alpha),
                              hjust = 0,
                              vjust = 1,
-                             colour = label.colour)
+                             colour = label.colour,
+                             show_guide = FALSE)
 
     # Scale labels
     Plot <- Plot + scale_size(range = c(1,8) * label.size.factor, guide = FALSE)
