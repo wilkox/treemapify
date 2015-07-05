@@ -6,7 +6,8 @@
 \usage{
 ggplotify(treeMap, label.groups = TRUE, label.colour = "white",
   group.label.colour = "darkgrey", label.size.factor = 1,
-  group.label.size.factor = 1)
+  group.label.size.factor = 1, label.size.threshold = NULL,
+  group.label.size.threshold = NULL)
 }
 \arguments{
 \item{treeMap}{a data frame of treemap coordinates produced by "treemapify"}
@@ -24,6 +25,12 @@ labels; defaults to 1}
 
 \item{group.label.size.factor}{scaling factor for text size of group
 labels; defaults to 1}
+
+\item{label.size.threshold}{(optional) minimum text size for individual
+rect labels. Labels smaller than this threshold will not be displayed}
+
+\item{group.label.size.threshold}{(optional) minimum text size for group
+labels. Labels smaller than this threshold will not be displayed}
 }
 \description{
 Takes a data frame of treemap coordinates produced by "treemapify" and

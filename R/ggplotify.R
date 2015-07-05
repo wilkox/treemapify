@@ -18,13 +18,19 @@
 #' labels; defaults to 1
 #' @param group.label.size.factor scaling factor for text size of group
 #' labels; defaults to 1
+#' @param label.size.threshold (optional) minimum text size for individual
+#' rect labels. Labels smaller than this threshold will not be displayed
+#' @param group.label.size.threshold (optional) minimum text size for group
+#' labels. Labels smaller than this threshold will not be displayed
 
 ggplotify <- function(treeMap,
                       label.groups = TRUE,
                       label.colour = "white",
                       group.label.colour = "darkgrey",
                       label.size.factor = 1,
-                      group.label.size.factor = 1
+                      group.label.size.factor = 1,
+                      label.size.threshold = NULL,
+                      group.label.size.threshold = NULL
                       ) {
 
   # Libraries
@@ -109,7 +115,6 @@ ggplotify <- function(treeMap,
                            y = min(ymin) + 2,
                            size = (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
                            )
-      groupLabels$size <- groupLabels$size * group.label.size.factor
 
       # Otherwise, place in the middle
     } else {
@@ -120,15 +125,32 @@ ggplotify <- function(treeMap,
                            y = max(ymax) - ((max(ymax) - min(ymin)) * 0.5),
                            size = (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
                            )
-      groupLabels$size <- groupLabels$size * group.label.size.factor
     }
-    names(groupLabels) <- c("group", "x", "y", "size")
+
+    # Adjust group label text size by scaling factor
+    groupLabels$size <- groupLabels$size * group.label.size.factor
+
+    # If a minimum group label size has been specified, hide labels smaller
+    # than the threshold size
+    if (! missing(group.label.size.threshold)) {
+      groupLabels$alpha <- ifelse(groupLabels$size <
+                                    group.label.size.threshold,
+                                  0,
+                                  1
+                                  )
+      
+    } else {
+      groupLabels$alpha <- rep(1, nrow(groupLabels))
+    }
+
+    # Add group labels to plot
     Plot <- Plot + annotate("text",
                             x = groupLabels$x,
                             y = groupLabels$y,
                             label = groupLabels$group,
                             size = groupLabels$size,
                             colour = group.label.colour,
+                            alpha = groupLabels$alpha,
                             fontface = "bold",
                             hjust = 0.5,
                             vjust = 0)
@@ -147,15 +169,29 @@ ggplotify <- function(treeMap,
                      labely = ymax - 1,
 
                      # Rough scaling of label size
-                     labelsize = (xmax - xmin) / (nchar(as.character(label))), 
+                     labelsize = (xmax - xmin) / (nchar(as.character(label))) 
                      )
+
+    # If a minimum label size has been specified, hide labels smaller than the
+    # threshold size
+    if (! missing(label.size.threshold)) {
+      treeMap$alpha <- ifelse(treeMap$labelsize * label.size.factor <
+                              label.size.threshold,
+                              0,
+                              1
+                              )
+
+    } else {
+      treeMap$alpha <- rep(1, nrow(treeMap))
+    }
 
     # Add labels
     Plot <- Plot + geom_text(data = treeMap,
                              aes(label = label,
                                  x = labelx,
                                  y = labely,
-                                 size = labelsize),
+                                 size = labelsize,
+                                 alpha = alpha),
                              hjust = 0,
                              vjust = 1,
                              colour = label.colour)
