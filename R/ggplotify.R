@@ -33,7 +33,7 @@ ggplotify <- function(treeMap,
                       group.label.size.threshold = NULL
                       ) {
 
-  # required to get rid of check-notes
+  # Required to get rid of check-notes
   fill <- group <- label <- labelx <- labely <- labelsize <- alpha <- NULL
 
   # Check arguments
