@@ -2,3 +2,6 @@
 
 export(ggplotify)
 export(treemapify)
+import("ggplot2")
+import("plyr")
+import("reshape2")

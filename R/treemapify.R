@@ -3,7 +3,7 @@
 #' @family treemapify
 #'
 #' @description
-#' 
+#'
 #' Takes a data frame of observations, with variables mapped to area and fill
 #' colour, and produces the coordinates for a treemap expressing these
 #' observations and mappings.  These coordinates can be used to draw a
@@ -35,7 +35,7 @@
 #' @references
 #' treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing
 #' and Jarke van Wijk:
-#' 
+#'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE
 #' TCVG Symposium on Visualization.
@@ -45,19 +45,14 @@
 #' "Tidy Data" is described by Hadley Wickham in an unpublished manuscript:
 #' \url{http://vita.had.co.nz/papers/tidy-data.pdf}
 
-treemapify <- function(data, 
-                       area, 
-                       fill, 
-                       group = FALSE, 
-                       label = FALSE, 
-                       xlim = c(0,100), 
+treemapify <- function(data,
+                       area,
+                       fill,
+                       group = FALSE,
+                       label = FALSE,
+                       xlim = c(0,100),
                        ylim = c(0,100)
                        ) {
-
-  # Load required libraries
-  require(ggplot2)
-  require(plyr)
-  require(reshape2)
 
   # Check arguments
   if (missing(data) || is.data.frame(data) == FALSE) {
@@ -98,9 +93,9 @@ treemapify <- function(data,
                                 group = data[group])
       names(treeMapData) <- c("area", "fill", "group")
     } else {
-      treeMapData <- data.frame(area = data[area], 
-                                fill = data[fill], 
-                                group = data[group], 
+      treeMapData <- data.frame(area = data[area],
+                                fill = data[fill],
+                                group = data[group],
                                 label = data[label])
       names(treeMapData) <- c("area", "fill", "group", "label")
     }
@@ -112,7 +107,7 @@ treemapify <- function(data,
 
     # To get the placement for each group, sum the area and generate a treemap
     # that places each group
-    groupData <- ddply(treeMapData, "group", summarise, 
+    groupData <- ddply(treeMapData, "group", summarise,
                        area = sum(area),
                        fill = group[1])
     groupTreeMap <- treemapify(groupData, area = "area",
