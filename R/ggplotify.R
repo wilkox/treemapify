@@ -10,29 +10,35 @@
 #'
 #' @param treeMap a data frame of treemap coordinates produced by
 #' "treemapify"
+#' @param label.colour colour for individual rect labels; defaults to white
+#' @param label.size.factor scaling factor for text size of individual
+#' rect labels; defaults to 1
+#' @param label.size.threshold (optional) minimum text size for individual
+#' rect labels. Labels smaller than this threshold will not be displayed
+#' @param label.size.fixed (optional) fixed size for individual rect
+#' labels. Overrides label.size.factor
 #' @param label.groups should groups be labeled? (Individual observations
 #' will be automatically labelled if a "label" parameter was passed to
 #' "treemapify")
-#' @param label.colour colour for individual rect labels; defaults to white
 #' @param group.label.colour colour for group labels; defaults to darkgrey
-#' @param label.size.factor scaling factor for text size of individual
-#' rect labels; defaults to 1
 #' @param group.label.size.factor scaling factor for text size of group
 #' labels; defaults to 1
-#' @param label.size.threshold (optional) minimum text size for individual
-#' rect labels. Labels smaller than this threshold will not be displayed
 #' @param group.label.size.threshold (optional) minimum text size for
 #' group labels. Labels smaller than this threshold will not be displayed
+#' @param group.label.size.fixed (optional) fixed size for group labels.
+#' Overrides group.label.size.factor
 
 ggplotify <- function(
   treeMap,
-  label.groups = TRUE,
   label.colour = "white",
-  group.label.colour = "darkgrey",
   label.size.factor = 1,
-  group.label.size.factor = 1,
   label.size.threshold = NULL,
-  group.label.size.threshold = NULL
+  label.size.fixed = NULL,
+  label.groups = TRUE,
+  group.label.colour = "darkgrey",
+  group.label.size.factor = 1,
+  group.label.size.threshold = NULL,
+  group.label.size.fixed = NULL
 ) {
 
   # Required to get rid of check-notes
@@ -41,6 +47,16 @@ ggplotify <- function(
   # Check arguments
   if (missing(treeMap) || is.data.frame(treeMap) == FALSE) {
     stop("Must provide a data frame")
+  }
+  if (! missing(label.size.fixed) && ! missing(label.size.factor)) {
+    warning("label.sized.fixed overriding label.size.factor")
+    label.size.factor <- 1
+  }
+  if (! missing(group.label.size.fixed) && ! missing(
+    group.label.size.factor
+  )) {
+    warning("group.label.sized.fixed overriding group.label.size.factor")
+    group.label.size.factor <- 1
   }
 
   # Determine limits of plot area (usually 100x100)
@@ -139,6 +155,11 @@ ggplotify <- function(
     # Adjust group label text size by scaling factor
     groupLabels$size <- groupLabels$size * group.label.size.factor
 
+    # Override group label text sizes with fixed size, if specified
+    if (! missing(group.label.size.fixed)) {
+      groupLabels$size <- rep(group.label.size.fixed, nrow(groupLabels))
+    }
+
     # If a minimum group label size has been specified, hide labels smaller
     # than the threshold size
     if (! missing(group.label.size.threshold)) {
@@ -176,17 +197,23 @@ ggplotify <- function(
       treeMap,
       "label",
       mutate,
-      # Place in top leftlabelx = xmin + 1,
+      # Place in top left
+      labelx = xmin + 1,
       labely = ymax - 1,
       # Rough scaling of label size
       labelsize = (xmax - xmin) / (nchar(as.character(label)))
     )
 
+    # Override size with fixed size, if specified
+    if (! missing(label.size.fixed)) {
+      treeMap$labelsize <- rep(label.size.fixed, nrow(treeMap))
+    }
+
     # If a minimum label size has been specified, hide labels smaller than
     # the threshold size
     if (! missing(label.size.threshold)) {
       treeMap$alpha <- ifelse(
-        treeMap$labelsize * label.size.factor <label.size.threshold,
+        treeMap$labelsize * label.size.factor < label.size.threshold,
         0,
         1
       )
@@ -204,11 +231,18 @@ ggplotify <- function(
       alpha = alpha
     ), hjust = 0, vjust = 1, colour = label.colour, show_guide = FALSE)
 
-    # Scale labels
-    Plot <- Plot + scale_size(
-      range = c(1,8) * label.size.factor,
-      guide = FALSE
-    )
+    # Scale labels, unless label.size.fixed was specified
+    if (missing(label.size.fixed)) {
+      Plot <- Plot + scale_size(
+        range = c(1,8) * label.size.factor,
+        guide = FALSE
+      )
+    } else {
+      Plot <- Plot + scale_size(
+        range = c(1, label.size.fixed),
+        guide = FALSE
+      )
+    }
   }
 
   return(Plot)

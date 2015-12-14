@@ -4,38 +4,46 @@
 \alias{ggplotify}
 \title{Draw an exploratory treemap}
 \usage{
-ggplotify(treeMap, label.groups = TRUE, label.colour = "white",
-  group.label.colour = "darkgrey", label.size.factor = 1,
-  group.label.size.factor = 1, label.size.threshold = NULL,
-  group.label.size.threshold = NULL)
+ggplotify(treeMap, label.colour = "white", label.size.factor = 1,
+  label.size.threshold = NULL, label.size.fixed = NULL,
+  label.groups = TRUE, group.label.colour = "darkgrey",
+  group.label.size.factor = 1, group.label.size.threshold = NULL,
+  group.label.size.fixed = NULL)
 }
 \arguments{
-\item{treeMap}{a data frame of treemap coordinates produced by "treemapify"}
-
-\item{label.groups}{should groups be labeled? (Individual observations will
-be automatically labelled if a "label" parameter was passed to
-"treemapify")}
+\item{treeMap}{a data frame of treemap coordinates produced by
+"treemapify"}
 
 \item{label.colour}{colour for individual rect labels; defaults to white}
 
-\item{group.label.colour}{colour for group labels; defaults to darkgrey}
-
-\item{label.size.factor}{scaling factor for text size of individual rect
-labels; defaults to 1}
-
-\item{group.label.size.factor}{scaling factor for text size of group
-labels; defaults to 1}
+\item{label.size.factor}{scaling factor for text size of individual
+rect labels; defaults to 1}
 
 \item{label.size.threshold}{(optional) minimum text size for individual
 rect labels. Labels smaller than this threshold will not be displayed}
 
-\item{group.label.size.threshold}{(optional) minimum text size for group
-labels. Labels smaller than this threshold will not be displayed}
+\item{label.size.fixed}{(optional) fixed size for individual rect
+labels. Overrides label.size.factor}
+
+\item{label.groups}{should groups be labeled? (Individual observations
+will be automatically labelled if a "label" parameter was passed to
+"treemapify")}
+
+\item{group.label.colour}{colour for group labels; defaults to darkgrey}
+
+\item{group.label.size.factor}{scaling factor for text size of group
+labels; defaults to 1}
+
+\item{group.label.size.threshold}{(optional) minimum text size for
+group labels. Labels smaller than this threshold will not be displayed}
+
+\item{group.label.size.fixed}{(optional) fixed size for group labels.
+Overrides group.label.size.factor}
 }
 \description{
 Takes a data frame of treemap coordinates produced by "treemapify" and
-draws an exploratory treemap.  The output is a ggplot2 plot, so it can be
-further manipulated e.g. a title added.
+draws an exploratory treemap.  The output is a ggplot2 plot, so it can
+be further manipulated e.g. a title added.
 }
 \seealso{
 Other treemapify: \code{\link{treemapify}}
