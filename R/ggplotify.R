@@ -88,7 +88,9 @@ ggplotify <- function(
   Plot <- Plot + theme(
     axis.ticks = element_blank(),
     axis.title = element_blank(),
-    axis.text = element_blank()
+    axis.text = element_blank(),
+    panel.background = element_blank(),
+    panel.border = element_blank()
   )
 
   # Draw legend
@@ -118,9 +120,6 @@ ggplotify <- function(
       colour = "grey",
       fill = NA,
       size = 1.2
-    )
-    Plot <- Plot + theme(
-      panel.border = element_rect(size = 2, fill = NA, colour = "grey")
     )
   }
 
