@@ -184,8 +184,7 @@ ggplotify <- function(
       alpha = groupLabels$alpha,
       fontface = "bold",
       hjust = 0.5,
-      vjust = 0,
-      show_guide = FALSE
+      vjust = 0
     )
   }
 
@@ -229,7 +228,7 @@ ggplotify <- function(
       y = labely,
       size = labelsize,
       alpha = alpha
-    ), hjust = 0, vjust = 1, colour = label.colour, show_guide = FALSE)
+    ), hjust = 0, vjust = 1, colour = label.colour, show.legend = FALSE)
 
     # Scale labels, unless label.size.fixed was specified
     if (missing(label.size.fixed)) {
