@@ -163,7 +163,7 @@ ggplotify <- function(
     # than the threshold size
     if (! missing(group.label.size.threshold)) {
       groupLabels$alpha <- ifelse(
-        groupLabels$size <group.label.size.threshold,
+        groupLabels$size < group.label.size.threshold,
         0,
         1
       )
@@ -210,14 +210,14 @@ ggplotify <- function(
     # If a minimum label size has been specified, hide labels smaller than
     # the threshold size
     if (! missing(label.size.threshold)) {
-      treeMap$alpha <- ifelse(
+      treeMap$labelcolour <- ifelse(
         treeMap$labelsize * label.size.factor < label.size.threshold,
-        0,
-        1
+        TRUE,
+        FALSE
       )
 
     } else {
-      treeMap$alpha <- rep(1, nrow(treeMap))
+      treeMap$labelcolour <- rep(1, nrow(treeMap))
     }
 
     # Add labels
@@ -226,8 +226,9 @@ ggplotify <- function(
       x = labelx,
       y = labely,
       size = labelsize,
-      alpha = alpha
-    ), hjust = 0, vjust = 1, colour = label.colour, show.legend = FALSE)
+      colour = labelcolour
+    ), hjust = 0, vjust = 1, show.legend = FALSE) +
+      scale_colour_manual(values = c(label.colour, NA))
 
     # Scale labels, unless label.size.fixed was specified
     if (missing(label.size.fixed)) {
