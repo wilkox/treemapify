@@ -217,7 +217,7 @@ ggplotify <- function(
       )
 
     } else {
-      treeMap$labelcolour <- rep(1, nrow(treeMap))
+      treeMap$labelcolour <- rep(TRUE, nrow(treeMap))
     }
 
     # Add labels
