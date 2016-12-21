@@ -27,7 +27,7 @@ Install treemapify.
 
 For any treemap, you'll need a data frame containing at least the following columns:
 - A numeric column, which will determine the area of each treemap rectangle; and
-- Another numeric column, which will determine the fill colour of each treemap rectangle.
+- Another column, either numeric or factor, which will determine the fill colour of each treemap rectangle.
 
 For this example, we'll also use a couple of optional columns:
 - A factor column, containing the labels for each rectangle; and
