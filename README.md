@@ -1,4 +1,6 @@
-Treemapify makes it easier to draw [treemaps](http://en.wikipedia.org/wiki/Treemap) with R and ggplot2.
+**Treemapify makes it easier to draw [treemaps](http://en.wikipedia.org/wiki/Treemap) with R and ggplot2.**
+
+![Treemap of G20 data, produced with ggplotify](examples/G20.png)
 
 # Walkthrough
 
