@@ -1,5 +1,13 @@
 **Treemapify makes it easier to draw [treemaps](http://en.wikipedia.org/wiki/Treemap) with R and ggplot2.**
 
+**2017-03-02 v1.0 released**
+- Fixed `ggplotify` bug which caused labels to be drawn with strange alpha
+  values.
+- `ggplotify` labels are now drawn with geoms provided by `ggfittext`, allowing
+  for true fitting of text to rects/groups.
+- Several new graphical options for `ggplotify`.
+- Fixed bad whitespace in G20 dataset.
+
 ![Treemap of G20 data, produced with ggplotify](examples/G20.png)
 
 # Walkthrough
@@ -153,7 +161,7 @@ For publication-quality graphics, it's recommended that you stop at this point a
 
 ## The `ggplotify` function
 
-As the name suggests, this function takes output from `treemapify` and produces a [ggplot](http://ggplot2.org) object containing a graphical layout of the treemap.
+As the name suggests, this function takes output from `treemapify` and produces a [ggplot2](http://ggplot2.org) object containing a graphical layout of the treemap.
 
 ``` r
 ggplotify(treeMapCoordinates)
