@@ -191,7 +191,7 @@ would any ggplot2 plot, with custom scales and other tweaks.
 treeMapPlot <- ggplotify(treeMapCoordinates)
 treeMapPlot <- treeMapPlot + scale_fill_gradient(low = "blue", high = "green",
                                                  guide = "colourbar")
-treeMapPlot <- treeMapPlot + theme(legend.text = element_text(family = "serif"))
+treeMapPlot <- treeMapPlot + theme(legend.position = "bottom")
 treeMapPlot <- treeMapPlot + ggtitle("The G-20 in stunning Technicolor")
 treeMapPlot
 ```
