@@ -188,11 +188,10 @@ Because the output of `ggplotify` is a ggplot2 object, you can modify it as you
 would any ggplot2 plot, with custom scales and other tweaks.
 
 ``` r
-treeMapPlot <- ggplotify(treeMapCoordinates)
-treeMapPlot <- treeMapPlot + scale_fill_gradient(low = "blue", high = "green",
-                                                 guide = "colourbar")
+treeMapPlot <- ggplotify(treeMapCoordinates, label.type = "fill", group.labels = F)
+treeMapPlot <- treeMapPlot + scale_fill_gradient(low = "red", high = "forestgreen")
 treeMapPlot <- treeMapPlot + theme(legend.position = "bottom")
-treeMapPlot <- treeMapPlot + ggtitle("The G-20 in stunning Technicolor")
+treeMapPlot <- treeMapPlot + ggtitle("The G-20 in soothing autumnal tones")
 treeMapPlot
 ```
 
