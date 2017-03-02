@@ -29,7 +29,18 @@
 #' @param group.labels Logical indicating whether groups should be labeled.
 #' Defaults to TRUE.
 #' @param group.label.colour Colour for group labels. Defaults to grey20.
+#' @param group.label.type How the group labels should be drawn inside each
+#' group. ‘shrink’ (default) will cause the labels to be drawn at ‘label.size’,
+#' unless that would make them too big for the rects, in which case they are
+#' shrunk to fit the rects. ‘fill’ draws the labels at the largest possible size
+#' for their rects. See documentation for the \code{ggfittext} package for more
+#' details.
 #' @param group.label.size Size for group labels. Defaults to 10.
+#' @param group.label.min.size Any group label shrunk below this size will not
+#' be drawn. Defaults to 4 pt.
+#' @param group.label.place Where in the group should the group label be drawn?
+#' Defaults to ‘bottom’, unless group.label.type is ‘fill’ in which case
+#' defaults to ‘middle’. See \code{ggfittext} documentation for more details.
 #' @param group.border.colour Colour for borders around groups. Defaults to
 #' grey50.
 #' @param group.border.size Size (line thickness) for borders around groups.
@@ -45,7 +56,10 @@ ggplotify <- function(
   rect.border.size = 0.2,
   group.labels = TRUE,
   group.label.colour = "grey20",
+  group.label.type = "shrink",
   group.label.size = 10,
+  group.label.min.size = 4,
+  group.label.place = NULL,
   group.border.colour = "grey50",
   group.border.size = 1.2
 ) {
@@ -58,6 +72,16 @@ ggplotify <- function(
   # If no argument for label.place provided, set based on label.type
   if (is.null(label.place)) {
     label.place <- ifelse(label.type == "shrink", "topleft", "middle")
+  }
+
+  # Check that group.label.type is a recognised type
+  if (!group.label.type %in% c("shrink", "fill")) {
+    stop("Unrecognised value ‘", group.label.type, "’ for group.label.type", call. = F)
+  }
+
+  # If no argument for group.label.place provided, set based on group.label.type
+  if (is.null(group.label.place)) {
+    group.label.place <- ifelse(group.label.type == "shrink", "bottom", "middle")
   }
 
   # Determine limits of plot area (usually 100x100)
@@ -138,15 +162,28 @@ ggplotify <- function(
     )
 
     # Add group labels to plot
-    Plot <- Plot + geom_shrink_text(
-      data = groupLabels,
-      aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-      place = "bottom",
-      padding.y = unit(2, "mm"),
-      size = group.label.size,
-      colour = group.label.colour
-    )
+    if (group.label.type == "shrink") {
+      Plot <- Plot + geom_shrink_text(
+        data = groupLabels,
+        aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+        place = group.label.place,
+        padding.y = unit(2, "mm"),
+        size = group.label.size,
+        min.size = group.label.min.size,
+        colour = group.label.colour
+      )
 
+    } else if (group.label.type == "fill") {
+      Plot <- Plot + geom_fill_text(
+        data = groupLabels,
+        aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+        place = group.label.place,
+        padding.y = unit(2, "mm"),
+        size = group.label.size,
+        min.size = group.label.min.size,
+        colour = group.label.colour
+      )
+    }
   }
 
   # Add labels for individual rects, if they are present
@@ -171,7 +208,7 @@ ggplotify <- function(
       )
 
     } else if (label.type == "fill") {
-    
+
       Plot <- Plot + geom_fill_text(
         data = treeMap,
         aes(

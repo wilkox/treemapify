@@ -8,8 +8,9 @@ ggplotify(treeMap, label.colour = "white", label.type = "shrink",
   label.size = 8, label.min.size = 4, label.place = NULL,
   rect.border.colour = "grey", rect.border.size = 0.2,
   group.labels = TRUE, group.label.colour = "grey20",
-  group.label.size = 10, group.border.colour = "grey50",
-  group.border.size = 1.2)
+  group.label.type = "shrink", group.label.size = 10,
+  group.label.min.size = 4, group.label.place = NULL,
+  group.border.colour = "grey50", group.border.size = 1.2)
 }
 \arguments{
 \item{treeMap}{A data frame of treemap coordinates produced by
@@ -43,7 +44,21 @@ Defaults to TRUE.}
 
 \item{group.label.colour}{Colour for group labels. Defaults to grey20.}
 
+\item{group.label.type}{How the group labels should be drawn inside each
+group. ‘shrink’ (default) will cause the labels to be drawn at ‘label.size’,
+unless that would make them too big for the rects, in which case they are
+shrunk to fit the rects. ‘fill’ draws the labels at the largest possible size
+for their rects. See documentation for the \code{ggfittext} package for more
+details.}
+
 \item{group.label.size}{Size for group labels. Defaults to 10.}
+
+\item{group.label.min.size}{Any group label shrunk below this size will not
+be drawn. Defaults to 4 pt.}
+
+\item{group.label.place}{Where in the group should the group label be drawn?
+Defaults to ‘bottom’, unless group.label.type is ‘fill’ in which case
+defaults to ‘middle’. See \code{ggfittext} documentation for more details.}
 
 \item{group.border.colour}{Colour for borders around groups. Defaults to
 grey50.}
