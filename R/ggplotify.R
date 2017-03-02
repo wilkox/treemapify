@@ -8,55 +8,56 @@
 #' draws an exploratory treemap.  The output is a ggplot2 plot, so it can
 #' be further manipulated e.g. a title added.
 #'
-#' @param treeMap a data frame of treemap coordinates produced by
+#' @param treeMap A data frame of treemap coordinates produced by
 #' "treemapify"
-#' @param label.colour colour for individual rect labels; defaults to white
-#' @param label.size.factor scaling factor for text size of individual
-#' rect labels; defaults to 1
-#' @param label.size.threshold (optional) minimum text size for individual
-#' rect labels. Labels smaller than this threshold will not be displayed
-#' @param label.size.fixed (optional) fixed size for individual rect
-#' labels. Overrides label.size.factor
-#' @param label.groups should groups be labeled? (Individual observations
-#' will be automatically labelled if a "label" parameter was passed to
-#' "treemapify")
-#' @param group.label.colour colour for group labels; defaults to darkgrey
-#' @param group.label.size.factor scaling factor for text size of group
-#' labels; defaults to 1
-#' @param group.label.size.threshold (optional) minimum text size for
-#' group labels. Labels smaller than this threshold will not be displayed
-#' @param group.label.size.fixed (optional) fixed size for group labels.
-#' Overrides group.label.size.factor
-
+#' @param label.colour Colour for individual rect labels; defaults to white
+#' @param label.type How the labels should be drawn inside each rect. ‘shrink’
+#' (default) will cause the labels to be drawn at ‘label.size’, unless that
+#' would make them too big for the rects, in which case they are shrunk to fit
+#' the rects. ‘fill’ draws the labels at the largest possible size for their
+#' rects. See documentation for the \code{ggfittext} package for more details.
+#' @param label.size Size for individual rect labels. Defaults to 8 pt.
+#' @param label.min.size Any label shrunk below this size will not be drawn.
+#' Defaults to 4 pt.
+#' @param label.place Where in the rect should the label be drawn? Defaults to
+#' ‘topleft’, unless label.type is ‘fill’ in which case defaults to ‘middle’.
+#' See \code{ggfittext} documentation for more details.
+#' @param rect.border.colour Colour for the borders between rects. Defaults to
+#' grey.
+#' @param rect.border.size Size (line thickness) for the borders between rects.
+#' Defaults to 0.2.
+#' @param group.labels Logical indicating whether groups should be labeled.
+#' Defaults to TRUE.
+#' @param group.label.colour Colour for group labels. Defaults to grey20.
+#' @param group.label.size Size for group labels. Defaults to 10.
+#' @param group.border.colour Colour for borders around groups. Defaults to
+#' grey50.
+#' @param group.border.size Size (line thickness) for borders around groups.
+#' Defaults to 1.2.
 ggplotify <- function(
   treeMap,
   label.colour = "white",
-  label.size.factor = 1,
-  label.size.threshold = NULL,
-  label.size.fixed = NULL,
-  label.groups = TRUE,
-  group.label.colour = "darkgrey",
-  group.label.size.factor = 1,
-  group.label.size.threshold = NULL,
-  group.label.size.fixed = NULL
+  label.type = "shrink",
+  label.size = 8,
+  label.min.size = 4,
+  label.place = NULL,
+  rect.border.colour = "grey",
+  rect.border.size = 0.2,
+  group.labels = TRUE,
+  group.label.colour = "grey20",
+  group.label.size = 10,
+  group.border.colour = "grey50",
+  group.border.size = 1.2
 ) {
 
-  # Required to get rid of check-notes
-  fill <- group <- label <- labelx <- labely <- labelsize <- alpha <- NULL
+  # Check that label.type is a recognised type
+  if (!label.type %in% c("shrink", "fill")) {
+    stop("Unrecognised value ‘", label.type, "’ for label.type", call. = F)
+  }
 
-  # Check arguments
-  if (missing(treeMap) || is.data.frame(treeMap) == FALSE) {
-    stop("Must provide a data frame")
-  }
-  if (! missing(label.size.fixed) && ! missing(label.size.factor)) {
-    warning("label.sized.fixed overriding label.size.factor")
-    label.size.factor <- 1
-  }
-  if (! missing(group.label.size.fixed) && ! missing(
-    group.label.size.factor
-  )) {
-    warning("group.label.sized.fixed overriding group.label.size.factor")
-    group.label.size.factor <- 1
+  # If no argument for label.place provided, set based on label.type
+  if (is.null(label.place)) {
+    label.place <- ifelse(label.type == "shrink", "topleft", "middle")
   }
 
   # Determine limits of plot area (usually 100x100)
@@ -82,7 +83,7 @@ ggplotify <- function(
     xmax = xmax,
     ymin = ymin,
     ymax = ymax
-  ), fill = NA, colour = "grey", size = 0.2)
+  ), fill = NA, colour = rect.border.colour, size = rect.border.size)
 
   # Blank out extraneous plot elements
   Plot <- Plot + theme(
@@ -113,133 +114,77 @@ ggplotify <- function(
     )
     names(groupRects) <- c("group", "xmin", "xmax", "ymin", "ymax")
 
-    # Add borders to plot
+    # Add group borders to plot
     Plot <- Plot + geom_rect(
       data = groupRects,
       mapping = aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-      colour = "grey",
+      colour = group.border.colour,
       fill = NA,
-      size = 1.2
+      size = group.border.size
     )
   }
 
   # Add group labels, if asked to
-  if (label.groups == TRUE && "group" %in% colnames(treeMap)) {
+  if (group.labels && "group" %in% colnames(treeMap)) {
 
-    # If there's a "label" column (i.e. if individual rects are to be
-    # labelled), place in the top left hand corner so the individual and
-    # group labels don't overlap
-    if ("label" %in% colnames(treeMap)) {
-      groupLabels <- ddply(
-        treeMap,
-        c("group"),
-        summarise,
-        x = max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
-        y = min(ymin) + 2,
-        size = (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
-      )
-
-      # Otherwise, place in the middle
-    } else {
-      groupLabels <- ddply(
-        treeMap,
-        c("group"),
-        summarise,
-        x = max(xmax) - ((max(xmax) - min(xmin)) * 0.5),
-        y = max(ymax) - ((max(ymax) - min(ymin)) * 0.5),
-        size = (max(xmax) - min(xmin)) / nchar(as.character(group[1]))
-      )
-    }
-
-    # Adjust group label text size by scaling factor
-    groupLabels$size <- groupLabels$size * group.label.size.factor
-
-    # Override group label text sizes with fixed size, if specified
-    if (! missing(group.label.size.fixed)) {
-      groupLabels$size <- rep(group.label.size.fixed, nrow(groupLabels))
-    }
-
-    # If a minimum group label size has been specified, hide labels smaller
-    # than the threshold size
-    if (! missing(group.label.size.threshold)) {
-      groupLabels$alpha <- ifelse(
-        groupLabels$size < group.label.size.threshold,
-        0,
-        1
-      )
-
-    } else {
-      groupLabels$alpha <- rep(1, nrow(groupLabels))
-    }
+    groupLabels <- ddply(
+      treeMap,
+      c("group"),
+      summarise,
+      xmin = min(xmin),
+      xmax = max(xmax),
+      ymin = min(ymin),
+      ymax = max(ymax)
+    )
 
     # Add group labels to plot
-    Plot <- Plot + annotate(
-      "text",
-      x = groupLabels$x,
-      y = groupLabels$y,
-      label = groupLabels$group,
-      size = groupLabels$size,
-      colour = group.label.colour,
-      alpha = groupLabels$alpha,
-      fontface = "bold",
-      hjust = 0.5,
-      vjust = 0
+    Plot <- Plot + geom_shrink_text(
+      data = groupLabels,
+      aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+      place = "bottom",
+      padding.y = unit(2, "mm"),
+      size = group.label.size,
+      colour = group.label.colour
     )
+
   }
 
   # Add labels for individual rects, if they are present
   if ("label" %in% colnames(treeMap)) {
 
-    # Determine label size and placement
-    treeMap <- ddply(
-      treeMap,
-      "label",
-      mutate,
-      # Place in top left
-      labelx = xmin + 1,
-      labely = ymax - 1,
-      # Rough scaling of label size
-      labelsize = (xmax - xmin) / (nchar(as.character(label)))
-    )
-
-    # Override size with fixed size, if specified
-    if (! missing(label.size.fixed)) {
-      treeMap$labelsize <- rep(label.size.fixed, nrow(treeMap))
-    }
-
-    # If a minimum label size has been specified, hide labels smaller than
-    # the threshold size
-    if (! missing(label.size.threshold)) {
-      treeMap$labelcolour <- ifelse(
-        treeMap$labelsize * label.size.factor < label.size.threshold,
-        TRUE,
-        FALSE
+    if (label.type == "shrink") {
+    
+      Plot <- Plot + geom_shrink_text(
+        data = treeMap,
+        aes(
+          label = label,
+          xmin = xmin,
+          xmax = xmax,
+          ymin = ymin,
+          ymax = ymax,
+        ),
+        size = label.size,
+        colour = label.colour,
+        min.size = label.min.size,
+        place = label.place,
+        padding.y = unit(1, "mm")
       )
 
-    } else {
-      treeMap$labelcolour <- rep(TRUE, nrow(treeMap))
-    }
-
-    # Add labels
-    Plot <- Plot + geom_text(data = treeMap, aes(
-      label = label,
-      x = labelx,
-      y = labely,
-      size = labelsize,
-      colour = labelcolour
-    ), hjust = 0, vjust = 1, show.legend = FALSE) +
-      scale_colour_manual(values = c(label.colour, NA))
-
-    # Scale labels, unless label.size.fixed was specified
-    if (missing(label.size.fixed)) {
-      Plot <- Plot + scale_size(
-        range = c(1,8) * label.size.factor,
-        guide = FALSE
-      )
-    } else {
-      Plot <- Plot + scale_size(
-        range = c(1, label.size.fixed),
-        guide = FALSE
+    } else if (label.type == "fill") {
+    
+      Plot <- Plot + geom_fill_text(
+        data = treeMap,
+        aes(
+          label = label,
+          xmin = xmin,
+          xmax = xmax,
+          ymin = ymin,
+          ymax = ymax,
+        ),
+        size = label.size,
+        colour = label.colour,
+        min.size = label.min.size,
+        place = label.place
       )
     }
   }

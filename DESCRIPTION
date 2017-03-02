@@ -5,12 +5,15 @@ Author: David Wilkins <contact@wilkox.org>
 Maintainer: David Wilkins <contact@wilkox.org>
 URL: https://github.com/wilkox/treemapify
 BugReports: https://github.com/wilkox/treemapify/issues
-Description: Functions to create treemaps with maximum automation and minimum effort.
-Depends: 
+Description: Functions to create treemaps with maximum automation and minimum
+    effort.
+Depends:
     plyr (>= 1.3),
     ggplot2,
     reshape2,
     ggfittext (>= 0.1)
 License: GPL (>=3)
 LazyData: true
-Suggests: testthat
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
