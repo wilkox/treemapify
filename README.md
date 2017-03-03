@@ -3,7 +3,8 @@
 **2017-03-02 v1.0 released**
 - Fixed `ggplotify` bug which caused labels to be drawn with strange alpha
   values.
-- `ggplotify` labels are now drawn with geoms provided by `ggfittext`, allowing
+- `ggplotify` labels are now drawn with geoms provided by
+  [`ggfittext`](github.com/wilkox/ggfittext), allowing
   for true fitting of text to rects/groups.
 - Several new graphical options for `ggplotify`.
 - Fixed bad whitespace in G20 dataset.
