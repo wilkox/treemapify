@@ -4,7 +4,7 @@
 - Fixed `ggplotify` bug which caused labels to be drawn with strange alpha
   values.
 - `ggplotify` labels are now drawn with geoms provided by
-  [`ggfittext`](github.com/wilkox/ggfittext), allowing
+  [`ggfittext`](https://github.com/wilkox/ggfittext), allowing
   for true fitting of text to rects/groups.
 - Several new graphical options for `ggplotify`.
 - Fixed bad whitespace in G20 dataset.
