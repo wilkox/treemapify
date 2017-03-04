@@ -1,3 +1,8 @@
+# v1.1.1
+
+## Bug fixes
+- Fix integer overflow error
+
 # v1.1
 
 ## Bug fixes
