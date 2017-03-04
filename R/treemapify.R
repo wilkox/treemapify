@@ -102,13 +102,13 @@ treemapify <- function(data,
 
     # Scale areas to sum to total plot area
     plotArea <- prod(diff(xlim), diff(ylim))
-    scaleFactor <- plotArea / sum(treeMapData$area)
+    scaleFactor <- plotArea / sum(as.numeric(treeMapData$area))
     treeMapData$area <- scaleFactor * treeMapData$area
 
     # To get the placement for each group, sum the area and generate a treemap
     # that places each group
     groupData <- ddply(treeMapData, "group", summarise,
-                       area = sum(area),
+                       area = sum(as.numeric(area)),
                        fill = group[1])
     groupTreeMap <- treemapify(groupData, area = "area",
                                fill = "fill",
@@ -186,7 +186,7 @@ treemapify <- function(data,
 
   # Scale areas to sum to total plot area
   plotArea <- prod(diff(xlim), diff(ylim))
-  scaleFactor <- plotArea / sum(treeMapData$area)
+  scaleFactor <- plotArea / sum(as.numeric(treeMapData$area))
   treeMapData$area <- scaleFactor * treeMapData$area
 
   # This is the "master" output data frame, holding the locations of all the
@@ -277,7 +277,7 @@ treemapify <- function(data,
       stackPointer <- stackPointerRow
 
       # Get the total area that will be filled by this row
-      totalRowArea <- sum(treeMapData$area[stackPointer:(stackPointer + nInRow - 1)])
+      totalRowArea <- sum(as.numeric(treeMapData$area[stackPointer:(stackPointer + nInRow - 1)]))
 
       # Get the short dimension for the row
       rowShortDimension <- totalRowArea / rowLongDimension
