@@ -65,14 +65,14 @@ GeomTreemap <- ggproto(
     data <- merge(data, layout, by = "id")
 
     # Draw rects
-    grob <- rectGrob(
+    grob <- grid::rectGrob(
       x = data$xmin,
       width = data$xmax - data$xmin,
       y = data$ymax,
       height = data$ymax - data$ymin,
       default.units = "native",
       just = c("left", "top"),
-      gp = gpar(
+      gp = grid::gpar(
         col = data$colour,
         fill = alpha(data$fill, data$alpha),
         lwd = data$size,

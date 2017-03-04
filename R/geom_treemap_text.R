@@ -6,6 +6,11 @@ geom_treemap_text <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
+  padding.x = unit(1, "mm"),
+  padding.y = unit(1, "mm"),
+  place = "topleft",
+  min.size = 4,
+  fill.text = F,
   ...
 ) {
   layer(
@@ -18,6 +23,11 @@ geom_treemap_text <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      padding.x = padding.x,
+      padding.y = padding.y,
+      place = place,
+      min.size = min.size,
+      fill.text = fill.text,
       ...
     )
   )
@@ -38,9 +48,18 @@ GeomTreemapText <- ggproto(
     family = "",
     angle = 0
   ),
-  draw_key = draw_key_polygon,
+  draw_key = draw_key_rect,
 
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(
+    data,
+    panel_scales,
+    coord,
+    padding.x = unit(1, "mm"),
+    padding.y = unit(1, "mm"),
+    min.size = 4,
+    fill.text = F,
+    place = "centre"
+  ) {
 
     data <- coord$transform(data, panel_scales)
     data$id <- 1:nrow(data)
@@ -64,25 +83,19 @@ GeomTreemapText <- ggproto(
     layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
     data <- merge(data, layout, by = "id")
 
-    print(data)
-
-    # # Draw rects
-    # grob <- rectGrob(
-    #   x = data$xmin,
-    #   width = data$xmax - data$xmin,
-    #   y = data$ymax,
-    #   height = data$ymax - data$ymin,
-    #   default.units = "native",
-    #   just = c("left", "top"),
-    #   gp = gpar(
-    #     col = data$colour,
-    #     fill = alpha(data$fill, data$alpha),
-    #     lwd = data$size,
-    #     lty = data$linetype,
-    #     lineend = "butt"
-    #   )
-    # )
-    # grob$name <- grid::grobName(grob, "geom_treemap_text")
-    # grob
+    # Use treemapify's fittexttree to draw text
+    gt <- grid::gTree(
+      data = data,
+      padding.x = padding.x,
+      padding.y = padding.y,
+      place = place,
+      min.size = min.size,
+      fill.text = fill.text,
+      cl = "fittexttree"
+    )
+    gt$name <- grid::grobName(gt, "geom_treemap_text")
+    gt
   }
 )
+
+makeContent.fittexttree <- function(x) { ggfittext::makeContent.fittexttree(x) }
