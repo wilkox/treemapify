@@ -16,9 +16,10 @@
 #' would make them too big for the rects, in which case they are shrunk to fit
 #' the rects. ‘fill’ draws the labels at the largest possible size for their
 #' rects. See documentation for the \code{ggfittext} package for more details.
-#' @param label.size Size for individual rect labels. Defaults to 8 pt.
-#' @param label.min.size Any label shrunk below this size will not be drawn.
-#' Defaults to 4 pt.
+#' @param label.size Size for individual rect labels, in points. Defaults to 24
+#' pt.
+#' @param label.min.size Any label shrunk below this size (in points) will not
+#' be drawn. Defaults to 4 pt.
 #' @param label.place Where in the rect should the label be drawn? Defaults to
 #' ‘topleft’, unless label.type is ‘fill’ in which case defaults to ‘middle’.
 #' See \code{ggfittext} documentation for more details.
@@ -35,9 +36,9 @@
 #' shrunk to fit the rects. ‘fill’ draws the labels at the largest possible size
 #' for their rects. See documentation for the \code{ggfittext} package for more
 #' details.
-#' @param group.label.size Size for group labels. Defaults to 10.
-#' @param group.label.min.size Any group label shrunk below this size will not
-#' be drawn. Defaults to 4 pt.
+#' @param group.label.size Size for group labels, in points. Defaults to 36 pt.
+#' @param group.label.min.size Any group label shrunk below this size (in
+#' points) will not be drawn. Defaults to 4 pt.
 #' @param group.label.place Where in the group should the group label be drawn?
 #' Defaults to ‘bottom’, unless group.label.type is ‘fill’ in which case
 #' defaults to ‘middle’. See \code{ggfittext} documentation for more details.
@@ -49,7 +50,7 @@ ggplotify <- function(
   treeMap,
   label.colour = "white",
   label.type = "shrink",
-  label.size = 8,
+  label.size = 24,
   label.min.size = 4,
   label.place = NULL,
   rect.border.colour = "grey",
@@ -57,7 +58,7 @@ ggplotify <- function(
   group.labels = TRUE,
   group.label.colour = "grey20",
   group.label.type = "shrink",
-  group.label.size = 10,
+  group.label.size = 36,
   group.label.min.size = 4,
   group.label.place = NULL,
   group.border.colour = "grey50",
@@ -162,68 +163,37 @@ ggplotify <- function(
     )
 
     # Add group labels to plot
-    if (group.label.type == "shrink") {
-      Plot <- Plot + geom_shrink_text(
-        data = groupLabels,
-        aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-        place = group.label.place,
-        padding.y = unit(2, "mm"),
-        size = group.label.size,
-        min.size = group.label.min.size,
-        colour = group.label.colour
-      )
-
-    } else if (group.label.type == "fill") {
-      Plot <- Plot + geom_fill_text(
-        data = groupLabels,
-        aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-        place = group.label.place,
-        padding.y = unit(2, "mm"),
-        size = group.label.size,
-        min.size = group.label.min.size,
-        colour = group.label.colour
-      )
-    }
+    Plot <- Plot + geom_fit_text(
+      data = groupLabels,
+      aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+      place = group.label.place,
+      padding.y = unit(2, "mm"),
+      size = group.label.size,
+      min.size = group.label.min.size,
+      colour = group.label.colour,
+      fill.text = group.label.type == "fill"
+    )
   }
 
   # Add labels for individual rects, if they are present
   if ("label" %in% colnames(treeMap)) {
 
-    if (label.type == "shrink") {
-    
-      Plot <- Plot + geom_shrink_text(
-        data = treeMap,
-        aes(
-          label = label,
-          xmin = xmin,
-          xmax = xmax,
-          ymin = ymin,
-          ymax = ymax,
-        ),
-        size = label.size,
-        colour = label.colour,
-        min.size = label.min.size,
-        place = label.place,
-        padding.y = unit(1, "mm")
-      )
-
-    } else if (label.type == "fill") {
-
-      Plot <- Plot + geom_fill_text(
-        data = treeMap,
-        aes(
-          label = label,
-          xmin = xmin,
-          xmax = xmax,
-          ymin = ymin,
-          ymax = ymax,
-        ),
-        size = label.size,
-        colour = label.colour,
-        min.size = label.min.size,
-        place = label.place
-      )
-    }
+    Plot <- Plot + geom_fit_text(
+      data = treeMap,
+      aes(
+        label = label,
+        xmin = xmin,
+        xmax = xmax,
+        ymin = ymin,
+        ymax = ymax,
+      ),
+      size = label.size,
+      colour = label.colour,
+      min.size = label.min.size,
+      place = label.place,
+      padding.y = unit(1, "mm"),
+      fill.text = label.type == "fill"
+    )
   }
 
   return(Plot)

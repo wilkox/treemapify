@@ -5,10 +5,10 @@
 \title{Draw an exploratory treemap}
 \usage{
 ggplotify(treeMap, label.colour = "white", label.type = "shrink",
-  label.size = 8, label.min.size = 4, label.place = NULL,
+  label.size = 24, label.min.size = 4, label.place = NULL,
   rect.border.colour = "grey", rect.border.size = 0.2,
   group.labels = TRUE, group.label.colour = "grey20",
-  group.label.type = "shrink", group.label.size = 10,
+  group.label.type = "shrink", group.label.size = 36,
   group.label.min.size = 4, group.label.place = NULL,
   group.border.colour = "grey50", group.border.size = 1.2)
 }
@@ -24,10 +24,11 @@ would make them too big for the rects, in which case they are shrunk to fit
 the rects. ‘fill’ draws the labels at the largest possible size for their
 rects. See documentation for the \code{ggfittext} package for more details.}
 
-\item{label.size}{Size for individual rect labels. Defaults to 8 pt.}
+\item{label.size}{Size for individual rect labels, in points. Defaults to 24
+pt.}
 
-\item{label.min.size}{Any label shrunk below this size will not be drawn.
-Defaults to 4 pt.}
+\item{label.min.size}{Any label shrunk below this size (in points) will not
+be drawn. Defaults to 4 pt.}
 
 \item{label.place}{Where in the rect should the label be drawn? Defaults to
 ‘topleft’, unless label.type is ‘fill’ in which case defaults to ‘middle’.
@@ -51,10 +52,10 @@ shrunk to fit the rects. ‘fill’ draws the labels at the largest possible siz
 for their rects. See documentation for the \code{ggfittext} package for more
 details.}
 
-\item{group.label.size}{Size for group labels. Defaults to 10.}
+\item{group.label.size}{Size for group labels, in points. Defaults to 36 pt.}
 
-\item{group.label.min.size}{Any group label shrunk below this size will not
-be drawn. Defaults to 4 pt.}
+\item{group.label.min.size}{Any group label shrunk below this size (in
+points) will not be drawn. Defaults to 4 pt.}
 
 \item{group.label.place}{Where in the group should the group label be drawn?
 Defaults to ‘bottom’, unless group.label.type is ‘fill’ in which case
