@@ -45,42 +45,47 @@
 #' "Tidy Data" is described by Hadley Wickham in an unpublished manuscript:
 #' \url{http://vita.had.co.nz/papers/tidy-data.pdf}
 
-treemapify <- function(data,
-                       area,
-                       fill,
-                       group = FALSE,
-                       label = FALSE,
-                       xlim = c(0,100),
-                       ylim = c(0,100)
-                       ) {
+treemapify <- function(
+  data,
+  area,
+  fill,
+  group,
+  label,
+  xlim = c(0,100),
+  ylim = c(0,100)
+) {
 
   # Check arguments
-  if (missing(data) || is.data.frame(data) == FALSE) {
-    stop("Must provide data")
+  if (missing(data)) {
+    stop("data is a required argument", call. = F)
   }
-  if (missing(area) || area %in% colnames(data) == FALSE) {
-    stop("Must specify an area aesthetic with area=\"colname\" (and it must exist in the data frame)")
+  if (missing(area)) {
+    stop("area is a required argument", call. = F)
   }
-  if (missing(fill) || fill %in% colnames(data) == FALSE) {
-    stop("Must specify a fill aesthetic with fill=\"colname\" (and it must exist in the data frame)")
+  if (!area %in% names(data)) {
+    stop("Area aesthetic ", area, " not found in data", call. = F)
   }
-  if (missing(group) == FALSE && group %in% colnames(data) == FALSE) {
-    stop("If you want a group aesthetic (optional), it must be specified with group=\"colname\" (and it must exist in the data frame)")
+  if (missing(fill)) {
+    stop("fill is a required argument", call. = F)
   }
-  if (missing(group) == FALSE && is.factor(data[[group]]) == FALSE) {
-    stop("Group aesthetic must be a factor")
+  if (!fill %in% names(data)) {
+    stop("Fill aesthetic ", fill, " not found in data", call. = F)
   }
-  if (missing(label) == FALSE && label %in% colnames(data) == FALSE) {
-    stop("If you want labels (optional), they must be specified with label=\"colname\" (and the column must exist in the data frame)")
+  if (!missing(group)) {
+    if (!group %in% names(data)) {
+      stop("Group aesthetic ", group, " not found in data", call. = F)
+    }
+    if (!is.factor(data[[group]])) {
+      data[[group]] <- factor(data[[group]])
+    }
   }
-  if (missing(label) == FALSE && is.factor(data[[label]]) == FALSE) {
-    stop("Label column must be a factor")
-  }
-  if (is.numeric(xlim) == FALSE || length(xlim) != 2) {
-    stop("Invalid xlim (try something like \"xlim=c(0,100)\")")
-  }
-  if (is.numeric(ylim) == FALSE || length(ylim) != 2) {
-    stop("Invalid ylim (try something like \"ylim=c(0,100)\")")
+  if (!missing(label)) {
+    if (!label %in% names(data)) {
+      stop("Label aesthetic ", label, " not found in data", call. = F)
+    }
+    if (!is.factor(data[[label]])) {
+      data[[label]] <- factor(data[[label]])
+    }
   }
 
   # Handle groups, if so requested

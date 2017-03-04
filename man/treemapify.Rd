@@ -4,8 +4,8 @@
 \alias{treemapify}
 \title{Generate coordinates for a treemap}
 \usage{
-treemapify(data, area, fill, group = FALSE, label = FALSE, xlim = c(0,
-  100), ylim = c(0, 100))
+treemapify(data, area, fill, group, label, xlim = c(0, 100), ylim = c(0,
+  100))
 }
 \arguments{
 \item{data}{a tidy data frame, containing at least variables to be mapped to
