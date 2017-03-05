@@ -63,7 +63,7 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = HDI)) +
 
 This plot isn't very useful without the knowing what country is represented by
 each tile. We can add text labels to the tiles with `geom_treemap_text`. This
-uses the (ggfittext)[https://github/wilkox/ggfittext] package to resize the text
+uses the [ggfittext](https://github/wilkox/ggfittext) package to resize the text
 to fit each tile. In addition to standard text formatting parameters as you
 would use in `geom_text`, we can pass parameters for `ggfittext`; for example,
 we can place the text in the centre of the tile, and expand it to fill as much
@@ -82,9 +82,9 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = HDI, label = Country)) +
 
 ![](examples/geom_treemap_text.png)
 
-Note that some countries have been hidden. `geom_treemap_text` will hide text
-labels that cannot fit a tile without being shrunk below a minimum size, by
-default 4 points. This can be adjusted with the ‘min.size’ option.
+Note that the names of some countries have been hidden. `geom_treemap_text` will
+hide text labels that cannot fit a tile without being shrunk below a minimum
+size, by default 4 points. This can be adjusted with the ‘min.size’ option.
 
 `geom_treemap` supports subgrouping of tiles within a treemap by passing a
 ‘subgroup’ aesthetic. Let's subgroup the countries by region, draw a border
@@ -115,7 +115,7 @@ ggplot(G20, aes(
 
 ![](examples/grouped.png)
 
-Like all ggplot2 geoms, treemaps can be faceted, scaled themed, etc.
+Like all ggplot2 geoms, treemaps can be faceted, scaled, themed, etc.
 
 ``` r
 ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
