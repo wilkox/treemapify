@@ -4,10 +4,10 @@ test_that("geoms don't throw an error", {
   expect_error( {
     ggplot(G20, aes(
       fill = HDI,
-      colour = Nom.GDP.mil.USD,
-      area = Population,
-      group = Economic.classification,
-      group.label = Economic.classification,
+      area = GDP.mil.USD,
+      colour = Population,
+      group = Econ.classification,
+      group.label = Econ.classification,
       label = Country
     )) +
       geom_treemap() +
@@ -18,7 +18,7 @@ test_that("geoms don't throw an error", {
       ) +
       geom_treemap_group_border(linetype = "dashed") +
       geom_treemap_group_text(fill.text = F, place = "bottomleft", size = 10) +
-      facet_grid(Economic.classification ~ Region) +
+      facet_grid(Econ.classification ~ Region) +
       scale_colour_gradient(low = "red", high = "green")
   } , NA)
 
