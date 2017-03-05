@@ -1,4 +1,4 @@
-geom_treemap <- function(
+geom_treemap_group <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -12,7 +12,7 @@ geom_treemap <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemap,
+    geom = GeomTreemapGroup,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -27,22 +27,33 @@ geom_treemap <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemap <- ggproto(
-  "GeomTreemap",
+GeomTreemapGroup <- ggproto(
+  "GeomTreemapGroup",
   Geom,
-  required_aes = c("area"),
+  required_aes = c("area", "group"),
   default_aes = aes(
-    colour = "grey",
-    fill = "grey35",
-    size = 0.5,
+    colour = "grey50",
+    fill = "",
+    size = 4,
     linetype = 1,
     alpha = 1
   ),
-  draw_key = draw_key_rect,
+  draw_key = draw_key_blank,
 
   draw_panel = function(data, panel_scales, coord) {
 
     data <- coord$transform(data, panel_scales)
+    data$id <- 1:nrow(data)
+
+    # Sum areas by group
+    data <- ddply(data, .(
+      group,
+      PANEL,
+      colour,
+      size,
+      linetype,
+      alpha
+    ), summarise, area = sum(as.numeric(area)), fill = head(fill, 1))
     data$id <- 1:nrow(data)
 
     # Generate treemap layout for data
@@ -74,13 +85,12 @@ GeomTreemap <- ggproto(
       just = c("left", "top"),
       gp = grid::gpar(
         col = data$colour,
-        fill = alpha(data$fill, data$alpha),
         lwd = data$size,
         lty = data$linetype,
         lineend = "butt"
       )
     )
-    grob$name <- grid::grobName(grob, "geom_treemap")
+    grob$name <- grid::grobName(grob, "geom_treemap_group")
     grob
   }
 )

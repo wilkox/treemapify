@@ -1,4 +1,4 @@
-geom_treemap_text <- function(
+geom_treemap_group_text <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -6,28 +6,18 @@ geom_treemap_text <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  padding.x = unit(1, "mm"),
-  padding.y = unit(1, "mm"),
-  place = "topleft",
-  min.size = 4,
-  fill.text = F,
   ...
 ) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemapText,
+    geom = GeomTreemapGroupText,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
-      padding.x = padding.x,
-      padding.y = padding.y,
-      place = place,
-      min.size = min.size,
-      fill.text = fill.text,
       ...
     )
   )
@@ -37,20 +27,20 @@ geom_treemap_text <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapText <- ggproto(
-  "GeomTreemapText",
+GeomTreemapGroupText <- ggproto(
+  "GeomTreemapGroupText",
   Geom,
-  required_aes = c("area", "label"),
+  required_aes = c("area", "group", "group.label"),
   default_aes = aes(
-    colour = "black",
-    size = 18,
+    colour = "grey20",
+    fill = "white",
+    size = 36,
     alpha = 1,
     family = "",
     fontface = 1,
-    angle = 0,
-    fill = "white"
+    angle = 0
   ),
-  draw_key = draw_key_rect,
+  draw_key = draw_key_blank,
 
   draw_panel = function(
     data,
@@ -60,10 +50,24 @@ GeomTreemapText <- ggproto(
     padding.y = unit(1, "mm"),
     min.size = 4,
     fill.text = F,
-    place = "centre"
+    place = "bottom"
   ) {
 
     data <- coord$transform(data, panel_scales)
+    data$id <- 1:nrow(data)
+
+    # Sum areas by group
+    data <- ddply(data, .(
+      group,
+      group.label,
+      PANEL,
+      colour,
+      size,
+      alpha,
+      family,
+      fontface,
+      angle
+    ), summarise, area = sum(as.numeric(area)), fill = head(fill, 1))
     data$id <- 1:nrow(data)
 
     # Generate treemap layout for data
@@ -84,9 +88,10 @@ GeomTreemapText <- ggproto(
     names(layout)[names(layout) == "label"] <- "id"
     layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
     data <- merge(data, layout, by = "id")
+    names(data)[names(data) == "group.label"] <- "label"
 
     # Use treemapify's fittexttree to draw text
-    gt <- grid::gTree(
+    grob <- grid::gTree(
       data = data,
       padding.x = padding.x,
       padding.y = padding.y,
@@ -95,9 +100,8 @@ GeomTreemapText <- ggproto(
       fill.text = fill.text,
       cl = "fittexttree"
     )
-    gt$name <- grid::grobName(gt, "geom_treemap_text")
-    gt
+
+    grob$name <- grid::grobName(grob, "geom_treemap_group_text")
+    grob
   }
 )
-
-makeContent.fittexttree <- function(x) { ggfittext::makeContent.fittexttree(x) }
