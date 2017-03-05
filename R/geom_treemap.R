@@ -9,10 +9,10 @@
 #' ‘area’ is the only required aesthetic. Other aesthetics are accepted as for
 #' \code{geom_rect}. See \code{geom_treemap_text} to label tiles.
 #'
-#' An optional ‘group’ aesthetic will cause the tiles to be grouped together
-#' within the treemap. See \code{geom_treemap_group_border} and
-#' \code{geom_treemap_group_text} to draw a border around groups and label them
-#' respectively.
+#' An optional ‘subgroup’ aesthetic will cause the tiles to be clustered in
+#' subgroups within the treemap. See \code{geom_treemap_subgroup_border} and
+#' \code{geom_treemap_subgroup_text} to draw a border around subgroups and label
+#' them respectively.
 #'
 #' Tile placement proceeds from the bottom left corner, moving alternately
 #' rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
@@ -26,14 +26,14 @@
 #'   \item colour
 #'   \item fill
 #'   \item linetype
-#'   \item group
+#'   \item subgroup
 #' }
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
 #'
-#' @seealso geom_treemap_text, geom_treemap_group_border,
-#' geom_treemap_group_text
+#' @seealso geom_treemap_text, geom_treemap_subgroup_border,
+#' geom_treemap_subgroup_text
 #'
 #' @references
 #' treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing
@@ -100,8 +100,8 @@ GeomTreemap <- ggproto(
       ylim = c(0, 1),
       label = "id"
     )
-    if (!all(data$group == -1)) {
-      params$group <- "group"
+    if ("subgroup" %in% names(data)) {
+      params$group <- "subgroup"
     }
     layout <- do.call(treemapify, params)
 

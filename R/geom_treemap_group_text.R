@@ -1,30 +1,29 @@
-#' @title Text labels for treemap groups.
+#' @title Text labels for treemap subgroups.
 #' @export
 #'
 #' @description
 #'
-#' Requires ‘area’ and ‘group’ ‘group.label’ aesthetics. Strange things will
-#' happen if ‘group’ and ‘group.label’ don't carve the data into the same
-#' groups, or if \code{geom_treemap_group_text} is given a different dataset or
-#' area aesthetic than the \code{geom_treemap} it is drawn over.
+#' Requires ‘area’ and ‘subgroup’ aesthetics. Strange things will happen if
+#' \code{geom_treemap_subgroup_text} is given a different dataset or area
+#' aesthetic than the \code{geom_treemap} it is drawn over.
 #'
-#' \code{geom_treemap_group_text} uses \code{geom_fit_text} from the
-#' \code{ggfittext} package to fit text to the group All text drawing options
-#' available in \code{ggfittext} (e.g. expanding text to fill a group) are also
-#' available here.
+#' \code{geom_treemap_subgroup_text} uses \code{geom_fit_text} from the
+#' \code{ggfittext} package to fit text to the subgroup. All text drawing
+#' options available in \code{ggfittext} (e.g. expanding text to fill a
+#' subgroup) are also available here.
 #'
 #' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
 #' between text and edge of tile. Defaults to 1 mm.
-#' @param place Where should the text be drawn within the group? One of
+#' @param place Where should the text be drawn within the subgroup? One of
 #' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘bottom’.
 #' @param min.size Number, in points. Text that would need to be drawn smaller
-#' than this size to fit in the group will be hidden. Defaults to 4 pt.
-#' @param fill.text Logical; should text be expanded to fill the entire group?
+#' than this size to fit in the subgroup will be hidden. Defaults to 4 pt.
+#' @param fill.text Logical; should text be expanded to fill the entire subgroup?
 #' Defaults to false.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
 #'
-#' @seealso geom_treemap, geom_treemap_group_border
+#' @seealso geom_treemap, geom_treemap_subgroup_border
 #'
 #' @section Aesthetics:
 #'
@@ -38,7 +37,7 @@
 #'   \item fontface
 #'   \item angle
 #' }
-geom_treemap_group_text <- function(
+geom_treemap_subgroup_text <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -52,7 +51,7 @@ geom_treemap_group_text <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemapGroupText,
+    geom = GeomTreemapSubgroupText,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -67,10 +66,10 @@ geom_treemap_group_text <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapGroupText <- ggproto(
-  "GeomTreemapGroupText",
+GeomTreemapSubgroupText <- ggproto(
+  "GeomTreemapSubgroupText",
   Geom,
-  required_aes = c("area", "group", "group.label"),
+  required_aes = c("area", "subgroup"),
   default_aes = aes(
     colour = "grey20",
     fill = "white",
@@ -96,10 +95,9 @@ GeomTreemapGroupText <- ggproto(
     data <- coord$transform(data, panel_scales)
     data$id <- 1:nrow(data)
 
-    # Sum areas by group
+    # Sum areas by subgroup
     data <- ddply(data, .(
-      group,
-      group.label,
+      subgroup,
       PANEL,
       colour,
       size,
@@ -117,18 +115,16 @@ GeomTreemapGroupText <- ggproto(
       fill = "fill",
       xlim = c(0, 1),
       ylim = c(0, 1),
-      label = "id"
+      label = "id",
+      group = "subgroup"
     )
-    if (!all(data$group == -1)) {
-      params$group <- "group"
-    }
     layout <- do.call(treemapify, params)
 
     # Merge layout back into main data
     names(layout)[names(layout) == "label"] <- "id"
     layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
     data <- merge(data, layout, by = "id")
-    names(data)[names(data) == "group.label"] <- "label"
+    names(data)[names(data) == "subgroup"] <- "label"
 
     # Use treemapify's fittexttree to draw text
     grob <- grid::gTree(
@@ -141,7 +137,7 @@ GeomTreemapGroupText <- ggproto(
       cl = "fittexttree"
     )
 
-    grob$name <- grid::grobName(grob, "geom_treemap_group_text")
+    grob$name <- grid::grobName(grob, "geom_treemap_subgroup_text")
     grob
   }
 )

@@ -5,7 +5,7 @@
 \title{Add text labels to treemap tiles.}
 \usage{
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
+  position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = unit(1, "mm"), padding.y = unit(1,
   "mm"), place = "topleft", min.size = 4, fill.text = F, ...)
 }

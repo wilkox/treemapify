@@ -3,8 +3,8 @@
 \docType{data}
 \name{GeomTreemap}
 \alias{GeomTreemap}
-\alias{GeomTreemapGroupBorder}
-\alias{GeomTreemapGroupText}
+\alias{GeomTreemapSubgroupBorder}
+\alias{GeomTreemapSubgroupText}
 \alias{GeomTreemapText}
 \title{GeomTreemap}
 \description{

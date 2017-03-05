@@ -103,7 +103,8 @@ GeomTreemapText <- ggproto(
     padding.y = unit(1, "mm"),
     min.size = 4,
     fill.text = F,
-    place = "centre"
+    place = "centre",
+    subgroup = NA
   ) {
 
     data <- coord$transform(data, panel_scales)
@@ -118,8 +119,8 @@ GeomTreemapText <- ggproto(
       ylim = c(0, 1),
       label = "id"
     )
-    if (!all(data$group == -1)) {
-      params$group <- "group"
+    if (!(all(is.na(data$subgroup)))) {
+      params$group <- "subgroup"
     }
     layout <- do.call(treemapify, params)
 

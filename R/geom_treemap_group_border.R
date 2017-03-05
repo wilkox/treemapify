@@ -1,13 +1,13 @@
-#' @title Draw a border around a group of treemap tiles.
+#' @title Draw a border around a subgroup of treemap tiles.
 #' @export
 #'
 #' @description
 #'
-#' Requires ‘area’ and ‘group’. Strange things will happen if
-#' \code{geom_treemap_group_border} is given a different dataset or area
+#' Requires ‘area’ and ‘subgroup’. Strange things will happen if
+#' \code{geom_treemap_subgroup_border} is given a different dataset or area
 #' aesthetic than the \code{geom_treemap} it is drawn over.
 #'
-#' @seealso geom_treemap, geom_treemap_group_text
+#' @seealso geom_treemap, geom_treemap_subgroup_text
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
@@ -16,13 +16,13 @@
 #'
 #' \itemize{
 #'   \item area (required)
-#'   \item group (required)
+#'   \item subgroup (required)
 #'   \item colour
 #'   \item size
 #'   \item linetype
 #'   \item alpha
 #' }
-geom_treemap_group_border <- function(
+geom_treemap_subgroup_border <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -36,7 +36,7 @@ geom_treemap_group_border <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemapGroupBorder,
+    geom = GeomTreemapSubgroupBorder,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -51,10 +51,10 @@ geom_treemap_group_border <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapGroupBorder <- ggproto(
-  "GeomTreemapGroupBorder",
+GeomTreemapSubgroupBorder <- ggproto(
+  "GeomTreemapSubgroupBorder",
   Geom,
-  required_aes = c("area", "group"),
+  required_aes = c("area", "subgroup"),
   default_aes = aes(
     colour = "grey50",
     fill = "",
@@ -69,9 +69,9 @@ GeomTreemapGroupBorder <- ggproto(
     data <- coord$transform(data, panel_scales)
     data$id <- 1:nrow(data)
 
-    # Sum areas by group
+    # Sum areas by subgroup
     data <- ddply(data, .(
-      group,
+      subgroup,
       PANEL,
       colour,
       size,
@@ -87,11 +87,9 @@ GeomTreemapGroupBorder <- ggproto(
       fill = "fill",
       xlim = c(0, 1),
       ylim = c(0, 1),
-      label = "id"
+      label = "id",
+      group = "subgroup"
     )
-    if (!all(data$group == -1)) {
-      params$group <- "group"
-    }
     layout <- do.call(treemapify, params)
 
     # Merge layout back into main data
@@ -115,7 +113,7 @@ GeomTreemapGroupBorder <- ggproto(
         lineend = "butt"
       )
     )
-    grob$name <- grid::grobName(grob, "geom_treemap_group_border")
+    grob$name <- grid::grobName(grob, "geom_treemap_subgroup_border")
     grob
   }
 )

@@ -6,8 +6,7 @@ test_that("geoms don't throw an error", {
       fill = HDI,
       area = GDP.mil.USD,
       colour = Population,
-      group = Econ.classification,
-      group.label = Econ.classification,
+      subgroup = Econ.classification,
       label = Country
     )) +
       geom_treemap() +
@@ -16,8 +15,8 @@ test_that("geoms don't throw an error", {
         place = "top",
         fontface = "bold"
       ) +
-      geom_treemap_group_border(linetype = "dashed") +
-      geom_treemap_group_text(fill.text = F, place = "bottomleft", size = 10) +
+      geom_treemap_subgroup_border(linetype = "dashed") +
+      geom_treemap_subgroup_text(fill.text = F, place = "bottomleft", size = 10) +
       facet_grid(Econ.classification ~ Region) +
       scale_colour_gradient(low = "red", high = "green")
   } , NA)

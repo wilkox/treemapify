@@ -19,10 +19,10 @@ area aesthetic.
 ‘area’ is the only required aesthetic. Other aesthetics are accepted as for
 \code{geom_rect}. See \code{geom_treemap_text} to label tiles.
 
-An optional ‘group’ aesthetic will cause the tiles to be grouped together
-within the treemap. See \code{geom_treemap_group_border} and
-\code{geom_treemap_group_text} to draw a border around groups and label them
-respectively.
+An optional ‘subgroup’ aesthetic will cause the tiles to be clustered in
+subgroups within the treemap. See \code{geom_treemap_subgroup_border} and
+\code{geom_treemap_subgroup_text} to draw a border around subgroups and label
+them respectively.
 
 Tile placement proceeds from the bottom left corner, moving alternately
 rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
@@ -37,7 +37,7 @@ for the full algorithm.
   \item colour
   \item fill
   \item linetype
-  \item group
+  \item subgroup
 }
 }
 \references{
@@ -50,7 +50,7 @@ TCVG Symposium on Visualization.
 \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 }
 \seealso{
-geom_treemap_text, geom_treemap_group_border,
-geom_treemap_group_text
+geom_treemap_text, geom_treemap_subgroup_border,
+geom_treemap_subgroup_text
 }
 
