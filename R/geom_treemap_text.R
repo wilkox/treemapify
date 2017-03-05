@@ -119,7 +119,7 @@ GeomTreemapText <- ggproto(
       ylim = c(0, 1),
       label = "id"
     )
-    if (!(all(is.na(data$subgroup)))) {
+    if ("subgroup" %in% names(data)) {
       params$group <- "subgroup"
     }
     layout <- do.call(treemapify, params)

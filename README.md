@@ -86,26 +86,24 @@ Note that some countries have been hidden. `geom_treemap_text` will hide text
 labels that cannot fit a tile without being shrunk below a minimum size, by
 default 4 points. This can be adjusted with the ‘min.size’ option.
 
-`geom_treemap` supports grouping of tiles by passing a ‘group’ aesthetic. Let's
-group the countries by region, draw a border around each group with
-`geom_treemap_group_border`, and label each group with
-`geom_treemap_group_text`. As with `geom_treemap_text`,
-`geom_treemap_group_text` can take `ggfittext` parameters for text placement and
-sizing. Note that in addition to a ‘group’ aesthetic, `geom_treemap_group_text`
-requires a separate ‘group.label’ aesthetic.
+`geom_treemap` supports subgrouping of tiles within a treemap by passing a
+‘subgroup’ aesthetic. Let's subgroup the countries by region, draw a border
+around each subgroup with `geom_treemap_subgroup_border`, and label each
+subgroup with `geom_treemap_subgroup_text`. As with `geom_treemap_text`,
+`geom_treemap_subgroup_text` can take `ggfittext` parameters for text placement
+and sizing.
 
 ``` r
 ggplot(G20, aes(
   area = GDP.mil.USD,
   fill = HDI,
   label = Country,
-  group = Region,
-  group.label = Region
+  subgroup = Region,
   )) +
   geom_treemap() +
   geom_treemap_text(colour = "white", place = "topleft") +
-  geom_treemap_group_border() +
-  geom_treemap_group_text(
+  geom_treemap_subgroup_border() +
+  geom_treemap_subgroup_text(
     place = "centre",
     fill.text = T,
     alpha = 0.5,
@@ -115,7 +113,7 @@ ggplot(G20, aes(
   )
 ```
 
-![](examples/qrouped.png)
+![](examples/grouped.png)
 
 Like all ggplot2 geoms, treemaps can be faceted, scaled themed, etc.
 
