@@ -163,7 +163,7 @@ ggplotify <- function(
     )
 
     # Add group labels to plot
-    Plot <- Plot + geom_fit_text(
+    Plot <- Plot + ggfittext::geom_fit_text(
       data = groupLabels,
       aes(label = group, xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
       place = group.label.place,
@@ -178,7 +178,7 @@ ggplotify <- function(
   # Add labels for individual rects, if they are present
   if ("label" %in% colnames(treeMap)) {
 
-    Plot <- Plot + geom_fit_text(
+    Plot <- Plot + ggfittext::geom_fit_text(
       data = treeMap,
       aes(
         label = label,

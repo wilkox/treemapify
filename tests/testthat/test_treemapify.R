@@ -1,4 +1,3 @@
-library(treemapify)
 context("treemapify")
 
 test_that("treemapify doesn't thrown an error", {
