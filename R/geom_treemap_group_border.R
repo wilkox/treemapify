@@ -109,6 +109,7 @@ GeomTreemapGroupBorder <- ggproto(
       just = c("left", "top"),
       gp = grid::gpar(
         col = data$colour,
+        fill = NA,
         lwd = data$size,
         lty = data$linetype,
         lineend = "butt"

@@ -44,7 +44,7 @@ geom_treemap_group_text <- function(
   stat = "identity",
   position = "identity",
   na.rm = FALSE,
-  show.legend = NA,
+  show.legend = FALSE,
   inherit.aes = TRUE,
   ...
 ) {
@@ -80,7 +80,7 @@ GeomTreemapGroupText <- ggproto(
     fontface = 1,
     angle = 0
   ),
-  draw_key = draw_key_blank,
+  draw_key = draw_key_text,
 
   draw_panel = function(
     data,

@@ -46,7 +46,7 @@ geom_treemap_text <- function(
   stat = "identity",
   position = "identity",
   na.rm = FALSE,
-  show.legend = NA,
+  show.legend = FALSE,
   inherit.aes = TRUE,
   padding.x = unit(1, "mm"),
   padding.y = unit(1, "mm"),
@@ -93,7 +93,7 @@ GeomTreemapText <- ggproto(
     angle = 0,
     fill = "white"
   ),
-  draw_key = draw_key_rect,
+  draw_key = draw_key_text,
 
   draw_panel = function(
     data,
