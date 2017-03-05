@@ -1,3 +1,43 @@
+#' @title Text labels for treemap groups.
+#' @export
+#'
+#' @description
+#'
+#' Requires ‘area’ and ‘group’ ‘group.label’ aesthetics. Strange things will
+#' happen if ‘group’ and ‘group.label’ don't carve the data into the same
+#' groups, or if \code{geom_treemap_group_text} is given a different dataset or
+#' area aesthetic than the \code{geom_treemap} it is drawn over.
+#'
+#' \code{geom_treemap_group_text} uses \code{geom_fit_text} from the
+#' \code{ggfittext} package to fit text to the group All text drawing options
+#' available in \code{ggfittext} (e.g. expanding text to fill a group) are also
+#' available here.
+#'
+#' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
+#' between text and edge of tile. Defaults to 1 mm.
+#' @param place Where should the text be drawn within the group? One of
+#' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘bottom’.
+#' @param min.size Number, in points. Text that would need to be drawn smaller
+#' than this size to fit in the group will be hidden. Defaults to 4 pt.
+#' @param fill.text Logical; should text be expanded to fill the entire group?
+#' Defaults to false.
+#' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
+#' geom arguments as for \code{geom_rect}.
+#'
+#' @seealso geom_treemap, geom_treemap_group_border
+#'
+#' @section Aesthetics:
+#'
+#' \itemize{
+#'   \item area (required)
+#'   \item label (required)
+#'   \item colour
+#'   \item size
+#'   \item alpha
+#'   \item family
+#'   \item fontface
+#'   \item angle
+#' }
 geom_treemap_group_text <- function(
   mapping = NULL,
   data = NULL,

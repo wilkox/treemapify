@@ -1,4 +1,28 @@
-geom_treemap_group <- function(
+#' @title Draw a border around a group of treemap tiles.
+#' @export
+#'
+#' @description
+#'
+#' Requires ‘area’ and ‘group’. Strange things will happen if
+#' \code{geom_treemap_group_border} is given a different dataset or area
+#' aesthetic than the \code{geom_treemap} it is drawn over.
+#'
+#' @seealso geom_treemap, geom_treemap_group_text
+#'
+#' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
+#' geom arguments as for \code{geom_rect}.
+#'
+#' @section Aesthetics:
+#'
+#' \itemize{
+#'   \item area (required)
+#'   \item group (required)
+#'   \item colour
+#'   \item size
+#'   \item linetype
+#'   \item alpha
+#' }
+geom_treemap_group_border <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -12,7 +36,7 @@ geom_treemap_group <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemapGroup,
+    geom = GeomTreemapGroupBorder,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -27,8 +51,8 @@ geom_treemap_group <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapGroup <- ggproto(
-  "GeomTreemapGroup",
+GeomTreemapGroupBorder <- ggproto(
+  "GeomTreemapGroupBorder",
   Geom,
   required_aes = c("area", "group"),
   default_aes = aes(
@@ -90,7 +114,7 @@ GeomTreemapGroup <- ggproto(
         lineend = "butt"
       )
     )
-    grob$name <- grid::grobName(grob, "geom_treemap_group")
+    grob$name <- grid::grobName(grob, "geom_treemap_group_border")
     grob
   }
 )

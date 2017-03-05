@@ -16,7 +16,7 @@ test_that("geoms don't throw an error", {
         place = "top",
         fontface = "bold"
       ) +
-      geom_treemap_group(linetype = "dashed") +
+      geom_treemap_group_border(linetype = "dashed") +
       geom_treemap_group_text(fill.text = F, place = "bottomleft", size = 10) +
       facet_grid(Economic.classification ~ Region) +
       scale_colour_gradient(low = "red", high = "green")

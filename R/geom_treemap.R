@@ -1,3 +1,48 @@
+#' @title A treemap
+#' @export
+#'
+#' @description
+#' 
+#' Draw a treemap, where each observation is represented by a tile scaled by an
+#' area aesthetic.
+#'
+#' ‘area’ is the only required aesthetic. Other aesthetics are accepted as for
+#' \code{geom_rect}. See \code{geom_treemap_text} to label tiles.
+#'
+#' An optional ‘group’ aesthetic will cause the tiles to be grouped together
+#' within the treemap. See \code{geom_treemap_group_border} and
+#' \code{geom_treemap_group_text} to draw a border around groups and label them
+#' respectively.
+#'
+#' Tile placement proceeds from the bottom left corner, moving alternately
+#' rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
+#' for the full algorithm.
+#'
+#' @section Aesthetics:
+#'
+#' \itemize{
+#'   \item area (required)
+#'   \item alpha
+#'   \item colour
+#'   \item fill
+#'   \item linetype
+#'   \item group
+#' }
+#'
+#' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
+#' geom arguments as for \code{geom_rect}.
+#'
+#' @seealso geom_treemap_text, geom_treemap_group_border,
+#' geom_treemap_group_text
+#'
+#' @references
+#' treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing
+#' and Jarke van Wijk:
+#'
+#' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
+#' 33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE
+#' TCVG Symposium on Visualization.
+#' \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 geom_treemap <- function(
   mapping = NULL,
   data = NULL,
@@ -23,6 +68,7 @@ geom_treemap <- function(
   )
 }
 
+#' GeomTreemap
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL

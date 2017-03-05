@@ -1,3 +1,45 @@
+#' @title Add text labels to treemap tiles.
+#' @export
+#'
+#' @description
+#'
+#' This will draw a text label for each tile in a treemap created by
+#' \code{geom_treemap}. In addition to the required ‘label’ aesthetic, it
+#' requires an ‘area’ aesthetic as used in \code{geom_treemap}; if this is
+#' mapped to a different column, or \code{geom_treemap} and
+#' \code{geom_treemap_text} are passed different data, the text labels probably
+#' won't line up with the tiles.
+#'
+#' \code{geom_treemap_text} uses \code{geom_fit_text} from the \code{ggfittext}
+#' package to fit text to the tile. All text drawing options available in
+#' \code{ggfittext} (e.g. expanding text to fill a tile) are also available
+#' here.
+#'
+#' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
+#' between text and edge of tile. Defaults to 1 mm.
+#' @param place Where should the text be drawn within the tile? One of
+#' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘topleft’.
+#' @param min.size Number, in points. Text that would need to be drawn smaller
+#' than this size to fit in the tile will be hidden. Defaults to 4 pt.
+#' @param fill.text Logical; should text be expanded to fill the entire tile?
+#' Defaults to false.
+#' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
+#' geom arguments as for \code{geom_rect}.
+#'
+#' @seealso geom_treemap, geom_fit_text
+#'
+#' @section Aesthetics:
+#'
+#' \itemize{
+#'   \item area (required)
+#'   \item label (required)
+#'   \item colour
+#'   \item size
+#'   \item alpha
+#'   \item family
+#'   \item fontface
+#'   \item angle
+#' }
 geom_treemap_text <- function(
   mapping = NULL,
   data = NULL,
@@ -33,6 +75,7 @@ geom_treemap_text <- function(
   )
 }
 
+#' @title GeomTreemapText
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
