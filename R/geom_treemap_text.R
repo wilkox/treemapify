@@ -12,8 +12,7 @@
 #'
 #' \code{geom_treemap_text} uses \code{geom_fit_text} from the \code{ggfittext}
 #' package to fit text to the tile. All text drawing options available in
-#' \code{ggfittext} (e.g. expanding text to fill a tile) are also available
-#' here.
+#' \code{ggfittext} (e.g. growing text to fill a tile) are also available here.
 #'
 #' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
 #' between text and edge of tile. Defaults to 1 mm.
@@ -21,7 +20,7 @@
 #' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘topleft’.
 #' @param min.size Number, in points. Text that would need to be drawn smaller
 #' than this size to fit in the tile will be hidden. Defaults to 4 pt.
-#' @param fill.text Logical; should text be expanded to fill the entire tile?
+#' @param grown Logical; should text grow to fill the entire tile?
 #' Defaults to false.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
@@ -52,7 +51,7 @@ geom_treemap_text <- function(
   padding.y = unit(1, "mm"),
   place = "topleft",
   min.size = 4,
-  fill.text = F,
+  grow = F,
   ...
 ) {
   layer(
@@ -69,7 +68,7 @@ geom_treemap_text <- function(
       padding.y = padding.y,
       place = place,
       min.size = min.size,
-      fill.text = fill.text,
+      grow = grow,
       ...
     )
   )
@@ -102,7 +101,7 @@ GeomTreemapText <- ggproto(
     padding.x = unit(1, "mm"),
     padding.y = unit(1, "mm"),
     min.size = 4,
-    fill.text = F,
+    grow = F,
     place = "centre",
     subgroup = NA
   ) {
@@ -136,7 +135,7 @@ GeomTreemapText <- ggproto(
       padding.y = padding.y,
       place = place,
       min.size = min.size,
-      fill.text = fill.text,
+      grow = grow,
       cl = "fittexttree"
     )
     gt$name <- grid::grobName(gt, "geom_treemap_text")

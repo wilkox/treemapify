@@ -171,7 +171,7 @@ ggplotify <- function(
       size = group.label.size,
       min.size = group.label.min.size,
       colour = group.label.colour,
-      fill.text = group.label.type == "fill"
+      grow = group.label.type == "fill"
     )
   }
 
@@ -192,7 +192,7 @@ ggplotify <- function(
       min.size = label.min.size,
       place = label.place,
       padding.y = unit(1, "mm"),
-      fill.text = label.type == "fill"
+      grow = label.type == "fill"
     )
   }
 

@@ -7,7 +7,7 @@
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = unit(1, "mm"), padding.y = unit(1,
-  "mm"), place = "topleft", min.size = 4, fill.text = F, ...)
+  "mm"), place = "topleft", min.size = 4, grow = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -22,7 +22,7 @@ between text and edge of tile. Defaults to 1 mm.}
 \item{min.size}{Number, in points. Text that would need to be drawn smaller
 than this size to fit in the tile will be hidden. Defaults to 4 pt.}
 
-\item{fill.text}{Logical; should text be expanded to fill the entire tile?
+\item{grown}{Logical; should text grow to fill the entire tile?
 Defaults to false.}
 }
 \description{
@@ -35,8 +35,7 @@ won't line up with the tiles.
 
 \code{geom_treemap_text} uses \code{geom_fit_text} from the \code{ggfittext}
 package to fit text to the tile. All text drawing options available in
-\code{ggfittext} (e.g. expanding text to fill a tile) are also available
-here.
+\code{ggfittext} (e.g. growing text to fill a tile) are also available here.
 }
 \section{Aesthetics}{
 

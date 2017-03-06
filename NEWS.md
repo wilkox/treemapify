@@ -1,3 +1,8 @@
+# v2.1
+
+## Major changes
+- Rename arguments for ggfittext v0.3.
+
 # v2.0
 
 ## Major changes

@@ -21,7 +21,7 @@ between text and edge of tile. Defaults to 1 mm.}
 \item{min.size}{Number, in points. Text that would need to be drawn smaller
 than this size to fit in the subgroup will be hidden. Defaults to 4 pt.}
 
-\item{fill.text}{Logical; should text be expanded to fill the entire subgroup?
+\item{grow}{Logical; should text be grown to fill the entire subgroup?
 Defaults to false.}
 }
 \description{

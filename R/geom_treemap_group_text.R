@@ -18,7 +18,7 @@
 #' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘bottom’.
 #' @param min.size Number, in points. Text that would need to be drawn smaller
 #' than this size to fit in the subgroup will be hidden. Defaults to 4 pt.
-#' @param fill.text Logical; should text be expanded to fill the entire subgroup?
+#' @param grow Logical; should text be grown to fill the entire subgroup?
 #' Defaults to false.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
@@ -88,7 +88,7 @@ GeomTreemapSubgroupText <- ggproto(
     padding.x = unit(1, "mm"),
     padding.y = unit(1, "mm"),
     min.size = 4,
-    fill.text = F,
+    grow = F,
     place = "bottom"
   ) {
 
@@ -133,7 +133,7 @@ GeomTreemapSubgroupText <- ggproto(
       padding.y = padding.y,
       place = place,
       min.size = min.size,
-      fill.text = fill.text,
+      grow = grow,
       cl = "fittexttree"
     )
 

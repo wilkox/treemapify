@@ -1,6 +1,6 @@
 Package: treemapify
 Title: Draw treemaps easily
-Version: 2.0
+Version: 2.1
 Author: David Wilkins <contact@wilkox.org>
 Maintainer: David Wilkins <contact@wilkox.org>
 URL: https://github.com/wilkox/treemapify
@@ -13,7 +13,7 @@ Depends:
     reshape2
 Imports:
     grid,
-    ggfittext (>= 0.2)
+    ggfittext (>= 0.3)
 License: GPL (>=3)
 LazyData: true
 Suggests:

@@ -76,7 +76,7 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = HDI, label = Country)) +
     colour = "white",
     fontface = "italic",
     place = "centre",
-    fill.text = TRUE
+    grow = TRUE
   )
 ```
 
@@ -105,7 +105,7 @@ ggplot(G20, aes(
   geom_treemap_subgroup_border() +
   geom_treemap_subgroup_text(
     place = "centre",
-    fill.text = T,
+    grow = T,
     alpha = 0.5,
     colour = "black",
     fontface = "italic",
@@ -120,7 +120,7 @@ Like all ggplot2 geoms, treemaps can be faceted, scaled, themed, etc.
 ``` r
 ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
   geom_treemap() +
-  geom_treemap_text(fill.text = T, colour = "black") +
+  geom_treemap_text(grow = T, colour = "black") +
   facet_wrap( ~ Econ.classification) +
   scale_fill_brewer(palette = "Set1") +
   theme(legend.position = "bottom", legend.title = element_blank()) +
