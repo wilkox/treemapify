@@ -1,0 +1,123 @@
+---
+output: 
+  rmarkdown::github_document:
+    html_preview: false
+    fig_height: 6
+    fig_width: 6
+---
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+**Treemapify provides ggplot2 geoms for drawing [treemaps](http://en.wikipedia.org/wiki/Treemap)**
+
+# Install
+
+Install `ggplot2`, `reshape2`, `plyr`, `devtools` and `ggfittext` if you don't
+have them already. `ggfittext` and `treemapify` are installed from github.
+
+```{r eval = FALSE}
+install.packages("ggplot2")
+install.packages("reshape2")
+install.packages("plyr")
+install.packages("devtools")
+library(devtools)
+install_github("wilkox/ggfittext")
+install_github("wilkox/treemapify")
+```
+
+# Walkthrough
+
+For this example, we'll plot some data on the G-20 group of major world
+economies. `treemapify` includes this in the `G20` data frame:
+
+```{r}
+library(treemapify)
+kable(G20)
+```
+
+A treemap has a tile for each observation, with the area of the tile
+proportional to a variable. Let's start by drawing a treemap with each tile
+representing a G-20 country. The area of the tile will be mapped to the
+country's GDP, and the tile's fill colour mapped to its HDI (Human Development
+Index). `geom_treemap` is the basic geom for this purpose.
+
+```{r basic_treemap}
+ggplot(G20, aes(area = GDP.mil.USD, fill = HDI)) +
+  geom_treemap()
+```
+
+This plot isn't very useful without the knowing what country is represented by
+each tile. `geom_treemap_text` can be used to add a text label to each tile. It
+uses the [ggfittext](https://github/wilkox/ggfittext) package to resize the text
+so it fits the tile. In addition to standard text formatting aesthetics you
+would use in `geom_text`, like ‘fontface’ or ‘colour’, we can pass additional
+options specific for `ggfittext`. For example, we can place the text in the
+centre of the tile with `place = "centre"`, and expand it to fill as much of the
+tile as possible with `grow = TRUE`.
+
+```{r geom_treemap_text}
+ggplot(G20, aes(area = GDP.mil.USD, fill = HDI, label = Country)) +
+  geom_treemap() +
+  geom_treemap_text(
+    fontface = "italic",
+    colour = "white",
+    place = "centre",
+    grow = TRUE
+  )
+```
+
+`geom_treemap` supports subgrouping of tiles within a treemap by passing a
+‘subgroup’ aesthetic. Let's subgroup the countries by region, draw a border
+around each subgroup with `geom_treemap_subgroup_border`, and label each
+subgroup with `geom_treemap_subgroup_text`. As with `geom_treemap_text`,
+`geom_treemap_subgroup_text` can take `ggfittext` parameters for text placement
+and sizing.
+
+```{r subgrouped treemap}
+ggplot(G20, aes(
+  area = GDP.mil.USD,
+  fill = HDI,
+  label = Country,
+  subgroup = Region,
+  )) +
+  geom_treemap() +
+  geom_treemap_text(colour = "white", place = "topleft") +
+  geom_treemap_subgroup_border() +
+  geom_treemap_subgroup_text(
+    place = "centre",
+    grow = T,
+    alpha = 0.5,
+    colour = "black",
+    fontface = "italic",
+    min.size = 0
+  )
+```
+
+Note that the ‘Argentina’ has been hidden. `geom_treemap_text` will hide text
+labels that cannot fit a tile without being shrunk below a minimum size, by
+default 4 points. This can be adjusted with the ‘min.size’ option.
+
+Like any ggplot2 plot, treemapify plots can be faceted, scaled, themed, etc.
+
+```{r complex treemap}
+ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
+  geom_treemap() +
+  geom_treemap_text(grow = T, colour = "black") +
+  facet_wrap( ~ Econ.classification) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom", legend.title = element_blank()) +
+  ggtitle("The G-20 major economies")
+```
+
+# Credit
+
+`treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk.
+
+The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the Creative Commons Attribution-Share-Alike License 3.0.
