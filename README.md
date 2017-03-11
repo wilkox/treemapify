@@ -83,7 +83,6 @@ ggplot(G20, aes(
   subgroup = Region,
   )) +
   geom_treemap() +
-  geom_treemap_text(colour = "white", place = "topleft") +
   geom_treemap_subgroup_border() +
   geom_treemap_subgroup_text(
     place = "centre",
@@ -92,23 +91,33 @@ ggplot(G20, aes(
     colour = "black",
     fontface = "italic",
     min.size = 0
+  ) +
+  geom_treemap_text(
+    colour = "white",
+    place = "topleft",
+    reflow = T
   )
 ```
 
 ![](README-subgrouped%20treemap-1.png)
 
-Note that the ‘Argentina’ has been hidden. `geom_treemap_text` will hide text labels that cannot fit a tile without being shrunk below a minimum size, by default 4 points. This can be adjusted with the ‘min.size’ option.
+Note that ‘Argentina’ has been hidden. `geom_treemap_text` will hide text labels that cannot fit a tile without being shrunk below a minimum size, by default 4 points. This can be adjusted with the ‘min.size’ option.
 
 Like any ggplot2 plot, treemapify plots can be faceted, scaled, themed, etc.
 
 ``` r
 ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
   geom_treemap() +
-  geom_treemap_text(grow = T, colour = "black") +
+  geom_treemap_text(grow = T, reflow = T, colour = "black") +
   facet_wrap( ~ Econ.classification) +
   scale_fill_brewer(palette = "Set1") +
-  theme(legend.position = "bottom", legend.title = element_blank()) +
-  ggtitle("The G-20 major economies")
+  theme(legend.position = "bottom") +
+  labs(
+    title = "The G-20 major economies",
+    caption = "The area of each country is proportional to its relative GDP
+               within the economic group (advanced or developing)",
+    fill = "Region"
+  )
 ```
 
 ![](README-complex%20treemap-1.png)

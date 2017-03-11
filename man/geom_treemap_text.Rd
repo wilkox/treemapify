@@ -7,7 +7,7 @@
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = unit(1, "mm"), padding.y = unit(1,
-  "mm"), place = "topleft", min.size = 4, grow = F, ...)
+  "mm"), place = "topleft", min.size = 4, grow = F, reflow = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -22,8 +22,11 @@ between text and edge of tile. Defaults to 1 mm.}
 \item{min.size}{Number, in points. Text that would need to be drawn smaller
 than this size to fit in the tile will be hidden. Defaults to 4 pt.}
 
-\item{grown}{Logical; should text grow to fill the entire tile?
+\item{grow}{Logical; should text grow to fill the entire tile?
 Defaults to false.}
+
+\item{reflow}{Logical; should text should be reflowed (wrapped) to better fit
+the bounding box? Defaults to false.}
 }
 \description{
 This will draw a text label for each tile in a treemap created by
@@ -35,7 +38,8 @@ won't line up with the tiles.
 
 \code{geom_treemap_text} uses \code{geom_fit_text} from the \code{ggfittext}
 package to fit text to the tile. All text drawing options available in
-\code{ggfittext} (e.g. growing text to fill a tile) are also available here.
+\code{ggfittext} (growing, reflowing, etc.) are also available here. For full
+details see the documentation for \code{ggfittext::geom_fit_text}.
 }
 \section{Aesthetics}{
 

@@ -9,8 +9,9 @@
 #'
 #' \code{geom_treemap_subgroup_text} uses \code{geom_fit_text} from the
 #' \code{ggfittext} package to fit text to the subgroup. All text drawing
-#' options available in \code{ggfittext} (e.g. expanding text to fill a
-#' subgroup) are also available here.
+#' options available in \code{ggfittext} (growing, reflowing, etc.) are also
+#' available here. For full details see the documentation for
+#' \code{ggfittext::geom_fit_text}.
 #'
 #' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
 #' between text and edge of tile. Defaults to 1 mm.
@@ -20,6 +21,8 @@
 #' than this size to fit in the subgroup will be hidden. Defaults to 4 pt.
 #' @param grow Logical; should text be grown to fill the entire subgroup?
 #' Defaults to false.
+#' @param reflow Logical; should text should be reflowed (wrapped) to better fit
+#' the bounding box? Defaults to false.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
 #'
@@ -77,7 +80,8 @@ GeomTreemapSubgroupText <- ggproto(
     alpha = 1,
     family = "",
     fontface = 1,
-    angle = 0
+    angle = 0,
+    lineheight = 0.9
   ),
   draw_key = draw_key_text,
 
@@ -89,6 +93,7 @@ GeomTreemapSubgroupText <- ggproto(
     padding.y = unit(1, "mm"),
     min.size = 4,
     grow = F,
+    reflow = F,
     place = "bottom"
   ) {
 
@@ -134,6 +139,7 @@ GeomTreemapSubgroupText <- ggproto(
       place = place,
       min.size = min.size,
       grow = grow,
+      reflow = reflow,
       cl = "fittexttree"
     )
 

@@ -10,12 +10,11 @@ Description: Functions to create treemaps with maximum automation and minimum
 Depends:
     plyr (>= 1.3),
     ggplot2,
-    reshape2
-Imports:
-    grid,
+    reshape2,
     ggfittext (>= 0.3)
 License: GPL (>=3)
 LazyData: true
 Suggests:
-    testthat
+    testthat,
+    grid
 RoxygenNote: 5.0.1

@@ -12,7 +12,8 @@
 #'
 #' \code{geom_treemap_text} uses \code{geom_fit_text} from the \code{ggfittext}
 #' package to fit text to the tile. All text drawing options available in
-#' \code{ggfittext} (e.g. growing text to fill a tile) are also available here.
+#' \code{ggfittext} (growing, reflowing, etc.) are also available here. For full
+#' details see the documentation for \code{ggfittext::geom_fit_text}.
 #'
 #' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
 #' between text and edge of tile. Defaults to 1 mm.
@@ -20,8 +21,10 @@
 #' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘topleft’.
 #' @param min.size Number, in points. Text that would need to be drawn smaller
 #' than this size to fit in the tile will be hidden. Defaults to 4 pt.
-#' @param grown Logical; should text grow to fill the entire tile?
+#' @param grow Logical; should text grow to fill the entire tile?
 #' Defaults to false.
+#' @param reflow Logical; should text should be reflowed (wrapped) to better fit
+#' the bounding box? Defaults to false.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
 #'
@@ -52,6 +55,7 @@ geom_treemap_text <- function(
   place = "topleft",
   min.size = 4,
   grow = F,
+  reflow = F,
   ...
 ) {
   layer(
@@ -69,6 +73,7 @@ geom_treemap_text <- function(
       place = place,
       min.size = min.size,
       grow = grow,
+      reflow = reflow,
       ...
     )
   )
@@ -90,7 +95,8 @@ GeomTreemapText <- ggproto(
     family = "",
     fontface = 1,
     angle = 0,
-    fill = "white"
+    fill = "white",
+    lineheight = 0.9
   ),
   draw_key = draw_key_text,
 
@@ -102,6 +108,7 @@ GeomTreemapText <- ggproto(
     padding.y = unit(1, "mm"),
     min.size = 4,
     grow = F,
+    reflow = F,
     place = "centre",
     subgroup = NA
   ) {
@@ -128,7 +135,7 @@ GeomTreemapText <- ggproto(
     layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
     data <- merge(data, layout, by = "id")
 
-    # Use treemapify's fittexttree to draw text
+    # Use ggfittext's fittexttree to draw text
     gt <- grid::gTree(
       data = data,
       padding.x = padding.x,
@@ -136,6 +143,7 @@ GeomTreemapText <- ggproto(
       place = place,
       min.size = min.size,
       grow = grow,
+      reflow = reflow,
       cl = "fittexttree"
     )
     gt$name <- grid::grobName(gt, "geom_treemap_text")
