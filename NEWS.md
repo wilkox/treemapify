@@ -1,10 +1,16 @@
+# v2.2.1
+
+## Bug fixes
+- Fix required `ggfittext` version.
+- Fix typos.
+
 # v2.2
 
 ## Major changes
 - Add ‘reflow’ options to `geom_treemap_text` and `geom_treemap_subgroup_text`.
 - Add ‘lineheight’ aesthetic to `geom_treemap_text` and `geom_treemap_subgroup_text`.
 
-## Big fixes
+## Bug fixes
 - Fix namespace error causing text not to be drawn in some circumstances.
 
 # v2.1
