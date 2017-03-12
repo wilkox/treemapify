@@ -58,7 +58,7 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = HDI)) +
 
 ![](README-basic_treemap-1.png)
 
-This plot isn't very useful without the knowing what country is represented by each tile. `geom_treemap_text` can be used to add a text label to each tile. It uses the [ggfittext](https://github/wilkox/ggfittext) package to resize the text so it fits the tile. In addition to standard text formatting aesthetics you would use in `geom_text`, like ‘fontface’ or ‘colour’, we can pass additional options specific for `ggfittext`. For example, we can place the text in the centre of the tile with `place = "centre"`, and expand it to fill as much of the tile as possible with `grow = TRUE`.
+This plot isn't very useful without the knowing what country is represented by each tile. `geom_treemap_text` can be used to add a text label to each tile. It uses the [ggfittext](https://github.com/wilkox/ggfittext) package to resize the text so it fits the tile. In addition to standard text formatting aesthetics you would use in `geom_text`, like ‘fontface’ or ‘colour’, we can pass additional options specific for `ggfittext`. For example, we can place the text in the centre of the tile with `place = "centre"`, and expand it to fill as much of the tile as possible with `grow = TRUE`.
 
 ``` r
 ggplot(G20, aes(area = GDP.mil.USD, fill = HDI, label = Country)) +
