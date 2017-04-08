@@ -1,3 +1,8 @@
+# v2.2.2
+
+## Minor changes
+- Moved plyr and reshape2 from ‘Depends’ to ‘Imports’
+
 # v2.2.1
 
 ## Bug fixes
