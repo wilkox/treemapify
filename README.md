@@ -23,7 +23,7 @@ For this example, we'll plot some data on the G-20 group of major world economie
 
 ``` r
 library(treemapify)
-kable(G20)
+G20
 ```
 
 | Region        | Country        |  GDP.mil.USD|    HDI| Econ.classification |

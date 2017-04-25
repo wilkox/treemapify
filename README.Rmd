@@ -37,7 +37,12 @@ install_github("wilkox/treemapify")
 For this example, we'll plot some data on the G-20 group of major world
 economies. `treemapify` includes this in the `G20` data frame:
 
-```{r message = FALSE}
+```{r message = FALSE, eval = FALSE} 
+library(treemapify)
+G20
+```
+
+```{r echo = FALSE, message = FALSE}
 library(treemapify)
 kable(G20)
 ```
