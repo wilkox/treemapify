@@ -1,3 +1,9 @@
+# v2.2.3
+
+## Minor changes
+- Fix ambiguity in README
+- Add test for inclusion of G20 data frame
+
 # v2.2.2
 
 ## Minor changes
