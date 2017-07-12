@@ -103,7 +103,7 @@ GeomTreemap <- ggproto(
     if ("subgroup" %in% names(data)) {
       params$group <- "subgroup"
     }
-    layout <- do.call(treemapify, params)
+    layout <- do.call(treemapify_fixed, params)
 
     # Merge layout back into main data
     names(layout)[names(layout) == "label"] <- "id"
