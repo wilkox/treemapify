@@ -90,7 +90,7 @@ GeomTreemapSubgroupBorder <- ggproto(
       label = "id",
       group = "subgroup"
     )
-    layout <- do.call(treemapify, params)
+    layout <- do.call(treemapify_fixed, params)
 
     # Merge layout back into main data
     names(layout)[names(layout) == "label"] <- "id"

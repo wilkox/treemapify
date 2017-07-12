@@ -11,8 +11,8 @@ treemapify_fixed <- function(
   fill,
   group,
   label,
-  xlim = c(0,100),
-  ylim = c(0,100)
+  xlim = c(0, 100),
+  ylim = c(0, 100)
 ) {
 
   # Check arguments
@@ -48,8 +48,62 @@ treemapify_fixed <- function(
     }
   }
 
+  # If a group has been specified, generate a group layout then fit each rect
+  # inside each group
   if (!missing(group)) {
-    stop("groups not yet implemented", call. = F)
+
+    # Prepare input for group layout
+    groupdata <- data.frame(
+      area = data[[area]],
+      fill = data[[group]]
+    )
+    groupdata <- plyr::ddply(groupdata, ~ fill, plyr::summarise, area = sum(area))
+
+    # Calculate group layout
+    grouplayout <- treemapify_fixed(groupdata, area = "area", fill = "fill", xlim = xlim, ylim = ylim)
+
+    # Split the input data
+    splitdata <- split(data, data[[group]])
+
+    # Function to generate layout for each group
+    label_is_missing <- missing(label)
+    lay_out_group <- function(groupname) {
+
+      if (label_is_missing) {
+        treemapify_fixed(
+          data = splitdata[[groupname]],
+          area = area,
+          fill = fill,
+          xlim = c(
+            grouplayout[grouplayout$fill == groupname, "xmin"],
+            grouplayout[grouplayout$fill == groupname, "xmax"]
+          ),
+          ylim = c(
+            grouplayout[grouplayout$fill == groupname, "ymin"],
+            grouplayout[grouplayout$fill == groupname, "ymax"]
+          )
+        )
+
+      } else {
+        treemapify_fixed(
+          data = splitdata[[groupname]],
+          area = area,
+          fill = fill,
+          xlim = c(
+            grouplayout[grouplayout$fill == groupname, "xmin"],
+            grouplayout[grouplayout$fill == groupname, "xmax"]
+          ),
+          ylim = c(
+            grouplayout[grouplayout$fill == groupname, "ymin"],
+            grouplayout[grouplayout$fill == groupname, "ymax"]
+          ),
+          label = label
+        )
+      }
+    }
+
+    # Generate layout for each group and return
+    return(plyr::ldply(names(splitdata), lay_out_group))
   }
 
   # Prepare output data frame
@@ -90,7 +144,7 @@ treemapify_fixed <- function(
 
     # The xmin of the column is set by the sum of the areas of the preceeding
     # columns
-    xmin <- sum(data[data$column < data[i, "column"], "area"]) * diff(xlim)
+    xmin <- (sum(data[data$column < data[i, "column"], "area"]) * diff(xlim)) + xlim[1]
 
     # Set rect x dimensions
     data[i, "xmin"] <- xmin
@@ -101,7 +155,7 @@ treemapify_fixed <- function(
 
     # The ymin of the rect is set by the sum of the areas of the preceding rects
     # within this column divided by the column width
-    ymin <- sum(data[data$column == data[i, "column"] & rownames(data) < i, "area"]) * diff(xlim) * diff(ylim) / width
+    ymin <- (sum(data[data$column == data[i, "column"] & rownames(data) < i, "area"]) * diff(xlim) * diff(ylim) / width) + ylim[1]
 
     # Set rect y dimensions
     data[i, "ymin"] <- ymin
