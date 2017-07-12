@@ -8,7 +8,11 @@
 treemapify_fixed <- function(
   data,
   area,
-  group
+  fill,
+  group,
+  label,
+  xlim = c(0,100),
+  ylim = c(0,100)
 ) {
 
   # Check arguments
@@ -21,6 +25,12 @@ treemapify_fixed <- function(
   if (!area %in% names(data)) {
     stop("Area aesthetic ", area, " not found in data", call. = F)
   }
+  if (missing(fill)) {
+    stop("fill is a required argument", call. = F)
+  }
+  if (!fill %in% names(data)) {
+    stop("Fill aesthetic ", fill, " not found in data", call. = F)
+  }
   if (!missing(group)) {
     if (!group %in% names(data)) {
       stop("Group aesthetic ", group, " not found in data", call. = F)
@@ -29,13 +39,32 @@ treemapify_fixed <- function(
       data[[group]] <- factor(data[[group]])
     }
   }
+  if (!missing(label)) {
+    if (!label %in% names(data)) {
+      stop("Label aesthetic ", label, " not found in data", call. = F)
+    }
+    if (!is.factor(data[[label]])) {
+      data[[label]] <- factor(data[[label]])
+    }
+  }
 
   if (!missing(group)) {
     stop("groups not yet implemented", call. = F)
   }
 
+  # Prepare output data frame
+  if (missing(label)) {
+    labelcol <- rep(NA, nrow(data))
+  } else {
+    labelcol <- data[[label]]
+  }
+  data <- data.frame(
+    area = data[[area]],
+    fill = data[[fill]],
+    label = labelcol
+  )
+
   # Normalise area
-  data <- data.frame(area = data[[area]])
   data$area <- data$area / sum(data$area)
 
   # Prepare output columns
@@ -57,26 +86,35 @@ treemapify_fixed <- function(
 
     # The width of the column is set by the sum of the areas of all column rects
     # as a proportion of the total area
-    width <- sum(data[data$column == data[i, "column"], "area"]) * 100
+    width <- sum(data[data$column == data[i, "column"], "area"]) * diff(xlim)
 
     # The xmin of the column is set by the sum of the areas of the preceeding
     # columns
-    xmin <- 100 * sum(data[data$column < data[i, "column"], "area"])
+    xmin <- sum(data[data$column < data[i, "column"], "area"]) * diff(xlim)
 
     # Set rect x dimensions
     data[i, "xmin"] <- xmin
     data[i, "xmax"] <- xmin + width
 
     # The height of the rect is set by the area divided by the width
-    height <- (data[i, "area"] * 10000) / width
+    height <- (data[i, "area"] * diff(xlim) * diff(ylim)) / width
 
     # The ymin of the rect is set by the sum of the areas of the preceding rects
     # within this column divided by the column width
-    ymin <- sum(data[data$column == data[i, "column"] & rownames(data) < i, "area"]) * 10000 / width
+    ymin <- sum(data[data$column == data[i, "column"] & rownames(data) < i, "area"]) * diff(xlim) * diff(ylim) / width
 
     # Set rect y dimensions
     data[i, "ymin"] <- ymin
     data[i, "ymax"] <- ymin + height
   }
 
+  # Remove column
+  data$column <- NULL
+
+  # Remove label if not provided
+  if (missing(label)) {
+    data$label <- NULL
+  }
+
+  data
 }
