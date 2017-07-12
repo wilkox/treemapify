@@ -56,6 +56,7 @@ geom_treemap_text <- function(
   min.size = 4,
   grow = F,
   reflow = F,
+  striped = F,
   ...
 ) {
   layer(
@@ -74,6 +75,7 @@ geom_treemap_text <- function(
       min.size = min.size,
       grow = grow,
       reflow = reflow,
+      striped = striped,
       ...
     )
   )
@@ -109,6 +111,7 @@ GeomTreemapText <- ggproto(
     min.size = 4,
     grow = F,
     reflow = F,
+    striped = F,
     place = "centre",
     subgroup = NA
   ) {
@@ -128,7 +131,11 @@ GeomTreemapText <- ggproto(
     if ("subgroup" %in% names(data)) {
       params$group <- "subgroup"
     }
-    layout <- do.call(treemapify_fixed, params)
+    if (striped) {
+      layout <- do.call(treemapify_fixed, params)
+    } else {
+      layout <- do.call(treemapify, params)
+    }
 
     # Merge layout back into main data
     names(layout)[names(layout) == "label"] <- "id"

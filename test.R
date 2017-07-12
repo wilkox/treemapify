@@ -7,18 +7,20 @@ ggplot(G20, aes(
   label = Country,
   subgroup = Region,
   )) +
-  geom_treemap() +
-  geom_treemap_subgroup_border() +
+  geom_treemap(striped = T) +
+  geom_treemap_subgroup_border(striped = T) +
   geom_treemap_subgroup_text(
     place = "centre",
     grow = T,
     alpha = 0.5,
     colour = "black",
     fontface = "italic",
-    min.size = 0
+    min.size = 0,
+    striped = T
   ) +
   geom_treemap_text(
     colour = "white",
     place = "topleft",
-    reflow = T
+    reflow = T,
+    striped = T
   )

@@ -48,6 +48,7 @@ geom_treemap_subgroup_text <- function(
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE,
+  striped = F,
   ...
 ) {
   layer(
@@ -60,6 +61,7 @@ geom_treemap_subgroup_text <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      striped = striped,
       ...
     )
   )
@@ -94,7 +96,8 @@ GeomTreemapSubgroupText <- ggproto(
     min.size = 4,
     grow = F,
     reflow = F,
-    place = "bottom"
+    place = "bottom",
+    striped = F
   ) {
 
     data <- coord$transform(data, panel_scales)
@@ -123,7 +126,11 @@ GeomTreemapSubgroupText <- ggproto(
       label = "id",
       group = "subgroup"
     )
-    layout <- do.call(treemapify_fixed, params)
+    if (striped) {
+      layout <- do.call(treemapify_fixed, params)
+    } else {
+      layout <- do.call(treemapify, params)
+    }
 
     # Merge layout back into main data
     names(layout)[names(layout) == "label"] <- "id"

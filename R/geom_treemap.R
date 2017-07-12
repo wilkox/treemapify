@@ -51,6 +51,7 @@ geom_treemap <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
+  striped = F,
   ...
 ) {
   layer(
@@ -63,6 +64,7 @@ geom_treemap <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      striped = striped,
       ...
     )
   )
@@ -86,7 +88,12 @@ GeomTreemap <- ggproto(
   ),
   draw_key = draw_key_rect,
 
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(
+    data,
+    panel_scales,
+    coord,
+    striped = F
+  ) {
 
     data <- coord$transform(data, panel_scales)
     data$id <- 1:nrow(data)
@@ -103,7 +110,11 @@ GeomTreemap <- ggproto(
     if ("subgroup" %in% names(data)) {
       params$group <- "subgroup"
     }
-    layout <- do.call(treemapify_fixed, params)
+    if (striped) {
+      layout <- do.call(treemapify_fixed, params)
+    } else {
+      layout <- do.call(treemapify, params)
+    }
 
     # Merge layout back into main data
     names(layout)[names(layout) == "label"] <- "id"
