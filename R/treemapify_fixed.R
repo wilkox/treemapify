@@ -36,74 +36,47 @@ treemapify_fixed <- function(
 
   # Normalise area
   data <- data.frame(area = data[[area]])
-  data$area <- data$area / sum(data$area) * 100 * 100
+  data$area <- data$area / sum(data$area)
 
   # Prepare output columns
   data$xmin <- data$xmax <- data$ymin <- data$ymax <- rep(NA, nrow(data))
 
   # Place each rect
-  # Algorithm: the layout for an increasing number of rects is determined by
-  # splitting the space occupied by the ‘previous’ rect first horizontally, then
-  # vertically.
-  xlim <- c(0, 100)
-  ylim <- c(0, 100)
+  # Algorithm: the area is divided into columns. The number of rects in a full
+  # column is set as the square root of the next perfect square ≥ n. Columns are
+  # then filled sequentially from left to right, bottom to top, with the width
+  # of the column set proportional to the sum area of the column rects and the
+  # height divided between the rects following their areas.
+
+  # Select number of rects per column
+  rects_per_column <- ceiling(sqrt(nrow(data)))
+  data$column <- ceiling(1:nrow(data) / rects_per_column)
+
+  # Place each rect
   for (i in 1:nrow(data)) {
 
-    # Placing an odd-numbered rect
-    if (i %% 2 == 1) {
+    # The width of the column is set by the sum of the areas of all column rects
+    # as a proportion of the total area
+    width <- sum(data[data$column == data[i, "column"], "area"]) * 100
 
-      # If this is the last rect to place
-      if (i == nrow(data)) {
+    # The xmin of the column is set by the sum of the areas of the preceeding
+    # columns
+    xmin <- 100 * sum(data[data$column < data[i, "column"], "area"])
 
-        # Fill the remaining area with this rect
-        data[i, "xmin"] <- xlim[1]
-        data[i, "xmax"] <- xlim[2]
-        data[i, "ymin"] <- ylim[1]
-        data[i, "ymax"] <- ylim[2]
+    # Set rect x dimensions
+    data[i, "xmin"] <- xmin
+    data[i, "xmax"] <- xmin + width
 
-      # If this is not the last rect to place
-      } else {
+    # The height of the rect is set by the area divided by the width
+    height <- (data[i, "area"] * 10000) / width
 
-        # This rect can occupy the full width of the remaining area; its height
-        # is determined by its area
-        data[i, "xmin"] <- xlim[1]
-        data[i, "xmax"] <- xlim[2]
-        width <- xlim[2] - xlim[1]
-        height <- data[i, "area"] / width
-        data[i, "ymin"] <- ylim[1]
-        data[i, "ymax"] <- ylim[1] + height
+    # The ymin of the rect is set by the sum of the areas of the preceding rects
+    # within this column divided by the column width
+    ymin <- sum(data[data$column == data[i, "column"] & rownames(data) < i, "area"]) * 10000 / width
 
-        # Update remaining area
-        ylim <- c(data[i, "ymax"], ylim[2])
-      }
-
-    # Placing an even-numbered rect
-    } else {
-
-      # If this is the last rect to place
-      if (i == nrow(data)) {
-
-        # Fill the remaining area with this rect
-        data[i, "xmin"] <- xlim[1]
-        data[i, "xmax"] <- xlim[2]
-        data[i, "ymin"] <- ylim[1]
-        data[i, "ymax"] <- ylim[2]
-
-      # If this is not the last rect to place
-      } else {
-
-        # This rect can occupy the full height of the remaining area; its width
-        # is determined by its area
-        data[i, "ymin"] <- ylim[1]
-        data[i, "ymax"] <- ylim[2]
-        height <- ylim[2] - ylim[1]
-        width <- data[i, "area"] / height
-        data[i, "xmin"] <- xlim[1]
-        data[i, "xmax"] <- xlim[1] + width
-
-        # Update remaining area
-        xlim <- c(data[i, "xmax"], xlim[2])
-      }
-    }
+    # Set rect y dimensions
+    data[i, "ymin"] <- ymin
+    data[i, "ymax"] <- ymin + height
   }
+
 }
