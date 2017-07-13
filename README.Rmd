@@ -4,6 +4,7 @@ output:
     html_preview: true
     fig_height: 6
     fig_width: 6
+    toc: true
 ---
 
 ```{r, echo = FALSE}
@@ -85,7 +86,7 @@ subgroup with `geom_treemap_subgroup_text`. As with `geom_treemap_text`,
 `geom_treemap_subgroup_text` can take `ggfittext` parameters for text placement
 and sizing.
 
-```{r subgrouped treemap}
+```{r subgrouped_treemap}
 ggplot(G20, aes(
   area = GDP.mil.USD,
   fill = HDI,
@@ -115,7 +116,7 @@ points. This can be adjusted with the ‘min.size’ option.
 
 Like any ggplot2 plot, treemapify plots can be faceted, scaled, themed, etc.
 
-```{r complex treemap}
+```{r complex_treemap}
 ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
   geom_treemap() +
   geom_treemap_text(grow = T, reflow = T, colour = "black") +
@@ -130,8 +131,50 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
   )
 ```
 
+# Animated treemaps
+
+All the treemapify treemaps support a ‘fixed’ option that will cause the tiles
+to be laid out in an order determined by the order of observations in the data
+frame. While this can result in a less aesthetically pleasing and readable
+treemap, it allows you to create animated treemaps with the help of the
+[`tweenr`](https://github.com/thomasp85/tweenr) and
+[`gganimate`](https://github.com/dgrtwo/gganimate) packages.
+
+```{r animated treemap}
+library(tweenr)
+library(gganimate)
+
+usvisitors_split <- split(usvisitors, usvisitors$year)
+
+usvisitors_tweened <- tweenr::tween_states(
+  usvisitors_split,
+  tweenlength = 40,
+  statelength = 100,
+  ease = 'cubic-in-out',
+  nframes = 400
+)
+
+animated_plot <- ggplot(usvisitors_tweened, aes(
+  area = visitors,
+  fill = average_stay_nights,
+  label = subcategory,
+  subgroup = category,
+  frame = .frame
+  )) +
+  geom_treemap(fixed = T) +
+  geom_treemap_text(reflow = T, fixed = T) +
+  geom_treemap_subgroup_border(fixed = T) +
+  geom_treemap_subgroup_text(place = "centre", alpha = 0.5, grow = T, fixed = T)
+
+animation::ani.options(interval = 1/15)
+gganimate(animated_plot, title_frame = F, ani.width = 400, ani.height = 400)
+```
+
 # Credit
 
 `treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk.
 
 The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the Creative Commons Attribution-Share-Alike License 3.0.
+
+The usvisitors dataset is from [Tourism Research
+Australia](https://www.tra.gov.au/Research/International-visitors-to-Australia/international-tourism-statistics).
