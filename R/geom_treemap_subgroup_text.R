@@ -23,6 +23,8 @@
 #' Defaults to false.
 #' @param reflow Logical; should text should be reflowed (wrapped) to better fit
 #' the bounding box? Defaults to false.
+#' @param fixed Logical, indicating whether the fixed layout algorithm should be
+#' used. Defaults to false. See \code{geom_treemap} for full details.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
 #'

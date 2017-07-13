@@ -11,6 +11,8 @@
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for \code{geom_rect}.
+#' @param fixed Logical, indicating whether the fixed layout algorithm should be
+#' used. Defaults to false. See \code{geom_treemap} for full details.
 #'
 #' @section Aesthetics:
 #'

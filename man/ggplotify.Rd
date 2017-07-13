@@ -73,6 +73,7 @@ draws an exploratory treemap.  The output is a ggplot2 plot, so it can
 be further manipulated e.g. a title added.
 }
 \seealso{
-Other treemapify: \code{\link{treemapify}}
+Other treemapify: \code{\link{treemapify_fixed}},
+  \code{\link{treemapify}}
 }
 

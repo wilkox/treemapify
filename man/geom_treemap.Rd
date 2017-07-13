@@ -6,11 +6,14 @@
 \usage{
 geom_treemap(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE, fixed = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
 geom arguments as for \code{geom_rect}.}
+
+\item{fixed}{Logical, indicating whether the fixed layout algorithm
+should be used. Defaults to false.}
 }
 \description{
 Draw a treemap, where each observation is represented by a tile scaled by an
@@ -24,9 +27,19 @@ subgroups within the treemap. See \code{geom_treemap_subgroup_border} and
 \code{geom_treemap_subgroup_text} to draw a border around subgroups and label
 them respectively.
 
-Tile placement proceeds from the bottom left corner, moving alternately
-rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
-for the full algorithm.
+With the default tile layout algorithm (\code{fixed = F}), tile placement
+proceeds from the bottom left corner, moving alternately rightwards and
+upwards until all tiles are placed. See Bruls et al. (1999) for the full
+algorithm.
+
+With the fixed tile layout algorithm (\code{fixed = T}), tile placement fills
+columns from left to right, beginning at the bottom of each column. However,
+unlike with the default algorithm, the order in which tiles are placed is
+fixed by their order in the input data frame. While this can result in some
+aesthetically unpleasing tiles, it allows side-by-side comparisons or
+animations to be created. If the fixed algorithm is used for geom_treemap, it
+should also be used for all other treemap geoms in the plot or they will not
+share a common layout.
 }
 \section{Aesthetics}{
 
@@ -41,8 +54,8 @@ for the full algorithm.
 }
 }
 \references{
-treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing
-and Jarke van Wijk:
+The default tile layout uses the Squarified Treemap algorithm of Mark Bruls,
+Kees Huizing and Jarke van Wijk:
 
 Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE

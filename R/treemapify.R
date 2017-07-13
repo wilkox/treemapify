@@ -1,4 +1,4 @@
-#' @title Generate coordinates for a treemap
+#' @title Generate coordinates for a treemap with a squarified layout
 #' @export
 #' @family treemapify
 #'
@@ -17,12 +17,13 @@
 #' the treemap layout, adding a group will, as observations from the same group
 #' will be kept together.
 #'
-#' Rect placement proceeds from the bottom left corner, alternating between
+#' Tile placement proceeds from the bottom left corner, alternating between
 #' moving rightwards and moving upwards.  See Bruls et al. 1999 for the full
-#' algorithm.
+#' algorithm. For a tile layout in which the position of tiles is fixed by their
+#' order in the input data frame, see \code{treemapify_fixed}.
 #'
 #' @param data a tidy data frame, containing at least variables to be mapped to
-#' area (size of rect) and fill (fill colour of rect).
+#' area (size of tile) and fill (fill colour of tile).
 #' @param area variable to be mapped to area; must be a column in data
 #' @param fill variable to be mapped to fill; must be a column in data
 #' @param group (optional) variable to be mapped to group; must be a column in
@@ -30,7 +31,9 @@
 #' @param label (optional) variable to be used as the label for each
 #' observation; must be a column in the data frame
 #' @param xlim,ylim (optional) two-element vectors specifying the x and y
-#' limits of the area in which the rects will be placed
+#' limits of the area in which the tiles will be placed
+#'
+#' @seealso treemapify_fixed, geom_treemap
 #'
 #' @references
 #' treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing
@@ -39,11 +42,11 @@
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE
 #' TCVG Symposium on Visualization.
-#'
 #' \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 #'
-#' "Tidy Data" is described by Hadley Wickham in an unpublished manuscript:
-#' \url{http://vita.had.co.nz/papers/tidy-data.pdf}
+#' "Tidy Data" is described by Hadley Wickham in: Wickham, H. (2014). Tidy data.
+#' Journal of Statistical Software.
+#' \url{https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf}
 
 treemapify <- function(
   data,

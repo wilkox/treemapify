@@ -7,7 +7,8 @@
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = unit(1, "mm"), padding.y = unit(1,
-  "mm"), place = "topleft", min.size = 4, grow = F, reflow = F, ...)
+  "mm"), place = "topleft", min.size = 4, grow = F, reflow = F,
+  fixed = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -27,6 +28,9 @@ Defaults to false.}
 
 \item{reflow}{Logical; should text should be reflowed (wrapped) to better fit
 the bounding box? Defaults to false.}
+
+\item{fixed}{Logical, indicating whether the fixed layout algorithm
+should be used. Defaults to false. See \code{geom_treemap} for full details.}
 }
 \description{
 This will draw a text label for each tile in a treemap created by

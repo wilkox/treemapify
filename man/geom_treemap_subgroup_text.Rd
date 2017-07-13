@@ -6,11 +6,14 @@
 \usage{
 geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE, fixed = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
 geom arguments as for \code{geom_rect}.}
+
+\item{fixed}{Logical, indicating whether the fixed layout algorithm should be
+used. Defaults to false. See \code{geom_treemap} for full details.}
 
 \item{padding.x, padding, y}{Unit object, giving horizontal or vertical padding
 between text and edge of tile. Defaults to 1 mm.}

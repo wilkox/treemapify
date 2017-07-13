@@ -4,6 +4,46 @@
 #'
 #' @description
 #'
+#' Takes a data frame of observations, with variables mapped to area and fill
+#' colour, and produces the coordinates for a treemap expressing these
+#' observations and mappings.  These coordinates can be used to draw a
+#' customised treemap (recommended) or passed directly to the "ggplotify"
+#' function to produce an exploratory projection.
+#'
+#' Input data frame must be in tidy format (see article by Hadley Wickham,
+#' below), i.e. each row must represent a single observation and each column a
+#' single variable.  The area and fill parameters are mandatory; grouping and
+#' label factors are optional.  Note that while adding a label will not change
+#' the treemap layout, adding a group will, as observations from the same group
+#' will be kept together.
+#'
+#' Unlike the \code{treemapify} function, \code{treemapify_fixed} does not use
+#' the squarified layout algorithm to minimise tile aspect ratio. Instead it
+#' uses the striped algorithm, which can result in some tiles with poor aspect
+#' ratios (long and skinny), but has the advantage that the position of tiles is
+#' fixed by their order in the data frame. This allows for side-by-side
+#' comparisons or animated treemaps showing change over time. Tile placement
+#' proceeds by filling columns from left to right, beginning at the bottom of
+#' each column.
+#'
+#' @param data a tidy data frame, containing at least variables to be mapped to
+#' area (size of tile) and fill (fill colour of tile).
+#' @param area variable to be mapped to area; must be a column in data
+#' @param fill variable to be mapped to fill; must be a column in data
+#' @param group (optional) variable to be mapped to group; must be a column in
+#' the data frame
+#' @param label (optional) variable to be used as the label for each
+#' observation; must be a column in the data frame
+#' @param xlim,ylim (optional) two-element vectors specifying the x and y
+#' limits of the area in which the tiles will be placed
+#'
+#' @seealso treemapify, geom_treemap
+#'
+#' @references
+#'
+#' "Tidy Data" is described by Hadley Wickham in: Wickham, H. (2014). Tidy data.
+#' Journal of Statistical Software.
+#' \url{https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf}
 
 treemapify_fixed <- function(
   data,

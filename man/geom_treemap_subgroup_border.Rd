@@ -6,11 +6,14 @@
 \usage{
 geom_treemap_subgroup_border(mapping = NULL, data = NULL,
   stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+  show.legend = NA, inherit.aes = TRUE, fixed = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
 geom arguments as for \code{geom_rect}.}
+
+\item{fixed}{Logical, indicating whether the fixed layout algorithm should be
+used. Defaults to false. See \code{geom_treemap} for full details.}
 }
 \description{
 Requires ‘area’ and ‘subgroup’. Strange things will happen if
