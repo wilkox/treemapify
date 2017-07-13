@@ -148,7 +148,7 @@ G20_alt <- G20
 G20_alt$GDP.mil.USD <- sample(G20$GDP.mil.USD, nrow(G20))
 G20_alt$HDI <- sample(G20$HDI, nrow(G20))
 
-tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 50, statelength = 25, ease = 'cubic-in-out', nframes = 200)
+tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 15, statelength = 5, ease = 'cubic-in-out', nframes = 55)
 
 animated_plot <- ggplot(tweened, aes(
   area = GDP.mil.USD,

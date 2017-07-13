@@ -1,3 +1,10 @@
+# v2.3
+
+## Major changes
+- Add ‘treemapify_fixed’ function
+- Add ‘fixed’ options to geoms
+- Add example of animated treemap to README
+
 # v2.2.3
 
 ## Minor changes
