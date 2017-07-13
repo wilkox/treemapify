@@ -33,7 +33,7 @@ install_github("wilkox/ggfittext")
 install_github("wilkox/treemapify")
 ```
 
-# Walkthrough
+# Example
 
 For this example, we'll plot some data on the G-20 group of major world
 economies. `treemapify` includes this in the `G20` data frame:
@@ -140,41 +140,49 @@ treemap, it allows you to create animated treemaps with the help of the
 [`tweenr`](https://github.com/thomasp85/tweenr) and
 [`gganimate`](https://github.com/dgrtwo/gganimate) packages.
 
-```{r animated treemap}
+```{r animated treemap, message = FALSE}
 library(tweenr)
 library(gganimate)
 
-usvisitors_split <- split(usvisitors, usvisitors$year)
+G20_alt <- G20
+G20_alt$GDP.mil.USD <- sample(G20$GDP.mil.USD, nrow(G20))
+G20_alt$HDI <- sample(G20$HDI, nrow(G20))
 
-usvisitors_tweened <- tweenr::tween_states(
-  usvisitors_split,
-  tweenlength = 40,
-  statelength = 100,
-  ease = 'cubic-in-out',
-  nframes = 400
-)
+tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 50, statelength = 25, ease = 'cubic-in-out', nframes = 200)
 
-animated_plot <- ggplot(usvisitors_tweened, aes(
-  area = visitors,
-  fill = average_stay_nights,
-  label = subcategory,
-  subgroup = category,
+animated_plot <- ggplot(tweened, aes(
+  area = GDP.mil.USD,
+  fill = HDI,
+  label = Country,
+  subgroup = Region,
   frame = .frame
   )) +
   geom_treemap(fixed = T) +
-  geom_treemap_text(reflow = T, fixed = T) +
   geom_treemap_subgroup_border(fixed = T) +
-  geom_treemap_subgroup_text(place = "centre", alpha = 0.5, grow = T, fixed = T)
+  geom_treemap_subgroup_text(
+    place = "centre",
+    grow = T,
+    alpha = 0.5,
+    colour = "black",
+    fontface = "italic",
+    min.size = 0,
+    fixed = T
+  ) +
+  geom_treemap_text(
+    colour = "white",
+    place = "topleft",
+    reflow = T,
+    fixed = T
+  )
 
 animation::ani.options(interval = 1/15)
-gganimate(animated_plot, title_frame = F, ani.width = 400, ani.height = 400)
+gganimate(animated_plot, "animated_treemap.gif", title_frame = F, ani.width = 400, ani.height = 400)
 ```
+
+![animated_treemap](animated_treemap.gif)
 
 # Credit
 
 `treemapify` uses the [Squarified Treemap](http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.36.6685) algorithm of Mark Bruls, Kees Huizing and Jarke van Wijk.
 
 The G20 dataset is from the Wikipedia article [G-20 major economies](http://en.wikipedia.org/wiki/G-20_major_economies), which is released under the Creative Commons Attribution-Share-Alike License 3.0.
-
-The usvisitors dataset is from [Tourism Research
-Australia](https://www.tra.gov.au/Research/International-visitors-to-Australia/international-tourism-statistics).

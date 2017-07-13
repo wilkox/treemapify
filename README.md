@@ -1,4 +1,9 @@
 
+-   [Install](#install)
+-   [Example](#example)
+-   [Animated treemaps](#animated-treemaps)
+-   [Credit](#credit)
+
 **Treemapify provides ggplot2 geoms for drawing [treemaps](http://en.wikipedia.org/wiki/Treemap)**
 
 Install
@@ -16,8 +21,8 @@ install_github("wilkox/ggfittext")
 install_github("wilkox/treemapify")
 ```
 
-Walkthrough
-===========
+Example
+=======
 
 For this example, we'll plot some data on the G-20 group of major world economies. `treemapify` includes this in the `G20` data frame:
 
@@ -99,7 +104,7 @@ ggplot(G20, aes(
   )
 ```
 
-![](README-subgrouped%20treemap-1.png)
+![](README-subgrouped_treemap-1.png)
 
 Note that ‘Argentina’ has been hidden. `geom_treemap_text` will hide text labels that cannot fit a tile without being shrunk below a minimum size, by default 4 points. This can be adjusted with the ‘min.size’ option.
 
@@ -120,7 +125,53 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
   )
 ```
 
-![](README-complex%20treemap-1.png)
+![](README-complex_treemap-1.png)
+
+Animated treemaps
+=================
+
+All the treemapify treemaps support a ‘fixed’ option that will cause the tiles to be laid out in an order determined by the order of observations in the data frame. While this can result in a less aesthetically pleasing and readable treemap, it allows you to create animated treemaps with the help of the [`tweenr`](https://github.com/thomasp85/tweenr) and [`gganimate`](https://github.com/dgrtwo/gganimate) packages.
+
+``` r
+library(tweenr)
+library(gganimate)
+
+G20_alt <- G20
+G20_alt$GDP.mil.USD <- sample(G20$GDP.mil.USD, nrow(G20))
+G20_alt$HDI <- sample(G20$HDI, nrow(G20))
+
+tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 50, statelength = 25, ease = 'cubic-in-out', nframes = 200)
+
+animated_plot <- ggplot(tweened, aes(
+  area = GDP.mil.USD,
+  fill = HDI,
+  label = Country,
+  subgroup = Region,
+  frame = .frame
+  )) +
+  geom_treemap(fixed = T) +
+  geom_treemap_subgroup_border(fixed = T) +
+  geom_treemap_subgroup_text(
+    place = "centre",
+    grow = T,
+    alpha = 0.5,
+    colour = "black",
+    fontface = "italic",
+    min.size = 0,
+    fixed = T
+  ) +
+  geom_treemap_text(
+    colour = "white",
+    place = "topleft",
+    reflow = T,
+    fixed = T
+  )
+
+animation::ani.options(interval = 1/15)
+gganimate(animated_plot, "animated_treemap.gif", title_frame = F, ani.width = 400, ani.height = 400)
+```
+
+![animated\_treemap](animated_treemap.gif)
 
 Credit
 ======
