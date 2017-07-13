@@ -51,7 +51,7 @@ geom_treemap <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  striped = F,
+  fixed = F,
   ...
 ) {
   layer(
@@ -64,7 +64,7 @@ geom_treemap <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
-      striped = striped,
+      fixed = fixed,
       ...
     )
   )
@@ -92,7 +92,7 @@ GeomTreemap <- ggproto(
     data,
     panel_scales,
     coord,
-    striped = F
+    fixed = F
   ) {
 
     data <- coord$transform(data, panel_scales)
@@ -110,7 +110,7 @@ GeomTreemap <- ggproto(
     if ("subgroup" %in% names(data)) {
       params$group <- "subgroup"
     }
-    if (striped) {
+    if (fixed) {
       layout <- do.call(treemapify_fixed, params)
     } else {
       layout <- do.call(treemapify, params)

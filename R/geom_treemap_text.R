@@ -56,7 +56,7 @@ geom_treemap_text <- function(
   min.size = 4,
   grow = F,
   reflow = F,
-  striped = F,
+  fixed = F,
   ...
 ) {
   layer(
@@ -75,7 +75,7 @@ geom_treemap_text <- function(
       min.size = min.size,
       grow = grow,
       reflow = reflow,
-      striped = striped,
+      fixed = fixed,
       ...
     )
   )
@@ -111,7 +111,7 @@ GeomTreemapText <- ggproto(
     min.size = 4,
     grow = F,
     reflow = F,
-    striped = F,
+    fixed = F,
     place = "centre",
     subgroup = NA
   ) {
@@ -131,7 +131,7 @@ GeomTreemapText <- ggproto(
     if ("subgroup" %in% names(data)) {
       params$group <- "subgroup"
     }
-    if (striped) {
+    if (fixed) {
       layout <- do.call(treemapify_fixed, params)
     } else {
       layout <- do.call(treemapify, params)
