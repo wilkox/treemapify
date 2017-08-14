@@ -67,7 +67,7 @@ ggplotify <- function(
 
   # Check that label.type is a recognised type
   if (!label.type %in% c("shrink", "fill")) {
-    stop("Unrecognised value ‘", label.type, "’ for label.type", call. = F)
+    stop("Unrecognised value '", label.type, "' for label.type", call. = F)
   }
 
   # If no argument for label.place provided, set based on label.type
@@ -77,7 +77,7 @@ ggplotify <- function(
 
   # Check that group.label.type is a recognised type
   if (!group.label.type %in% c("shrink", "fill")) {
-    stop("Unrecognised value ‘", group.label.type, "’ for group.label.type", call. = F)
+    stop("Unrecognised value '", group.label.type, "' for group.label.type", call. = F)
   }
 
   # If no argument for group.label.place provided, set based on group.label.type
