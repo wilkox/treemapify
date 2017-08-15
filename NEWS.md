@@ -1,3 +1,8 @@
+# v2.3.1
+
+## Bug fixes
+- Remove wide characters causing problems in non-UTF-8 locales.
+
 # v2.3
 
 ## Major changes
