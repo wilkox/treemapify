@@ -35,7 +35,7 @@ geom_treemap_subgroup_border <- function(
   fixed = F,
   ...
 ) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -55,18 +55,18 @@ geom_treemap_subgroup_border <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapSubgroupBorder <- ggproto(
+GeomTreemapSubgroupBorder <- ggplot2::ggproto(
   "GeomTreemapSubgroupBorder",
-  Geom,
+  ggplot2::Geom,
   required_aes = c("area", "subgroup"),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     colour = "grey50",
     fill = "",
     size = 4,
     linetype = 1,
     alpha = 1
   ),
-  draw_key = draw_key_blank,
+  draw_key = ggplot2::draw_key_blank,
 
   draw_panel = function(
     data,

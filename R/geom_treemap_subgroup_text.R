@@ -53,7 +53,7 @@ geom_treemap_subgroup_text <- function(
   fixed = F,
   ...
 ) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -73,11 +73,11 @@ geom_treemap_subgroup_text <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapSubgroupText <- ggproto(
+GeomTreemapSubgroupText <- ggplot2::ggproto(
   "GeomTreemapSubgroupText",
-  Geom,
+  ggplot2::Geom,
   required_aes = c("area", "subgroup"),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     colour = "grey20",
     fill = "white",
     size = 36,
@@ -87,14 +87,14 @@ GeomTreemapSubgroupText <- ggproto(
     angle = 0,
     lineheight = 0.9
   ),
-  draw_key = draw_key_text,
+  draw_key = ggplot2::draw_key_text,
 
   draw_panel = function(
     data,
     panel_scales,
     coord,
-    padding.x = unit(1, "mm"),
-    padding.y = unit(1, "mm"),
+    padding.x = grid::unit(1, "mm"),
+    padding.y = grid::unit(1, "mm"),
     min.size = 4,
     grow = F,
     reflow = F,

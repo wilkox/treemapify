@@ -52,8 +52,8 @@ geom_treemap_text <- function(
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE,
-  padding.x = unit(1, "mm"),
-  padding.y = unit(1, "mm"),
+  padding.x = grid::unit(1, "mm"),
+  padding.y = grid::unit(1, "mm"),
   place = "topleft",
   min.size = 4,
   grow = F,
@@ -61,7 +61,7 @@ geom_treemap_text <- function(
   fixed = F,
   ...
 ) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -88,11 +88,11 @@ geom_treemap_text <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemapText <- ggproto(
+GeomTreemapText <- ggplot2::ggproto(
   "GeomTreemapText",
-  Geom,
+  ggplot2::Geom,
   required_aes = c("area", "label"),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     colour = "black",
     size = 18,
     alpha = 1,
@@ -102,14 +102,14 @@ GeomTreemapText <- ggproto(
     fill = "white",
     lineheight = 0.9
   ),
-  draw_key = draw_key_text,
+  draw_key = ggplot2::draw_key_text,
 
   draw_panel = function(
     data,
     panel_scales,
     coord,
-    padding.x = unit(1, "mm"),
-    padding.y = unit(1, "mm"),
+    padding.x = grid::unit(1, "mm"),
+    padding.y = grid::unit(1, "mm"),
     min.size = 4,
     grow = F,
     reflow = F,

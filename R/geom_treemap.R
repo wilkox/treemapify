@@ -66,7 +66,7 @@ geom_treemap <- function(
   fixed = F,
   ...
 ) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -87,18 +87,18 @@ geom_treemap <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomTreemap <- ggproto(
+GeomTreemap <- ggplot2::ggproto(
   "GeomTreemap",
-  Geom,
+  ggplot2::Geom,
   required_aes = c("area"),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     colour = "grey",
     fill = "grey35",
     size = 0.5,
     linetype = 1,
     alpha = 1
   ),
-  draw_key = draw_key_rect,
+  draw_key = ggplot2::draw_key_rect,
 
   draw_panel = function(
     data,
