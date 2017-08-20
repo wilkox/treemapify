@@ -18,10 +18,10 @@ ggplotify(treeMap, label.colour = "white", label.type = "shrink",
 
 \item{label.colour}{Colour for individual rect labels; defaults to white}
 
-\item{label.type}{How the labels should be drawn inside each rect. ‘shrink’
-(default) will cause the labels to be drawn at ‘label.size’, unless that
+\item{label.type}{How the labels should be drawn inside each rect. 'shrink'
+(default) will cause the labels to be drawn at 'label.size', unless that
 would make them too big for the rects, in which case they are shrunk to fit
-the rects. ‘fill’ draws the labels at the largest possible size for their
+the rects. 'fill' draws the labels at the largest possible size for their
 rects. See documentation for the \code{ggfittext} package for more details.}
 
 \item{label.size}{Size for individual rect labels, in points. Defaults to 24
@@ -31,7 +31,7 @@ pt.}
 be drawn. Defaults to 4 pt.}
 
 \item{label.place}{Where in the rect should the label be drawn? Defaults to
-‘topleft’, unless label.type is ‘fill’ in which case defaults to ‘middle’.
+'topleft', unless label.type is 'fill' in which case defaults to 'middle'.
 See \code{ggfittext} documentation for more details.}
 
 \item{rect.border.colour}{Colour for the borders between rects. Defaults to
@@ -46,9 +46,9 @@ Defaults to TRUE.}
 \item{group.label.colour}{Colour for group labels. Defaults to grey20.}
 
 \item{group.label.type}{How the group labels should be drawn inside each
-group. ‘shrink’ (default) will cause the labels to be drawn at ‘label.size’,
+group. 'shrink' (default) will cause the labels to be drawn at 'label.size',
 unless that would make them too big for the rects, in which case they are
-shrunk to fit the rects. ‘fill’ draws the labels at the largest possible size
+shrunk to fit the rects. 'fill' draws the labels at the largest possible size
 for their rects. See documentation for the \code{ggfittext} package for more
 details.}
 
@@ -58,8 +58,8 @@ details.}
 points) will not be drawn. Defaults to 4 pt.}
 
 \item{group.label.place}{Where in the group should the group label be drawn?
-Defaults to ‘bottom’, unless group.label.type is ‘fill’ in which case
-defaults to ‘middle’. See \code{ggfittext} documentation for more details.}
+Defaults to 'bottom', unless group.label.type is 'fill' in which case
+defaults to 'middle'. See \code{ggfittext} documentation for more details.}
 
 \item{group.border.colour}{Colour for borders around groups. Defaults to
 grey50.}

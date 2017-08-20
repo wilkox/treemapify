@@ -18,7 +18,7 @@ geom arguments as for \code{geom_rect}.}
 between text and edge of tile. Defaults to 1 mm.}
 
 \item{place}{Where should the text be drawn within the tile? One of
-‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘topleft’.}
+'topleft', 'top', 'topright' etc. Defaults to 'topleft'.}
 
 \item{min.size}{Number, in points. Text that would need to be drawn smaller
 than this size to fit in the tile will be hidden. Defaults to 4 pt.}
@@ -34,8 +34,8 @@ should be used. Defaults to false. See \code{geom_treemap} for full details.}
 }
 \description{
 This will draw a text label for each tile in a treemap created by
-\code{geom_treemap}. In addition to the required ‘label’ aesthetic, it
-requires an ‘area’ aesthetic as used in \code{geom_treemap}; if this is
+\code{geom_treemap}. In addition to the required 'label' aesthetic, it
+requires an 'area' aesthetic as used in \code{geom_treemap}; if this is
 mapped to a different column, or \code{geom_treemap} and
 \code{geom_treemap_text} are passed different data, the text labels probably
 won't line up with the tiles.

@@ -11,17 +11,17 @@
 #' @param treeMap A data frame of treemap coordinates produced by
 #' "treemapify"
 #' @param label.colour Colour for individual rect labels; defaults to white
-#' @param label.type How the labels should be drawn inside each rect. ‘shrink’
-#' (default) will cause the labels to be drawn at ‘label.size’, unless that
+#' @param label.type How the labels should be drawn inside each rect. 'shrink'
+#' (default) will cause the labels to be drawn at 'label.size', unless that
 #' would make them too big for the rects, in which case they are shrunk to fit
-#' the rects. ‘fill’ draws the labels at the largest possible size for their
+#' the rects. 'fill' draws the labels at the largest possible size for their
 #' rects. See documentation for the \code{ggfittext} package for more details.
 #' @param label.size Size for individual rect labels, in points. Defaults to 24
 #' pt.
 #' @param label.min.size Any label shrunk below this size (in points) will not
 #' be drawn. Defaults to 4 pt.
 #' @param label.place Where in the rect should the label be drawn? Defaults to
-#' ‘topleft’, unless label.type is ‘fill’ in which case defaults to ‘middle’.
+#' 'topleft', unless label.type is 'fill' in which case defaults to 'middle'.
 #' See \code{ggfittext} documentation for more details.
 #' @param rect.border.colour Colour for the borders between rects. Defaults to
 #' grey.
@@ -31,17 +31,17 @@
 #' Defaults to TRUE.
 #' @param group.label.colour Colour for group labels. Defaults to grey20.
 #' @param group.label.type How the group labels should be drawn inside each
-#' group. ‘shrink’ (default) will cause the labels to be drawn at ‘label.size’,
+#' group. 'shrink' (default) will cause the labels to be drawn at 'label.size',
 #' unless that would make them too big for the rects, in which case they are
-#' shrunk to fit the rects. ‘fill’ draws the labels at the largest possible size
+#' shrunk to fit the rects. 'fill' draws the labels at the largest possible size
 #' for their rects. See documentation for the \code{ggfittext} package for more
 #' details.
 #' @param group.label.size Size for group labels, in points. Defaults to 36 pt.
 #' @param group.label.min.size Any group label shrunk below this size (in
 #' points) will not be drawn. Defaults to 4 pt.
 #' @param group.label.place Where in the group should the group label be drawn?
-#' Defaults to ‘bottom’, unless group.label.type is ‘fill’ in which case
-#' defaults to ‘middle’. See \code{ggfittext} documentation for more details.
+#' Defaults to 'bottom', unless group.label.type is 'fill' in which case
+#' defaults to 'middle'. See \code{ggfittext} documentation for more details.
 #' @param group.border.colour Colour for borders around groups. Defaults to
 #' grey50.
 #' @param group.border.size Size (line thickness) for borders around groups.

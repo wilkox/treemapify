@@ -166,7 +166,7 @@ treemapify_fixed <- function(
 
   # Place each rect
   # Algorithm: the area is divided into columns. The number of rects in a full
-  # column is set as the square root of the next perfect square ≥ n. Columns are
+  # column is set as the square root of the next perfect square >= n. Columns are
   # then filled sequentially from left to right, bottom to top, with the width
   # of the column set proportional to the sum area of the column rects and the
   # height divided between the rects following their areas.

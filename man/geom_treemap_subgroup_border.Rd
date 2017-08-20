@@ -16,7 +16,7 @@ geom arguments as for \code{geom_rect}.}
 used. Defaults to false. See \code{geom_treemap} for full details.}
 }
 \description{
-Requires ‘area’ and ‘subgroup’. Strange things will happen if
+Requires 'area' and 'subgroup'. Strange things will happen if
 \code{geom_treemap_subgroup_border} is given a different dataset or area
 aesthetic than the \code{geom_treemap} it is drawn over.
 }

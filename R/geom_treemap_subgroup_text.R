@@ -3,7 +3,7 @@
 #'
 #' @description
 #'
-#' Requires ‘area’ and ‘subgroup’ aesthetics. Strange things will happen if
+#' Requires 'area' and 'subgroup' aesthetics. Strange things will happen if
 #' \code{geom_treemap_subgroup_text} is given a different dataset or area
 #' aesthetic than the \code{geom_treemap} it is drawn over.
 #'
@@ -16,7 +16,7 @@
 #' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
 #' between text and edge of tile. Defaults to 1 mm.
 #' @param place Where should the text be drawn within the subgroup? One of
-#' ‘topleft’, ‘top’, ‘topright’ etc. Defaults to ‘bottom’.
+#' 'topleft', 'top', 'topright' etc. Defaults to 'bottom'.
 #' @param min.size Number, in points. Text that would need to be drawn smaller
 #' than this size to fit in the subgroup will be hidden. Defaults to 4 pt.
 #' @param grow Logical; should text be grown to fill the entire subgroup?

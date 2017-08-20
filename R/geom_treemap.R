@@ -6,10 +6,10 @@
 #' Draw a treemap, where each observation is represented by a tile scaled by an
 #' area aesthetic.
 #'
-#' ‘area’ is the only required aesthetic. Other aesthetics are accepted as for
+#' 'area' is the only required aesthetic. Other aesthetics are accepted as for
 #' \code{geom_rect}. See \code{geom_treemap_text} to label tiles.
 #'
-#' An optional ‘subgroup’ aesthetic will cause the tiles to be clustered in
+#' An optional 'subgroup' aesthetic will cause the tiles to be clustered in
 #' subgroups within the treemap. See \code{geom_treemap_subgroup_border} and
 #' \code{geom_treemap_subgroup_text} to draw a border around subgroups and label
 #' them respectively.
