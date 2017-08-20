@@ -115,7 +115,7 @@ GeomTreemapSubgroupText <- ggproto(
       family,
       fontface,
       angle
-    ), summarise, area = sum(as.numeric(area)), fill = head(fill, 1))
+    ), plyr::summarise, area = sum(as.numeric(area)), fill = head(fill, 1))
     data$id <- 1:nrow(data)
 
     # Generate treemap layout for data

@@ -130,8 +130,8 @@ ggplotify <- function(
     # Determine x and y extents for each group
     groupRects <- plyr::ddply(
       treeMap,
-      .(group),
-      summarise,
+      plyr::.(group),
+      plyr::summarise,
       xmin <- min(xmin),
       xmax <- max(xmax),
       ymin <- min(ymin),
@@ -155,7 +155,7 @@ ggplotify <- function(
     groupLabels <- plyr::ddply(
       treeMap,
       c("group"),
-      summarise,
+      plyr::summarise,
       xmin = min(xmin),
       xmax = max(xmax),
       ymin = min(ymin),

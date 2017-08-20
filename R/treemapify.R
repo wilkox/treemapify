@@ -115,7 +115,7 @@ treemapify <- function(
 
     # To get the placement for each group, sum the area and generate a treemap
     # that places each group
-    groupData <- plyr::ddply(treeMapData, "group", summarise,
+    groupData <- plyr::ddply(treeMapData, "group", plyr::summarise,
                        area = sum(as.numeric(area)),
                        fill = group[1])
     groupTreeMap <- treemapify(groupData, area = "area",
