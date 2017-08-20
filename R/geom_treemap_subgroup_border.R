@@ -79,7 +79,7 @@ GeomTreemapSubgroupBorder <- ggproto(
     data$id <- 1:nrow(data)
 
     # Sum areas by subgroup
-    data <- ddply(data, .(
+    data <- plyr::ddply(data, .(
       subgroup,
       PANEL,
       colour,

@@ -128,7 +128,7 @@ ggplotify <- function(
   if ("group" %in% colnames(treeMap)) {
 
     # Determine x and y extents for each group
-    groupRects <- ddply(
+    groupRects <- plyr::ddply(
       treeMap,
       .(group),
       summarise,
@@ -152,7 +152,7 @@ ggplotify <- function(
   # Add group labels, if asked to
   if (group.labels && "group" %in% colnames(treeMap)) {
 
-    groupLabels <- ddply(
+    groupLabels <- plyr::ddply(
       treeMap,
       c("group"),
       summarise,
