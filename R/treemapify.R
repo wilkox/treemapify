@@ -1,50 +1,50 @@
 #' Generate a treemap layout.
 #'
-#' \code{treemapify()} and \code{treemapify_fixed()} produce a treemap layout
-#' (set of raw drawing coordinates) from a data frame of observations. To draw a
-#' treemap with ggplot2, see \code{geom_treemap()}.
+#' `treemapify` and `treemapify_fixed` produce a treemap layout (set of raw
+#' coordinates used to draw a treemap) from a data frame of observations. To
+#' draw a treemap with 'ggplot2', use `geom_treemap` instead.
 #'
-#' \code{treemapify()} and \code{treemapify_fixed} return a data frame of tile
-#' coordinates for the treemap. This is only useful if you wish to draw the
-#' treemap without ggplot2, or for some edge cases such as treemaps drawn in R
-#' Shiny (see e.g. \url{https://stackoverflow.com/q/45021775}). The easiest way
-#' to draw a treemap with this package is to use the provided ggplot2 geoms,
-#' such as \code{geom_treemap()}.
+#' `treemapify` and `treemapify_fixed` return a data frame of tile coordinates
+#' for the treemap. This is only useful if you wish to draw the treemap without
+#' 'ggplot2', or for some edge cases such as treemaps drawn in 'R Shiny' (see
+#' e.g. \url{https://stackoverflow.com/q/45021775}). The easiest way to draw a
+#' treemap with this package is to use the provided 'ggplot2' geoms, such as
+#' `geom_treemap`.
 #'
 #' Input data frame must be in tidy format, i.e. each row must represent a
-#' single observation and each column a single variable. You must provide as
-#' arguments the names of the variables that will be represented by the area and
-#' fill colour of treemap tiles. Optionally, you can also select a variable by
-#' which to group the tiles within the treemap layout, and a variable that will
-#' be preserved as a label for each tile.
+#' single observation and each column a single variable. You must provide, as
+#' arguments, the names of the variables that will be represented by the area
+#' and fill colour of treemap tiles. Optionally, you can also select a variable
+#' by which to group the tiles within the treemap layout, and a variable that
+#' will be preserved as a label for each tile.
 #'
 #' Two algorithms for the tile layout are provided. With the default
-#' 'squarified' algorithm (\code{treemapify()}), the priority is ensuring the tiles
+#' 'squarified' algorithm (`treemapify`), the priority is ensuring the tiles
 #' have an aesthetically pleasing aspect ratio; that is, they are not too narrow
 #' or too short. In this algorithm, tile placement proceeds from the bottom left
 #' corner, moving alternately rightwards and upwards until all tiles are placed.
 #' See Bruls et al. (1999) for the full algorithm.
 #'
-#' With the alternative 'fixed' layout algorithm (\code{treemapify_fixed()}),
-#' the plot area is divided into vertical columns, each of which from left to
-#' right is then filled with an even number of tiles beginning at the bottom of
-#' the column. Unlike with the default 'squarified' algorithm, the relative
+#' With the alternative 'fixed' layout algorithm (`treemapify_fixed`), the plot
+#' area is divided into vertical columns, each of which from left to right is
+#' then filled with an even number of tiles beginning at the bottom of the
+#' column. Unlike with the default 'squarified' algorithm, the relative
 #' positions of the tiles are fixed by their order in the input data frame.
 #' While this can result in aesthetically unpleasing tiles, it allows
 #' side-by-side comparisons or animations to be created.
 #'
 #' @param data A tidy data frame.
-#' @param area Name of the variable (a column in 'data') to be mapped to the
+#' @param area Name of the variable (a column in `data`) to be mapped to the
 #' area of treemap tiles.
-#' @param fill Name of the variable (a column in 'data') to be mapped to the
+#' @param fill Name of the variable (a column in `data`) to be mapped to the
 #' fill colour of treemap tiles.
-#' @param group Optionally, name of the variable (a column in 'data') by which
+#' @param group Optionally, name of the variable (a column in `data`) by which
 #' the tiles will be grouped; that is, in the final treemap layout, these tiles
 #' will be kept together.
-#' @param label Optionally, name of the variable (a column in 'data') giving
+#' @param label Optionally, name of the variable (a column in `data`) giving
 #' tile labels that will be preserved in the output data frame.
 #' @param xlim,ylim Optional two-element vectors specifying the x and y limits
-#' of the area in which the tiles will be placed.
+#' of the plot area into which the treemap is to be drawn.
 #'
 #' @seealso geom_treemap
 #'

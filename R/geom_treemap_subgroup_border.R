@@ -1,23 +1,21 @@
-#' A ggplot2 geom to draw a border around a subgroup of treemap tiles.
+#' A 'ggplot2' geom to draw a border around a subgroup of treemap tiles.
 #'
-#' When \code{geom_treemap()} is used with the 'subgroup' aesthetic to subgroup
-#' treemap tiles, \code{geom_treemap_subgroup_border()} can be used to draw a
+#' When `geom_treemap` is used with the 'subgroup' aesthetic to subgroup
+#' treemap tiles, `geom_treemap_subgroup_border` can be used to draw a
 #' border around each subgroup.
 #'
-#' \code{geom_treemap_subgroup_border} requires 'area' and 'subgroup'
-#' aesthetics. Several other standard ggplot2 aesthetics are supported (see
-#' Aesthetics).
+#' `geom_treemap_subgroup_border` requires `area` and `subgroup` aesthetics.
+#' Several other standard 'ggplot2' aesthetics are supported (see Aesthetics).
 #'
 #' If other elements of the treemap have been drawn with the 'fixed' algorithm
-#' (\code{fixed = T}), this argument must also be used for
-#' \code{geom_treemap_subgroup_border} to ensure all geoms share a common
-#' layout.
+#' (`fixed = TRUE`), this argument must also be used for
+#' `geom_treemap_subgroup_border` to ensure all geoms share a common layout.
 #'
 #' @seealso geom_treemap, geom_treemap_subgroup_text
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
-#' geom arguments as for \code{ggplot2::geom_rect()}.
-#' @param fixed If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+#' geom arguments as for `ggplot2::geom_rect`.
+#' @param fixed If `TRUE`, the alternative 'fixed' tile layout algorithm will be
 #' used.
 #'
 #' @section Aesthetics:

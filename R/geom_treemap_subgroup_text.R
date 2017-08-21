@@ -1,38 +1,36 @@
-#' A ggplot2 geom to add text labels to treemap subgroups.
+#' A 'ggplot2' geom to add text labels to treemap subgroups.
 #'
-#' When \code{geom_treemap()} is used with the 'subgroup' aesthetic to subgroup
-#' treemap tiles, \code{geom_treemap_subgroup_text()} can be used to add a text
-#' label to each subgroup.
+#' When `geom_treemap` is used with the `subgroup` aesthetic to subgroup treemap
+#' tiles, `geom_treemap_subgroup_text` can be used to add a text label to each
+#' subgroup.
 #'
-#' \code{geom_treemap_subgroup_text} requires 'area', 'label' and 'subgroup'
-#' aesthetics. Several other standard ggplot2 aesthetics are supported (see
+#' `geom_treemap_subgroup_text` requires `area`, `label` and `subgroup`
+#' aesthetics. Several other standard 'ggplot2' aesthetics are supported (see
 #' Aesthetics).
 #'
-#' \code{geom_treemap_subgroup_text()} uses the \code{ggfittext} package to fit
-#' text to the subgroup. All text drawing options available in
-#' \code{ggfittext::geom_fit_text()} (growing, reflowing, etc.) are also
-#' available here. For full details on how these options work, see the
-#' documentation for \code{ggfittext::geom_fit_text()}.
+#' `geom_treemap_subgroup_text` uses the 'ggfittext' package to fit text to the
+#' subgroup. All text drawing options available in `ggfittext::geom_fit_text`
+#' (growing, reflowing, etc.) are also available here. For full details on how
+#' these options work, see the documentation for `ggfittext::geom_fit_text`.
 #'
 #' If other elements of the treemap have been drawn with the 'fixed' algorithm
-#' (\code{fixed = T}), this argument must also be used for
-#' \code{geom_treemap_subgroup_text} to ensure all geoms share a common
-#' layout.
+#' (`fixed = TRUE`), this argument must also be used for
+#' `geom_treemap_subgroup_text` to ensure all geoms share a common layout.
 #'
-#' @param padding.x,padding.y grid::unit() object, giving horizontal or vertical
+#' @param padding.x,padding.y `grid::unit` object, giving horizontal or vertical
 #' padding between text and edge of tile. Defaults to 1 mm.
-#' @param place Where inside the box to place the text. Default is 'bottom';
-#' other options are 'topleft', 'top', 'topright', etc.
+#' @param place Where inside the box to place the text. Default is `bottom`;
+#' other options are `topleft`, `top`, `topright`, etc.
 #' @param min.size Minimum font size, in points. If provided, text that would
 #' need to be shrunk below this size to fit the box will not be drawn. Defaults
 #' to 4 pt.
-#' @param grow If 'TRUE', text will be grown as well as shrunk to fill the box.
-#' @param reflow If 'TRUE', text will be reflowed (wrapped) to better fit the
+#' @param grow If `TRUE`, text will be grown as well as shrunk to fill the box.
+#' @param reflow If `TRUE`, text will be reflowed (wrapped) to better fit the
 #' box.
-#' @param fixed If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+#' @param fixed If `TRUE`, the alternative 'fixed' tile layout algorithm will be
 #' used.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
-#' geom arguments as for \code{ggplot2::geom_text()}.
+#' geom arguments as for `ggplot2::geom_text`.
 #'
 #' @seealso geom_treemap, geom_treemap_subgroup_border
 #'

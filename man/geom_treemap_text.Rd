@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_treemap_text.R
 \name{geom_treemap_text}
 \alias{geom_treemap_text}
-\title{A ggplot2 geom to add text labels to treemap tiles}
+\title{A 'ggplot2' geom to add text labels to treemap tiles}
 \usage{
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
@@ -12,44 +12,42 @@ geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
-geom arguments as for \code{ggplot2::geom_text()}.}
+geom arguments as for `ggplot2::geom_text`.}
 
-\item{padding.x, padding.y}{grid::unit() object, giving horizontal or vertical
+\item{padding.x, padding.y}{`grid::unit` object, giving horizontal or vertical
 padding between text and edge of tile. Defaults to 1 mm.}
 
-\item{place}{Where inside the box to place the text. Default is 'bottom';
-other options are 'topleft', 'top', 'topright', etc.}
+\item{place}{Where inside the box to place the text. Default is `bottom`;
+other options are `topleft`, `top`, `topright`, etc.}
 
 \item{min.size}{Minimum font size, in points. If provided, text that would
 need to be shrunk below this size to fit the box will not be drawn. Defaults
 to 4 pt.}
 
-\item{grow}{If 'TRUE', text will be grown as well as shrunk to fill the box.}
+\item{grow}{If `TRUE`, text will be grown as well as shrunk to fill the box.}
 
-\item{reflow}{If 'TRUE', text will be reflowed (wrapped) to better fit the
+\item{reflow}{If `TRUE`, text will be reflowed (wrapped) to better fit the
 box.}
 
-\item{fixed}{If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+\item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
 used.}
 }
 \description{
-\code{geom_treemap_text()} can be used to add a text label to each treemap
-tile.
+`geom_treemap_text` can be used to add a text label to each tile in a treemap
+created with `geom_treemap`.
 }
 \details{
-\code{geom_treemap_text} requires 'area' and 'label' aesthetics.
-Several other standard ggplot2 aesthetics are supported (see Aesthetics).
+`geom_treemap_text` requires `area` and `label` aesthetics. Several other
+standard 'ggplot2' aesthetics are supported (see Aesthetics).
 
-\code{geom_treemap_text()} uses the \code{ggfittext} package to fit text to
-the tile All text drawing options available in
-\code{ggfittext::geom_fit_text()} (growing, reflowing, etc.) are also
-available here. For full details on how these options work, see the
-documentation for \code{ggfittext::geom_fit_text()}.
+`geom_treemap_text` uses the 'ggfittext' package to fit text to tiles. All
+text drawing options available in `ggfittext::geom_fit_text` (growing,
+reflowing, etc.) are also available here. For full details on how these
+options work, see the documentation for `ggfittext::geom_fit_text`.
 
 If other elements of the treemap have been drawn with the 'fixed' algorithm
-(\code{fixed = T}), this argument must also be used for
-\code{geom_treemap_text()} to ensure all geoms share a common
-layout.
+(`fixed = T`), this argument must also be used for `geom_treemap_text` to
+ensure all geoms share a common layout.
 }
 \section{Aesthetics}{
 
