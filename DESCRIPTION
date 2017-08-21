@@ -14,6 +14,9 @@ Imports:
     ggplot2 (>= 2.2.1),
     ggfittext (>= 0.4.2),
     grid (>= 3.4.1)
+Suggests: knitr,
+    rmarkdown,
+    testthat
 License: GPL (>=3)
 LazyData: true
 RoxygenNote: 6.0.1
