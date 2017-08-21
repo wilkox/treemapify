@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_treemap_subgroup_border.R
 \name{geom_treemap_subgroup_border}
 \alias{geom_treemap_subgroup_border}
-\title{Draw a border around a subgroup of treemap tiles.}
+\title{A ggplot2 geom to draw a border around a subgroup of treemap tiles.}
 \usage{
 geom_treemap_subgroup_border(mapping = NULL, data = NULL,
   stat = "identity", position = "identity", na.rm = FALSE,
@@ -10,15 +10,25 @@ geom_treemap_subgroup_border(mapping = NULL, data = NULL,
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
-geom arguments as for \code{geom_rect}.}
+geom arguments as for \code{ggplot2::geom_rect()}.}
 
-\item{fixed}{Logical, indicating whether the fixed layout algorithm should be
-used. Defaults to false. See \code{geom_treemap} for full details.}
+\item{fixed}{If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+used.}
 }
 \description{
-Requires 'area' and 'subgroup'. Strange things will happen if
-\code{geom_treemap_subgroup_border} is given a different dataset or area
-aesthetic than the \code{geom_treemap} it is drawn over.
+When \code{geom_treemap()} is used with the 'subgroup' aesthetic to subgroup
+treemap tiles, \code{geom_treemap_subgroup_border()} can be used to draw a
+border around each subgroup.
+}
+\details{
+\code{geom_treemap_subgroup_border} requires 'area' and 'subgroup'
+aesthetics. Several other standard ggplot2 aesthetics are supported (see
+Aesthetics).
+
+If other elements of the treemap have been drawn with the 'fixed' algorithm
+(\code{fixed = T}), this argument must also be used for
+\code{geom_treemap_subgroup_border} to ensure all geoms share a common
+layout.
 }
 \section{Aesthetics}{
 

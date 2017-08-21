@@ -1,53 +1,60 @@
-#' @title Generate coordinates for a treemap with a squarified layout
-#' @export
-#' @family treemapify
+#' Generate a treemap layout.
 #'
-#' @description
+#' \code{treemapify()} and \code{treemapify_fixed()} produce a treemap layout
+#' (set of raw drawing coordinates) from a data frame of observations. To draw a
+#' treemap with ggplot2, see \code{geom_treemap()}.
 #'
-#' Takes a data frame of observations, with variables mapped to area and fill
-#' colour, and produces the coordinates for a treemap expressing these
-#' observations and mappings.  These coordinates can be used to draw a
-#' customised treemap (recommended) or passed directly to the "ggplotify"
-#' function to produce an exploratory projection.
+#' \code{treemapify()} and \code{treemapify_fixed} return a data frame of tile
+#' coordinates for the treemap. This is only useful if you wish to draw the
+#' treemap without ggplot2, or for some edge cases such as treemaps drawn in R
+#' Shiny (see e.g. \url{https://stackoverflow.com/q/45021775}). The easiest way
+#' to draw a treemap with this package is to use the provided ggplot2 geoms,
+#' such as \code{geom_treemap()}.
 #'
-#' Input data frame must be in tidy format (see article by Hadley Wickham,
-#' below), i.e. each row must represent a single observation and each column a
-#' single variable.  The area and fill parameters are mandatory; grouping and
-#' label factors are optional.  Note that while adding a label will not change
-#' the treemap layout, adding a group will, as observations from the same group
+#' Input data frame must be in tidy format, i.e. each row must represent a
+#' single observation and each column a single variable. You must provide as
+#' arguments the names of the variables that will be represented by the area and
+#' fill colour of treemap tiles. Optionally, you can also select a variable by
+#' which to group the tiles within the treemap layout, and a variable that will
+#' be preserved as a label for each tile.
+#'
+#' Two algorithms for the tile layout are provided. With the default
+#' 'squarified' algorithm (\code{treemapify()}), the priority is ensuring the tiles
+#' have an aesthetically pleasing aspect ratio; that is, they are not too narrow
+#' or too short. In this algorithm, tile placement proceeds from the bottom left
+#' corner, moving alternately rightwards and upwards until all tiles are placed.
+#' See Bruls et al. (1999) for the full algorithm.
+#'
+#' With the alternative 'fixed' layout algorithm (\code{treemapify_fixed()}),
+#' the plot area is divided into vertical columns, each of which from left to
+#' right is then filled with an even number of tiles beginning at the bottom of
+#' the column. Unlike with the default 'squarified' algorithm, the relative
+#' positions of the tiles are fixed by their order in the input data frame.
+#' While this can result in aesthetically unpleasing tiles, it allows
+#' side-by-side comparisons or animations to be created.
+#'
+#' @param data A tidy data frame.
+#' @param area Name of the variable (a column in 'data') to be mapped to the
+#' area of treemap tiles.
+#' @param fill Name of the variable (a column in 'data') to be mapped to the
+#' fill colour of treemap tiles.
+#' @param group Optionally, name of the variable (a column in 'data') by which
+#' the tiles will be grouped; that is, in the final treemap layout, these tiles
 #' will be kept together.
+#' @param label Optionally, name of the variable (a column in 'data') giving
+#' tile labels that will be preserved in the output data frame.
+#' @param xlim,ylim Optional two-element vectors specifying the x and y limits
+#' of the area in which the tiles will be placed.
 #'
-#' Tile placement proceeds from the bottom left corner, alternating between
-#' moving rightwards and moving upwards.  See Bruls et al. 1999 for the full
-#' algorithm. For a tile layout in which the position of tiles is fixed by their
-#' order in the input data frame, see \code{treemapify_fixed}.
-#'
-#' @param data a tidy data frame, containing at least variables to be mapped to
-#' area (size of tile) and fill (fill colour of tile).
-#' @param area variable to be mapped to area; must be a column in data
-#' @param fill variable to be mapped to fill; must be a column in data
-#' @param group (optional) variable to be mapped to group; must be a column in
-#' the data frame
-#' @param label (optional) variable to be used as the label for each
-#' observation; must be a column in the data frame
-#' @param xlim,ylim (optional) two-element vectors specifying the x and y
-#' limits of the area in which the tiles will be placed
-#'
-#' @seealso treemapify_fixed, geom_treemap
+#' @seealso geom_treemap
 #'
 #' @references
-#' treemapify uses the Squarified Treemap algorithm of Mark Bruls, Kees Huizing
-#' and Jarke van Wijk:
 #'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
-#' 33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE
-#' TCVG Symposium on Visualization.
-#' \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+#' 33-42).Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
+#' Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 #'
-#' "Tidy Data" is described by Hadley Wickham in: Wickham, H. (2014). Tidy data.
-#' Journal of Statistical Software.
-#' \url{https://www.jstatsoft.org/article/view/v059i10/v59i10.pdf}
-
+#' @export
 treemapify <- function(
   data,
   area,

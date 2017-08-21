@@ -1,18 +1,24 @@
-#' @title Draw a border around a subgroup of treemap tiles.
-#' @export
+#' A ggplot2 geom to draw a border around a subgroup of treemap tiles.
 #'
-#' @description
+#' When \code{geom_treemap()} is used with the 'subgroup' aesthetic to subgroup
+#' treemap tiles, \code{geom_treemap_subgroup_border()} can be used to draw a
+#' border around each subgroup.
 #'
-#' Requires 'area' and 'subgroup'. Strange things will happen if
-#' \code{geom_treemap_subgroup_border} is given a different dataset or area
-#' aesthetic than the \code{geom_treemap} it is drawn over.
+#' \code{geom_treemap_subgroup_border} requires 'area' and 'subgroup'
+#' aesthetics. Several other standard ggplot2 aesthetics are supported (see
+#' Aesthetics).
+#'
+#' If other elements of the treemap have been drawn with the 'fixed' algorithm
+#' (\code{fixed = T}), this argument must also be used for
+#' \code{geom_treemap_subgroup_border} to ensure all geoms share a common
+#' layout.
 #'
 #' @seealso geom_treemap, geom_treemap_subgroup_text
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
-#' geom arguments as for \code{geom_rect}.
-#' @param fixed Logical, indicating whether the fixed layout algorithm should be
-#' used. Defaults to false. See \code{geom_treemap} for full details.
+#' geom arguments as for \code{ggplot2::geom_rect()}.
+#' @param fixed If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+#' used.
 #'
 #' @section Aesthetics:
 #'
@@ -24,6 +30,7 @@
 #'   \item linetype
 #'   \item alpha
 #' }
+#' @export
 geom_treemap_subgroup_border <- function(
   mapping = NULL,
   data = NULL,
@@ -51,10 +58,8 @@ geom_treemap_subgroup_border <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
+#' GeomTreemapSubgroupBorder
+#' @noRd
 GeomTreemapSubgroupBorder <- ggplot2::ggproto(
   "GeomTreemapSubgroupBorder",
   ggplot2::Geom,

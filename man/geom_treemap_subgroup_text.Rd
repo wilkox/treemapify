@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_treemap_subgroup_text.R
 \name{geom_treemap_subgroup_text}
 \alias{geom_treemap_subgroup_text}
-\title{Text labels for treemap subgroups.}
+\title{A ggplot2 geom to add text labels to treemap subgroups.}
 \usage{
 geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
@@ -10,36 +10,46 @@ geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
-geom arguments as for \code{geom_rect}.}
+geom arguments as for \code{ggplot2::geom_text()}.}
 
-\item{fixed}{Logical, indicating whether the fixed layout algorithm should be
-used. Defaults to false. See \code{geom_treemap} for full details.}
+\item{fixed}{If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+used.}
 
-\item{padding.x, padding, y}{Unit object, giving horizontal or vertical padding
-between text and edge of tile. Defaults to 1 mm.}
+\item{padding.x, padding.y}{grid::unit() object, giving horizontal or vertical
+padding between text and edge of tile. Defaults to 1 mm.}
 
-\item{place}{Where should the text be drawn within the subgroup? One of
-'topleft', 'top', 'topright' etc. Defaults to 'bottom'.}
+\item{place}{Where inside the box to place the text. Default is 'bottom';
+other options are 'topleft', 'top', 'topright', etc.}
 
-\item{min.size}{Number, in points. Text that would need to be drawn smaller
-than this size to fit in the subgroup will be hidden. Defaults to 4 pt.}
+\item{min.size}{Minimum font size, in points. If provided, text that would
+need to be shrunk below this size to fit the box will not be drawn. Defaults
+to 4 pt.}
 
-\item{grow}{Logical; should text be grown to fill the entire subgroup?
-Defaults to false.}
+\item{grow}{If 'TRUE', text will be grown as well as shrunk to fill the box.}
 
-\item{reflow}{Logical; should text should be reflowed (wrapped) to better fit
-the bounding box? Defaults to false.}
+\item{reflow}{If 'TRUE', text will be reflowed (wrapped) to better fit the
+box.}
 }
 \description{
-Requires 'area' and 'subgroup' aesthetics. Strange things will happen if
-\code{geom_treemap_subgroup_text} is given a different dataset or area
-aesthetic than the \code{geom_treemap} it is drawn over.
+When \code{geom_treemap()} is used with the 'subgroup' aesthetic to subgroup
+treemap tiles, \code{geom_treemap_subgroup_text()} can be used to add a text
+label to each subgroup.
+}
+\details{
+\code{geom_treemap_subgroup_text} requires 'area', 'label' and 'subgroup'
+aesthetics. Several other standard ggplot2 aesthetics are supported (see
+Aesthetics).
 
-\code{geom_treemap_subgroup_text} uses \code{geom_fit_text} from the
-\code{ggfittext} package to fit text to the subgroup. All text drawing
-options available in \code{ggfittext} (growing, reflowing, etc.) are also
-available here. For full details see the documentation for
-\code{ggfittext::geom_fit_text}.
+\code{geom_treemap_subgroup_text()} uses the \code{ggfittext} package to fit
+text to the subgroup. All text drawing options available in
+\code{ggfittext::geom_fit_text()} (growing, reflowing, etc.) are also
+available here. For full details on how these options work, see the
+documentation for \code{ggfittext::geom_fit_text()}.
+
+If other elements of the treemap have been drawn with the 'fixed' algorithm
+(\code{fixed = T}), this argument must also be used for
+\code{geom_treemap_subgroup_text} to ensure all geoms share a common
+layout.
 }
 \section{Aesthetics}{
 
@@ -47,6 +57,7 @@ available here. For full details see the documentation for
 \itemize{
   \item area (required)
   \item label (required)
+  \item subgroup (required)
   \item colour
   \item size
   \item alpha

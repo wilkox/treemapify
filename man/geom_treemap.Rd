@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_treemap.R
 \name{geom_treemap}
 \alias{geom_treemap}
-\title{A treemap}
+\title{A ggplot2 geom to draw a treemap.}
 \usage{
 geom_treemap(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = NA,
@@ -12,34 +12,43 @@ geom_treemap(mapping = NULL, data = NULL, stat = "identity",
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
 geom arguments as for \code{geom_rect}.}
 
-\item{fixed}{Logical, indicating whether the fixed layout algorithm
-should be used. Defaults to false.}
+\item{fixed}{If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+used.}
 }
 \description{
-Draw a treemap, where each observation is represented by a tile scaled by an
-area aesthetic.
-
-'area' is the only required aesthetic. Other aesthetics are accepted as for
-\code{geom_rect}. See \code{geom_treemap_text} to label tiles.
+\code{geom_treemap()} provides a plot layer that divides the plot into tiles
+representing dataset observations. The relative area of each tile expresses
+an 'area' aesthetic.
+}
+\details{
+\code{geom_treemap()} requires an 'area' aesthetic. It won't accept any
+aesthetics relating to the x and y axes (e.g. 'xmin' or 'y'), as the x and y
+axes are not meaningful in a treemap. Several other standard ggplot2
+aesthetics are supported (see Aesthetics). To add text labels to tiles, see
+\code{geom_treemap_text}.
 
 An optional 'subgroup' aesthetic will cause the tiles to be clustered in
 subgroups within the treemap. See \code{geom_treemap_subgroup_border} and
-\code{geom_treemap_subgroup_text} to draw a border around subgroups and label
-them respectively.
+\code{geom_treemap_subgroup_text} to draw borders around subgroups and label
+them, respectively.
 
-With the default tile layout algorithm (\code{fixed = F}), tile placement
-proceeds from the bottom left corner, moving alternately rightwards and
-upwards until all tiles are placed. See Bruls et al. (1999) for the full
-algorithm.
+Two algorithms for the tile layout are provided. With the default
+'squarified' algorithm (\code{fixed = F}), the priority is ensuring the tiles
+have an aesthetically pleasing aspect ratio; that is, they are not too narrow
+or too short. In this algorithm, tile placement proceeds from the bottom left
+corner, moving alternately rightwards and upwards until all tiles are placed.
+See Bruls et al. (1999) for the full algorithm.
 
-With the fixed tile layout algorithm (\code{fixed = T}), tile placement fills
-columns from left to right, beginning at the bottom of each column. However,
-unlike with the default algorithm, the order in which tiles are placed is
-fixed by their order in the input data frame. While this can result in some
-aesthetically unpleasing tiles, it allows side-by-side comparisons or
-animations to be created. If the fixed algorithm is used for geom_treemap, it
-should also be used for all other treemap geoms in the plot or they will not
-share a common layout.
+With the alternative 'fixed' layout algorithm (\code{fixed = T}), the plot
+area is divided into vertical columns, each of which from left to right is
+then filled with an even number of tiles beginning at the bottom of the
+column. Unlike with the default 'squarified' algorithm, the relative
+positions of the tiles are fixed by their order in the input data frame.
+While this can result in aesthetically unpleasing tiles, it allows
+side-by-side comparisons or animations to be created. If the \code{fixed = T}
+argument is used for \code{geom_treemap()}, it should also be used for all
+other treemap geoms included in the plot or they will not share a common
+layout.
 }
 \section{Aesthetics}{
 
@@ -55,13 +64,9 @@ share a common layout.
 }
 
 \references{
-The default tile layout uses the Squarified Treemap algorithm of Mark Bruls,
-Kees Huizing and Jarke van Wijk:
-
 Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
-33-42). Presented at the In Proceedings of the Joint Eurographics and IEEE
-TCVG Symposium on Visualization.
-\url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+33-42). Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
+Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 }
 \seealso{
 geom_treemap_text, geom_treemap_subgroup_border,

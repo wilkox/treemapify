@@ -1,42 +1,45 @@
-#' @title Add text labels to treemap tiles.
-#' @export
+#' A ggplot2 geom to add text labels to treemap tiles
 #'
-#' @description
+#' \code{geom_treemap_text()} can be used to add a text label to each treemap
+#' tile.
 #'
-#' This will draw a text label for each tile in a treemap created by
-#' \code{geom_treemap}. In addition to the required 'label' aesthetic, it
-#' requires an 'area' aesthetic as used in \code{geom_treemap}; if this is
-#' mapped to a different column, or \code{geom_treemap} and
-#' \code{geom_treemap_text} are passed different data, the text labels probably
-#' won't line up with the tiles.
+#' \code{geom_treemap_text} requires 'area' and 'label' aesthetics.
+#' Several other standard ggplot2 aesthetics are supported (see Aesthetics).
 #'
-#' \code{geom_treemap_text} uses \code{geom_fit_text} from the \code{ggfittext}
-#' package to fit text to the tile. All text drawing options available in
-#' \code{ggfittext} (growing, reflowing, etc.) are also available here. For full
-#' details see the documentation for \code{ggfittext::geom_fit_text}.
+#' \code{geom_treemap_text()} uses the \code{ggfittext} package to fit text to
+#' the tile All text drawing options available in
+#' \code{ggfittext::geom_fit_text()} (growing, reflowing, etc.) are also
+#' available here. For full details on how these options work, see the
+#' documentation for \code{ggfittext::geom_fit_text()}.
 #'
-#' @param padding.x,padding,y Unit object, giving horizontal or vertical padding
-#' between text and edge of tile. Defaults to 1 mm.
-#' @param place Where should the text be drawn within the tile? One of
-#' 'topleft', 'top', 'topright' etc. Defaults to 'topleft'.
-#' @param min.size Number, in points. Text that would need to be drawn smaller
-#' than this size to fit in the tile will be hidden. Defaults to 4 pt.
-#' @param grow Logical; should text grow to fill the entire tile?
-#' Defaults to false.
-#' @param reflow Logical; should text should be reflowed (wrapped) to better fit
-#' the bounding box? Defaults to false.
-#' @param fixed Logical, indicating whether the fixed layout algorithm
-#' should be used. Defaults to false. See \code{geom_treemap} for full details.
+#' If other elements of the treemap have been drawn with the 'fixed' algorithm
+#' (\code{fixed = T}), this argument must also be used for
+#' \code{geom_treemap_text()} to ensure all geoms share a common
+#' layout.
+#'
+#' @param padding.x,padding.y grid::unit() object, giving horizontal or vertical
+#' padding between text and edge of tile. Defaults to 1 mm.
+#' @param place Where inside the box to place the text. Default is 'bottom';
+#' other options are 'topleft', 'top', 'topright', etc.
+#' @param min.size Minimum font size, in points. If provided, text that would
+#' need to be shrunk below this size to fit the box will not be drawn. Defaults
+#' to 4 pt.
+#' @param grow If 'TRUE', text will be grown as well as shrunk to fill the box.
+#' @param reflow If 'TRUE', text will be reflowed (wrapped) to better fit the
+#' box.
+#' @param fixed If 'TRUE', the alternative 'fixed' tile layout algorithm will be
+#' used.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
-#' geom arguments as for \code{geom_rect}.
+#' geom arguments as for \code{ggplot2::geom_text()}.
 #'
-#' @seealso geom_treemap, geom_fit_text
+#' @seealso geom_treemap
 #'
 #' @section Aesthetics:
 #'
 #' \itemize{
 #'   \item area (required)
 #'   \item label (required)
+#'   \item subgroup
 #'   \item colour
 #'   \item size
 #'   \item alpha
@@ -44,6 +47,7 @@
 #'   \item fontface
 #'   \item angle
 #' }
+#' @export
 geom_treemap_text <- function(
   mapping = NULL,
   data = NULL,
@@ -83,11 +87,8 @@ geom_treemap_text <- function(
   )
 }
 
-#' @title GeomTreemapText
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
+#' GeomTreemapText
+#' @noRd
 GeomTreemapText <- ggplot2::ggproto(
   "GeomTreemapText",
   ggplot2::Geom,
