@@ -12,7 +12,7 @@ library(knitr)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -39,11 +39,13 @@ For this example, we'll plot some data on the G-20 group of major world
 economies. `treemapify` includes this in the `G20` data frame:
 
 ```{r message = FALSE, eval = FALSE} 
+library(ggplot2)
 library(treemapify)
 G20
 ```
 
 ```{r echo = FALSE, message = FALSE}
+library(ggplot2)
 library(treemapify)
 kable(G20)
 ```
@@ -176,10 +178,10 @@ animated_plot <- ggplot(tweened, aes(
   )
 
 animation::ani.options(interval = 1/15)
-gganimate(animated_plot, "animated_treemap.gif", title_frame = F, ani.width = 400, ani.height = 400)
+gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F, ani.width = 400, ani.height = 400)
 ```
 
-![animated_treemap](animated_treemap.gif)
+![animated_treemap](man/figures/animated_treemap.gif)
 
 # Credit
 

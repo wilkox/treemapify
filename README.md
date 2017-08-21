@@ -27,6 +27,7 @@ Example
 For this example, we'll plot some data on the G-20 group of major world economies. `treemapify` includes this in the `G20` data frame:
 
 ``` r
+library(ggplot2)
 library(treemapify)
 G20
 ```
@@ -61,7 +62,7 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = HDI)) +
   geom_treemap()
 ```
 
-![](README-basic_treemap-1.png)
+![](man/figures/README-basic_treemap-1.png)
 
 This plot isn't very useful without the knowing what country is represented by each tile. `geom_treemap_text` can be used to add a text label to each tile. It uses the [ggfittext](https://github.com/wilkox/ggfittext) package to resize the text so it fits the tile. In addition to standard text formatting aesthetics you would use in `geom_text`, like ‘fontface’ or ‘colour’, we can pass additional options specific for `ggfittext`. For example, we can place the text in the centre of the tile with `place = "centre"`, and expand it to fill as much of the tile as possible with `grow = TRUE`.
 
@@ -76,7 +77,7 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = HDI, label = Country)) +
   )
 ```
 
-![](README-geom_treemap_text-1.png)
+![](man/figures/README-geom_treemap_text-1.png)
 
 `geom_treemap` supports subgrouping of tiles within a treemap by passing a ‘subgroup’ aesthetic. Let's subgroup the countries by region, draw a border around each subgroup with `geom_treemap_subgroup_border`, and label each subgroup with `geom_treemap_subgroup_text`. As with `geom_treemap_text`, `geom_treemap_subgroup_text` can take `ggfittext` parameters for text placement and sizing.
 
@@ -104,7 +105,7 @@ ggplot(G20, aes(
   )
 ```
 
-![](README-subgrouped_treemap-1.png)
+![](man/figures/README-subgrouped_treemap-1.png)
 
 Note that ‘Argentina’ has been hidden. `geom_treemap_text` will hide text labels that cannot fit a tile without being shrunk below a minimum size, by default 4 points. This can be adjusted with the ‘min.size’ option.
 
@@ -125,7 +126,7 @@ ggplot(G20, aes(area = GDP.mil.USD, fill = Region, label = Country)) +
   )
 ```
 
-![](README-complex_treemap-1.png)
+![](man/figures/README-complex_treemap-1.png)
 
 Animated treemaps
 =================
@@ -168,10 +169,10 @@ animated_plot <- ggplot(tweened, aes(
   )
 
 animation::ani.options(interval = 1/15)
-gganimate(animated_plot, "animated_treemap.gif", title_frame = F, ani.width = 400, ani.height = 400)
+gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F, ani.width = 400, ani.height = 400)
 ```
 
-![animated\_treemap](animated_treemap.gif)
+![animated\_treemap](man/figures/animated_treemap.gif)
 
 Credit
 ======
