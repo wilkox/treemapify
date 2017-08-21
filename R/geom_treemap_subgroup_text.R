@@ -106,7 +106,7 @@ GeomTreemapSubgroupText <- ggplot2::ggproto(
     data$id <- 1:nrow(data)
 
     # Sum areas by subgroup
-    data <- plyr::ddply(data, .(
+    data <- plyr::ddply(data, plyr::.(
       subgroup,
       PANEL,
       colour,

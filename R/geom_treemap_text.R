@@ -159,3 +159,7 @@ GeomTreemapText <- ggplot2::ggproto(
     gt
   }
 )
+
+#' @importFrom grid makeContent
+#' @export
+makeContent.fittexttree <- function(x) { ggfittext:::makeContent.fittexttree(x) }
