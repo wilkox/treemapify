@@ -1,3 +1,14 @@
+# v2.3.1.9001
+
+## Bug fixes
+- Fix namespace incompatibility with ggfittext 0.4.2
+- Explicit invocation of all imported functions
+- Misc. small fixes in preparation for CRAN submission
+
+## Minor changes
+- Deprecate `ggplotify()`
+- Add travis-ci and CRAN badges to README
+
 # v2.3.1
 
 ## Bug fixes
