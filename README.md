@@ -4,6 +4,8 @@
 -   [Animated treemaps](#animated-treemaps)
 -   [Credit](#credit)
 
+[![Travis-CI Build Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://travis-ci.org/wilkox/treemapify) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
+
 **Treemapify provides ggplot2 geoms for drawing [treemaps](http://en.wikipedia.org/wiki/Treemap)**
 
 Install
