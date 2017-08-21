@@ -55,7 +55,7 @@ available here. For full details see the documentation for
   \item angle
 }
 }
+
 \seealso{
 geom_treemap, geom_treemap_subgroup_border
 }
-

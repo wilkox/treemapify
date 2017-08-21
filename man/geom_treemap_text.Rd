@@ -6,9 +6,9 @@
 \usage{
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
-  inherit.aes = TRUE, padding.x = unit(1, "mm"), padding.y = unit(1,
-  "mm"), place = "topleft", min.size = 4, grow = F, reflow = F,
-  fixed = F, ...)
+  inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
+  padding.y = grid::unit(1, "mm"), place = "topleft", min.size = 4,
+  grow = F, reflow = F, fixed = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -59,7 +59,7 @@ details see the documentation for \code{ggfittext::geom_fit_text}.
   \item angle
 }
 }
+
 \seealso{
 geom_treemap, geom_fit_text
 }
-

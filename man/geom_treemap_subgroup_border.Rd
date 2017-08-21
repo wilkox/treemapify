@@ -32,7 +32,7 @@ aesthetic than the \code{geom_treemap} it is drawn over.
   \item alpha
 }
 }
+
 \seealso{
 geom_treemap, geom_treemap_subgroup_text
 }
-

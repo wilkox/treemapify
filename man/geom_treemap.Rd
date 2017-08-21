@@ -53,6 +53,7 @@ share a common layout.
   \item subgroup
 }
 }
+
 \references{
 The default tile layout uses the Squarified Treemap algorithm of Mark Bruls,
 Kees Huizing and Jarke van Wijk:
@@ -66,4 +67,3 @@ TCVG Symposium on Visualization.
 geom_treemap_text, geom_treemap_subgroup_border,
 geom_treemap_subgroup_text
 }
-

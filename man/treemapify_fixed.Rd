@@ -55,7 +55,5 @@ Journal of Statistical Software.
 \seealso{
 treemapify, geom_treemap
 
-Other treemapify: \code{\link{ggplotify}},
-  \code{\link{treemapify}}
+Other treemapify: \code{\link{treemapify}}
 }
-
