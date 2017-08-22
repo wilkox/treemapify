@@ -56,6 +56,12 @@ geom_treemap_subgroup_text <- function(
   na.rm = FALSE,
   show.legend = FALSE,
   inherit.aes = TRUE,
+  padding.x = grid::unit(1, "mm"),
+  padding.y = grid::unit(1, "mm"),
+  place = "topleft",
+  min.size = 4,
+  grow = F,
+  reflow = F,
   fixed = F,
   ...
 ) {

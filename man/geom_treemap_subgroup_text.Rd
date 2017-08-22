@@ -6,14 +6,13 @@
 \usage{
 geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
-  inherit.aes = TRUE, fixed = F, ...)
+  inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
+  padding.y = grid::unit(1, "mm"), place = "topleft", min.size = 4,
+  grow = F, reflow = F, fixed = F, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
 geom arguments as for `ggplot2::geom_text`.}
-
-\item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
-used.}
 
 \item{padding.x, padding.y}{`grid::unit` object, giving horizontal or vertical
 padding between text and edge of tile. Defaults to 1 mm.}
@@ -29,6 +28,9 @@ to 4 pt.}
 
 \item{reflow}{If `TRUE`, text will be reflowed (wrapped) to better fit the
 box.}
+
+\item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
+used.}
 }
 \description{
 When `geom_treemap` is used with the `subgroup` aesthetic to subgroup treemap
