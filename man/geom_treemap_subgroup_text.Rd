@@ -7,7 +7,7 @@
 geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
-  padding.y = grid::unit(1, "mm"), place = "topleft", min.size = 4,
+  padding.y = grid::unit(1, "mm"), place = "bottom", min.size = 4,
   grow = F, reflow = F, fixed = F, ...)
 }
 \arguments{

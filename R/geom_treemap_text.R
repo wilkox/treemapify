@@ -87,6 +87,8 @@ geom_treemap_text <- function(
 
 #' GeomTreemapText
 #' @noRd
+#' @import grid
+#' @import ggfittext
 GeomTreemapText <- ggplot2::ggproto(
   "GeomTreemapText",
   ggplot2::Geom,
@@ -158,7 +160,3 @@ GeomTreemapText <- ggplot2::ggproto(
     gt
   }
 )
-
-#' @importFrom grid makeContent
-#' @export
-makeContent.fittexttree <- function(x) { ggfittext:::makeContent.fittexttree(x) }
