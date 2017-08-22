@@ -1,3 +1,14 @@
+# v2.3.1.9002
+
+## Bug fixes
+- Fix arguments to `geom_treemap_subgroup_text` so they actually work.
+
+## Minor changes
+- Refresh and update documentation.
+- Neater solution to import S3 method `makeContent.fittexttree` from
+  'ggfittext'.
+- Misc. small changes in preparation for CRAN submission.
+
 # v2.3.1.9001
 
 ## Bug fixes
