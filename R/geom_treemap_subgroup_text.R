@@ -75,6 +75,12 @@ geom_treemap_subgroup_text <- function(
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      padding.x = padding.x,
+      padding.y = padding.y,
+      place = place,
+      min.size = min.size,
+      grow = grow,
+      reflow = reflow,
       fixed = fixed,
       ...
     )
