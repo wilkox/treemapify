@@ -5,7 +5,7 @@ Author: David Wilkins <contact@wilkox.org>
 Maintainer: David Wilkins <contact@wilkox.org>
 URL: https://github.com/wilkox/treemapify
 BugReports: https://github.com/wilkox/treemapify/issues
-Description: Provides 'ggplot2' geoms for drawing treemaps
+Description: Provides 'ggplot2' geoms for drawing treemaps.
 Depends: R (>= 3.4.1)
 Imports:
     plyr (>= 1.3),
