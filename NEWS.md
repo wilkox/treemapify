@@ -1,3 +1,9 @@
+# v2.3.2
+
+## Minor changes
+
+- Documentation and misc. other changes in preparation for CRAN submission.
+
 # v2.3.1.9003
 
 ## Bug fixes
