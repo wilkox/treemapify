@@ -1,3 +1,9 @@
+# v2.3.1.9003
+
+## Bug fixes
+
+- Remove README.html so README renders correctly on GitHub
+
 # v2.3.1.9002
 
 ## Bug fixes
