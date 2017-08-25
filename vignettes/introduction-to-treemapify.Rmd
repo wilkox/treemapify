@@ -1,34 +1,13 @@
 ---
-output: 
-  rmarkdown::github_document:
-    html_preview: true
-    fig_height: 6
-    fig_width: 6
+title: "Introduction to 'treemapify'"
+author: "David Wilkins"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to 'treemapify'}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
-```{r, echo = FALSE}
-library(knitr)
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-"
-)
-```
-
-[![Travis-CI Build Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://travis-ci.org/wilkox/treemapify)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
-
-**'treemapify' provides 'ggplot2' geoms for drawing [treemaps](http://en.wikipedia.org/wiki/Treemap).**
-
-## Installation
-
-Install the release version of 'treemapify' from CRAN:
-
-`install.package("treemapify")`
-
-If you want the development version, install it from GitHub:
-
-`devtools::install_github("wilkox/treemapify")`
 
 ## The G20 dataset
 
@@ -49,7 +28,7 @@ representing a G-20 country. The area of the tile will be mapped to the
 country's GDP, and the tile's fill colour mapped to its HDI (Human Development
 Index). `geom_treemap` is the basic geom for this purpose.
 
-```{r basic_treemap}
+```{r basic_treemap, fig.width = 6, fig.height = 6}
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
   geom_treemap()
 ```
@@ -63,7 +42,7 @@ additional options specific for 'ggfittext'. For example, we can place the text
 in the centre of the tile with `place = "centre"`, and expand it to fill as much
 of the tile as possible with `grow = TRUE`.
 
-```{r geom_treemap_text}
+```{r geom_treemap_text, fig.width = 6, fig.height = 6}
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
   geom_treemap() +
   geom_treemap_text(fontface = "italic", colour = "white", place = "centre",
@@ -78,7 +57,7 @@ around each subgroup with `geom_treemap_subgroup_border`, and label each
 subgroup with `geom_treemap_subgroup_text`. `geom_treemap_subgroup_text` takes
 the same arguments for text placement and resizing as `geom_treemap_text`.
 
-```{r subgrouped_treemap}
+```{r subgrouped_treemap, fig.width = 6, fig.height = 6}
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
                 subgroup = region)) +
   geom_treemap() +
@@ -94,7 +73,7 @@ points. This can be adjusted with the `min.size` argument.
 
 Like any 'ggplot2' plot, 'treemapify' plots can be faceted, scaled, themed, etc.
 
-```{r complex_treemap}
+```{r complex_treemap, fig.width = 6, fig.height = 6}
 ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country)) +
   geom_treemap() +
   geom_treemap_text(grow = T, reflow = T, colour = "black") +
@@ -129,7 +108,7 @@ With the help of `fixed = TRUE`, and with the
 [`gganimate`](https://github.com/dgrtwo/gganimate) packages, it becomes possible
 to create animated treemaps showing e.g. change over time.
 
-```{r animated treemap, message = FALSE}
+```{r animated treemap, message = FALSE, eval = FALSE}
 library(tweenr)
 library(gganimate)
 
@@ -155,4 +134,4 @@ gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F,
           ani.width = 200, ani.height = 200)
 ```
 
-![animated_treemap](man/figures/animated_treemap.gif)
+![animated_treemap](../man/figures/animated_treemap.gif)
