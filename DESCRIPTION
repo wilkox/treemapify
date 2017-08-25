@@ -1,8 +1,8 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
 Version: 2.3.2
-Author: David Wilkins <contact@wilkox.org>
-Maintainer: David Wilkins <contact@wilkox.org>
+Author: David Wilkins <david@wilkox.org>
+Maintainer: David Wilkins <david@wilkox.org>
 URL: https://github.com/wilkox/treemapify
 BugReports: https://github.com/wilkox/treemapify/issues
 Description: Provides 'ggplot2' geoms for drawing treemaps.
