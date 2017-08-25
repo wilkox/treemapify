@@ -4,13 +4,13 @@
 #' representing dataset observations. The relative area of each tile expresses
 #' an 'area' aesthetic.
 #'
-#' `geom_treemap` requires an 'area' aesthetic. It won't accept any aesthetics
-#' relating to the x and y axes (e.g. 'xmin' or 'y'), as the x and y axes are
+#' `geom_treemap` requires an `area` aesthetic. It will ignore any aesthetics
+#' relating to the x and y axes (e.g. `xmin` or `y`), as the x and y axes are
 #' not meaningful in a treemap. Several other standard 'ggplot2' aesthetics are
 #' supported (see Aesthetics). To add text labels to tiles, see
 #' `geom_treemap_text`.
 #'
-#' An optional 'subgroup' aesthetic will cause the tiles to be clustered in
+#' An optional `subgroup` aesthetic will cause the tiles to be clustered in
 #' subgroups within the treemap. See `geom_treemap_subgroup_border` and
 #' `geom_treemap_subgroup_text` to draw borders around subgroups and label them,
 #' respectively.
@@ -19,18 +19,19 @@
 #' 'squarified' algorithm (`fixed = FALSE`), the priority is ensuring the tiles
 #' have an aesthetically pleasing aspect ratio; that is, they are not too narrow
 #' or too short. In this algorithm, tile placement proceeds from the bottom left
-#' corner, moving alternately rightwards and upwards until all tiles are placed.
-#' See Bruls et al. (1999) for the full algorithm.
+#' corner, filling alternately rightwards then upwards until all tiles are
+#' placed. See Bruls et al. (1999) for the full algorithm.
 #'
 #' With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
-#' is divided into vertical columns, each of which from left to right is then
-#' filled with an even number of tiles beginning at the bottom of the column.
-#' Unlike with the default 'squarified' algorithm, the relative positions of the
-#' tiles are fixed by their order in the input data frame. While this can result
-#' in aesthetically unpleasing tiles, it allows side-by-side comparisons or
-#' animations to be created. If the `fixed = TRUE` argument is used for
-#' `geom_treemap`, it should also be used for all other treemap geoms included
-#' in the plot or they will not share a common layout.
+#' is divided into vertical columns, which are filled from left to right with an
+#' equal number of tiles beginning at the bottom of each column. Unlike the
+#' default 'squarified' algorithm, with the 'fixed' algorithm the relative
+#' positions of the tiles are fixed by their order in the input data frame. This
+#' can result in aesthetically unpleasing tiles, but it allows side-by-side
+#' comparisons or animations to be created.
+#'
+#' All `treemapify` geoms added to a plot should have the same value for
+#' `fixed`, or they will not share a common layout.
 #'
 #' @section Aesthetics:
 #'
@@ -56,6 +57,11 @@
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42). Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
 #' Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+#'
+#' @examples
+#'
+#' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = region)) +
+#'  geom_treemap()
 #'
 #' @export
 geom_treemap <- function(
@@ -143,7 +149,7 @@ GeomTreemap <- ggplot2::ggproto(
       just = c("left", "top"),
       gp = grid::gpar(
         col = data$colour,
-        fill = alpha(data$fill, data$alpha),
+        fill = ggplot2::alpha(data$fill, data$alpha),
         lwd = data$size,
         lty = data$linetype,
         lineend = "butt"

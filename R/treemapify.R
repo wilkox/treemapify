@@ -1,8 +1,8 @@
 #' Generate a treemap layout.
 #'
-#' `treemapify` and `treemapify_fixed` produce a treemap layout (set of raw
-#' coordinates used to draw a treemap) from a data frame of observations. To
-#' draw a treemap with 'ggplot2', use `geom_treemap` instead.
+#' `treemapify` and `treemapify_fixed` produce a set of raw coordinates used to
+#' draw a treemap from a data frame of observations. To draw a treemap with
+#' 'ggplot2', use `geom_treemap` instead.
 #'
 #' `treemapify` and `treemapify_fixed` return a data frame of tile coordinates
 #' for the treemap. This is only useful if you wish to draw the treemap without
@@ -25,13 +25,13 @@
 #' corner, moving alternately rightwards and upwards until all tiles are placed.
 #' See Bruls et al. (1999) for the full algorithm.
 #'
-#' With the alternative 'fixed' layout algorithm (`treemapify_fixed`), the plot
-#' area is divided into vertical columns, each of which from left to right is
-#' then filled with an even number of tiles beginning at the bottom of the
-#' column. Unlike with the default 'squarified' algorithm, the relative
-#' positions of the tiles are fixed by their order in the input data frame.
-#' While this can result in aesthetically unpleasing tiles, it allows
-#' side-by-side comparisons or animations to be created.
+#' With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
+#' is divided into vertical columns, which are filled from left to right with an
+#' equal number of tiles beginning at the bottom of each column. Unlike the
+#' default 'squarified' algorithm, with the 'fixed' algorithm the relative
+#' positions of the tiles are fixed by their order in the input data frame. This
+#' can result in aesthetically unpleasing tiles, but it allows side-by-side
+#' comparisons or animations to be created.
 #'
 #' @param data A tidy data frame.
 #' @param area Name of the variable (a column in `data`) to be mapped to the
@@ -47,6 +47,15 @@
 #' of the plot area into which the treemap is to be drawn.
 #'
 #' @seealso geom_treemap
+#'
+#' @examples
+#'
+#' treemapify(G20, area = "gdp_mil_usd", fill = "hdi", group = "region",
+#'            label = "country")
+#'
+#'
+#' treemapify_fixed(G20, area = "gdp_mil_usd", fill = "hdi", group = "region",
+#'            label = "country")
 #'
 #' @references
 #'

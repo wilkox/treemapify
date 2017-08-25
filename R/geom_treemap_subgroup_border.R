@@ -7,9 +7,9 @@
 #' `geom_treemap_subgroup_border` requires `area` and `subgroup` aesthetics.
 #' Several other standard 'ggplot2' aesthetics are supported (see Aesthetics).
 #'
-#' If other elements of the treemap have been drawn with the 'fixed' algorithm
-#' (`fixed = TRUE`), this argument must also be used for
-#' `geom_treemap_subgroup_border` to ensure all geoms share a common layout.
+#' All `treemapify` geoms added to a plot should have the same value for
+#' `fixed`, or they will not share a common layout (see `geom_treemap` for
+#' details on the layout algorithms).
 #'
 #' @seealso geom_treemap, geom_treemap_subgroup_text
 #'
@@ -28,6 +28,14 @@
 #'   \item linetype
 #'   \item alpha
 #' }
+#'
+#' @examples
+#'
+#' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
+#'                                   subgroup = region)) +
+#'   geom_treemap() +
+#'   geom_treemap_subgroup_border()
+#'
 #' @export
 geom_treemap_subgroup_border <- function(
   mapping = NULL,

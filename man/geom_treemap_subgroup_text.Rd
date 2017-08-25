@@ -47,9 +47,9 @@ subgroup. All text drawing options available in `ggfittext::geom_fit_text`
 (growing, reflowing, etc.) are also available here. For full details on how
 these options work, see the documentation for `ggfittext::geom_fit_text`.
 
-If other elements of the treemap have been drawn with the 'fixed' algorithm
-(`fixed = TRUE`), this argument must also be used for
-`geom_treemap_subgroup_text` to ensure all geoms share a common layout.
+All `treemapify` geoms added to a plot should have the same value for
+`fixed`, or they will not share a common layout (see `geom_treemap` for
+details on the layout algorithms).
 }
 \section{Aesthetics}{
 
@@ -67,6 +67,14 @@ If other elements of the treemap have been drawn with the 'fixed' algorithm
 }
 }
 
+\examples{
+
+ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
+                                  subgroup = region, label = region)) +
+  geom_treemap() +
+  geom_treemap_subgroup_text()
+
+}
 \seealso{
 geom_treemap, geom_treemap_subgroup_border
 }

@@ -45,9 +45,9 @@ text drawing options available in `ggfittext::geom_fit_text` (growing,
 reflowing, etc.) are also available here. For full details on how these
 options work, see the documentation for `ggfittext::geom_fit_text`.
 
-If other elements of the treemap have been drawn with the 'fixed' algorithm
-(`fixed = T`), this argument must also be used for `geom_treemap_text` to
-ensure all geoms share a common layout.
+All `treemapify` geoms added to a plot should have the same value for
+`fixed`, or they will not share a common layout (see `geom_treemap` for
+details on the layout algorithms).
 }
 \section{Aesthetics}{
 
@@ -65,6 +65,15 @@ ensure all geoms share a common layout.
 }
 }
 
+\examples{
+
+ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd,
+                                  fill = econ_classification,
+                                  label = country)) +
+  geom_treemap() +
+  geom_treemap_text()
+
+}
 \seealso{
 geom_treemap
 }

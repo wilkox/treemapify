@@ -11,9 +11,9 @@
 #' reflowing, etc.) are also available here. For full details on how these
 #' options work, see the documentation for `ggfittext::geom_fit_text`.
 #'
-#' If other elements of the treemap have been drawn with the 'fixed' algorithm
-#' (`fixed = T`), this argument must also be used for `geom_treemap_text` to
-#' ensure all geoms share a common layout.
+#' All `treemapify` geoms added to a plot should have the same value for
+#' `fixed`, or they will not share a common layout (see `geom_treemap` for
+#' details on the layout algorithms).
 #'
 #' @param padding.x,padding.y `grid::unit` object, giving horizontal or vertical
 #' padding between text and edge of tile. Defaults to 1 mm.
@@ -45,6 +45,15 @@
 #'   \item fontface
 #'   \item angle
 #' }
+#'
+#' @examples
+#'
+#' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd,
+#'                                   fill = econ_classification,
+#'                                   label = country)) +
+#'   geom_treemap() +
+#'   geom_treemap_text()
+#'
 #' @export
 geom_treemap_text <- function(
   mapping = NULL,
