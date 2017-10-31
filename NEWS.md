@@ -1,36 +1,27 @@
+# v2.3.2.9001
+
+## Minor changes
+
+- Change R and grid dependencies to 3.1
+
 # v2.3.2
 
 ## Minor changes
 
 - Documentation and misc. other changes in preparation for CRAN submission.
-
-# v2.3.1.9003
-
-## Bug fixes
-
-- Remove README.html so README renders correctly on GitHub
-
-# v2.3.1.9002
-
-## Bug fixes
-- Fix arguments to `geom_treemap_subgroup_text` so they actually work.
-
-## Minor changes
 - Refresh and update documentation.
 - Neater solution to import S3 method `makeContent.fittexttree` from
+- Deprecate `ggplotify()`
+- Add travis-ci and CRAN badges to README
   'ggfittext'.
 - Misc. small changes in preparation for CRAN submission.
 
-# v2.3.1.9001
-
 ## Bug fixes
+- Remove README.html so README renders correctly on GitHub
+- Fix arguments to `geom_treemap_subgroup_text` so they actually work.
 - Fix namespace incompatibility with ggfittext 0.4.2
 - Explicit invocation of all imported functions
 - Misc. small fixes in preparation for CRAN submission
-
-## Minor changes
-- Deprecate `ggplotify()`
-- Add travis-ci and CRAN badges to README
 
 # v2.3.1
 
