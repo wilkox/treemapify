@@ -107,6 +107,12 @@ treemapify <- function(
     }
   }
 
+  # Remove any rows where area <= 0
+  data <- data[data[[area]] > 0, ]
+  if (nrow(data) == 0) {
+    stop("Data must contain at least one row with area aesthetic > 0", call. = F)
+  }
+
   # Handle groups, if so requested
   if (missing(group) == FALSE) {
 

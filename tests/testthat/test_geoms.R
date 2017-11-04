@@ -43,6 +43,24 @@ test_that("geoms don't throw an error or warning", {
 
 })
 
+context("zero-area tiles")
+
+G20_onezero <- G20
+G20_onezero[1, "hdi"] <- 0
+G20_allzero <- G20
+G20_allzero$hdi <- rep(0, nrow(G20_allzero))
+
+test_that("data with a single zero-area tile doesn't throw an error", {
+  expect_silent({
+    ggplot2::ggplot(G20_onezero, ggplot2::aes(fill = gdp_mil_usd, area = hdi)) +
+      geom_treemap()
+  })
+  expect_silent({
+    ggplot2::ggplot(G20_onezero, ggplot2::aes(fill = gdp_mil_usd, area = hdi)) +
+      geom_treemap(fixed = T)
+  })
+})
+
 context("geoms with fixed options")
 
 test_that("geoms with fixed options don't throw an error or warning", {
