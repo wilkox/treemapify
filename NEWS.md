@@ -3,6 +3,7 @@
 ## Minor changes
 
 - Change R and grid dependencies to 3.1
+- Remove reshape2 dependency
 
 ## Bug fixes
 

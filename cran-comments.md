@@ -1,6 +1,6 @@
 # Test environments
 
-* local macOS install, R 3.4.1
+* local macOS install, R 3.4.1, 3.1.2
 * ubuntu 14.04 (on travis-ci), R 3.4.1
 * win-builder (with `devtools::build_win`)
 
