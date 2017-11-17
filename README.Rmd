@@ -1,6 +1,6 @@
 ---
 output: 
-  rmarkdown::github_document:
+  github_document:
     html_preview: true
     fig_height: 6
     fig_width: 6
