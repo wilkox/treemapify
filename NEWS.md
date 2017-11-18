@@ -7,7 +7,7 @@
 
 ## Bug fixes
 
-- Fix handling of data where some observations have area 0 (#17, thanks py)
+- Fix handling of data where some observations have area 0 (#17, thanks @py)
 
 # v2.3.2
 
@@ -16,9 +16,9 @@
 - Documentation and misc. other changes in preparation for CRAN submission.
 - Refresh and update documentation.
 - Neater solution to import S3 method `makeContent.fittexttree` from
+  'ggfittext'.
 - Deprecate `ggplotify()`
 - Add travis-ci and CRAN badges to README
-  'ggfittext'.
 - Misc. small changes in preparation for CRAN submission.
 
 ## Bug fixes
