@@ -194,8 +194,6 @@ treemapify <- function(
   }
 
 
-  This is where treemap_layout should be called!
-
   # Add the fill name as an attribute - useful for plotting later
   attr(treeMap, "fillName") <- fill
 
