@@ -1,14 +1,11 @@
 # Produce a treemap with the squarified layout algorithm
-treemap_squarified <- function(data, key, area) {
+treemap_squarified <- function(data, area) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
 
   # Stop if there are no rows
   if (nrow(data) == 0) stop("Must provide some rows with area > 0")
-
-  # Select only the columns of interest
-  data <- data[c(key, area)]
 
   # Sort the data by area, largest to smallest
   data <- data[order(-data[area]), ]
@@ -18,6 +15,9 @@ treemap_squarified <- function(data, key, area) {
 
   # Generate the tile layout, starting with a column
   layout <- tile_column(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1)
+
+  # Remove the 'column' column
+  layout["column"] <- NULL
 
   # Return layout
   layout

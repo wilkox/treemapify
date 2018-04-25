@@ -1,13 +1,10 @@
-treemap_fixed <- function(data, key, area) {
+treemap_fixed <- function(data, area) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
 
   # Stop if there are no rows
   if (nrow(data) == 0) stop("Must provide some rows with area > 0")
-
-  # Select only the columns of interest
-  data <- data[c(key, area)]
 
   # Sort the data by area, largest to smallest
   data <- data[order(-data[area]), ]
