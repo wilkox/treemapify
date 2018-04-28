@@ -135,24 +135,12 @@ GeomTreemapText <- ggplot2::ggproto(
     params <- list(
       data = data,
       area = "area",
-      fill = "fill",
-      xlim = c(0, 1),
-      ylim = c(0, 1),
-      label = "id"
+      fixed = fixed
     )
     if ("subgroup" %in% names(data)) {
-      params$group <- "subgroup"
+      params$subgroup <- "subgroup"
     }
-    if (fixed) {
-      layout <- do.call(treemapify_fixed, params)
-    } else {
-      layout <- do.call(treemapify, params)
-    }
-
-    # Merge layout back into main data
-    names(layout)[names(layout) == "label"] <- "id"
-    layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
-    data <- merge(data, layout, by = "id")
+    data <- do.call(treemapify, params)
 
     # Use ggfittext's fittexttree to draw text
     gt <- grid::gTree(

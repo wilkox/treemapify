@@ -16,8 +16,8 @@
 #' The input data frame must be in tidy format, i.e. each row must represent a
 #' single observation and each column a single variable. You must provide the
 #' name of the variable that will be represented by the area of each treemap
-#' tile. Optionally, you can also select up to three variables (`nest`, `nest2`
-#' and `nest3`) to generate a layout in which groups of tiles are nested up to
+#' tile. Optionally, you can also select up to three variables (`subgroup`, `subgroup2`
+#' and `subgroup3`) to generate a layout in which subgroups of tiles are nested up to
 #' three levels deep.
 #'
 #' Two algorithms for the tile layout are provided. With the default
@@ -38,7 +38,7 @@
 #' @param data A tidy data frame.
 #' @param area Name of the variable (a column in `data`) to be mapped to the
 #' area of treemap tiles.
-#' @param nest, nest2, nest3 Optionally, names of variables by which the tiles
+#' @param subgroup, subgroup2, subgroup3 Optionally, names of variables by which the tiles
 #' should be grouped, at up to three levels of depth.
 #' @param fixed If true, the alternative 'fixed' algorithm will be used (see
 #' Details).
@@ -60,9 +60,9 @@
 treemapify <- function(
   data,
   area,
-  nest,
-  nest2,
-  nest3,
+  subgroup,
+  subgroup2,
+  subgroup3,
   fixed = FALSE
 ) {
 
@@ -76,58 +76,58 @@ treemapify <- function(
   if (!area %in% names(data)) {
     stop("Column", area, " not found in data", call. = F)
   }
-  if (!missing(nest)) {
-    if (!nest %in% names(data)) {
-      stop("Column", nest, " not found in data", call. = F)
+  if (!missing(subgroup)) {
+    if (!subgroup %in% names(data)) {
+      stop("Column", subgroup, " not found in data", call. = F)
     }
   }
-  if (!missing(nest2)) {
-    if (!nest2 %in% names(data)) {
-      stop("Column", nest2, " not found in data", call. = F)
+  if (!missing(subgroup2)) {
+    if (!subgroup2 %in% names(data)) {
+      stop("Column", subgroup2, " not found in data", call. = F)
     }
   }
-  if (!missing(nest3)) {
-    if (!nest3 %in% names(data)) {
-      stop("Column", nest3, " not found in data", call. = F)
+  if (!missing(subgroup3)) {
+    if (!subgroup3 %in% names(data)) {
+      stop("Column", subgroup3, " not found in data", call. = F)
     }
   }
 
   # Set layout function
   treemap_f <- ifelse(fixed, treemap_fixed, treemap_squarified)
 
-  # Set list of nesting levels
-  nests <- unlist(as.list(match.call())[c("nest", "nest2", "nest3")])
+  # Set list of subgrouping levels
+  subgroups <- unlist(as.list(match.call())[c("subgroup", "subgroup2", "subgroup3")])
 
-  # Work down nesting levels, laying out treemaps for each level
-  do_layout <- function(data, nests) {
+  # Work down subgrouping levels, laying out treemaps for each level
+  do_layout <- function(data, subgroups) {
 
-    # If there are no nesting levels below this one, return a layout for the
+    # If there are no subgrouping levels below this one, return a layout for the
     # given observations
-    if (length(nests) == 0) {
+    if (length(subgroups) == 0) {
       return(treemap_f(data, area))
 
-    # Otherwise, generate a layout for this nesting level and fill each nest
+    # Otherwise, generate a layout for this subgrouping level and fill each subgroup
     # with its own layout
     } else {
 
-      # Sum areas for groups at this nesting level
-      this_level_data <- lapply(split(data, data[nests[1]]), function(x) sum(x[area]))
+      # Sum areas for groups at this subgrouping level
+      this_level_data <- lapply(split(data, data[subgroups[1]]), function(x) sum(x[area]))
       this_level_data <- data.frame(
         key = names(this_level_data),
         area = unlist(this_level_data)
       )
 
-      # Generate layout for this nesting level
+      # Generate layout for this subgrouping level
       this_level_layout <- treemap_f(this_level_data, "area")
 
-      # For each group at this nesting level, generate sub-layouts
-      groups <- as.character(unique(data[[nests[1]]]))
+      # For each group at this subgrouping level, generate sub-layouts
+      groups <- as.character(unique(data[[subgroups[1]]]))
       generate_sublayout <- function(group) {
 
-        groupdata <- data[data[nests[1]] == group, ]
+        groupdata <- data[data[subgroups[1]] == group, ]
 
         # Generate sub-layout
-        sublayout <- do_layout(groupdata, nests[-1])
+        sublayout <- do_layout(groupdata, subgroups[-1])
 
         # Scale sub-layout to fit in group rect
         groupcoords <- this_level_layout[this_level_layout$key == group, ]
@@ -144,5 +144,5 @@ treemapify <- function(
       return(layout)
     }
   }
-  do_layout(data, nests)
+  do_layout(data, subgroups)
 }

@@ -56,7 +56,7 @@
 #'   geom_treemap_subgroup_text()
 #'
 #' @export
-geom_treemap_subgroup_text <- function(
+geom_subgroup_text <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -77,7 +77,7 @@ geom_treemap_subgroup_text <- function(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemapSubgroupText,
+    geom = GeomSubgroupText,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -97,8 +97,8 @@ geom_treemap_subgroup_text <- function(
 
 #' GeomTreemapSubgroupText
 #' @noRd
-GeomTreemapSubgroupText <- ggplot2::ggproto(
-  "GeomTreemapSubgroupText",
+GeomSubgroupText <- ggplot2::ggproto(
+  "GeomSubgroupText",
   ggplot2::Geom,
   required_aes = c("area", "subgroup"),
   default_aes = ggplot2::aes(
@@ -123,45 +123,36 @@ GeomTreemapSubgroupText <- ggplot2::ggproto(
     grow = F,
     reflow = F,
     place = "bottom",
-    fixed = F
+    fixed = F,
+    subgroup = "subgroup"
   ) {
 
     data <- coord$transform(data, panel_scales)
-    data$id <- 1:nrow(data)
 
-    # Sum areas by subgroup
-    data <- plyr::ddply(data, plyr::.(
-      subgroup,
-      PANEL,
-      colour,
-      size,
-      alpha,
-      family,
-      fontface,
-      angle
-    ), plyr::summarise, area = sum(as.numeric(area)), fill = head(fill, 1))
-    data$id <- 1:nrow(data)
+    # Collapse data to groups at selected subgroup level
+    areasums <- unlist(lapply(split(data, data$subgroup), function(x) sum(x$area)))
+    areasums <- data.frame(subgroup = names(areasums), area = areasums)
+    data <- unique(data[c(
+      "PANEL",
+      "group",
+      "colour",
+      "size",
+      "alpha",
+      "family",
+      "fontface",
+      "angle",
+      "lineheight",
+      "subgroup"
+    )])
+    data <- merge(data, areasums, by = "subgroup")
 
     # Generate treemap layout for data
     params <- list(
       data = data,
       area = "area",
-      fill = "fill",
-      xlim = c(0, 1),
-      ylim = c(0, 1),
-      label = "id",
-      group = "subgroup"
+      fixed = fixed
     )
-    if (fixed) {
-      layout <- do.call(treemapify_fixed, params)
-    } else {
-      layout <- do.call(treemapify, params)
-    }
-
-    # Merge layout back into main data
-    names(layout)[names(layout) == "label"] <- "id"
-    layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
-    data <- merge(data, layout, by = "id")
+    data <- do.call(treemapify, params)
     names(data)[names(data) == "subgroup"] <- "label"
 
     # Use treemapify's fittexttree to draw text

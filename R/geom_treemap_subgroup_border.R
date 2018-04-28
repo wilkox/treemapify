@@ -37,7 +37,7 @@
 #'   geom_treemap_subgroup_border()
 #'
 #' @export
-geom_treemap_subgroup_border <- function(
+geom_subgroup_border <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",
@@ -46,13 +46,14 @@ geom_treemap_subgroup_border <- function(
   show.legend = NA,
   inherit.aes = TRUE,
   fixed = F,
+  subgroup = "subgroup",
   ...
 ) {
   ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomTreemapSubgroupBorder,
+    geom = GeomSubgroupBorder,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -66,8 +67,8 @@ geom_treemap_subgroup_border <- function(
 
 #' GeomTreemapSubgroupBorder
 #' @noRd
-GeomTreemapSubgroupBorder <- ggplot2::ggproto(
-  "GeomTreemapSubgroupBorder",
+GeomSubgroupBorder <- ggplot2::ggproto(
+  "GeomSubgroupBorder",
   ggplot2::Geom,
   required_aes = c("area", "subgroup"),
   default_aes = ggplot2::aes(
@@ -83,43 +84,29 @@ GeomTreemapSubgroupBorder <- ggplot2::ggproto(
     data,
     panel_scales,
     coord,
-    fixed = F
+    fixed = F,
+    subgroup = "subgroup"
   ) {
 
     data <- coord$transform(data, panel_scales)
-    data$id <- 1:nrow(data)
 
-    # Sum areas by subgroup
-    data <- plyr::ddply(data, plyr::.(
-      subgroup,
-      PANEL,
-      colour,
-      size,
-      linetype,
-      alpha
-    ), plyr::summarise, area = sum(as.numeric(area)), fill = head(fill, 1))
-    data$id <- 1:nrow(data)
+    # Collapse data to groups at selected subgroup level
+    areasums <- unlist(lapply(split(data, data$subgroup), function(x) sum(x$area)))
+    areasums <- data.frame(subgroup = names(areasums), area = areasums)
+    data <- unique(data[c("subgroup", "PANEL", "colour", "size", "linetype", "alpha")])
+    data <- merge(data, areasums, by = "subgroup")
 
     # Generate treemap layout for data
     params <- list(
       data = data,
       area = "area",
-      fill = "fill",
-      xlim = c(0, 1),
-      ylim = c(0, 1),
-      label = "id",
-      group = "subgroup"
+      subgroup = subgroup,
+      fixed = fixed
     )
-    if (fixed) {
-      layout <- do.call(treemapify_fixed, params)
-    } else {
-      layout <- do.call(treemapify, params)
+    if ("subgroup" %in% names(data)) {
+      params$subgroup <- "subgroup"
     }
-
-    # Merge layout back into main data
-    names(layout)[names(layout) == "label"] <- "id"
-    layout <- layout[c("id", "xmin", "xmax", "ymin", "ymax")]
-    data <- merge(data, layout, by = "id")
+    data <- do.call(treemapify, params)
 
     # Draw rects
     grob <- grid::rectGrob(
