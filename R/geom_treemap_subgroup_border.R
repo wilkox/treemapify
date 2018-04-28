@@ -135,3 +135,13 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     grob
   }
 )
+
+#' @export
+geom_treemap_subgroup2_border <- function(...) { 
+  geom_treemap_subgroup_border(level = "subgroup2", ...)
+}
+
+#' @export
+geom_treemap_subgroup3_border <- function(...) { 
+  geom_treemap_subgroup_border(level = "subgroup3", ...)
+}

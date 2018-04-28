@@ -94,10 +94,10 @@ Up to three layers of subgrouping are supported.
 ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country,
                 subgroup2 = econ_classification, subgroup = region)) +
   geom_treemap() +
-  geom_treemap_subgroup_border(colour = "white", level = "subgroup2") +
+  geom_treemap_subgroup2_border(colour = "white") +
   geom_treemap_subgroup_border() +
-  geom_treemap_subgroup_text(level = "subgroup2") +
-  geom_treemap_subgroup_text(level = "subgroup", place = "middle", alpha = 0.5) +
+  geom_treemap_subgroup2_text() +
+  geom_treemap_subgroup_text(place = "middle", alpha = 0.5) +
   geom_treemap_text(colour = "white", place = "topleft", reflow = T)
 ```
 

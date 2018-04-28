@@ -172,3 +172,13 @@ GeomSubgroupText <- ggplot2::ggproto(
     grob
   }
 )
+
+#' @export
+geom_treemap_subgroup2_text <- function(...) { 
+  geom_treemap_subgroup_text(level = "subgroup2", ...)
+}
+
+#' @export
+geom_treemap_subgroup3_text <- function(...) { 
+  geom_treemap_subgroup_text(level = "subgroup3", ...)
+}
