@@ -94,6 +94,11 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     # Collapse data to groups at selected subgroup level
     subgroupinglevels <- c("subgroup", "subgroup2", "subgroup3")
     subgroupinglevels <- subgroupinglevels[1:(which(subgroupinglevels == level))]
+    for (subgroupinglevel in subgroupinglevels) {
+      if (!subgroupinglevel %in% names(data)) {
+        stop("No ", subgroupinglevel, " aesthetic provided", call. = F)
+      }
+    }
     areasums <- data[c(subgroupinglevels, area)]
     bys <- lapply(subgroupinglevels, function(x) areasums[[x]])
     areasums <- aggregate(areasums$area, by = bys, FUN = sum)
