@@ -6,7 +6,8 @@
 \usage{
 geom_treemap_subgroup_border(mapping = NULL, data = NULL,
   stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, fixed = F, ...)
+  show.legend = NA, inherit.aes = TRUE, fixed = F,
+  subgroup = "subgroup", ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard

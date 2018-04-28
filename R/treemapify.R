@@ -99,12 +99,12 @@ treemapify <- function(
   subgroups <- unlist(as.list(match.call())[c("subgroup", "subgroup2", "subgroup3")])
 
   # Work down subgrouping levels, laying out treemaps for each level
-  do_layout <- function(data, subgroups) {
+  do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
 
     # If there are no subgrouping levels below this one, return a layout for the
     # given observations
     if (length(subgroups) == 0) {
-      return(treemap_f(data, area))
+      return(treemap_f(data, area, xlim, ylim))
 
     # Otherwise, generate a layout for this subgrouping level and fill each subgroup
     # with its own layout
@@ -118,30 +118,26 @@ treemapify <- function(
       )
 
       # Generate layout for this subgrouping level
-      this_level_layout <- treemap_f(this_level_data, "area")
+      this_level_layout <- treemap_f(this_level_data, "area", xlim, ylim)
 
       # For each group at this subgrouping level, generate sub-layouts
-      groups <- as.character(unique(data[[subgroups[1]]]))
       generate_sublayout <- function(group) {
 
         groupdata <- data[data[subgroups[1]] == group, ]
 
         # Generate sub-layout
-        sublayout <- do_layout(groupdata, subgroups[-1])
-
-        # Scale sub-layout to fit in group rect
         groupcoords <- this_level_layout[this_level_layout$key == group, ]
-        groupwidth <- diff(c(groupcoords$xmin, groupcoords$xmax))
-        groupheight <- diff(c(groupcoords$ymin, groupcoords$ymax))
-        sublayout$xmin <- groupcoords$xmin + (sublayout$xmin * groupwidth)
-        sublayout$xmax <- groupcoords$xmin + (sublayout$xmax * groupwidth)
-        sublayout$ymin <- groupcoords$ymin + (sublayout$ymin * groupheight)
-        sublayout$ymax <- groupcoords$ymin + (sublayout$ymax * groupheight)
+        sublayout <- do_layout(
+          groupdata,
+          subgroups[-1],
+          xlim = c(groupcoords$xmin, groupcoords$xmax),
+          ylim = c(groupcoords$ymin, groupcoords$ymax)
+        )
 
         sublayout
       }
-      layout <- do.call("rbind", lapply(groups, generate_sublayout))
-      return(layout)
+      groups <- as.character(unique(data[[subgroups[1]]]))
+      do.call("rbind", lapply(groups, generate_sublayout))
     }
   }
   do_layout(data, subgroups)

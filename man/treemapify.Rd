@@ -5,8 +5,7 @@
 \alias{treemapify_fixed}
 \title{Generate a treemap layout.}
 \usage{
-treemapify(data, area, fill, group, label, xlim = c(0, 100), ylim = c(0,
-  100))
+treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE)
 
 treemapify_fixed(data, area, fill, group, label, xlim = c(0, 100),
   ylim = c(0, 100))
@@ -17,45 +16,34 @@ treemapify_fixed(data, area, fill, group, label, xlim = c(0, 100),
 \item{area}{Name of the variable (a column in `data`) to be mapped to the
 area of treemap tiles.}
 
-\item{fill}{Name of the variable (a column in `data`) to be mapped to the
-fill colour of treemap tiles.}
+\item{subgroup, }{subgroup2, subgroup3 Optionally, names of variables by which the tiles
+should be grouped, at up to three levels of depth.}
 
-\item{group}{Optionally, name of the variable (a column in `data`) by which
-the tiles will be grouped; that is, in the final treemap layout, these tiles
-will be kept together.}
-
-\item{label}{Optionally, name of the variable (a column in `data`) giving
-tile labels that will be preserved in the output data frame.}
-
-\item{xlim, ylim}{Optional two-element vectors specifying the x and y limits
-of the plot area into which the treemap is to be drawn.}
+\item{fixed}{If true, the alternative 'fixed' algorithm will be used (see
+Details).}
 }
 \description{
-`treemapify` and `treemapify_fixed` produce a set of raw coordinates used to
-draw a treemap from a data frame of observations. To draw a treemap with
-'ggplot2', use `geom_treemap` instead.
-}
-\details{
-`treemapify` and `treemapify_fixed` return a data frame of tile coordinates
-for the treemap. This is only useful if you wish to draw the treemap without
-'ggplot2', or for some edge cases such as treemaps drawn in 'R Shiny' (see
-e.g. \url{https://stackoverflow.com/q/45021775}). The easiest way to draw a
+`treemapify` returns a data frame of tile coordinates for a treemap layout
+of a set of observations. This is only useful if you wish to draw the
+treemap without the help of the `ggplot2` geoms, or for some edge cases such
+as creating interactive treemaps with 'R Shiny' (see e.g.
+\url{https://stackoverflow.com/q/45021775}). The easiest way to draw a
 treemap with this package is to use the provided 'ggplot2' geoms, such as
 `geom_treemap`.
 
-Input data frame must be in tidy format, i.e. each row must represent a
-single observation and each column a single variable. You must provide, as
-arguments, the names of the variables that will be represented by the area
-and fill colour of treemap tiles. Optionally, you can also select a variable
-by which to group the tiles within the treemap layout, and a variable that
-will be preserved as a label for each tile.
+The input data frame must be in tidy format, i.e. each row must represent a
+single observation and each column a single variable. You must provide the
+name of the variable that will be represented by the area of each treemap
+tile. Optionally, you can also select up to three variables (`subgroup`, `subgroup2`
+and `subgroup3`) to generate a layout in which subgroups of tiles are nested up to
+three levels deep.
 
 Two algorithms for the tile layout are provided. With the default
-'squarified' algorithm (`treemapify`), the priority is ensuring the tiles
-have an aesthetically pleasing aspect ratio; that is, they are not too narrow
-or too short. In this algorithm, tile placement proceeds from the bottom left
-corner, moving alternately rightwards and upwards until all tiles are placed.
-See Bruls et al. (1999) for the full algorithm.
+'squarified' algorithm, the priority is ensuring the tiles have an
+aesthetically pleasing aspect ratio; that is, they are not too narrow or too
+short. In this algorithm, tile placement proceeds from the bottom left
+corner, moving alternately rightwards and upwards until all tiles are
+placed. See Bruls et al. (1999) for the full algorithm.
 
 With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
 is divided into vertical columns, which are filled from left to right with an
@@ -65,13 +53,13 @@ positions of the tiles are fixed by their order in the input data frame. This
 can result in aesthetically unpleasing tiles, but it allows side-by-side
 comparisons or animations to be created.
 }
+\details{
+`treemapify` is for generating raw treemap coordinates. If you want to draw
+a treemap with 'ggplot2', use `geom_treemap` instead.
+}
 \examples{
 
 treemapify(G20, area = "gdp_mil_usd", fill = "hdi", group = "region",
-           label = "country")
-
-
-treemapify_fixed(G20, area = "gdp_mil_usd", fill = "hdi", group = "region",
            label = "country")
 
 }

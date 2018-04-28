@@ -1,4 +1,4 @@
-treemap_fixed <- function(data, area) {
+treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
@@ -6,10 +6,7 @@ treemap_fixed <- function(data, area) {
   # Stop if there are no rows
   if (nrow(data) == 0) stop("Must provide some rows with area > 0")
 
-  # Sort the data by area, largest to smallest
-  data <- data[order(-data[area]), ]
-
-  # Scale areas to sum to 1
+  # Scale areas to sum to the plot area
   data[area] <- data[area] / sum(data[area])
 
   # Place each tile
@@ -55,6 +52,14 @@ treemap_fixed <- function(data, area) {
 
   # Remove area column
   data[area] <- NULL
+
+  # Rescale values to the plot area
+  width <- diff(xlim)
+  height <- diff(ylim)
+  data$xmin <- xlim[1] + (data$xmin * width)
+  data$xmax <- xlim[1] + (data$xmax * width)
+  data$ymin <- ylim[1] + (data$ymin * height)
+  data$ymax <- ylim[1] + (data$ymax * height)
 
   # Return layout
   data

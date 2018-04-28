@@ -56,7 +56,7 @@
 #'   geom_treemap_subgroup_text()
 #'
 #' @export
-geom_subgroup_text <- function(
+geom_treemap_subgroup_text <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",

@@ -37,7 +37,7 @@
 #'   geom_treemap_subgroup_border()
 #'
 #' @export
-geom_subgroup_border <- function(
+geom_treemap_subgroup_border <- function(
   mapping = NULL,
   data = NULL,
   stat = "identity",

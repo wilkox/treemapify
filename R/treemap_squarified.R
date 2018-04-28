@@ -1,5 +1,5 @@
 # Produce a treemap with the squarified layout algorithm
-treemap_squarified <- function(data, area) {
+treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
@@ -18,6 +18,14 @@ treemap_squarified <- function(data, area) {
 
   # Remove the 'column' column
   layout["column"] <- NULL
+
+  # Rescale values to the plot area
+  width <- diff(xlim)
+  height <- diff(ylim)
+  layout$xmin <- xlim[1] + (layout$xmin * width)
+  layout$xmax <- xlim[1] + (layout$xmax * width)
+  layout$ymin <- ylim[1] + (layout$ymin * height)
+  layout$ymax <- ylim[1] + (layout$ymax * height)
 
   # Return layout
   layout
