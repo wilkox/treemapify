@@ -99,7 +99,7 @@ GeomSubgroupBorder <- ggplot2::ggproto(
         stop("No ", subgroupinglevel, " aesthetic provided", call. = F)
       }
     }
-    areasums <- data[c(subgroupinglevels, area)]
+    areasums <- data[c(subgroupinglevels, "area")]
     bys <- lapply(subgroupinglevels, function(x) areasums[[x]])
     areasums <- aggregate(areasums$area, by = bys, FUN = sum)
     names(areasums) <- c(subgroupinglevels, "area")

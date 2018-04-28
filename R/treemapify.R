@@ -129,6 +129,10 @@ treemapify <- function(
 
         groupdata <- data[data[subgroups[1]] == group, ]
 
+        # Skip if there are no observations with area > 0
+        groupdata <- groupdata[groupdata[[area]] > 0, ]
+        if (nrow(groupdata) == 0) { return() }
+
         # Generate sub-layout
         groupcoords <- this_level_layout[this_level_layout$key == group, ]
         sublayout <- do_layout(
