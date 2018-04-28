@@ -121,8 +121,10 @@ GeomTreemap <- ggplot2::ggproto(
       data = data,
       area = "area"
     )
-    if ("subgroup" %in% names(data)) {
-      params$subgroup <- "subgroup"
+    for (subgrouplevel in c("subgroup", "subgroup2", "subgroup3")) {
+      if (subgrouplevel %in% names(data)) {
+        params[subgrouplevel] <- subgrouplevel
+      }
     }
     params$fixed <- fixed
     data <- do.call(treemapify, params)

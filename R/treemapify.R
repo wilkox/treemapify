@@ -101,6 +101,7 @@ treemapify <- function(
   # Work down subgrouping levels, laying out treemaps for each level
   do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
 
+
     # If there are no subgrouping levels below this one, return a layout for the
     # given observations
     if (length(subgroups) == 0) {
@@ -111,7 +112,10 @@ treemapify <- function(
     } else {
 
       # Sum areas for groups at this subgrouping level
-      this_level_data <- lapply(split(data, data[subgroups[1]]), function(x) sum(x[area]))
+      this_level_data <- lapply(
+        split(data, data[subgroups[[1]]], drop = T),
+        function(x) sum(x[area])
+      )
       this_level_data <- data.frame(
         key = names(this_level_data),
         area = unlist(this_level_data)

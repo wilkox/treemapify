@@ -88,6 +88,19 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
   geom_treemap_text(colour = "white", place = "topleft", reflow = T)
 ```
 
+Up to three layers of subgrouping are supported.
+
+```{r multiple_subgroups}
+ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country,
+                subgroup2 = econ_classification, subgroup = region)) +
+  geom_treemap() +
+  geom_treemap_subgroup_border(colour = "white", level = "subgroup2") +
+  geom_treemap_subgroup_border() +
+  geom_treemap_subgroup_text(level = "subgroup2") +
+  geom_treemap_subgroup_text(level = "subgroup", place = "middle", alpha = 0.5) +
+  geom_treemap_text(colour = "white", place = "topleft", reflow = T)
+```
+
 Note that 'Argentina' has been hidden. `geom_treemap_text` will hide text labels
 that cannot fit a tile without being shrunk below a minimum size, by default 4
 points. This can be adjusted with the `min.size` argument.

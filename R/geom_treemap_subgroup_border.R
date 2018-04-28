@@ -46,7 +46,7 @@ geom_treemap_subgroup_border <- function(
   show.legend = NA,
   inherit.aes = TRUE,
   fixed = F,
-  subgroup = "subgroup",
+  level = "subgroup",
   ...
 ) {
   ggplot2::layer(
@@ -60,6 +60,7 @@ geom_treemap_subgroup_border <- function(
     params = list(
       na.rm = na.rm,
       fixed = fixed,
+      level = level,
       ...
     )
   )
@@ -70,7 +71,7 @@ geom_treemap_subgroup_border <- function(
 GeomSubgroupBorder <- ggplot2::ggproto(
   "GeomSubgroupBorder",
   ggplot2::Geom,
-  required_aes = c("area", "subgroup"),
+  required_aes = c("area"),
   default_aes = ggplot2::aes(
     colour = "grey50",
     fill = "",
@@ -85,26 +86,32 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     panel_scales,
     coord,
     fixed = F,
-    subgroup = "subgroup"
+    level = "subgroup"
   ) {
 
     data <- coord$transform(data, panel_scales)
 
     # Collapse data to groups at selected subgroup level
-    areasums <- unlist(lapply(split(data, data$subgroup), function(x) sum(x$area)))
-    areasums <- data.frame(subgroup = names(areasums), area = areasums)
-    data <- unique(data[c("subgroup", "PANEL", "colour", "size", "linetype", "alpha")])
-    data <- merge(data, areasums, by = "subgroup")
+    subgroupinglevels <- c("subgroup", "subgroup2", "subgroup3")
+    subgroupinglevels <- subgroupinglevels[1:(which(subgroupinglevels == level))]
+    areasums <- data[c(subgroupinglevels, area)]
+    bys <- lapply(subgroupinglevels, function(x) areasums[[x]])
+    areasums <- aggregate(areasums$area, by = bys, FUN = sum)
+    names(areasums) <- c(subgroupinglevels, "area")
+    aesthetics <- c("colour", "size", "linetype", "alpha")
+    for (aesthetic in aesthetics) {
+      areasums[aesthetic] <- unique(data[[aesthetic]])
+    }
+    data <- areasums
 
     # Generate treemap layout for data
     params <- list(
       data = data,
       area = "area",
-      subgroup = subgroup,
       fixed = fixed
     )
-    if ("subgroup" %in% names(data)) {
-      params$subgroup <- "subgroup"
+    for (subgroupinglevel in subgroupinglevels[1:(length(subgroupinglevels) - 1)]) {
+      params[subgroupinglevel] <- subgroupinglevel
     }
     data <- do.call(treemapify, params)
 

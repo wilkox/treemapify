@@ -71,6 +71,7 @@ geom_treemap_subgroup_text <- function(
   grow = F,
   reflow = F,
   fixed = F,
+  level = "subgroup",
   ...
 ) {
   ggplot2::layer(
@@ -90,6 +91,7 @@ geom_treemap_subgroup_text <- function(
       grow = grow,
       reflow = reflow,
       fixed = fixed,
+      level = level,
       ...
     )
   )
@@ -124,27 +126,23 @@ GeomSubgroupText <- ggplot2::ggproto(
     reflow = F,
     place = "bottom",
     fixed = F,
-    subgroup = "subgroup"
+    level = "subgroup"
   ) {
 
     data <- coord$transform(data, panel_scales)
 
     # Collapse data to groups at selected subgroup level
-    areasums <- unlist(lapply(split(data, data$subgroup), function(x) sum(x$area)))
-    areasums <- data.frame(subgroup = names(areasums), area = areasums)
-    data <- unique(data[c(
-      "PANEL",
-      "group",
-      "colour",
-      "size",
-      "alpha",
-      "family",
-      "fontface",
-      "angle",
-      "lineheight",
-      "subgroup"
-    )])
-    data <- merge(data, areasums, by = "subgroup")
+    subgroupinglevels <- c("subgroup", "subgroup2", "subgroup3")
+    subgroupinglevels <- subgroupinglevels[1:(which(subgroupinglevels == level))]
+    areasums <- data[c(subgroupinglevels, area)]
+    bys <- lapply(subgroupinglevels, function(x) areasums[[x]])
+    areasums <- aggregate(areasums$area, by = bys, FUN = sum)
+    names(areasums) <- c(subgroupinglevels, "area")
+    aesthetics <- c("colour", "size", "alpha", "family", "fontface", "angle", "lineheight")
+    for (aesthetic in aesthetics) {
+      areasums[aesthetic] <- unique(data[[aesthetic]])
+    }
+    data <- areasums
 
     # Generate treemap layout for data
     params <- list(
@@ -152,8 +150,11 @@ GeomSubgroupText <- ggplot2::ggproto(
       area = "area",
       fixed = fixed
     )
+    for (subgroupinglevel in subgroupinglevels[1:(length(subgroupinglevels) - 1)]) {
+      params[subgroupinglevel] <- subgroupinglevel
+    }
     data <- do.call(treemapify, params)
-    names(data)[names(data) == "subgroup"] <- "label"
+    names(data)[names(data) == level] <- "label"
 
     # Use treemapify's fittexttree to draw text
     grob <- grid::gTree(

@@ -137,8 +137,10 @@ GeomTreemapText <- ggplot2::ggproto(
       area = "area",
       fixed = fixed
     )
-    if ("subgroup" %in% names(data)) {
-      params$subgroup <- "subgroup"
+    for (subgrouplevel in c("subgroup", "subgroup2", "subgroup3")) {
+      if (subgrouplevel %in% names(data)) {
+        params[subgrouplevel] <- subgrouplevel
+      }
     }
     data <- do.call(treemapify, params)
 
