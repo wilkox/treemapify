@@ -10,7 +10,7 @@ Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://trav
 
 Install the release version of ‘treemapify’ from CRAN:
 
-`install.packages("treemapify")`
+`install.package("treemapify")`
 
 If you want the development version, install it from GitHub:
 
@@ -46,6 +46,27 @@ G20
 #> 18        Europe          Italy     2014079 0.881            Advanced
 #> 19   Middle East   Saudi Arabia      727307 0.782          Developing
 #> 20       Oceania      Australia     1541797 0.938            Advanced
+#>    hemisphere
+#> 1    southern
+#> 2    northern
+#> 3    northern
+#> 4    northern
+#> 5    southern
+#> 6    southern
+#> 7    northern
+#> 8    northern
+#> 9    northern
+#> 10   northern
+#> 11   southern
+#> 12   northern
+#> 13   northern
+#> 14   northern
+#> 15   northern
+#> 16   northern
+#> 17   northern
+#> 18   northern
+#> 19   northern
+#> 20   southern
 ```
 
 ## Drawing a simple treemap
@@ -104,6 +125,25 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
 ```
 
 ![](man/figures/README-subgrouped_treemap-1.png)<!-- -->
+
+Up to three layers of subgrouping are
+supported.
+
+``` r
+ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup =
+                hemisphere, subgroup2 = region, subgroup3 =
+                econ_classification)) +
+  geom_treemap() +
+  geom_treemap_subgroup3_border(colour = "grey") +
+  geom_treemap_subgroup2_border(colour = "white") +
+  geom_treemap_subgroup_border(size = 10) +
+  geom_treemap_subgroup3_text(place = "top", fontface = "italic") +
+  geom_treemap_subgroup2_text() +
+  geom_treemap_subgroup_text(place = "middle", alpha = 0.5, grow = T) +
+  geom_treemap_text(colour = "white", place = "topleft", reflow = T)
+```
+
+![](man/figures/README-multiple_subgroups-1.png)<!-- -->
 
 Note that ‘Argentina’ has been hidden. `geom_treemap_text` will hide
 text labels that cannot fit a tile without being shrunk below a minimum

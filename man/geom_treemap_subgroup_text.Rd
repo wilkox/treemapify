@@ -8,7 +8,7 @@ geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
   padding.y = grid::unit(1, "mm"), place = "bottom", min.size = 4,
-  grow = F, reflow = F, fixed = F, ...)
+  grow = F, reflow = F, fixed = F, level = "subgroup", ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard

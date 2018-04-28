@@ -150,6 +150,7 @@ library(tweenr)
 library(gganimate)
 
 G20_alt <- G20
+set.seed(1)
 G20_alt$gdp_mil_usd <- sample(G20$gdp_mil_usd, nrow(G20))
 G20_alt$hdi <- sample(G20$hdi, nrow(G20))
 
