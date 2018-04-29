@@ -15,8 +15,8 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
   # Scale areas to sum to 1
   data[area] <- data[area] / sum(data[area])
 
-  # Generate the tile layout, starting with a column
-  layout <- tile_column(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1)
+  # Generate the tile layout, starting with a row
+  layout <- tile_row(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1)
 
   # Remove the 'column' column
   layout["column"] <- NULL

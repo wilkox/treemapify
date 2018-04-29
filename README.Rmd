@@ -70,6 +70,11 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
                     grow = TRUE)
 ```
 
+Note that the top-rightmost tile, 'South Africa', is not labelled. `geom_treemap_text`
+will hide text labels that cannot fit a tile without being shrunk below a
+minimum size, by default 4 points. This can be adjusted with the `min.size`
+argument.
+
 ## Subgrouping tiles
 
 `geom_treemap` supports subgrouping of tiles within a treemap by passing a
@@ -88,11 +93,6 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
   geom_treemap_text(colour = "white", place = "topleft", reflow = T)
 ```
 
-Note that 'Argentina' and 'South Africa' have been hidden. `geom_treemap_text`
-will hide text labels that cannot fit a tile without being shrunk below a
-minimum size, by default 4 points. This can be adjusted with the `min.size`
-argument.
-
 Up to three nested levels of subgrouping are supported with the `subgroup2` and `subgroup3` aesthetics. Borders and text labels for these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc. Note that 'ggplot2' draws plot layers in the order that they are added. This means it is possible to accidentally hide one layer of subgroup borders with another. Usually, it's best to add the border layers in order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border` then `geom_treemap_subgroup2_border` then `geom_treemap_subgroup_border`.
 
 ```{r multiple_subgrouped_treemap}
@@ -107,6 +107,8 @@ ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
   geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
   geom_treemap_text(colour = "white", place = "middle", reflow = T)
 ```
+
+As demonstrated, there is no assurance that the resulting plot will look good.
 
 Like any 'ggplot2' plot, 'treemapify' plots can be faceted, scaled, themed, etc.
 
