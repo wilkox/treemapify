@@ -32,7 +32,7 @@ subgroups within the treemap. See `geom_treemap_subgroup_border` and
 `geom_treemap_subgroup_text` to draw borders around subgroups and label
 them, respectively. Up to three nested levels of subgrouping are supported,
 with `subgroup2` and `subgroup3` aesthetics and respective
-`geom_treemap_subgoup2_border` etc. geoms.
+`geom_treemap_subgroup2_border` etc. geoms.
 
 Two algorithms for the tile layout are provided. With the default
 'squarified' algorithm (`fixed = FALSE`), the priority is ensuring the tiles
