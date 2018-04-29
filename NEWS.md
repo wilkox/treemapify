@@ -1,3 +1,18 @@
+# v2.5.0
+
+## Major changes
+
+- Refactor treemap layout algorithms
+- Add support for nested subgroups with new `subgroup2` and `subgroup3` aesthetics, and `geom_treemap_subgroup2_border`, `geom_treemap_subgroup3_border`, `geom_treemap_subgroup2_text`, and `geom_treemap_subgroup3_text` geoms.
+
+## Minor changes
+
+- Add 'hemisphere' column to G20 data
+
+## Bug fixes
+
+- Fix typo in README (#19, thanks @mruessler)
+
 # v2.4.0
 
 ## Minor changes
