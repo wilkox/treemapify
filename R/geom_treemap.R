@@ -1,8 +1,8 @@
 #' A 'ggplot2' geom to draw a treemap.
 #'
-#' `geom_treemap` provides a plot layer that divides the plot into tiles
-#' representing dataset observations. The relative area of each tile expresses
-#' an 'area' aesthetic.
+#' A treemap is a rectangular plot divided into tiles, each of which represents
+#' a single observation. The relative area of each tile expresses a continuous
+#' variable.
 #'
 #' `geom_treemap` requires an `area` aesthetic. It will ignore any aesthetics
 #' relating to the x and y axes (e.g. `xmin` or `y`), as the x and y axes are
@@ -12,8 +12,10 @@
 #'
 #' An optional `subgroup` aesthetic will cause the tiles to be clustered in
 #' subgroups within the treemap. See `geom_treemap_subgroup_border` and
-#' `geom_treemap_subgroup_text` to draw borders around subgroups and label them,
-#' respectively.
+#' `geom_treemap_subgroup_text` to draw borders around subgroups and label
+#' them, respectively. Up to three nested levels of subgrouping are supported,
+#' with `subgroup2` and `subgroup3` aesthetics and respective
+#' `geom_treemap_subgoup2_border` etc. geoms.
 #'
 #' Two algorithms for the tile layout are provided. With the default
 #' 'squarified' algorithm (`fixed = FALSE`), the priority is ensuring the tiles
@@ -42,6 +44,8 @@
 #'   \item fill
 #'   \item linetype
 #'   \item subgroup
+#'   \item subgroup2
+#'   \item subgroup3
 #' }
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
@@ -72,7 +76,7 @@ geom_treemap <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  fixed = F,
+  fixed = FALSE,
   ...
 ) {
   ggplot2::layer(
@@ -110,24 +114,21 @@ GeomTreemap <- ggplot2::ggproto(
     data,
     panel_scales,
     coord,
-    fixed = F
+    fixed = FALSE
   ) {
 
     data <- coord$transform(data, panel_scales)
-    data$id <- 1:nrow(data)
 
     # Generate treemap layout for data
-    params <- list(
+    tparams <- list(
       data = data,
-      area = "area"
+      area = "area",
+      fixed = fixed
     )
-    for (subgrouplevel in c("subgroup", "subgroup2", "subgroup3")) {
-      if (subgrouplevel %in% names(data)) {
-        params[subgrouplevel] <- subgrouplevel
-      }
+    for (x in intersect(c("subgroup", "subgroup2", "subgroup3"), names(data))) {
+      tparams[x] <- x
     }
-    params$fixed <- fixed
-    data <- do.call(treemapify, params)
+    data <- do.call(treemapify, tparams)
 
     # Draw rects
     grob <- grid::rectGrob(

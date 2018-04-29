@@ -2,13 +2,19 @@
 % Please edit documentation in R/geom_treemap_subgroup_text.R
 \name{geom_treemap_subgroup_text}
 \alias{geom_treemap_subgroup_text}
-\title{A 'ggplot2' geom to add text labels to treemap subgroups.}
+\alias{geom_treemap_subgroup2_text}
+\alias{geom_treemap_subgroup3_text}
+\title{'ggplot2' geoms to add text labels to treemap subgroups.}
 \usage{
 geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
   padding.y = grid::unit(1, "mm"), place = "bottom", min.size = 4,
-  grow = F, reflow = F, fixed = F, level = "subgroup", ...)
+  grow = FALSE, reflow = FALSE, fixed = FALSE, level = "subgroup", ...)
+
+geom_treemap_subgroup2_text(...)
+
+geom_treemap_subgroup3_text(...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -31,33 +37,41 @@ box.}
 
 \item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
 used.}
+
+\item{level}{One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
+subgrouping level for which to draw text labels. It is recommended to use
+the aliases `geom_treemap_subgroup2_text` and `geom_treemap_subgroup3_text`
+instead of this argument.}
 }
 \description{
-When `geom_treemap` is used with the `subgroup` aesthetic to subgroup treemap
-tiles, `geom_treemap_subgroup_text` can be used to add a text label to each
-subgroup.
+When `geom_treemap` is used with the `subgroup`, `subgroup2` or `subgroup3`
+aesthetic to subgroup treemap tiles, `geom_treemap_subgroup_text`,
+`geom_treemap_subgroup2_text` or `geom_treemap_subgroup3_text` can be used
+to add a text label to each subgroup at the appropriate level.
 }
 \details{
-`geom_treemap_subgroup_text` requires `area`, `label` and `subgroup`
-aesthetics. Several other standard 'ggplot2' aesthetics are supported (see
-Aesthetics).
+`geom_treemap_subgroup_text` geoms require `area`, `label` and `subgroup`
+(or `subgroup2`, `subgroup3`) aesthetics. Several other standard 'ggplot2'
+aesthetics are supported (see Aesthetics).
 
-`geom_treemap_subgroup_text` uses the 'ggfittext' package to fit text to the
-subgroup. All text drawing options available in `ggfittext::geom_fit_text`
-(growing, reflowing, etc.) are also available here. For full details on how
-these options work, see the documentation for `ggfittext::geom_fit_text`.
+`geom_treemap_subgroup_text` geoms use the 'ggfittext' package to fit text
+to the subgroup. All text drawing options available in
+`ggfittext::geom_fit_text` (growing, reflowing, etc.) are also available
+here. For full details on how these options work, see the documentation for
+`ggfittext::geom_fit_text`.
 
-All `treemapify` geoms added to a plot should have the same value for
-`fixed`, or they will not share a common layout (see `geom_treemap` for
-details on the layout algorithms).
+The `fixed` argument is used to set the treemap layout algorithm. All
+`treemapify` geoms added to a plot should have the same value for `fixed`,
+or they will not share a common layout (see `geom_treemap` for details on
+the layout algorithms).
 }
 \section{Aesthetics}{
 
 
 \itemize{
   \item area (required)
-  \item label (required)
-  \item subgroup (required)
+  \item subgroup, subgroup2 or subgroup3 (required; the value of this
+  variable will be the text label)
   \item colour
   \item size
   \item alpha
@@ -70,9 +84,10 @@ details on the layout algorithms).
 \examples{
 
 ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
-                                  subgroup = region, label = region)) +
+                                  subgroup = hemisphere, subgroup2 = region)) +
   geom_treemap() +
-  geom_treemap_subgroup_text()
+  geom_treemap_subgroup_text(place = "centre", grow = TRUE, alpha = 0.5) +
+  geom_treemap_subgroup2_text()
 
 }
 \seealso{

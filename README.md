@@ -47,26 +47,26 @@ G20
 #> 19   Middle East   Saudi Arabia      727307 0.782          Developing
 #> 20       Oceania      Australia     1541797 0.938            Advanced
 #>    hemisphere
-#> 1    southern
-#> 2    northern
-#> 3    northern
-#> 4    northern
-#> 5    southern
-#> 6    southern
-#> 7    northern
-#> 8    northern
-#> 9    northern
-#> 10   northern
-#> 11   southern
-#> 12   northern
-#> 13   northern
-#> 14   northern
-#> 15   northern
-#> 16   northern
-#> 17   northern
-#> 18   northern
-#> 19   northern
-#> 20   southern
+#> 1    Southern
+#> 2    Northern
+#> 3    Northern
+#> 4    Northern
+#> 5    Southern
+#> 6    Southern
+#> 7    Northern
+#> 8    Northern
+#> 9    Northern
+#> 10   Northern
+#> 11   Southern
+#> 12   Northern
+#> 13   Northern
+#> 14   Northern
+#> 15   Northern
+#> 16   Northern
+#> 17   Northern
+#> 18   Northern
+#> 19   Northern
+#> 20   Southern
 ```
 
 ## Drawing a simple treemap
@@ -126,44 +126,51 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
 
 ![](man/figures/README-subgrouped_treemap-1.png)<!-- -->
 
-Up to three layers of subgrouping are
-supported.
+Note that ‘Argentina’ and ‘South Africa’ have been hidden.
+`geom_treemap_text` will hide text labels that cannot fit a tile without
+being shrunk below a minimum size, by default 4 points. This can be
+adjusted with the `min.size` argument.
+
+Up to three nested levels of subgrouping are supported with the
+`subgroup2` and `subgroup3` aesthetics. Borders and text labels for
+these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc.
+Note that ‘ggplot2’ draws plot layers in the order that they are added.
+This means it is possible to accidentally hide one layer of subgroup
+borders with another. Usually, it’s best to add the border layers in
+order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border`
+then `geom_treemap_subgroup2_border` then
+`geom_treemap_subgroup_border`.
 
 ``` r
-ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup =
-                hemisphere, subgroup2 = region, subgroup3 =
-                econ_classification)) +
+ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
+                subgroup2 = region, subgroup3 = econ_classification)) +
   geom_treemap() +
-  geom_treemap_subgroup3_border(colour = "grey") +
-  geom_treemap_subgroup2_border(colour = "white") +
-  geom_treemap_subgroup_border(size = 10) +
-  geom_treemap_subgroup3_text(place = "top", fontface = "italic") +
-  geom_treemap_subgroup2_text() +
-  geom_treemap_subgroup_text(place = "middle", alpha = 0.5, grow = T) +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T)
+  geom_treemap_subgroup3_border(colour = "blue", size = 1) +
+  geom_treemap_subgroup2_border(colour = "white", size = 3) +
+  geom_treemap_subgroup_border(colour = "red", size = 5) +
+  geom_treemap_subgroup_text(place = "middle", colour = "red", alpha = 0.5, grow = T) +
+  geom_treemap_subgroup2_text(colour = "white", alpha = 0.5, fontface = "italic") +
+  geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
+  geom_treemap_text(colour = "white", place = "middle", reflow = T)
 ```
 
-![](man/figures/README-multiple_subgroups-1.png)<!-- -->
-
-Note that ‘Argentina’ has been hidden. `geom_treemap_text` will hide
-text labels that cannot fit a tile without being shrunk below a minimum
-size, by default 4 points. This can be adjusted with the `min.size`
-argument.
+![](man/figures/README-multiple_subgrouped_treemap-1.png)<!-- -->
 
 Like any ‘ggplot2’ plot, ‘treemapify’ plots can be faceted, scaled,
-themed, etc.
+themed,
+etc.
 
 ``` r
-ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country)) +
+ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup = region)) +
   geom_treemap() +
   geom_treemap_text(grow = T, reflow = T, colour = "black") +
-  facet_wrap( ~ econ_classification) +
+  facet_wrap( ~ hemisphere) +
   scale_fill_brewer(palette = "Set1") +
   theme(legend.position = "bottom") +
   labs(
-    title = "The G-20 major economies",
-    caption = "The area of each country is proportional to its relative GDP
-               within the economic group (advanced or developing)",
+    title = "The G-20 major economies by hemisphere",
+    caption = "The area of each tile represents the country's GDP as a
+      proportion of all countries in that hemisphere",
     fill = "Region"
   )
 ```
@@ -197,6 +204,7 @@ library(tweenr)
 library(gganimate)
 
 G20_alt <- G20
+set.seed(1)
 G20_alt$gdp_mil_usd <- sample(G20$gdp_mil_usd, nrow(G20))
 G20_alt$hdi <- sample(G20$hdi, nrow(G20))
 

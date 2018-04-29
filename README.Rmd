@@ -88,39 +88,39 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
   geom_treemap_text(colour = "white", place = "topleft", reflow = T)
 ```
 
-Up to three layers of subgrouping are supported.
+Note that 'Argentina' and 'South Africa' have been hidden. `geom_treemap_text`
+will hide text labels that cannot fit a tile without being shrunk below a
+minimum size, by default 4 points. This can be adjusted with the `min.size`
+argument.
 
-```{r multiple_subgroups}
-ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup =
-                hemisphere, subgroup2 = region, subgroup3 =
-                econ_classification)) +
+Up to three nested levels of subgrouping are supported with the `subgroup2` and `subgroup3` aesthetics. Borders and text labels for these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc. Note that 'ggplot2' draws plot layers in the order that they are added. This means it is possible to accidentally hide one layer of subgroup borders with another. Usually, it's best to add the border layers in order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border` then `geom_treemap_subgroup2_border` then `geom_treemap_subgroup_border`.
+
+```{r multiple_subgrouped_treemap}
+ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
+                subgroup2 = region, subgroup3 = econ_classification)) +
   geom_treemap() +
-  geom_treemap_subgroup3_border(colour = "grey") +
-  geom_treemap_subgroup2_border(colour = "white") +
-  geom_treemap_subgroup_border(size = 10) +
-  geom_treemap_subgroup3_text(place = "top", fontface = "italic") +
-  geom_treemap_subgroup2_text() +
-  geom_treemap_subgroup_text(place = "middle", alpha = 0.5, grow = T) +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T)
+  geom_treemap_subgroup3_border(colour = "blue", size = 1) +
+  geom_treemap_subgroup2_border(colour = "white", size = 3) +
+  geom_treemap_subgroup_border(colour = "red", size = 5) +
+  geom_treemap_subgroup_text(place = "middle", colour = "red", alpha = 0.5, grow = T) +
+  geom_treemap_subgroup2_text(colour = "white", alpha = 0.5, fontface = "italic") +
+  geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
+  geom_treemap_text(colour = "white", place = "middle", reflow = T)
 ```
-
-Note that 'Argentina' has been hidden. `geom_treemap_text` will hide text labels
-that cannot fit a tile without being shrunk below a minimum size, by default 4
-points. This can be adjusted with the `min.size` argument.
 
 Like any 'ggplot2' plot, 'treemapify' plots can be faceted, scaled, themed, etc.
 
 ```{r complex_treemap}
-ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country)) +
+ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup = region)) +
   geom_treemap() +
   geom_treemap_text(grow = T, reflow = T, colour = "black") +
-  facet_wrap( ~ econ_classification) +
+  facet_wrap( ~ hemisphere) +
   scale_fill_brewer(palette = "Set1") +
   theme(legend.position = "bottom") +
   labs(
-    title = "The G-20 major economies",
-    caption = "The area of each country is proportional to its relative GDP
-               within the economic group (advanced or developing)",
+    title = "The G-20 major economies by hemisphere",
+    caption = "The area of each tile represents the country's GDP as a
+      proportion of all countries in that hemisphere",
     fill = "Region"
   )
 ```

@@ -1,4 +1,4 @@
-#' A 'ggplot2' geom to add text labels to treemap tiles
+#' A 'ggplot2' geom to add text labels to treemap tiles.
 #'
 #' `geom_treemap_text` can be used to add a text label to each tile in a treemap
 #' created with `geom_treemap`.
@@ -37,7 +37,7 @@
 #' \itemize{
 #'   \item area (required)
 #'   \item label (required)
-#'   \item subgroup
+#'   \item subgroup, subgroup2 or subgroup3
 #'   \item colour
 #'   \item size
 #'   \item alpha
@@ -67,9 +67,9 @@ geom_treemap_text <- function(
   padding.y = grid::unit(1, "mm"),
   place = "topleft",
   min.size = 4,
-  grow = F,
-  reflow = F,
-  fixed = F,
+  grow = FALSE,
+  reflow = FALSE,
+  fixed = FALSE,
   ...
 ) {
   ggplot2::layer(
@@ -121,15 +121,13 @@ GeomTreemapText <- ggplot2::ggproto(
     padding.x = grid::unit(1, "mm"),
     padding.y = grid::unit(1, "mm"),
     min.size = 4,
-    grow = F,
-    reflow = F,
-    fixed = F,
-    place = "centre",
-    subgroup = NA
+    grow = FALSE,
+    reflow = FALSE,
+    fixed = FALSE,
+    place = "centre"
   ) {
 
     data <- coord$transform(data, panel_scales)
-    data$id <- 1:nrow(data)
 
     # Generate treemap layout for data
     params <- list(

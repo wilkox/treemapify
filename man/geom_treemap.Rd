@@ -6,7 +6,7 @@
 \usage{
 geom_treemap(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, fixed = F, ...)
+  inherit.aes = TRUE, fixed = FALSE, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -16,9 +16,9 @@ geom arguments as for `ggplot2::geom_rect`.}
 used.}
 }
 \description{
-`geom_treemap` provides a plot layer that divides the plot into tiles
-representing dataset observations. The relative area of each tile expresses
-an 'area' aesthetic.
+A treemap is a rectangular plot divided into tiles, each of which represents
+a single observation. The relative area of each tile expresses a continuous
+variable.
 }
 \details{
 `geom_treemap` requires an `area` aesthetic. It will ignore any aesthetics
@@ -29,8 +29,10 @@ supported (see Aesthetics). To add text labels to tiles, see
 
 An optional `subgroup` aesthetic will cause the tiles to be clustered in
 subgroups within the treemap. See `geom_treemap_subgroup_border` and
-`geom_treemap_subgroup_text` to draw borders around subgroups and label them,
-respectively.
+`geom_treemap_subgroup_text` to draw borders around subgroups and label
+them, respectively. Up to three nested levels of subgrouping are supported,
+with `subgroup2` and `subgroup3` aesthetics and respective
+`geom_treemap_subgoup2_border` etc. geoms.
 
 Two algorithms for the tile layout are provided. With the default
 'squarified' algorithm (`fixed = FALSE`), the priority is ensuring the tiles
@@ -60,6 +62,8 @@ All `treemapify` geoms added to a plot should have the same value for
   \item fill
   \item linetype
   \item subgroup
+  \item subgroup2
+  \item subgroup3
 }
 }
 

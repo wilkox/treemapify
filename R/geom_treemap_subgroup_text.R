@@ -1,21 +1,24 @@
-#' A 'ggplot2' geom to add text labels to treemap subgroups.
+#' 'ggplot2' geoms to add text labels to treemap subgroups.
 #'
-#' When `geom_treemap` is used with the `subgroup` aesthetic to subgroup treemap
-#' tiles, `geom_treemap_subgroup_text` can be used to add a text label to each
-#' subgroup.
+#' When `geom_treemap` is used with the `subgroup`, `subgroup2` or `subgroup3`
+#' aesthetic to subgroup treemap tiles, `geom_treemap_subgroup_text`,
+#' `geom_treemap_subgroup2_text` or `geom_treemap_subgroup3_text` can be used
+#' to add a text label to each subgroup at the appropriate level.
 #'
-#' `geom_treemap_subgroup_text` requires `area`, `label` and `subgroup`
-#' aesthetics. Several other standard 'ggplot2' aesthetics are supported (see
-#' Aesthetics).
+#' `geom_treemap_subgroup_text` geoms require `area`, `label` and `subgroup`
+#' (or `subgroup2`, `subgroup3`) aesthetics. Several other standard 'ggplot2'
+#' aesthetics are supported (see Aesthetics).
 #'
-#' `geom_treemap_subgroup_text` uses the 'ggfittext' package to fit text to the
-#' subgroup. All text drawing options available in `ggfittext::geom_fit_text`
-#' (growing, reflowing, etc.) are also available here. For full details on how
-#' these options work, see the documentation for `ggfittext::geom_fit_text`.
+#' `geom_treemap_subgroup_text` geoms use the 'ggfittext' package to fit text
+#' to the subgroup. All text drawing options available in
+#' `ggfittext::geom_fit_text` (growing, reflowing, etc.) are also available
+#' here. For full details on how these options work, see the documentation for
+#' `ggfittext::geom_fit_text`.
 #'
-#' All `treemapify` geoms added to a plot should have the same value for
-#' `fixed`, or they will not share a common layout (see `geom_treemap` for
-#' details on the layout algorithms).
+#' The `fixed` argument is used to set the treemap layout algorithm. All
+#' `treemapify` geoms added to a plot should have the same value for `fixed`,
+#' or they will not share a common layout (see `geom_treemap` for details on
+#' the layout algorithms).
 #'
 #' @param padding.x,padding.y `grid::unit` object, giving horizontal or vertical
 #' padding between text and edge of tile. Defaults to 1 mm.
@@ -31,6 +34,10 @@
 #' used.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for `ggplot2::geom_text`.
+#' @param level One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
+#' subgrouping level for which to draw text labels. It is recommended to use
+#' the aliases `geom_treemap_subgroup2_text` and `geom_treemap_subgroup3_text`
+#' instead of this argument.
 #'
 #' @seealso geom_treemap, geom_treemap_subgroup_border
 #'
@@ -38,8 +45,8 @@
 #'
 #' \itemize{
 #'   \item area (required)
-#'   \item label (required)
-#'   \item subgroup (required)
+#'   \item subgroup, subgroup2 or subgroup3 (required; the value of this
+#'   variable will be the text label)
 #'   \item colour
 #'   \item size
 #'   \item alpha
@@ -51,9 +58,10 @@
 #' @examples
 #'
 #' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
-#'                                   subgroup = region, label = region)) +
+#'                                   subgroup = hemisphere, subgroup2 = region)) +
 #'   geom_treemap() +
-#'   geom_treemap_subgroup_text()
+#'   geom_treemap_subgroup_text(place = "centre", grow = TRUE, alpha = 0.5) +
+#'   geom_treemap_subgroup2_text()
 #'
 #' @export
 geom_treemap_subgroup_text <- function(
@@ -68,9 +76,9 @@ geom_treemap_subgroup_text <- function(
   padding.y = grid::unit(1, "mm"),
   place = "bottom",
   min.size = 4,
-  grow = F,
-  reflow = F,
-  fixed = F,
+  grow = FALSE,
+  reflow = FALSE,
+  fixed = FALSE,
   level = "subgroup",
   ...
 ) {
@@ -102,7 +110,7 @@ geom_treemap_subgroup_text <- function(
 GeomSubgroupText <- ggplot2::ggproto(
   "GeomSubgroupText",
   ggplot2::Geom,
-  required_aes = c("area", "subgroup"),
+  required_aes = c("area"),
   default_aes = ggplot2::aes(
     colour = "grey20",
     fill = "white",
@@ -122,27 +130,35 @@ GeomSubgroupText <- ggplot2::ggproto(
     padding.x = grid::unit(1, "mm"),
     padding.y = grid::unit(1, "mm"),
     min.size = 4,
-    grow = F,
-    reflow = F,
+    grow = FALSE,
+    reflow = FALSE,
     place = "bottom",
-    fixed = F,
+    fixed = FALSE,
     level = "subgroup"
   ) {
 
     data <- coord$transform(data, panel_scales)
 
-    # Collapse data to groups at selected subgroup level
-    subgroupinglevels <- c("subgroup", "subgroup2", "subgroup3")
-    subgroupinglevels <- subgroupinglevels[1:(which(subgroupinglevels == level))]
-    for (subgroupinglevel in subgroupinglevels) {
-      if (!subgroupinglevel %in% names(data)) {
-        stop("No ", subgroupinglevel, " aesthetic provided", call. = F)
-      }
+    # Check that subgrouping level is valid and in data
+    levels <- c("subgroup", "subgroup2", "subgroup3")
+    if (!level %in% levels) {
+      stop(
+        "`level` argument must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
+        call. = F
+      )
     }
-    areasums <- data[c(subgroupinglevels, "area")]
-    bys <- lapply(subgroupinglevels, function(x) areasums[[x]])
-    areasums <- aggregate(areasums$area, by = bys, FUN = sum)
-    names(areasums) <- c(subgroupinglevels, "area")
+    if (!level %in% names(data)) {
+      stop(
+        "Can't draw text for subgroup level ", level, " as it is not a plot aesthetic",
+        call. = F
+      )
+    }
+
+    # Collapse data to groups at selected subgroup level
+    levels <- levels[1:(which(levels == level))]
+    bys <- lapply(levels, function(x) data[[x]])
+    areasums <- aggregate(data$area, by = bys, FUN = sum)
+    names(areasums) <- c(levels, "area")
     aesthetics <- c("colour", "size", "alpha", "family", "fontface", "angle", "lineheight")
     for (aesthetic in aesthetics) {
       areasums[aesthetic] <- unique(data[[aesthetic]])
@@ -155,9 +171,7 @@ GeomSubgroupText <- ggplot2::ggproto(
       area = "area",
       fixed = fixed
     )
-    for (subgroupinglevel in subgroupinglevels[1:(length(subgroupinglevels) - 1)]) {
-      params[subgroupinglevel] <- subgroupinglevel
-    }
+    for (l in levels[1:(length(levels) - 1)]) { params[l] <- l }
     data <- do.call(treemapify, params)
     names(data)[names(data) == level] <- "label"
 
@@ -178,11 +192,13 @@ GeomSubgroupText <- ggplot2::ggproto(
   }
 )
 
+#' @rdname geom_treemap_subgroup_text
 #' @export
 geom_treemap_subgroup2_text <- function(...) { 
   geom_treemap_subgroup_text(level = "subgroup2", ...)
 }
 
+#' @rdname geom_treemap_subgroup_text
 #' @export
 geom_treemap_subgroup3_text <- function(...) { 
   geom_treemap_subgroup_text(level = "subgroup3", ...)

@@ -1,15 +1,23 @@
-#' A 'ggplot2' geom to draw a border around a subgroup of treemap tiles.
+#' 'ggplot2' geoms to draw a border around a subgroup of treemap tiles.
 #'
-#' When `geom_treemap` is used with the 'subgroup' aesthetic to subgroup
-#' treemap tiles, `geom_treemap_subgroup_border` can be used to draw a
-#' border around each subgroup.
+#' When `geom_treemap` is used with a `subgroup`, `subgroup2` or `subgroup3`
+#' aesthetic to subgroup treemap tiles, `geom_treemap_subgroup_border`,
+#' `geom_treemap_subgroup2_border` or `geom_treemap_subgroup3_border` can be
+#' used to draw a border around each subgroup at the appropriate level.
 #'
-#' `geom_treemap_subgroup_border` requires `area` and `subgroup` aesthetics.
-#' Several other standard 'ggplot2' aesthetics are supported (see Aesthetics).
+#' `geom_treemap_subgroup_border` geoms require `area` and `subgroup` (or
+#' `subgroup2, `subgroup3`) aesthetics. Several other standard 'ggplot2'
+#' aesthetics are supported (see Aesthetics).
 #'
-#' All `treemapify` geoms added to a plot should have the same value for
-#' `fixed`, or they will not share a common layout (see `geom_treemap` for
-#' details on the layout algorithms).
+#' Note that 'ggplot2' draws plot layers in the order they are added to the
+#' plot. This means that if you add a `geom_treemap_subgroup_border` layer
+#' followed by a `geom_treemap_subgroup2_border` layer, the second layer will
+#' be drawn on top of the first and may hide it.
+#'
+#' The `fixed` argument is used to set the treemap layout algorithm. All
+#' `treemapify` geoms added to a plot should have the same value for `fixed`,
+#' or they will not share a common layout (see `geom_treemap` for details on
+#' the layout algorithms).
 #'
 #' @seealso geom_treemap, geom_treemap_subgroup_text
 #'
@@ -17,12 +25,16 @@
 #' geom arguments as for `ggplot2::geom_rect`.
 #' @param fixed If `TRUE`, the alternative 'fixed' tile layout algorithm will be
 #' used.
+#' @param level One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
+#' subgrouping level for which to draw borders. It is recommended to use the
+#' aliases `geom_treemap_subgroup2_border` and `geom_treemap_subgroup3_border`
+#' instead of this argument.
 #'
 #' @section Aesthetics:
 #'
 #' \itemize{
 #'   \item area (required)
-#'   \item subgroup (required)
+#'   \item subgroup, subgroup2 or subgroup3 (required)
 #'   \item colour
 #'   \item size
 #'   \item linetype
@@ -32,8 +44,9 @@
 #' @examples
 #'
 #' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
-#'                                   subgroup = region)) +
+#'                                   subgroup = hemisphere, subgroup2 = region)) +
 #'   geom_treemap() +
+#'   geom_treemap_subgroup2_border(colour = "white") +
 #'   geom_treemap_subgroup_border()
 #'
 #' @export
@@ -91,18 +104,26 @@ GeomSubgroupBorder <- ggplot2::ggproto(
 
     data <- coord$transform(data, panel_scales)
 
-    # Collapse data to groups at selected subgroup level
-    subgroupinglevels <- c("subgroup", "subgroup2", "subgroup3")
-    subgroupinglevels <- subgroupinglevels[1:(which(subgroupinglevels == level))]
-    for (subgroupinglevel in subgroupinglevels) {
-      if (!subgroupinglevel %in% names(data)) {
-        stop("No ", subgroupinglevel, " aesthetic provided", call. = F)
-      }
+    # Check that subgrouping level is valid and in data
+    levels <- c("subgroup", "subgroup2", "subgroup3")
+    if (!level %in% levels) {
+      stop(
+        "`level` argument must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
+        call. = F
+      )
     }
-    areasums <- data[c(subgroupinglevels, "area")]
-    bys <- lapply(subgroupinglevels, function(x) areasums[[x]])
-    areasums <- aggregate(areasums$area, by = bys, FUN = sum)
-    names(areasums) <- c(subgroupinglevels, "area")
+    if (!level %in% names(data)) {
+      stop(
+        "Can't draw a border for subgroup level ", level, " as it is not a plot aesthetic",
+        call. = F
+      )
+    }
+
+    # Collapse data to groups at selected subgroup level
+    levels <- levels[1:(which(levels == level))]
+    bys <- lapply(levels, function(x) data[[x]])
+    areasums <- aggregate(data$area, by = bys, FUN = sum)
+    names(areasums) <- c(levels, "area")
     aesthetics <- c("colour", "size", "linetype", "alpha")
     for (aesthetic in aesthetics) {
       areasums[aesthetic] <- unique(data[[aesthetic]])
@@ -115,9 +136,7 @@ GeomSubgroupBorder <- ggplot2::ggproto(
       area = "area",
       fixed = fixed
     )
-    for (subgroupinglevel in subgroupinglevels[1:(length(subgroupinglevels) - 1)]) {
-      params[subgroupinglevel] <- subgroupinglevel
-    }
+    for (l in levels[1:(length(levels) - 1)]) { params[l] <- l }
     data <- do.call(treemapify, params)
 
     # Draw rects
@@ -141,11 +160,13 @@ GeomSubgroupBorder <- ggplot2::ggproto(
   }
 )
 
+#' @rdname geom_treemap_subgroup_border
 #' @export
 geom_treemap_subgroup2_border <- function(...) { 
   geom_treemap_subgroup_border(level = "subgroup2", ...)
 }
 
+#' @rdname geom_treemap_subgroup_border
 #' @export
 geom_treemap_subgroup3_border <- function(...) { 
   geom_treemap_subgroup_border(level = "subgroup3", ...)

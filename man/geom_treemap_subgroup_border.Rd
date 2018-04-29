@@ -2,12 +2,18 @@
 % Please edit documentation in R/geom_treemap_subgroup_border.R
 \name{geom_treemap_subgroup_border}
 \alias{geom_treemap_subgroup_border}
-\title{A 'ggplot2' geom to draw a border around a subgroup of treemap tiles.}
+\alias{geom_treemap_subgroup2_border}
+\alias{geom_treemap_subgroup3_border}
+\title{'ggplot2' geoms to draw a border around a subgroup of treemap tiles.}
 \usage{
 geom_treemap_subgroup_border(mapping = NULL, data = NULL,
   stat = "identity", position = "identity", na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE, fixed = F, level = "subgroup",
   ...)
+
+geom_treemap_subgroup2_border(...)
+
+geom_treemap_subgroup3_border(...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -15,26 +21,39 @@ geom arguments as for `ggplot2::geom_rect`.}
 
 \item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
 used.}
+
+\item{level}{One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
+subgrouping level for which to draw borders. It is recommended to use the
+aliases `geom_treemap_subgroup2_border` and `geom_treemap_subgroup3_border`
+instead of this argument.}
 }
 \description{
-When `geom_treemap` is used with the 'subgroup' aesthetic to subgroup
-treemap tiles, `geom_treemap_subgroup_border` can be used to draw a
-border around each subgroup.
+When `geom_treemap` is used with a `subgroup`, `subgroup2` or `subgroup3`
+aesthetic to subgroup treemap tiles, `geom_treemap_subgroup_border`,
+`geom_treemap_subgroup2_border` or `geom_treemap_subgroup3_border` can be
+used to draw a border around each subgroup at the appropriate level.
 }
 \details{
-`geom_treemap_subgroup_border` requires `area` and `subgroup` aesthetics.
-Several other standard 'ggplot2' aesthetics are supported (see Aesthetics).
+`geom_treemap_subgroup_border` geoms require `area` and `subgroup` (or
+`subgroup2, `subgroup3`) aesthetics. Several other standard 'ggplot2'
+aesthetics are supported (see Aesthetics).
 
-All `treemapify` geoms added to a plot should have the same value for
-`fixed`, or they will not share a common layout (see `geom_treemap` for
-details on the layout algorithms).
+Note that 'ggplot2' draws plot layers in the order they are added to the
+plot. This means that if you add a `geom_treemap_subgroup_border` layer
+followed by a `geom_treemap_subgroup2_border` layer, the second layer will
+be drawn on top of the first and may hide it.
+
+The `fixed` argument is used to set the treemap layout algorithm. All
+`treemapify` geoms added to a plot should have the same value for `fixed`,
+or they will not share a common layout (see `geom_treemap` for details on
+the layout algorithms).
 }
 \section{Aesthetics}{
 
 
 \itemize{
   \item area (required)
-  \item subgroup (required)
+  \item subgroup, subgroup2 or subgroup3 (required)
   \item colour
   \item size
   \item linetype
@@ -45,8 +64,9 @@ details on the layout algorithms).
 \examples{
 
 ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
-                                  subgroup = region)) +
+                                  subgroup = hemisphere, subgroup2 = region)) +
   geom_treemap() +
+  geom_treemap_subgroup2_border(colour = "white") +
   geom_treemap_subgroup_border()
 
 }

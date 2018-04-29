@@ -7,6 +7,10 @@ vignette: >
   %\VignetteIndexEntry{Introduction to 'treemapify'}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{ggplot2}
+  %\VignetteDepends{tweenr}
+  %\VignetteDepends{gganimate}
+  %\VignetteDepends{animation}
 ---
 
 ## The G20 dataset
@@ -28,7 +32,7 @@ representing a G-20 country. The area of the tile will be mapped to the
 country's GDP, and the tile's fill colour mapped to its HDI (Human Development
 Index). `geom_treemap` is the basic geom for this purpose.
 
-```{r basic_treemap, fig.width = 6, fig.height = 6}
+```{r basic_treemap}
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
   geom_treemap()
 ```
@@ -42,7 +46,7 @@ additional options specific for 'ggfittext'. For example, we can place the text
 in the centre of the tile with `place = "centre"`, and expand it to fill as much
 of the tile as possible with `grow = TRUE`.
 
-```{r geom_treemap_text, fig.width = 6, fig.height = 6}
+```{r geom_treemap_text}
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
   geom_treemap() +
   geom_treemap_text(fontface = "italic", colour = "white", place = "centre",
@@ -57,7 +61,7 @@ around each subgroup with `geom_treemap_subgroup_border`, and label each
 subgroup with `geom_treemap_subgroup_text`. `geom_treemap_subgroup_text` takes
 the same arguments for text placement and resizing as `geom_treemap_text`.
 
-```{r subgrouped_treemap, fig.width = 6, fig.height = 6}
+```{r subgrouped_treemap}
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
                 subgroup = region)) +
   geom_treemap() +
@@ -67,28 +71,44 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
   geom_treemap_text(colour = "white", place = "topleft", reflow = T)
 ```
 
-Note that 'Argentina' has been hidden. `geom_treemap_text` will hide text labels
-that cannot fit a tile without being shrunk below a minimum size, by default 4
-points. This can be adjusted with the `min.size` argument.
+Note that 'Argentina' and 'South Africa' have been hidden. `geom_treemap_text`
+will hide text labels that cannot fit a tile without being shrunk below a
+minimum size, by default 4 points. This can be adjusted with the `min.size`
+argument.
+
+Up to three nested levels of subgrouping are supported with the `subgroup2` and `subgroup3` aesthetics. Borders and text labels for these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc. Note that 'ggplot2' draws plot layers in the order that they are added. This means it is possible to accidentally hide one layer of subgroup borders with another. Usually, it's best to add the border layers in order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border` then `geom_treemap_subgroup2_border` then `geom_treemap_subgroup_border`.
+
+```{r multiple_subgrouped_treemap}
+ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
+                subgroup2 = region, subgroup3 = econ_classification)) +
+  geom_treemap() +
+  geom_treemap_subgroup3_border(colour = "blue", size = 1) +
+  geom_treemap_subgroup2_border(colour = "white", size = 3) +
+  geom_treemap_subgroup_border(colour = "red", size = 5) +
+  geom_treemap_subgroup_text(place = "middle", colour = "red", alpha = 0.5, grow = T) +
+  geom_treemap_subgroup2_text(colour = "white", alpha = 0.5, fontface = "italic") +
+  geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
+  geom_treemap_text(colour = "white", place = "middle", reflow = T)
+```
 
 Like any 'ggplot2' plot, 'treemapify' plots can be faceted, scaled, themed, etc.
 
-```{r complex_treemap, fig.width = 6, fig.height = 6}
-ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country)) +
+```{r complex_treemap}
+ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup = region)) +
   geom_treemap() +
   geom_treemap_text(grow = T, reflow = T, colour = "black") +
-  facet_wrap( ~ econ_classification) +
+  facet_wrap( ~ hemisphere) +
   scale_fill_brewer(palette = "Set1") +
   theme(legend.position = "bottom") +
   labs(
-    title = "The G-20 major economies",
-    caption = "The area of each country is proportional to its relative GDP
-               within the economic group (advanced or developing)",
+    title = "The G-20 major economies by hemisphere",
+    caption = "The area of each tile represents the country's GDP as a
+      proportion of all countries in that hemisphere",
     fill = "Region"
   )
 ```
 
-## Animated treemaps
+## Fixed layouts
 
 The default algorithm for laying out the tiles is the 'squarified' algorithm.
 This tries to minimise the tiles' aspect ratios, making sure there are no long
@@ -102,36 +122,3 @@ layout algorithm is used that will always position the tiles based on the order
 of observations in the data frame. It's very important that the same value for
 `fixed` is passed to all 'treemapify' geoms, otherwise different layers of the
 plot might not share the same layout.
-
-With the help of `fixed = TRUE`, and with the 
-[`tweenr`](https://github.com/thomasp85/tweenr) and
-[`gganimate`](https://github.com/dgrtwo/gganimate) packages, it becomes possible
-to create animated treemaps showing e.g. change over time.
-
-```{r animated treemap, message = FALSE, eval = FALSE}
-library(tweenr)
-library(gganimate)
-
-G20_alt <- G20
-G20_alt$gdp_mil_usd <- sample(G20$gdp_mil_usd, nrow(G20))
-G20_alt$hdi <- sample(G20$hdi, nrow(G20))
-
-tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 8,
-                        statelength = 5, ease = 'cubic-in-out', nframes = 31)
-
-animated_plot <- ggplot(tweened, aes(area = gdp_mil_usd, fill = hdi,
-                                     label = country, subgroup = region,
-                                     frame = .frame)) +
-  geom_treemap(fixed = T) +
-  geom_treemap_subgroup_border(fixed = T) +
-  geom_treemap_subgroup_text(place = "centre", grow = T, alpha = 0.5,
-                             colour = "black", fontface = "italic", min.size = 0,
-                             fixed = T) +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T, fixed = T)
-
-animation::ani.options(interval = 1/10)
-gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F,
-          ani.width = 200, ani.height = 200)
-```
-
-![animated_treemap](../man/figures/animated_treemap.gif)

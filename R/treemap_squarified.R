@@ -1,4 +1,6 @@
-# Produce a treemap with the squarified layout algorithm
+#' Internal function for the 'squarified' treemap layout algorithm.
+#'
+#' @noRd
 treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
 
   # Remove any rows where area <= 0
@@ -31,8 +33,10 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
   layout
 }
 
-# Function that, for a set of tile areas to be placed in a row of defined
-# dimensions, returns the worst aspect ratio
+#' For a set of tile areas to be placed in a row of defined dimensions, return
+#' the worst aspect ratio.
+#'
+#' @noRd
 worst_ar <- function(areas, long_dim) {
 
   # Calculate the short dimension of the row
@@ -49,7 +53,9 @@ worst_ar <- function(areas, long_dim) {
   max(aspect_ratios)
 }
 
-# Function that place tiles in the remaining area, starting with a row
+#' Place tiles in an area of defined dimensions, beginning with a row.
+#'
+#' @noRd
 tile_row <- function(data, area, xmin, xmax, ymin, ymax) {
 
   # For each possible number of tiles in the row, calculate the worst aspect
@@ -89,7 +95,9 @@ tile_row <- function(data, area, xmin, xmax, ymin, ymax) {
   }
 }
 
-# Function that place tiles in the remaining area, starting with a column
+#' Place tiles in an area of defined dimensions, beginning with a column.
+#'
+#' @noRd
 tile_column <- function(data, area, xmin, xmax, ymin, ymax) {
 
   # For each possible number of tiles in the column, calculate the worst

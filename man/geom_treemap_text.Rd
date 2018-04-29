@@ -2,13 +2,13 @@
 % Please edit documentation in R/geom_treemap_text.R
 \name{geom_treemap_text}
 \alias{geom_treemap_text}
-\title{A 'ggplot2' geom to add text labels to treemap tiles}
+\title{A 'ggplot2' geom to add text labels to treemap tiles.}
 \usage{
 geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
   padding.y = grid::unit(1, "mm"), place = "topleft", min.size = 4,
-  grow = F, reflow = F, fixed = F, ...)
+  grow = FALSE, reflow = FALSE, fixed = FALSE, ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -55,7 +55,7 @@ details on the layout algorithms).
 \itemize{
   \item area (required)
   \item label (required)
-  \item subgroup
+  \item subgroup, subgroup2 or subgroup3
   \item colour
   \item size
   \item alpha

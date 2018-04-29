@@ -1,7 +1,7 @@
 #' Generate a treemap layout.
 #'
-#' `treemapify` is for generating raw treemap coordinates. If you want to draw
-#' a treemap with 'ggplot2', use `geom_treemap` instead.
+#' `treemapify` is for generating a data frame of raw treemap coordinates. If
+#' you want to draw a treemap with 'ggplot2', use `geom_treemap` instead.
 #'
 #' @description
 #'
@@ -10,22 +10,22 @@
 #' treemap without the help of the `ggplot2` geoms, or for some edge cases such
 #' as creating interactive treemaps with 'R Shiny' (see e.g.
 #' \url{https://stackoverflow.com/q/45021775}). The easiest way to draw a
-#' treemap with this package is to use the provided 'ggplot2' geoms, such as
-#' `geom_treemap`.
+#' treemap with the 'treemapify' package is to use the provided 'ggplot2'
+#' geoms, such as `geom_treemap`.
 #'
-#' The input data frame must be in tidy format, i.e. each row must represent a
-#' single observation and each column a single variable. You must provide the
-#' name of the variable that will be represented by the area of each treemap
-#' tile. Optionally, you can also select up to three variables (`subgroup`, `subgroup2`
-#' and `subgroup3`) to generate a layout in which subgroups of tiles are nested up to
-#' three levels deep.
+#' `data` must be a tidy data frame, i.e. each row must represent a single
+#' observation and each column a single variable. You must provide the name of
+#' the variable that will be represented by the area of each treemap tile with
+#' `area`. Optionally, you can also select up to three variables (with
+#' `subgroup`, `subgroup2` and `subgroup3`) to generate a layout in which the
+#' tiles are clustered into subgroups nested up to three levels deep.
 #'
-#' Two algorithms for the tile layout are provided. With the default
-#' 'squarified' algorithm, the priority is ensuring the tiles have an
-#' aesthetically pleasing aspect ratio; that is, they are not too narrow or too
-#' short. In this algorithm, tile placement proceeds from the bottom left
-#' corner, moving alternately rightwards and upwards until all tiles are
-#' placed. See Bruls et al. (1999) for the full algorithm.
+#' Two layout algorithms are provided. With the default 'squarified' algorithm,
+#' the priority is ensuring the tiles have an aesthetically pleasing aspect
+#' ratio; that is, they are not too narrow or too short. In this algorithm,
+#' tile placement proceeds from the bottom left corner, moving alternately
+#' rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
+#' for the full algorithm.
 #'
 #' With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
 #' is divided into vertical columns, which are filled from left to right with an
@@ -35,20 +35,23 @@
 #' can result in aesthetically unpleasing tiles, but it allows side-by-side
 #' comparisons or animations to be created.
 #'
+#' `treemapify_fixed` is an alias for `treemapify(fixed = TRUE)`.
+#'
 #' @param data A tidy data frame.
 #' @param area Name of the variable (a column in `data`) to be mapped to the
 #' area of treemap tiles.
-#' @param subgroup, subgroup2, subgroup3 Optionally, names of variables by which the tiles
-#' should be grouped, at up to three levels of depth.
+#' @param subgroup,subgroup2,subgroup3 Optionally, names of variables
+#' (columns in `data) by which the tiles should be grouped, at up to three
+#' nested levels.
 #' @param fixed If true, the alternative 'fixed' algorithm will be used (see
 #' Details).
+#' @param ... Other arguments to be passed to `treemapify`.
 #'
 #' @seealso geom_treemap
 #'
 #' @examples
 #'
-#' treemapify(G20, area = "gdp_mil_usd", fill = "hdi", group = "region",
-#'            label = "country")
+#' treemapify(G20, area = "gdp_mil_usd")
 #'
 #' @references
 #'
@@ -101,7 +104,6 @@ treemapify <- function(
   # Work down subgrouping levels, laying out treemaps for each level
   do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
 
-
     # If there are no subgrouping levels below this one, return a layout for the
     # given observations
     if (length(subgroups) == 0) {
@@ -149,4 +151,10 @@ treemapify <- function(
     }
   }
   do_layout(data, subgroups)
+}
+
+#' @rdname treemapify
+#' @export
+treemapify_fixed <- function(...) {
+  treemapify(fixed = TRUE, ...)
 }
