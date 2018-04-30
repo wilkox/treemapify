@@ -10,4 +10,4 @@ There were no ERRORs, WARNINGs or NOTEs.
 
 # Downstream dependencies
 
-There are no downstream dependencies of this package on CRAN.
+Reverse dependencies checked with `devtools::revdep_check()`.
