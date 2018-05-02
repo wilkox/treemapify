@@ -99,7 +99,16 @@ treemapify <- function(
   treemap_f <- ifelse(fixed, treemap_fixed, treemap_squarified)
 
   # Set list of subgrouping levels
-  subgroups <- unlist(as.list(match.call())[c("subgroup", "subgroup2", "subgroup3")])
+  subgroups <- character()
+  if (!missing(subgroup)) {
+    subgroups[1] <- subgroup
+  }
+  if (!missing(subgroup2)) {
+    subgroups[2] <- subgroup2
+  }
+  if (!missing(subgroup3)) {
+    subgroups[3] <- subgroup3
+  }
 
   # Work down subgrouping levels, laying out treemaps for each level
   do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
