@@ -41,10 +41,12 @@
 #' @param area Name of the variable (a column in `data`) to be mapped to the
 #' area of treemap tiles.
 #' @param subgroup,subgroup2,subgroup3 Optionally, names of variables
-#' (columns in `data) by which the tiles should be grouped, at up to three
+#' (columns in `data`) by which the tiles should be grouped, at up to three
 #' nested levels.
 #' @param fixed If true, the alternative 'fixed' algorithm will be used (see
 #' Details).
+#' @param group Deprecated; use `subgroup` instead. Will be removed in later versions.
+#' @param label,fill Deprecated. Will be removed in later versions.
 #' @param ... Other arguments to be passed to `treemapify`.
 #'
 #' @seealso geom_treemap
@@ -66,7 +68,10 @@ treemapify <- function(
   subgroup,
   subgroup2,
   subgroup3,
-  fixed = FALSE
+  fixed = FALSE,
+  fill = NULL,
+  label = NULL,
+  group = NULL
 ) {
 
   # Check for missing arguments
@@ -78,6 +83,10 @@ treemapify <- function(
   }
   if (!area %in% names(data)) {
     stop("Column", area, " not found in data", call. = F)
+  }
+  if (!missing(group)) {
+    warning("`group` is deprecated, use `subgroup` instead")
+    subgroup <- group
   }
   if (!missing(subgroup)) {
     if (!subgroup %in% names(data)) {
@@ -93,6 +102,12 @@ treemapify <- function(
     if (!subgroup3 %in% names(data)) {
       stop("Column", subgroup3, " not found in data", call. = F)
     }
+  }
+  if (!missing(fill)) {
+    warning("`fill` is deprecated")
+  }
+  if (!missing(label)) {
+    warning("`label` is deprecated")
   }
 
   # Set layout function

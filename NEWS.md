@@ -1,3 +1,10 @@
+# v2.5.0.9001
+
+## Bug fixes
+
+- Fix dereferencing of arguments in `treemapify` (#22, thanks @GregorDeCillia)
+- Restore support for `fill`, `label` and `group` arguments in `treemapify` to maintain backwards compatibility (thanks @GregorDeCillia)
+
 # v2.5.0
 
 ## Major changes

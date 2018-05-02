@@ -5,7 +5,8 @@
 \alias{treemapify_fixed}
 \title{Generate a treemap layout.}
 \usage{
-treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE)
+treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE,
+  fill = NULL, label = NULL, group = NULL)
 
 treemapify_fixed(...)
 }
@@ -16,11 +17,15 @@ treemapify_fixed(...)
 area of treemap tiles.}
 
 \item{subgroup, subgroup2, subgroup3}{Optionally, names of variables
-(columns in `data) by which the tiles should be grouped, at up to three
+(columns in `data`) by which the tiles should be grouped, at up to three
 nested levels.}
 
 \item{fixed}{If true, the alternative 'fixed' algorithm will be used (see
 Details).}
+
+\item{label, fill}{Deprecated. Will be removed in later versions.}
+
+\item{group}{Deprecated; use `subgroup` instead. Will be removed in later versions.}
 
 \item{...}{Other arguments to be passed to `treemapify`.}
 }
