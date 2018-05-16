@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 Install the release version of 'treemapify' from CRAN:
 
-`install.package("treemapify")`
+`install.packages("treemapify")`
 
 If you want the development version, install it from GitHub:
 
