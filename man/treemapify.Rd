@@ -6,7 +6,7 @@
 \title{Generate a treemap layout.}
 \usage{
 treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE,
-  fill = NULL, label = NULL, group = NULL)
+  fill = NULL, label = NULL, group = NULL, xlim = NULL, ylim = NULL)
 
 treemapify_fixed(...)
 }
@@ -23,7 +23,7 @@ nested levels.}
 \item{fixed}{If true, the alternative 'fixed' algorithm will be used (see
 Details).}
 
-\item{label, fill}{Deprecated. Will be removed in later versions.}
+\item{label, fill, xlim, ylim}{Deprecated. Will be removed in later versions.}
 
 \item{group}{Deprecated; use `subgroup` instead. Will be removed in later versions.}
 

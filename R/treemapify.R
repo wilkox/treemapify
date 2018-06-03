@@ -46,7 +46,7 @@
 #' @param fixed If true, the alternative 'fixed' algorithm will be used (see
 #' Details).
 #' @param group Deprecated; use `subgroup` instead. Will be removed in later versions.
-#' @param label,fill Deprecated. Will be removed in later versions.
+#' @param label,fill,xlim,ylim Deprecated. Will be removed in later versions.
 #' @param ... Other arguments to be passed to `treemapify`.
 #'
 #' @seealso geom_treemap
@@ -71,7 +71,9 @@ treemapify <- function(
   fixed = FALSE,
   fill = NULL,
   label = NULL,
-  group = NULL
+  group = NULL,
+  xlim = NULL,
+  ylim = NULL
 ) {
 
   # Check for missing arguments
@@ -108,6 +110,12 @@ treemapify <- function(
   }
   if (!missing(label)) {
     warning("`label` is deprecated")
+  }
+  if (!missing(xlim)) {
+    warning("`xlim` is deprecated")
+  }
+  if (!missing(ylim)) {
+    warning("`ylim` is deprecated")
   }
 
   # Set layout function
