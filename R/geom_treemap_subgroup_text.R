@@ -143,14 +143,16 @@ GeomSubgroupText <- ggplot2::ggproto(
     levels <- c("subgroup", "subgroup2", "subgroup3")
     if (!level %in% levels) {
       stop(
-        "`level` argument must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
-        call. = F
+        "`level` must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
+        call. = FALSE
       )
     }
     if (!level %in% names(data)) {
       stop(
-        "Can't draw text for subgroup level ", level, " as it is not a plot aesthetic",
-        call. = F
+        "Can't draw text for subgroup level ", 
+        level, 
+        " as it is not a plot aesthetic", 
+        call. = FALSE
       )
     }
 
@@ -159,7 +161,15 @@ GeomSubgroupText <- ggplot2::ggproto(
     bys <- lapply(levels, function(x) data[[x]])
     areasums <- aggregate(data$area, by = bys, FUN = sum)
     names(areasums) <- c(levels, "area")
-    aesthetics <- c("colour", "size", "alpha", "family", "fontface", "angle", "lineheight")
+    aesthetics <- c(
+      "colour",
+      "size",
+      "alpha",
+      "family",
+      "fontface",
+      "angle",
+      "lineheight"
+    )
     for (aesthetic in aesthetics) {
       areasums[aesthetic] <- unique(data[[aesthetic]])
     }

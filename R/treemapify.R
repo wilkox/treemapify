@@ -78,13 +78,13 @@ treemapify <- function(
 
   # Check for missing arguments
   if (missing(data)) {
-    stop("`data` is required", call. = F)
+    stop("`data` is required", call. = FALSE)
   }
   if (missing(area)) {
-    stop("`area` is required", call. = F)
+    stop("`area` is required", call. = FALSE)
   }
   if (!area %in% names(data)) {
-    stop("Column", area, " not found in data", call. = F)
+    stop("Column", area, " not found in data", call. = FALSE)
   }
   if (!missing(group)) {
     warning("`group` is deprecated, use `subgroup` instead")
@@ -92,17 +92,17 @@ treemapify <- function(
   }
   if (!missing(subgroup)) {
     if (!subgroup %in% names(data)) {
-      stop("Column", subgroup, " not found in data", call. = F)
+      stop("Column", subgroup, " not found in data", call. = FALSE)
     }
   }
   if (!missing(subgroup2)) {
     if (!subgroup2 %in% names(data)) {
-      stop("Column", subgroup2, " not found in data", call. = F)
+      stop("Column", subgroup2, " not found in data", call. = FALSE)
     }
   }
   if (!missing(subgroup3)) {
     if (!subgroup3 %in% names(data)) {
-      stop("Column", subgroup3, " not found in data", call. = F)
+      stop("Column", subgroup3, " not found in data", call. = FALSE)
     }
   }
   if (!missing(fill)) {
@@ -141,13 +141,13 @@ treemapify <- function(
     if (length(subgroups) == 0) {
       return(treemap_f(data, area, xlim, ylim))
 
-    # Otherwise, generate a layout for this subgrouping level and fill each subgroup
-    # with its own layout
+    # Otherwise, generate a layout for this subgrouping level and fill each
+    # subgroup with its own layout
     } else {
 
       # Sum areas for groups at this subgrouping level
       this_level_data <- lapply(
-        split(data, data[subgroups[[1]]], drop = T),
+        split(data, data[subgroups[[1]]], drop = TRUE),
         function(x) sum(x[area])
       )
       this_level_data <- data.frame(

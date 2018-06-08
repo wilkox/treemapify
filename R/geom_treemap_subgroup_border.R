@@ -58,7 +58,7 @@ geom_treemap_subgroup_border <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  fixed = F,
+  fixed = FALSE,
   level = "subgroup",
   ...
 ) {
@@ -98,7 +98,7 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     data,
     panel_scales,
     coord,
-    fixed = F,
+    fixed = FALSE,
     level = "subgroup"
   ) {
 
@@ -108,14 +108,16 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     levels <- c("subgroup", "subgroup2", "subgroup3")
     if (!level %in% levels) {
       stop(
-        "`level` argument must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
-        call. = F
+        "`level` must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
+        call. = FALSE
       )
     }
     if (!level %in% names(data)) {
       stop(
-        "Can't draw a border for subgroup level ", level, " as it is not a plot aesthetic",
-        call. = F
+        "Can't draw a border for subgroup level ", 
+        level, 
+        " as it is not a plot aesthetic", 
+        call. = FALSE
       )
     }
 

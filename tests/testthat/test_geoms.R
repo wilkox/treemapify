@@ -1,7 +1,7 @@
 context("geoms")
 
 test_that("geoms don't throw an error or warning", {
-  expect_error( {
+  expect_silent( {
     ggplot2::ggplot(G20, ggplot2::aes(
       fill = hdi,
       area = gdp_mil_usd,
@@ -20,16 +20,19 @@ test_that("geoms don't throw an error or warning", {
       geom_treemap_subgroup_border(linetype = "dashed") +
       geom_treemap_subgroup2_border(linetype = "dashed") +
       geom_treemap_subgroup3_border(linetype = "dashed") +
-      geom_treemap_subgroup_text(grow = F, place = "bottomleft", size = 10, reflow = T) +
       geom_treemap_subgroup_text(
-        level = "subgroup2",
         grow = F,
         place = "bottomleft",
         size = 10,
         reflow = T
       ) +
-      geom_treemap_subgroup_text(
-        level = "subgroup3",
+      geom_treemap_subgroup2_text(
+        grow = F,
+        place = "bottomleft",
+        size = 10,
+        reflow = T
+      ) +
+      geom_treemap_subgroup3_text(
         grow = F,
         place = "bottomleft",
         size = 10,
@@ -37,9 +40,9 @@ test_that("geoms don't throw an error or warning", {
       ) +
       ggplot2::facet_grid(econ_classification ~ region) +
       ggplot2::scale_colour_gradient(low = "red", high = "green")
-  } , NA)
+  })
 
-  expect_warning( {
+  expect_silent( {
     ggplot2::ggplot(G20, ggplot2::aes(
       fill = hdi,
       area = gdp_mil_usd,
@@ -54,10 +57,15 @@ test_that("geoms don't throw an error or warning", {
         reflow = F
       ) +
       geom_treemap_subgroup_border(linetype = "dashed") +
-      geom_treemap_subgroup_text(grow = F, place = "bottomleft", size = 10, reflow = T) +
+      geom_treemap_subgroup_text(
+        grow = F,
+        place = "bottomleft",
+        size = 10,
+        reflow = T
+      ) +
       ggplot2::facet_grid(econ_classification ~ region) +
       ggplot2::scale_colour_gradient(low = "red", high = "green")
-  } , NA)
+  })
 
 })
 
@@ -82,7 +90,7 @@ test_that("data with a single zero-area tile doesn't throw an error", {
 context("geoms with fixed options")
 
 test_that("geoms with fixed options don't throw an error or warning", {
-  expect_error( {
+  expect_silent( {
     ggplot2::ggplot(G20, ggplot2::aes(
       fill = hdi,
       area = gdp_mil_usd,
@@ -98,12 +106,18 @@ test_that("geoms with fixed options don't throw an error or warning", {
         fixed = T
       ) +
       geom_treemap_subgroup_border(linetype = "dashed", fixed = T) +
-      geom_treemap_subgroup_text(grow = F, place = "bottomleft", size = 10, reflow = T, fixed = T) +
+      geom_treemap_subgroup_text(
+        grow = F,
+        place = "bottomleft",
+        size = 10,
+        reflow = T,
+        fixed = T
+      ) +
       ggplot2::facet_grid(econ_classification ~ region) +
       ggplot2::scale_colour_gradient(low = "red", high = "green")
-  } , NA)
+  })
 
-  expect_warning( {
+  expect_silent( {
     ggplot2::ggplot(G20, ggplot2::aes(
       fill = hdi,
       area = gdp_mil_usd,
@@ -119,8 +133,14 @@ test_that("geoms with fixed options don't throw an error or warning", {
         fixed = T
       ) +
       geom_treemap_subgroup_border(linetype = "dashed", fixed = T) +
-      geom_treemap_subgroup_text(grow = F, place = "bottomleft", size = 10, reflow = T, fixed = T) +
+      geom_treemap_subgroup_text(
+        grow = F,
+        place = "bottomleft",
+        size = 10,
+        reflow = T,
+        fixed = T
+      ) +
       ggplot2::facet_grid(econ_classification ~ region) +
       ggplot2::scale_colour_gradient(low = "red", high = "green")
-  } , NA)
+  })
 })

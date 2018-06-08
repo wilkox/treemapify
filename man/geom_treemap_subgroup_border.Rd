@@ -8,8 +8,8 @@
 \usage{
 geom_treemap_subgroup_border(mapping = NULL, data = NULL,
   stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, fixed = F, level = "subgroup",
-  ...)
+  show.legend = NA, inherit.aes = TRUE, fixed = FALSE,
+  level = "subgroup", ...)
 
 geom_treemap_subgroup2_border(...)
 

@@ -21,10 +21,10 @@ treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
 
   # Select number of tiles per column
   tiles_per_column <- ceiling(sqrt(nrow(data)))
-  data$column <- ceiling(1:nrow(data) / tiles_per_column)
+  data$column <- ceiling(seq_len(nrow(data)) / tiles_per_column)
 
   # Place each tile
-  for (i in 1:nrow(data)) {
+  for (i in seq_len(nrow(data))) {
 
     # The width of the column is set by the sum of the areas of all column tiles
     # as a proportion of the total area
@@ -41,9 +41,10 @@ treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
     # The height of the tile is set by the area divided by the width
     height <- data[i, area] / width
 
-    # The ymin of the tile is set as the ymax of any preceding tile within this column
+    # The ymin of the tile is set as the ymax of any preceding tile within this
+    # column
     data[i, "ymax"] <- 0
-    ymin <- max(data[data$column == data[i, "column"], "ymax"], na.rm = T)
+    ymin <- max(data[data$column == data[i, "column"], "ymax"], na.rm = TRUE)
 
     # Set tile y dimensions
     data[i, "ymin"] <- ymin

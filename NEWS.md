@@ -1,5 +1,11 @@
 # v2.5.0.9002
 
+## Minor changes
+
+- Misc. code quality improvements
+
+# v2.5.0.9002
+
 ## Bug fixes
 
 - Clearly deprecate `xlim` and `ylim` arguments to `treemapify` to maintain backwards compatibility

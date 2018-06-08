@@ -10,7 +10,7 @@ Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://trav
 
 Install the release version of ‘treemapify’ from CRAN:
 
-`install.package("treemapify")`
+`install.packages("treemapify")`
 
 If you want the development version, install it from GitHub:
 

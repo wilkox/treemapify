@@ -85,8 +85,17 @@ ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
   geom_treemap_subgroup3_border(colour = "blue", size = 1) +
   geom_treemap_subgroup2_border(colour = "white", size = 3) +
   geom_treemap_subgroup_border(colour = "red", size = 5) +
-  geom_treemap_subgroup_text(place = "middle", colour = "red", alpha = 0.5, grow = T) +
-  geom_treemap_subgroup2_text(colour = "white", alpha = 0.5, fontface = "italic") +
+  geom_treemap_subgroup_text(
+    place = "middle",
+    colour = "red",
+    alpha = 0.5,
+    grow = T
+  ) +
+  geom_treemap_subgroup2_text(
+    colour = "white",
+    alpha = 0.5,
+    fontface = "italic"
+  ) +
   geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
   geom_treemap_text(colour = "white", place = "middle", reflow = T)
 ```

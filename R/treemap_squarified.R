@@ -61,9 +61,10 @@ tile_row <- function(data, area, xmin, xmax, ymin, ymax) {
   # For each possible number of tiles in the row, calculate the worst aspect
   # ratio of a tile in the row and select the number of tiles that provides
   # the least worst ratio
-  row_n <- which.min(sapply(
-    1:nrow(data),
-    function(x) worst_ar(data[[area]][1:x], xmax - xmin)
+  row_n <- which.min(vapply(
+    seq_len(nrow(data)),
+    function(x) worst_ar(data[[area]][1:x], xmax - xmin),
+    FUN.VALUE = double(1)
   ))
 
   # Determine the coordinates for the selected number of tiles
@@ -103,9 +104,10 @@ tile_column <- function(data, area, xmin, xmax, ymin, ymax) {
   # For each possible number of tiles in the column, calculate the worst
   # aspect ratio of a tile in the column and select the number of tiles that
   # provides the least worst ratio
-  column_n <- which.min(sapply(
-    1:nrow(data),
-    function(x) worst_ar(data[[area]][1:x], ymin - ymax)
+  column_n <- which.min(vapply(
+    seq_len(nrow(data)),
+    function(x) worst_ar(data[[area]][1:x], ymin - ymax),
+    FUN.VALUE = double(1)
   ))
 
   # Determine the coordinates for the selected number of tiles
