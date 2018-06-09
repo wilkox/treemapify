@@ -1,4 +1,4 @@
-qackage: treemapify
+Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
 Version: 2.5.0.9003
 Author: David Wilkins <david@wilkox.org>
