@@ -1,19 +1,12 @@
-# v2.5.0.9002
+# v2.5.1
 
 ## Minor changes
 
 - Misc. code quality improvements
 
-# v2.5.0.9002
-
 ## Bug fixes
 
 - Clearly deprecate `xlim` and `ylim` arguments to `treemapify` to maintain backwards compatibility
-
-# v2.5.0.9001
-
-## Bug fixes
-
 - Fix dereferencing of arguments in `treemapify` (#22, thanks @GregorDeCillia)
 - Restore support for `fill`, `label` and `group` arguments in `treemapify` to maintain backwards compatibility (thanks @GregorDeCillia)
 
