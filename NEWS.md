@@ -1,3 +1,9 @@
+# v2.5.0.9004
+
+## Major changes
+
+- Added `layout` and `start` options to `treemapify` and all geoms
+
 # v2.5.0.9002
 
 ## Minor changes

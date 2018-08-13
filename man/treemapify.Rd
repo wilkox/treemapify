@@ -5,8 +5,9 @@
 \alias{treemapify_fixed}
 \title{Generate a treemap layout.}
 \usage{
-treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE,
-  fill = NULL, label = NULL, group = NULL, xlim = NULL, ylim = NULL)
+treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = NULL,
+  layout = "srow", start = "bottomleft", fill = NULL, label = NULL,
+  group = NULL, xlim = NULL, ylim = NULL)
 
 treemapify_fixed(...)
 }
@@ -20,8 +21,13 @@ area of treemap tiles.}
 (columns in `data`) by which the tiles should be grouped, at up to three
 nested levels.}
 
-\item{fixed}{If true, the alternative 'fixed' algorithm will be used (see
-Details).}
+\item{fixed}{Use `layout` instead. Will be deprecated in a later version.}
+
+\item{layout}{The treemap layout algorithm. One of 'srow' (squarified,
+row-first; the default), 'scol' (squarified, column-first) or 'fixed'.}
+
+\item{start}{The corner in which to start placing the tiles. One of
+'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
 
 \item{label, fill, xlim, ylim}{Deprecated. Will be removed in later versions.}
 
@@ -45,22 +51,23 @@ the variable that will be represented by the area of each treemap tile with
 `subgroup`, `subgroup2` and `subgroup3`) to generate a layout in which the
 tiles are clustered into subgroups nested up to three levels deep.
 
-Two layout algorithms are provided. With the default 'squarified' algorithm,
-the priority is ensuring the tiles have an aesthetically pleasing aspect
-ratio; that is, they are not too narrow or too short. In this algorithm,
-tile placement proceeds from the bottom left corner, moving alternately
-rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
-for the full algorithm.
+Three layout algorithms are provided. With the default 'squarified'
+algorithm, the priority is ensuring the tiles have an aesthetically pleasing
+aspect ratio; that is, they are not too narrow or too short. In this
+algorithm, tile placement proceeds from one corner, placing the tiles
+alternately in rows then in columns until all the tiles are placed.
+Alternatively, with `layout = "scol"`, the squarified algorithm can be used
+but beginning with a column. See Bruls et al. (1999) for the full algorithm. 
 
-With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
-is divided into vertical columns, which are filled from left to right with an
-equal number of tiles beginning at the bottom of each column. Unlike the
-default 'squarified' algorithm, with the 'fixed' algorithm the relative
-positions of the tiles are fixed by their order in the input data frame. This
-can result in aesthetically unpleasing tiles, but it allows side-by-side
-comparisons or animations to be created.
+With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
+divided into vertical columns, which are each filled  with an equal number
+of tiles beginning at the starting corner. Unlike the 'squarified'
+algorithm, with the 'fixed' algorithm the relative positions of the tiles
+are fixed by their order in the input data frame. This can result in
+aesthetically unpleasing tiles, but it allows side-by-side comparisons or
+animations to be created.
 
-`treemapify_fixed` is an alias for `treemapify(fixed = TRUE)`.
+`treemapify_fixed` is an alias for `treemapify(layout = "fixed")`.
 }
 \details{
 `treemapify` is for generating a data frame of raw treemap coordinates. If

@@ -6,7 +6,6 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to 'treemapify'}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
   %\VignetteDepends{ggplot2}
   %\VignetteDepends{tweenr}
   %\VignetteDepends{gganimate}
@@ -113,8 +112,8 @@ pleasing, the downside is that the position of tiles within the plot area can
 change dramatically with even small changes to the dataset. This makes it
 difficult to compare treemaps side-by-side, or create animated treemaps.
 
-By providing the `fixed = TRUE` option to 'treemapify' geoms, an alternative
+By providing the `layout = "fixed"` option to 'treemapify' geoms, an alternative
 layout algorithm is used that will always position the tiles based on the order
 of observations in the data frame. It's very important that the same value for
-`fixed` is passed to all 'treemapify' geoms, otherwise different layers of the
+`layout` is passed to all 'treemapify' geoms, otherwise different layers of the
 plot might not share the same layout.

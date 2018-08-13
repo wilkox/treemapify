@@ -1,7 +1,7 @@
 #' Internal function for the 'squarified' treemap layout algorithm.
 #'
 #' @noRd
-treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
+treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), rowfirst = TRUE) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
@@ -15,8 +15,9 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
   # Scale areas to sum to 1
   data[area] <- data[area] / sum(data[area])
 
-  # Generate the tile layout, starting with a row
-  layout <- tile_row(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1)
+  # Generate the tile layout, in either row- or column-first order
+  tile_f <- ifelse(rowfirst, tile_row, tile_column)
+  layout <- tile_f(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1)
 
   # Remove the 'column' column
   layout["column"] <- NULL
