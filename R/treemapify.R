@@ -23,10 +23,12 @@
 #' Three layout algorithms are provided. With the default 'squarified'
 #' algorithm, the priority is ensuring the tiles have an aesthetically pleasing
 #' aspect ratio; that is, they are not too narrow or too short. In this
-#' algorithm, tile placement proceeds from one corner, placing the tiles
-#' alternately in rows then in columns until all the tiles are placed.
-#' Alternatively, with `layout = "scol"`, the squarified algorithm can be used
-#' but beginning with a column. See Bruls et al. (1999) for the full algorithm. 
+#' algorithm, tile placement proceeds from one corner, placing the tiles in
+#' rows or columns depending on the remaining plot area until all the tiles are
+#' placed.  Alternatively, with `layout = "scol"` or `layout = "srow"`, the
+#' squarified algorithm can be used but beginning with a column or row and
+#' continuing to alternative between columns and rows regardless of the shape
+#' of the remaining plot area. See Bruls et al. (1999) for the full algorithm. 
 #'
 #' With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
 #' divided into vertical columns, which are each filled  with an equal number
@@ -45,8 +47,10 @@
 #' (columns in `data`) by which the tiles should be grouped, at up to three
 #' nested levels.
 #' @param fixed Use `layout` instead. Will be deprecated in a later version.
-#' @param layout The treemap layout algorithm. One of 'srow' (squarified,
-#' row-first; the default), 'scol' (squarified, column-first) or 'fixed'.
+#' @param layout The treemap layout algorithm. One of 'sopt', (squarified,
+#' selecting between row or column based on plot area; the default), 'srow'
+#' (squarified, alternating starting with a row), 'scol' (squarified,
+#' alternating starting with a column) or 'fixed'.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param group Deprecated; use `subgroup` instead. Will be removed in later versions.
@@ -73,7 +77,7 @@ treemapify <- function(
   subgroup2,
   subgroup3,
   fixed = NULL,
-  layout = "srow",
+  layout = "sopt",
   start = "bottomleft",
   fill = NULL,
   label = NULL,
@@ -123,13 +127,13 @@ treemapify <- function(
   if (!missing(ylim)) {
     warning("`ylim` is deprecated")
   }
-  if (!layout %in% c("srow", "scol", "fixed")) {
-    stop("`layout` must be one of \"scol\", \"srow\" or \"fixed\"")
+  if (!layout %in% c("sopt", "srow", "scol", "fixed")) {
+    stop("`layout` must be one of \"sopt\", \"scol\", \"srow\" or \"fixed\"")
   }
 
   # Set layout function
-  if (layout %in% c("srow", "scol")) {
-    treemap_f <- function(...) { treemap_squarified(..., rowfirst = layout == "srow") }
+  if (layout %in% c("srow", "scol", "sopt")) {
+    treemap_f <- function(...) { treemap_squarified(..., layout = layout) }
   } else if (layout == "fixed") {
     treemap_f <- treemap_fixed
   }

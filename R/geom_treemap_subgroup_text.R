@@ -31,8 +31,10 @@
 #' @param reflow If `TRUE`, text will be reflowed (wrapped) to better fit the
 #' box.
 #' @param fixed Use `layout` instead. Will be deprecated in a later version.
-#' @param layout The treemap layout algorithm. One of 'srow' (squarified,
-#' row-first; the default), 'scol' (squarified, column-first) or 'fixed'.
+#' @param layout The treemap layout algorithm. One of 'sopt', (squarified,
+#' selecting between row or column based on plot area; the default), 'srow'
+#' (squarified, alternating starting with a row), 'scol' (squarified,
+#' alternating starting with a column) or 'fixed'.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
@@ -82,7 +84,7 @@ geom_treemap_subgroup_text <- function(
   grow = FALSE,
   reflow = FALSE,
   fixed = FALSE,
-  layout = "srow",
+  layout = "sopt",
   start = "bottomleft",
   level = "subgroup",
   ...
@@ -141,7 +143,7 @@ GeomSubgroupText <- ggplot2::ggproto(
     reflow = FALSE,
     place = "bottom",
     fixed = FALSE,
-    layout = "srow",
+    layout = "sopt",
     start = "bottomleft",
     level = "subgroup"
   ) {

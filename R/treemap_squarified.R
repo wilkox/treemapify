@@ -1,7 +1,7 @@
 #' Internal function for the 'squarified' treemap layout algorithm.
 #'
 #' @noRd
-treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), rowfirst = TRUE) {
+treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = "sopt") {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
@@ -16,8 +16,12 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), rowfi
   data[area] <- data[area] / sum(data[area])
 
   # Generate the tile layout, in either row- or column-first order
-  tile_f <- ifelse(rowfirst, tile_row, tile_column)
-  layout <- tile_f(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1)
+  if (layout == "scol") {
+    tile_f <- tile_column
+  } else if (layout %in% c("srow", "sopt")) {
+    tile_f <- tile_row
+  }
+  layout <- tile_f(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1, layout = layout)
 
   # Remove the 'column' column
   layout["column"] <- NULL
@@ -54,10 +58,23 @@ worst_ar <- function(areas, long_dim) {
   max(aspect_ratios)
 }
 
+#' Select the next tiling direction based on the aspect ratio of the remaning
+#' area, for use with the 'sopt' layout algorithm.
+#'
+#' @noRd
+next_tile_f <- function(xmin, xmax, ymin, ymax) {
+
+  if (diff(c(xmin, xmax)) <= diff(c(ymin, ymax))) {
+    return(tile_row)
+  } else {
+    return(tile_column)
+  }
+}
+
 #' Place tiles in an area of defined dimensions, beginning with a row.
 #'
 #' @noRd
-tile_row <- function(data, area, xmin, xmax, ymin, ymax) {
+tile_row <- function(data, area, xmin, xmax, ymin, ymax, layout) {
 
   # For each possible number of tiles in the row, calculate the worst aspect
   # ratio of a tile in the row and select the number of tiles that provides
@@ -90,17 +107,22 @@ tile_row <- function(data, area, xmin, xmax, ymin, ymax) {
   if (nrow(data) == 0) {
     return(tiles)
 
-  # If there are more tiles to place, fill in the remaining area starting
-  # with a column
+  # If there are more tiles to place, fill in the remaining area with the
+  # appropriate function
   } else {
-    return(rbind(tiles, tile_column(data, area, xmin, xmax, ymin, ymax)))
+    if (layout == "sopt") {
+      tile_f <- next_tile_f(xmin, xmax, ymin, ymax)
+    } else {
+      tile_f <- tile_column
+    }
+    return(rbind(tiles, tile_f(data, area, xmin, xmax, ymin, ymax, layout)))
   }
 }
 
 #' Place tiles in an area of defined dimensions, beginning with a column.
 #'
 #' @noRd
-tile_column <- function(data, area, xmin, xmax, ymin, ymax) {
+tile_column <- function(data, area, xmin, xmax, ymin, ymax, layout) {
 
   # For each possible number of tiles in the column, calculate the worst
   # aspect ratio of a tile in the column and select the number of tiles that
@@ -133,9 +155,14 @@ tile_column <- function(data, area, xmin, xmax, ymin, ymax) {
   if (nrow(data) == 0) {
     return(tiles)
 
-  # If there are more tiles to place, fill in the remaining area starting
-  # with a row
+  # If there are more tiles to place, fill in the remaining area with the
+  # appropriate function
   } else {
-    return(rbind(tiles, tile_row(data, area, xmin, xmax, ymin, ymax)))
+    if (layout == "sopt") {
+      tile_f <- next_tile_f(xmin, xmax, ymin, ymax)
+    } else {
+      tile_f <- tile_row
+    }
+    return(rbind(tiles, tile_f(data, area, xmin, xmax, ymin, ymax, layout)))
   }
 }

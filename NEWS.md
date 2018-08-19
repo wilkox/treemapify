@@ -1,3 +1,9 @@
+# v2.5.0.9005
+
+## Major changes
+
+- Add new default 'sopt' layout, that tries to choose optimally between placing tiles in rows vs columns
+
 # v2.5.0.9004
 
 ## Major changes

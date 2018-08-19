@@ -24,8 +24,10 @@
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for `ggplot2::geom_rect`.
 #' @param fixed Use `layout` instead. Will be deprecated in a later version.
-#' @param layout The treemap layout algorithm. One of 'srow' (squarified,
-#' row-first; the default), 'scol' (squarified, column-first) or 'fixed'.
+#' @param layout The treemap layout algorithm. One of 'sopt', (squarified,
+#' selecting between row or column based on plot area; the default), 'srow'
+#' (squarified, alternating starting with a row), 'scol' (squarified,
+#' alternating starting with a column) or 'fixed'.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param level One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
@@ -62,7 +64,7 @@ geom_treemap_subgroup_border <- function(
   show.legend = NA,
   inherit.aes = TRUE,
   fixed = FALSE,
-  layout = "srow",
+  layout = "sopt",
   start = "bottomleft",
   level = "subgroup",
   ...
@@ -106,7 +108,7 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     panel_scales,
     coord,
     fixed = FALSE,
-    layout = "srow",
+    layout = "sopt",
     start = "bottomleft",
     level = "subgroup"
   ) {

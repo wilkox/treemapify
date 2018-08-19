@@ -20,10 +20,12 @@
 #' Three layout algorithms are provided. With the default 'squarified'
 #' algorithm, the priority is ensuring the tiles have an aesthetically pleasing
 #' aspect ratio; that is, they are not too narrow or too short. In this
-#' algorithm, tile placement proceeds from one corner, placing the tiles
-#' alternately in rows then in columns until all the tiles are placed.
-#' Alternatively, with `layout = "scol"`, the squarified algorithm can be used
-#' but beginning with a column. See Bruls et al. (1999) for the full algorithm. 
+#' algorithm, tile placement proceeds from one corner, placing the tiles in
+#' rows or columns depending on the remaining plot area until all the tiles are
+#' placed.  Alternatively, with `layout = "scol"` or `layout = "srow"`, the
+#' squarified algorithm can be used but beginning with a column or row and
+#' continuing to alternative between columns and rows regardless of the shape
+#' of the remaining plot area. See Bruls et al. (1999) for the full algorithm. 
 #'
 #' With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
 #' divided into vertical columns, which are each filled  with an equal number
@@ -52,8 +54,10 @@
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for `ggplot2::geom_rect`.
 #' @param fixed Use `layout` instead. Will be deprecated in a later version.
-#' @param layout The treemap layout algorithm. One of 'srow' (squarified,
-#' row-first; the default), 'scol' (squarified, column-first) or 'fixed'.
+#' @param layout The treemap layout algorithm. One of 'sopt', (squarified,
+#' selecting between row or column based on plot area; the default), 'srow'
+#' (squarified, alternating starting with a row), 'scol' (squarified,
+#' alternating starting with a column) or 'fixed'.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #'
@@ -81,7 +85,7 @@ geom_treemap <- function(
   show.legend = NA,
   inherit.aes = TRUE,
   fixed = FALSE,
-  layout = "srow",
+  layout = "sopt",
   start = "bottomleft",
   ...
 ) {
@@ -123,7 +127,7 @@ GeomTreemap <- ggplot2::ggproto(
     panel_scales,
     coord,
     fixed = FALSE,
-    layout = "srow",
+    layout = "sopt",
     start = "bottomleft"
   ) {
 

@@ -10,7 +10,7 @@ geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
   padding.y = grid::unit(1, "mm"), place = "bottom", min.size = 4,
-  grow = FALSE, reflow = FALSE, fixed = FALSE, layout = "srow",
+  grow = FALSE, reflow = FALSE, fixed = FALSE, layout = "sopt",
   start = "bottomleft", level = "subgroup", ...)
 
 geom_treemap_subgroup2_text(...)
@@ -38,8 +38,10 @@ box.}
 
 \item{fixed}{Use `layout` instead. Will be deprecated in a later version.}
 
-\item{layout}{The treemap layout algorithm. One of 'srow' (squarified,
-row-first; the default), 'scol' (squarified, column-first) or 'fixed'.}
+\item{layout}{The treemap layout algorithm. One of 'sopt', (squarified,
+selecting between row or column based on plot area; the default), 'srow'
+(squarified, alternating starting with a row), 'scol' (squarified,
+alternating starting with a column) or 'fixed'.}
 
 \item{start}{The corner in which to start placing the tiles. One of
 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
