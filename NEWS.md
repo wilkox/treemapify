@@ -1,3 +1,9 @@
+# v2.5.0.9006
+
+## Bug fixes
+
+- Fixed bug in handling of subgroups in the 'squarified' algorithm, which should result in more aesthetically pleasing layouts
+
 # v2.5.0.9005
 
 ## Major changes

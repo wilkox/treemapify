@@ -12,27 +12,30 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layou
   # Sort the data by area, largest to smallest
   data <- data[order(-data[area]), ]
 
-  # Scale areas to sum to 1
-  data[area] <- data[area] / sum(data[area])
+  # Scale areas to sum to plot area
+  plot_area <- diff(xlim) * diff(ylim)
+  data[area] <- plot_area * data[area] / sum(data[area])
 
   # Generate the tile layout, in either row- or column-first order
-  if (layout == "scol") {
-    tile_f <- tile_column
-  } else if (layout %in% c("srow", "sopt")) {
+  if (layout == "srow") {
     tile_f <- tile_row
+  } else if (layout == "scol") {
+    tile_f <- tile_column
+  } else if (layout == "sopt") {
+    tile_f <- next_tile_f(xlim[1], xlim[2], ylim[1], ylim[2])
   }
-  layout <- tile_f(data, area, xmin = 0, xmax = 1, ymin = 0, ymax = 1, layout = layout)
+  layout <- tile_f(
+    data,
+    area,
+    xmin = xlim[1],
+    xmax = xlim[2],
+    ymin = ylim[1],
+    ymax = ylim[2],
+    layout = layout
+  )
 
   # Remove the 'column' column
   layout["column"] <- NULL
-
-  # Rescale values to the plot area
-  width <- diff(xlim)
-  height <- diff(ylim)
-  layout$xmin <- xlim[1] + (layout$xmin * width)
-  layout$xmax <- xlim[1] + (layout$xmax * width)
-  layout$ymin <- ylim[1] + (layout$ymin * height)
-  layout$ymax <- ylim[1] + (layout$ymax * height)
 
   # Return layout
   layout
@@ -58,16 +61,16 @@ worst_ar <- function(areas, long_dim) {
   max(aspect_ratios)
 }
 
-#' Select the next tiling direction based on the aspect ratio of the remaning
+#' Select the next tiling direction based on the aspect ratio of the remaining
 #' area, for use with the 'sopt' layout algorithm.
 #'
 #' @noRd
 next_tile_f <- function(xmin, xmax, ymin, ymax) {
 
-  if (diff(c(xmin, xmax)) <= diff(c(ymin, ymax))) {
-    return(tile_row)
-  } else {
+  if (diff(c(xmin, xmax)) >= diff(c(ymin, ymax))) {
     return(tile_column)
+  } else {
+    return(tile_row)
   }
 }
 

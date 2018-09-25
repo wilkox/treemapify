@@ -105,11 +105,6 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
 
 ![](man/figures/README-geom_treemap_text-1.png)<!-- -->
 
-Note that the top-rightmost tile, ‘South Africa’, is not labelled.
-`geom_treemap_text` will hide text labels that cannot fit a tile without
-being shrunk below a minimum size, by default 4 points. This can be
-adjusted with the `min.size` argument.
-
 ## Subgrouping tiles
 
 `geom_treemap` supports subgrouping of tiles within a treemap by passing
@@ -130,6 +125,10 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
 ```
 
 ![](man/figures/README-subgrouped_treemap-1.png)<!-- -->
+
+Note that Argentina is not labelled. `geom_treemap_text` will hide text
+labels that cannot fit a tile without being shrunk below a minimum size,
+by default 4 points. This can be adjusted with the `min.size` argument.
 
 Up to three nested levels of subgrouping are supported with the
 `subgroup2` and `subgroup3` aesthetics. Borders and text labels for
