@@ -6,8 +6,8 @@
 \title{Generate a treemap layout.}
 \usage{
 treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = NULL,
-  layout = "sopt", start = "bottomleft", fill = NULL, label = NULL,
-  group = NULL, xlim = NULL, ylim = NULL)
+  layout = "squarified", start = "bottomleft", fill = NULL,
+  label = NULL, group = NULL, xlim = NULL, ylim = NULL)
 
 treemapify_fixed(...)
 }
@@ -23,10 +23,8 @@ nested levels.}
 
 \item{fixed}{Use `layout` instead. Will be deprecated in a later version.}
 
-\item{layout}{The treemap layout algorithm. One of 'sopt', (squarified,
-selecting between row or column based on plot area; the default), 'srow'
-(squarified, alternating starting with a row), 'scol' (squarified,
-alternating starting with a column) or 'fixed'.}
+\item{layout}{The treemap layout algorithm. One of 'squarified' (default) or
+'fixed'. See Details for a full description of the layout algorithms.}
 
 \item{start}{The corner in which to start placing the tiles. One of
 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
@@ -53,15 +51,12 @@ the variable that will be represented by the area of each treemap tile with
 `subgroup`, `subgroup2` and `subgroup3`) to generate a layout in which the
 tiles are clustered into subgroups nested up to three levels deep.
 
-Three layout algorithms are provided. With the default 'squarified'
-algorithm, the priority is ensuring the tiles have an aesthetically pleasing
-aspect ratio; that is, they are not too narrow or too short. In this
-algorithm, tile placement proceeds from one corner, placing the tiles in
-rows or columns depending on the remaining plot area until all the tiles are
-placed.  Alternatively, with `layout = "scol"` or `layout = "srow"`, the
-squarified algorithm can be used but beginning with a column or row and
-continuing to alternative between columns and rows regardless of the shape
-of the remaining plot area. See Bruls et al. (1999) for the full algorithm. 
+Two layout algorithms are provided. With the default 'squarified' algorithm,
+the priority is ensuring the tiles have an aesthetically pleasing aspect
+ratio; that is, they are not too narrow or too short. In this algorithm,
+tile placement proceeds from one corner, placing the tiles in rows or
+columns depending on the remaining plot area until all the tiles are placed.
+See Bruls et al. (1999) for the full algorithm. 
 
 With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
 divided into vertical columns, which are each filled  with an equal number

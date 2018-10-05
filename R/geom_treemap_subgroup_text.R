@@ -15,8 +15,8 @@
 #' here. For full details on how these options work, see the documentation for
 #' `ggfittext::geom_fit_text`.
 #'
-#' The `layout` argument is used to set the treemap layout algorithm. All
-#' `treemapify` geoms added to a plot should have the same value for `layout`
+#' The `fixed` argument is used to set the treemap layout algorithm. All
+#' `treemapify` geoms added to a plot should have the same value for `fixed`
 #' and `start`, or they will not share a common layout (see `geom_treemap` for
 #' details on the layout algorithms).
 #'
@@ -30,11 +30,8 @@
 #' @param grow If `TRUE`, text will be grown as well as shrunk to fill the box.
 #' @param reflow If `TRUE`, text will be reflowed (wrapped) to better fit the
 #' box.
-#' @param fixed Use `layout` instead. Will be deprecated in a later version.
-#' @param layout The treemap layout algorithm. One of 'sopt', (squarified,
-#' selecting between row or column based on plot area; the default), 'srow'
-#' (squarified, alternating starting with a row), 'scol' (squarified,
-#' alternating starting with a column) or 'fixed'.
+#' @param fixed `FALSE` by default. If `TRUE`, the alternative 'fixed' layout
+#' algorithm will be used (see Details).
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
@@ -84,7 +81,6 @@ geom_treemap_subgroup_text <- function(
   grow = FALSE,
   reflow = FALSE,
   fixed = FALSE,
-  layout = "sopt",
   start = "bottomleft",
   level = "subgroup",
   ...
@@ -106,7 +102,6 @@ geom_treemap_subgroup_text <- function(
       grow = grow,
       reflow = reflow,
       fixed = fixed,
-      layout = layout,
       start = start,
       level = level,
       ...
@@ -143,7 +138,6 @@ GeomSubgroupText <- ggplot2::ggproto(
     reflow = FALSE,
     place = "bottom",
     fixed = FALSE,
-    layout = "sopt",
     start = "bottomleft",
     level = "subgroup"
   ) {
@@ -191,7 +185,6 @@ GeomSubgroupText <- ggplot2::ggproto(
       data = data,
       area = "area",
       fixed = fixed,
-      layout = layout,
       start = start
     )
     for (l in levels[1:(length(levels) - 1)]) { params[l] <- l }

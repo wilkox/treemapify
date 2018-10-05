@@ -1,7 +1,7 @@
 #' Internal function for the 'squarified' treemap layout algorithm.
 #'
 #' @noRd
-treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = "sopt") {
+treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
@@ -17,13 +17,7 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layou
   data[area] <- plot_area * data[area] / sum(data[area])
 
   # Generate the tile layout, in either row- or column-first order
-  if (layout == "srow") {
-    tile_f <- tile_row
-  } else if (layout == "scol") {
-    tile_f <- tile_column
-  } else if (layout == "sopt") {
-    tile_f <- next_tile_f(xlim[1], xlim[2], ylim[1], ylim[2])
-  }
+  tile_f <- next_tile_f(xlim[1], xlim[2], ylim[1], ylim[2])
   layout <- tile_f(
     data,
     area,
@@ -62,7 +56,7 @@ worst_ar <- function(areas, long_dim) {
 }
 
 #' Select the next tiling direction based on the aspect ratio of the remaining
-#' area, for use with the 'sopt' layout algorithm.
+#' area
 #'
 #' @noRd
 next_tile_f <- function(xmin, xmax, ymin, ymax) {
@@ -113,11 +107,7 @@ tile_row <- function(data, area, xmin, xmax, ymin, ymax, layout) {
   # If there are more tiles to place, fill in the remaining area with the
   # appropriate function
   } else {
-    if (layout == "sopt") {
-      tile_f <- next_tile_f(xmin, xmax, ymin, ymax)
-    } else {
-      tile_f <- tile_column
-    }
+    tile_f <- next_tile_f(xmin, xmax, ymin, ymax)
     return(rbind(tiles, tile_f(data, area, xmin, xmax, ymin, ymax, layout)))
   }
 }
@@ -161,11 +151,7 @@ tile_column <- function(data, area, xmin, xmax, ymin, ymax, layout) {
   # If there are more tiles to place, fill in the remaining area with the
   # appropriate function
   } else {
-    if (layout == "sopt") {
-      tile_f <- next_tile_f(xmin, xmax, ymin, ymax)
-    } else {
-      tile_f <- tile_row
-    }
+    tile_f <- next_tile_f(xmin, xmax, ymin, ymax)
     return(rbind(tiles, tile_f(data, area, xmin, xmax, ymin, ymax, layout)))
   }
 }

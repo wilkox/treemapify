@@ -4,7 +4,7 @@ test_that("treemapify doesn't thrown an error or warning", {
   treeMapCoordinates <- treemapify(
     G20,
     area = "gdp_mil_usd",
-    layout = "srow"
+    layout = "squarified"
   )
   expect_error(treeMapCoordinates, NA)
   expect_warning(treeMapCoordinates, NA)
