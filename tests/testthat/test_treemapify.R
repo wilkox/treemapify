@@ -61,3 +61,12 @@ test_that("treemapify() returns an error when passed non-existent columns", {
     "not found in data"
   )
 })
+
+test_that("treemapify() returns an error for invalid xlim or ylim arguments", {
+  expect_error(treemapify(G20, area = "gdp_mil_usd", xlim = c(1, 2, 3)), "xlim")
+  expect_error(treemapify(G20, area = "gdp_mil_usd", xlim = c(3, 2, 1)), "xlim")
+  expect_error(treemapify(G20, area = "gdp_mil_usd", xlim = c("a", "b")), "xlim")
+  expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c(1, 2, 3)), "ylim")
+  expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c(3, 2, 1)), "ylim")
+  expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c("a", "b")), "ylim")
+})
