@@ -43,9 +43,8 @@
 #' @param subgroup,subgroup2,subgroup3 Optionally, names of variables
 #' (columns in `data`) by which the tiles should be grouped, at up to three
 #' nested levels.
-#' @param fixed Use `layout` instead. Will be deprecated in a later version.
-#' @param layout The treemap layout algorithm. One of 'squarified' (default) or
-#' 'fixed'. See Details for a full description of the layout algorithms.
+#' @param fixed `FALSE` by default. If `TRUE`, the alternative 'fixed' layout
+#' algorithm will be used (see Details).
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param group Deprecated; use `subgroup` instead. Will be removed in later versions.
@@ -71,8 +70,7 @@ treemapify <- function(
   subgroup,
   subgroup2,
   subgroup3,
-  fixed = NULL,
-  layout = "squarified",
+  fixed = FALSE,
   start = "bottomleft",
   fill = NULL,
   label = NULL,
@@ -122,15 +120,12 @@ treemapify <- function(
   if (!missing(ylim)) {
     warning("`ylim` is deprecated")
   }
-  if (!layout %in% c("squarified", "fixed")) {
-    stop("`layout` must be \"squarified\" or \"fixed\"")
-  }
 
   # Set layout function
-  if (layout == "squarified") {
-    treemap_f <- function(...) { treemap_squarified(..., layout = layout) }
-  } else if (layout == "fixed") {
+  if (fixed) {
     treemap_f <- treemap_fixed
+  } else {
+    treemap_f <- treemap_squarified
   }
 
   # Set list of subgrouping levels
@@ -148,8 +143,8 @@ treemapify <- function(
   # Work down subgrouping levels, laying out treemaps for each level
   do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
 
-    # If there are no subgrouping levels below this one, return a layout for the
-    # given observations
+    # If there are no subgrouping levels below this one, return a layout for
+    # the given observations
     if (length(subgroups) == 0) {
       return(treemap_f(data, area, xlim, ylim))
 
@@ -215,5 +210,5 @@ treemapify <- function(
 #' @rdname treemapify
 #' @export
 treemapify_fixed <- function(...) {
-  treemapify(layout = "fixed", ...)
+  treemapify(fixed = TRUE, ...)
 }

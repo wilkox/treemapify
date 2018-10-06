@@ -189,14 +189,14 @@ of tiles within the plot area can change dramatically with even small
 changes to the dataset. This makes it difficult to compare treemaps
 side-by-side, or create animated treemaps.
 
-By providing the `layout = "fixed"` option to ‘treemapify’ geoms, an
+By providing the `fixed = TRUE` option to ‘treemapify’ geoms, an
 alternative layout algorithm is used that will always position the tiles
 based on the order of observations in the data frame. It’s very
-important that the same value for `layout` is passed to all ‘treemapify’
+important that the same value for `fixed` is passed to all ‘treemapify’
 geoms, otherwise different layers of the plot might not share the same
 layout.
 
-With the help of `layout = "fixed"`, and with the
+With the help of `fixed = TRUE`, and with the
 [`tweenr`](https://github.com/thomasp85/tweenr) and
 [`gganimate`](https://github.com/dgrtwo/gganimate) packages, it becomes
 possible to create animated treemaps showing e.g. change over time.
@@ -216,12 +216,12 @@ tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 8,
 animated_plot <- ggplot(tweened, aes(area = gdp_mil_usd, fill = hdi,
                                      label = country, subgroup = region,
                                      frame = .frame)) +
-  geom_treemap(layout = "fixed") +
-  geom_treemap_subgroup_border(layout = "fixed") +
+  geom_treemap(fixed = TRUE) +
+  geom_treemap_subgroup_border(fixed = TRUE) +
   geom_treemap_subgroup_text(place = "centre", grow = T, alpha = 0.5,
                              colour = "black", fontface = "italic", min.size = 0,
-                             layout = "fixed") +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T, layout = "fixed")
+                             fixed = TRUE) +
+  geom_treemap_text(colour = "white", place = "topleft", reflow = T, fixed = TRUE)
 
 animation::ani.options(interval = 1/10)
 gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F,

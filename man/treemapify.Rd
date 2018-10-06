@@ -5,9 +5,9 @@
 \alias{treemapify_fixed}
 \title{Generate a treemap layout.}
 \usage{
-treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = NULL,
-  layout = "squarified", start = "bottomleft", fill = NULL,
-  label = NULL, group = NULL, xlim = NULL, ylim = NULL)
+treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE,
+  start = "bottomleft", fill = NULL, label = NULL, group = NULL,
+  xlim = NULL, ylim = NULL)
 
 treemapify_fixed(...)
 }
@@ -21,10 +21,8 @@ area of treemap tiles.}
 (columns in `data`) by which the tiles should be grouped, at up to three
 nested levels.}
 
-\item{fixed}{Use `layout` instead. Will be deprecated in a later version.}
-
-\item{layout}{The treemap layout algorithm. One of 'squarified' (default) or
-'fixed'. See Details for a full description of the layout algorithms.}
+\item{fixed}{`FALSE` by default. If `TRUE`, the alternative 'fixed' layout
+algorithm will be used (see Details).}
 
 \item{start}{The corner in which to start placing the tiles. One of
 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
