@@ -7,7 +7,7 @@
 \usage{
 treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE,
   start = "bottomleft", fill = NULL, label = NULL, group = NULL,
-  xlim = NULL, ylim = NULL)
+  xlim = c(0, 1), ylim = c(0, 1))
 
 treemapify_fixed(...)
 }
@@ -27,9 +27,12 @@ algorithm will be used (see Details).}
 \item{start}{The corner in which to start placing the tiles. One of
 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
 
-\item{label, fill, xlim, ylim}{Deprecated. Will be removed in later versions.}
+\item{label, fill}{Deprecated. Will be removed in later versions.}
 
 \item{group}{Deprecated; use `subgroup` instead. Will be removed in later versions.}
+
+\item{xlim, ylim}{The boundaries of the treemap in the x and y dimensions.
+Must be a numeric vector of length two; both default to `c(0, 1)`.}
 
 \item{...}{Other arguments to be passed to `treemapify`.}
 }

@@ -116,13 +116,12 @@ treemapify <- function(
   if (!missing(label)) {
     warning("`label` is deprecated")
   }
-  if (!(is.numeric(xlim) & length(xlim) == 2)) {
-    stop("`xlim` must be a numeric vector of length 2")
+  if (!(is.numeric(xlim) & length(xlim) == 2 & xlim[1] < xlim[2])) {
+    stop("`xlim` must be a numeric vector of length 2, with the minimum less than the maximum")
   }
-  if (!(is.numeric(ylim) & length(ylim) == 2)) {
-    stop("`ylim` must be a numeric vector of length 2")
+  if (!(is.numeric(ylim) & length(ylim) == 2 & ylim[1] < ylim[2])) {
+    stop("`ylim` must be a numeric vector of length 2, with the minimum less than the maximum")
   }
-
 
   # Set layout function
   if (fixed) {
@@ -196,16 +195,24 @@ treemapify <- function(
 
   # Flip the coordinates to set the starting corner
   if (start == "topleft") {
-    layout$ymin <- 1 - layout$ymin
-    layout$ymax <- 1 - layout$ymax
+    new_ymax <- max(layout$ymax) - layout$ymin
+    new_ymin <- max(layout$ymax) - layout$ymax
+    layout$ymax <- new_ymax
+    layout$ymin <- new_ymin
   } else if (start == "topright") {
-    layout$ymin <- 1 - layout$ymin
-    layout$ymax <- 1 - layout$ymax
-    layout$xmin <- 1 - layout$xmin
-    layout$xmax <- 1 - layout$xmax
+    new_ymax <- max(layout$ymax) - layout$ymin
+    new_ymin <- max(layout$ymax) - layout$ymax
+    layout$ymax <- new_ymax
+    layout$ymin <- new_ymin
+    new_xmax <- max(layout$xmax) - layout$xmin
+    new_xmin <- max(layout$xmax) - layout$xmax
+    layout$xmax <- new_xmax
+    layout$xmin <- new_xmin
   } else if (start == "bottomright") {
-    layout$xmin <- 1 - layout$xmin
-    layout$xmax <- 1 - layout$xmax
+    new_xmax <- max(layout$xmax) - layout$xmin
+    new_xmin <- max(layout$xmax) - layout$xmax
+    layout$xmax <- new_xmax
+    layout$xmin <- new_xmin
   }
   layout
 }

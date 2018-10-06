@@ -7,7 +7,9 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
   data <- data[data[[area]] > 0, ]
 
   # Stop if there are no rows
-  if (nrow(data) == 0) stop("Must provide some rows with area > 0")
+  if (nrow(data) == 0) {
+    stop("Must provide some rows with area > 0")
+  }
 
   # Sort the data by area, largest to smallest
   data <- data[order(-data[area]), ]
