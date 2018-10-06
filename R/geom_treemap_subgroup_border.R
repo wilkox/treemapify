@@ -14,8 +14,8 @@
 #' followed by a `geom_treemap_subgroup2_border` layer, the second layer will
 #' be drawn on top of the first and may hide it.
 #'
-#' The `fixed` argument is used to set the treemap layout algorithm. All
-#' `treemapify` geoms added to a plot should have the same value for `fixed`
+#' The `layout` argument is used to set the treemap layout algorithm. All
+#' `treemapify` geoms added to a plot should have the same value for `layout`
 #' and `start`, or they will not share a common layout (see `geom_treemap` for
 #' details on the layout algorithms).
 #'
@@ -23,14 +23,17 @@
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for `ggplot2::geom_rect`.
-#' @param fixed `FALSE` by default. If `TRUE`, the alternative 'fixed' layout
-#' algorithm will be used (see Details).
+#' @param layout The layout algorithm, one of either "squarified" (the
+#' default), "scol", "srow" or "fixed". See Details for full details on the
+#' different layout algorithms.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param level One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
 #' subgrouping level for which to draw borders. It is recommended to use the
 #' aliases `geom_treemap_subgroup2_border` and `geom_treemap_subgroup3_border`
 #' instead of this argument.
+#' @param fixed Deprecated. Use `layout = "fixed"` instead. Will be removed in
+#' later versions.
 #'
 #' @section Aesthetics:
 #'
@@ -60,7 +63,8 @@ geom_treemap_subgroup_border <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  fixed = FALSE,
+  fixed = NULL,
+  layout = "squarified",
   start = "bottomleft",
   level = "subgroup",
   ...
@@ -76,6 +80,7 @@ geom_treemap_subgroup_border <- function(
     params = list(
       na.rm = na.rm,
       fixed = fixed,
+      layout = layout,
       start = start,
       level = level,
       ...
@@ -102,7 +107,8 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     data,
     panel_scales,
     coord,
-    fixed = FALSE,
+    fixed = NULL,
+    layout = "squarified",
     start = "bottomleft",
     level = "subgroup"
   ) {
@@ -142,6 +148,7 @@ GeomSubgroupBorder <- ggplot2::ggproto(
       data = data,
       area = "area",
       fixed = fixed,
+      layout = layout,
       start = start
     )
     for (l in levels[1:(length(levels) - 1)]) { params[l] <- l }

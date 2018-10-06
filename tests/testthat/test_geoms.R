@@ -10,28 +10,28 @@ test_that("geoms work with basic parameters", {
       subgroup3 = region,
       label = country
     )) +
-      geom_treemap(fixed = TRUE, start = "bottomright") +
+      geom_treemap(layout = "scol", start = "bottomright") +
       geom_treemap_text(
         grow = T,
         place = "top",
         fontface = "bold",
         reflow = F,
-        fixed = TRUE,
+        layout = "srow",
         start = "bottomright"
       ) +
       geom_treemap_subgroup_border(
         linetype = "dashed",
-        fixed = TRUE,
+        layout = "squarified",
         start = "bottomright"
       ) +
       geom_treemap_subgroup2_border(
         linetype = "dashed",
-        fixed = TRUE,
+        layout = "fixed",
         start = "bottomright"
       ) +
       geom_treemap_subgroup3_border(
         linetype = "dashed",
-        fixed = TRUE,
+        layout = "fixed",
         start = "bottomright"
       ) +
       geom_treemap_subgroup_text(
@@ -39,7 +39,7 @@ test_that("geoms work with basic parameters", {
         place = "bottomleft",
         size = 10,
         reflow = T,
-        fixed = TRUE,
+        layout = "srow",
         start = "bottomright"
       ) +
       geom_treemap_subgroup2_text(
@@ -47,7 +47,7 @@ test_that("geoms work with basic parameters", {
         place = "bottomleft",
         size = 10,
         reflow = T,
-        fixed = TRUE,
+        layout = "scol",
         start = "bottomright"
       ) +
       geom_treemap_subgroup3_text(
@@ -55,7 +55,7 @@ test_that("geoms work with basic parameters", {
         place = "bottomleft",
         size = 10,
         reflow = T,
-        fixed = TRUE,
+        layout = "scol",
         start = "bottomright"
       ) +
       ggplot2::facet_grid(econ_classification ~ region) +

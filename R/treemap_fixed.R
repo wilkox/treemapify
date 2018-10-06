@@ -1,7 +1,7 @@
 #' Internal function for the 'fixed' treemap layout algorithm.
 #' 
 #' @noRd
-treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1)) {
+treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = NULL) {
 
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]

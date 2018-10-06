@@ -17,23 +17,29 @@
 #' with `subgroup2` and `subgroup3` aesthetics and respective
 #' `geom_treemap_subgroup2_border` etc. geoms.
 #'
-#' Two layout algorithms are provided. With the default squarified algorithm
-#' (`fixed = FALSE`), the priority is ensuring the tiles have an aesthetically
-#' pleasing aspect ratio; that is, they are not too narrow or too short. In
-#' this algorithm, tile placement proceeds from one corner, placing the tiles
-#' in rows or columns depending on the remaining plot area until all the tiles
-#' are placed.  See Bruls et al. (1999) for the full algorithm. 
+#' Four layout algorithms are provided. With the default 'squarified' algorithm
+#' (`layout = "squarified"`), the priority is ensuring the tiles have an
+#' aesthetically pleasing aspect ratio; that is, they are not too narrow or too
+#' short. In this algorithm, tile placement proceeds from one corner, placing
+#' the tiles in either rows or columns until all the tiles are placed. See
+#' Bruls et al. (1999) for the full algorithm.
 #'
-#' With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot
-#' area is divided into vertical columns, which are each filled  with an equal
-#' number of tiles beginning at the starting corner. Unlike the 'squarified'
+#' There are two variants on the 'squarified' algorithm. 'scol' forces tile
+#' placement to begin with a column, regardless of the effect on aspect ratio;
+#' 'srow' forces tile placement to been with a row. This will also apply to all
+#' subgroups. After the first row or column, the remaining tiles will be placed
+#' so as to optimise aspect ratios, as with the default algorithm.
+#'
+#' With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
+#' divided into vertical columns, which are each filled  with an equal number
+#' of tiles beginning at the starting corner. Unlike the 'squarified'
 #' algorithm, with the 'fixed' algorithm the relative positions of the tiles
 #' are fixed by their order in the input data frame. This can result in
-#' aesthetically unpleasing tiles, but it allows side-by-side comparisons or
+#' aesthetically unpleasing layouts, but it allows side-by-side comparisons or
 #' animations to be created.
 #'
 #' All `treemapify` geoms added to a plot should have the same value for
-#' `fixed` and `start`, or they will not share a common layout.
+#' `layout` and `start`, or they will not share a common layout.
 #'
 #' @section Aesthetics:
 #'
@@ -50,10 +56,13 @@
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
 #' geom arguments as for `ggplot2::geom_rect`.
-#' @param fixed `FALSE` by default. If `TRUE`, the alternative 'fixed' layout
-#' algorithm will be used (see Details).
+#' @param layout The layout algorithm, one of either "squarified" (the
+#' default), "scol", "srow" or "fixed". See Details for full details on the
+#' different layout algorithms.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
+#' @param fixed Deprecated. Use `layout = "fixed"` instead. Will be removed in
+#' later versions.
 #'
 #' @seealso geom_treemap_text, geom_treemap_subgroup_border,
 #' geom_treemap_subgroup_text
@@ -78,7 +87,8 @@ geom_treemap <- function(
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE,
-  fixed = FALSE,
+  fixed = NULL,
+  layout = "squarified",
   start = "bottomleft",
   ...
 ) {
@@ -93,6 +103,7 @@ geom_treemap <- function(
     params = list(
       na.rm = na.rm,
       fixed = fixed,
+      layout = layout,
       start = start,
       ...
     )
@@ -118,7 +129,8 @@ GeomTreemap <- ggplot2::ggproto(
     data,
     panel_scales,
     coord,
-    fixed = FALSE,
+    fixed = NULL,
+    layout = "squarified",
     start = "bottomleft"
   ) {
 
@@ -129,6 +141,7 @@ GeomTreemap <- ggplot2::ggproto(
       data = data,
       area = "area",
       fixed = fixed,
+      layout = layout,
       start = start
     )
     for (x in intersect(c("subgroup", "subgroup2", "subgroup3"), names(data))) {

@@ -8,8 +8,9 @@
 \usage{
 geom_treemap_subgroup_border(mapping = NULL, data = NULL,
   stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, fixed = FALSE,
-  start = "bottomleft", level = "subgroup", ...)
+  show.legend = NA, inherit.aes = TRUE, fixed = NULL,
+  layout = "squarified", start = "bottomleft", level = "subgroup",
+  ...)
 
 geom_treemap_subgroup2_border(...)
 
@@ -19,8 +20,12 @@ geom_treemap_subgroup3_border(...)
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
 geom arguments as for `ggplot2::geom_rect`.}
 
-\item{fixed}{`FALSE` by default. If `TRUE`, the alternative 'fixed' layout
-algorithm will be used (see Details).}
+\item{fixed}{Deprecated. Use `layout = "fixed"` instead. Will be removed in
+later versions.}
+
+\item{layout}{The layout algorithm, one of either "squarified" (the
+default), "scol", "srow" or "fixed". See Details for full details on the
+different layout algorithms.}
 
 \item{start}{The corner in which to start placing the tiles. One of
 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
@@ -46,8 +51,8 @@ plot. This means that if you add a `geom_treemap_subgroup_border` layer
 followed by a `geom_treemap_subgroup2_border` layer, the second layer will
 be drawn on top of the first and may hide it.
 
-The `fixed` argument is used to set the treemap layout algorithm. All
-`treemapify` geoms added to a plot should have the same value for `fixed`
+The `layout` argument is used to set the treemap layout algorithm. All
+`treemapify` geoms added to a plot should have the same value for `layout`
 and `start`, or they will not share a common layout (see `geom_treemap` for
 details on the layout algorithms).
 }

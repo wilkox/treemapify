@@ -5,7 +5,7 @@ test_that("treemapify() works with basic parameters", {
     treemapify(
       G20,
       area = "gdp_mil_usd",
-      fixed = TRUE
+      layout = "fixed"
     )
   )
   expect_silent(
@@ -16,6 +16,7 @@ test_that("treemapify() works with basic parameters", {
       subgroup2 = "region",
       subgroup3 = "econ_classification",
       start = "topright",
+      layout = "srow",
       xlim = c(-100, pi * 7),
       ylim = c(0.4, 1235)
     )
@@ -35,6 +36,14 @@ test_that("treemapify() returns a warning for deprecated arguments", {
     treemapify(G20, area = "gdp_mil_usd", group = "region"),
     "deprecated"
   )
+  expect_warning(
+    treemapify(G20, area = "gdp_mil_usd", fixed = TRUE),
+    "deprecated"
+  )
+})
+
+test_that("treemapify() returns an error when passed an invalid layout algorithm", {
+  expect_error(treemapify(G20, area = "gdp_mil_usd", layout = "fake"), "Invalid value")
 })
 
 test_that("treemapify() returns an error when passed non-existent columns", {
