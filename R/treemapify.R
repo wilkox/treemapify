@@ -48,7 +48,9 @@
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param group Deprecated; use `subgroup` instead. Will be removed in later versions.
-#' @param label,fill,xlim,ylim Deprecated. Will be removed in later versions.
+#' @param label,fill Deprecated. Will be removed in later versions.
+#' @param xlim,ylim The boundaries of the treemap in the x and y dimensions.
+#' Must be a numeric vector of length two; both default to `c(0, 1)`.
 #' @param ... Other arguments to be passed to `treemapify`.
 #'
 #' @seealso geom_treemap
@@ -75,8 +77,8 @@ treemapify <- function(
   fill = NULL,
   label = NULL,
   group = NULL,
-  xlim = NULL,
-  ylim = NULL
+  xlim = c(0, 1),
+  ylim = c(0, 1)
 ) {
 
   # Check arguments
@@ -87,7 +89,7 @@ treemapify <- function(
     stop("`area` is required", call. = FALSE)
   }
   if (!area %in% names(data)) {
-    stop("Column", area, " not found in data", call. = FALSE)
+    stop("Column ", area, " not found in data", call. = FALSE)
   }
   if (!missing(group)) {
     warning("`group` is deprecated, use `subgroup` instead")
@@ -95,17 +97,17 @@ treemapify <- function(
   }
   if (!missing(subgroup)) {
     if (!subgroup %in% names(data)) {
-      stop("Column", subgroup, " not found in data", call. = FALSE)
+      stop("Column ", subgroup, " not found in data", call. = FALSE)
     }
   }
   if (!missing(subgroup2)) {
     if (!subgroup2 %in% names(data)) {
-      stop("Column", subgroup2, " not found in data", call. = FALSE)
+      stop("Column ", subgroup2, " not found in data", call. = FALSE)
     }
   }
   if (!missing(subgroup3)) {
     if (!subgroup3 %in% names(data)) {
-      stop("Column", subgroup3, " not found in data", call. = FALSE)
+      stop("Column ", subgroup3, " not found in data", call. = FALSE)
     }
   }
   if (!missing(fill)) {
@@ -114,12 +116,13 @@ treemapify <- function(
   if (!missing(label)) {
     warning("`label` is deprecated")
   }
-  if (!missing(xlim)) {
-    warning("`xlim` is deprecated")
+  if (!(is.numeric(xlim) & length(xlim) == 2)) {
+    stop("`xlim` must be a numeric vector of length 2")
   }
-  if (!missing(ylim)) {
-    warning("`ylim` is deprecated")
+  if (!(is.numeric(ylim) & length(ylim) == 2)) {
+    stop("`ylim` must be a numeric vector of length 2")
   }
+
 
   # Set layout function
   if (fixed) {
@@ -189,7 +192,7 @@ treemapify <- function(
       do.call("rbind", lapply(groups, generate_sublayout))
     }
   }
-  layout <- do_layout(data, subgroups)
+  layout <- do_layout(data, subgroups, xlim, ylim)
 
   # Flip the coordinates to set the starting corner
   if (start == "topleft") {
