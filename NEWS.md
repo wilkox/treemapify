@@ -1,43 +1,20 @@
-# v2.5.0.9007
+# v2.5.1
 
-## Bug fixes
+## Major changes
 
-- Fix bugs in `start` argument
+- Added new `layout` and `start` arguments to `treemapify()` and all geoms
 
 ## Minor changes
 
 - Restore `xlim` and `ylim` options to `treemapify()`
 - Add and improve tests
-
-# v2.5.0.9006
-
-## Bug fixes
-
-- Fixed bug in handling of subgroups in the 'squarified' algorithm, which should result in more aesthetically pleasing layouts
-
-# v2.5.0.9005
-
-## Major changes
-
-- Add new default 'sopt' layout, that tries to choose optimally between placing tiles in rows vs columns
-
-# v2.5.0.9004
-
-## Major changes
-
-- Added `layout` and `start` options to `treemapify` and all geoms
-
-# v2.5.0.9002
-
-## Minor changes
-
 - Misc. code quality improvements
 
 ## Bug fixes
 
-- Clearly deprecate `xlim` and `ylim` arguments to `treemapify` to maintain backwards compatibility
-- Fix dereferencing of arguments in `treemapify` (#22, thanks @GregorDeCillia)
-- Restore support for `fill`, `label` and `group` arguments in `treemapify` to maintain backwards compatibility (thanks @GregorDeCillia)
+- Fixed bug in handling of subgroups, which should result in more aesthetically pleasing layouts
+- Fix dereferencing of arguments in `treemapify()` (#22, thanks @GregorDeCillia)
+- Fix deprecation of `fill`, `label` and `group` arguments in `treemapify()` to maintain backwards compatibility (thanks @GregorDeCillia)
 
 # v2.5.0
 
