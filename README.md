@@ -105,11 +105,6 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
 
 ![](man/figures/README-geom_treemap_text-1.png)<!-- -->
 
-Note that the top-rightmost tile, ‘South Africa’, is not labelled.
-`geom_treemap_text` will hide text labels that cannot fit a tile without
-being shrunk below a minimum size, by default 4 points. This can be
-adjusted with the `min.size` argument.
-
 ## Subgrouping tiles
 
 `geom_treemap` supports subgrouping of tiles within a treemap by passing
@@ -130,6 +125,10 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
 ```
 
 ![](man/figures/README-subgrouped_treemap-1.png)<!-- -->
+
+Note that Argentina is not labelled. `geom_treemap_text` will hide text
+labels that cannot fit a tile without being shrunk below a minimum size,
+by default 4 points. This can be adjusted with the `min.size` argument.
 
 Up to three nested levels of subgrouping are supported with the
 `subgroup2` and `subgroup3` aesthetics. Borders and text labels for
@@ -190,14 +189,14 @@ of tiles within the plot area can change dramatically with even small
 changes to the dataset. This makes it difficult to compare treemaps
 side-by-side, or create animated treemaps.
 
-By providing the `fixed = TRUE` option to ‘treemapify’ geoms, an
+By providing the `layout = "fixed"` option to ‘treemapify’ geoms, an
 alternative layout algorithm is used that will always position the tiles
 based on the order of observations in the data frame. It’s very
-important that the same value for `fixed` is passed to all ‘treemapify’
+important that the same value for `layout` is passed to all ‘treemapify’
 geoms, otherwise different layers of the plot might not share the same
 layout.
 
-With the help of `fixed = TRUE`, and with the
+With the help of `layout = "fixed"`, and with the
 [`tweenr`](https://github.com/thomasp85/tweenr) and
 [`gganimate`](https://github.com/dgrtwo/gganimate) packages, it becomes
 possible to create animated treemaps showing e.g. change over time.
@@ -217,12 +216,12 @@ tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 8,
 animated_plot <- ggplot(tweened, aes(area = gdp_mil_usd, fill = hdi,
                                      label = country, subgroup = region,
                                      frame = .frame)) +
-  geom_treemap(fixed = T) +
-  geom_treemap_subgroup_border(fixed = T) +
+  geom_treemap(layout = "fixed") +
+  geom_treemap_subgroup_border(layout = "fixed") +
   geom_treemap_subgroup_text(place = "centre", grow = T, alpha = 0.5,
                              colour = "black", fontface = "italic", min.size = 0,
-                             fixed = T) +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T, fixed = T)
+                             layout = "fixed") +
+  geom_treemap_text(colour = "white", place = "topleft", reflow = T, layout = "fixed")
 
 animation::ani.options(interval = 1/10)
 gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F,

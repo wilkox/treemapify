@@ -20,22 +20,28 @@
 #' `subgroup`, `subgroup2` and `subgroup3`) to generate a layout in which the
 #' tiles are clustered into subgroups nested up to three levels deep.
 #'
-#' Two layout algorithms are provided. With the default 'squarified' algorithm,
-#' the priority is ensuring the tiles have an aesthetically pleasing aspect
-#' ratio; that is, they are not too narrow or too short. In this algorithm,
-#' tile placement proceeds from the bottom left corner, moving alternately
-#' rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
-#' for the full algorithm.
+#' Four layout algorithms are provided. With the default 'squarified' algorithm
+#' (`layout = "squarified"`), the priority is ensuring the tiles have an
+#' aesthetically pleasing aspect ratio; that is, they are not too narrow or too
+#' short. In this algorithm, tile placement proceeds from one corner, placing
+#' the tiles in either rows or columns until all the tiles are placed. See
+#' Bruls et al. (1999) for the full algorithm.
 #'
-#' With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
-#' is divided into vertical columns, which are filled from left to right with an
-#' equal number of tiles beginning at the bottom of each column. Unlike the
-#' default 'squarified' algorithm, with the 'fixed' algorithm the relative
-#' positions of the tiles are fixed by their order in the input data frame. This
-#' can result in aesthetically unpleasing tiles, but it allows side-by-side
-#' comparisons or animations to be created.
+#' There are two variants on the 'squarified' algorithm. 'scol' forces tile
+#' placement to begin with a column, regardless of the effect on aspect ratio;
+#' 'srow' forces tile placement to been with a row. This will also apply to all
+#' subgroups. After the first row or column, the remaining tiles will be placed
+#' so as to optimise aspect ratios, as with the default algorithm.
 #'
-#' `treemapify_fixed` is an alias for `treemapify(fixed = TRUE)`.
+#' With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
+#' divided into vertical columns, which are each filled  with an equal number
+#' of tiles beginning at the starting corner. Unlike the 'squarified'
+#' algorithm, with the 'fixed' algorithm the relative positions of the tiles
+#' are fixed by their order in the input data frame. This can result in
+#' aesthetically unpleasing layouts, but it allows side-by-side comparisons or
+#' animations to be created.
+#'
+#' `treemapify_fixed` is an alias for `treemapify(layout = "fixed")`.
 #'
 #' @param data A tidy data frame.
 #' @param area Name of the variable (a column in `data`) to be mapped to the
@@ -43,10 +49,17 @@
 #' @param subgroup,subgroup2,subgroup3 Optionally, names of variables
 #' (columns in `data`) by which the tiles should be grouped, at up to three
 #' nested levels.
-#' @param fixed If true, the alternative 'fixed' algorithm will be used (see
-#' Details).
-#' @param group Deprecated; use `subgroup` instead. Will be removed in later versions.
-#' @param label,fill,xlim,ylim Deprecated. Will be removed in later versions.
+#' @param layout The layout algorithm, one of either "squarified" (the
+#' default), "scol", "srow" or "fixed". See Details for full details on the
+#' different layout algorithms.
+#' @param start The corner in which to start placing the tiles. One of
+#' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
+#' @param group Deprecated. Use `subgroup` instead. Will be removed in later versions.
+#' @param label,fill Deprecated. Will be removed in later versions.
+#' @param fixed Deprecated. Use `layout = "fixed"` instead. Will be removed in
+#' later versions.
+#' @param xlim,ylim The boundaries of the treemap in the x and y dimensions.
+#' Must be a numeric vector of length two; both default to `c(0, 1)`.
 #' @param ... Other arguments to be passed to `treemapify`.
 #'
 #' @seealso geom_treemap
@@ -68,15 +81,17 @@ treemapify <- function(
   subgroup,
   subgroup2,
   subgroup3,
-  fixed = FALSE,
+  layout = "squarified",
+  start = "bottomleft",
   fill = NULL,
   label = NULL,
   group = NULL,
-  xlim = NULL,
-  ylim = NULL
+  fixed = NULL,
+  xlim = c(0, 1),
+  ylim = c(0, 1)
 ) {
 
-  # Check for missing arguments
+  # Check arguments
   if (missing(data)) {
     stop("`data` is required", call. = FALSE)
   }
@@ -84,7 +99,7 @@ treemapify <- function(
     stop("`area` is required", call. = FALSE)
   }
   if (!area %in% names(data)) {
-    stop("Column", area, " not found in data", call. = FALSE)
+    stop("Column ", area, " not found in data", call. = FALSE)
   }
   if (!missing(group)) {
     warning("`group` is deprecated, use `subgroup` instead")
@@ -92,17 +107,17 @@ treemapify <- function(
   }
   if (!missing(subgroup)) {
     if (!subgroup %in% names(data)) {
-      stop("Column", subgroup, " not found in data", call. = FALSE)
+      stop("Column ", subgroup, " not found in data", call. = FALSE)
     }
   }
   if (!missing(subgroup2)) {
     if (!subgroup2 %in% names(data)) {
-      stop("Column", subgroup2, " not found in data", call. = FALSE)
+      stop("Column ", subgroup2, " not found in data", call. = FALSE)
     }
   }
   if (!missing(subgroup3)) {
     if (!subgroup3 %in% names(data)) {
-      stop("Column", subgroup3, " not found in data", call. = FALSE)
+      stop("Column ", subgroup3, " not found in data", call. = FALSE)
     }
   }
   if (!missing(fill)) {
@@ -111,15 +126,28 @@ treemapify <- function(
   if (!missing(label)) {
     warning("`label` is deprecated")
   }
-  if (!missing(xlim)) {
-    warning("`xlim` is deprecated")
+  if (!(missing(fixed) | is.null(fixed))) {
+    warning("`fixed` is deprecated. Use `layout = \"fixed\"` instead.")
+    if (isTRUE(fixed)) {
+      layout <- "fixed"
+    }
   }
-  if (!missing(ylim)) {
-    warning("`ylim` is deprecated")
+  if (!layout %in% c("squarified", "scol", "srow", "fixed")) {
+    stop("Invalid value for `layout`", call. = FALSE)
+  }
+  if (!(is.numeric(xlim) & length(xlim) == 2 & xlim[1] < xlim[2])) {
+    stop("`xlim` must be a numeric vector of length 2, with the minimum less than the maximum")
+  }
+  if (!(is.numeric(ylim) & length(ylim) == 2 & ylim[1] < ylim[2])) {
+    stop("`ylim` must be a numeric vector of length 2, with the minimum less than the maximum")
   }
 
   # Set layout function
-  treemap_f <- ifelse(fixed, treemap_fixed, treemap_squarified)
+  if (layout %in% c("squarified", "scol", "srow")) {
+    treemap_f <- treemap_squarified
+  } else if (layout == "fixed") {
+    treemap_f <- treemap_fixed
+  }
 
   # Set list of subgrouping levels
   subgroups <- character()
@@ -136,10 +164,10 @@ treemapify <- function(
   # Work down subgrouping levels, laying out treemaps for each level
   do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
 
-    # If there are no subgrouping levels below this one, return a layout for the
-    # given observations
+    # If there are no subgrouping levels below this one, return a layout for
+    # the given observations
     if (length(subgroups) == 0) {
-      return(treemap_f(data, area, xlim, ylim))
+      return(treemap_f(data, area, xlim, ylim, layout))
 
     # Otherwise, generate a layout for this subgrouping level and fill each
     # subgroup with its own layout
@@ -156,7 +184,7 @@ treemapify <- function(
       )
 
       # Generate layout for this subgrouping level
-      this_level_layout <- treemap_f(this_level_data, "area", xlim, ylim)
+      this_level_layout <- treemap_f(this_level_data, "area", xlim, ylim, layout)
 
       # For each group at this subgrouping level, generate sub-layouts
       generate_sublayout <- function(group) {
@@ -182,7 +210,30 @@ treemapify <- function(
       do.call("rbind", lapply(groups, generate_sublayout))
     }
   }
-  do_layout(data, subgroups)
+  layout <- do_layout(data, subgroups, xlim, ylim)
+
+  # Flip the coordinates to set the starting corner
+  if (start == "topleft") {
+    new_ymax <- max(layout$ymax) - layout$ymin
+    new_ymin <- max(layout$ymax) - layout$ymax
+    layout$ymax <- new_ymax
+    layout$ymin <- new_ymin
+  } else if (start == "topright") {
+    new_ymax <- max(layout$ymax) - layout$ymin
+    new_ymin <- max(layout$ymax) - layout$ymax
+    layout$ymax <- new_ymax
+    layout$ymin <- new_ymin
+    new_xmax <- max(layout$xmax) - layout$xmin
+    new_xmin <- max(layout$xmax) - layout$xmax
+    layout$xmax <- new_xmax
+    layout$xmin <- new_xmin
+  } else if (start == "bottomright") {
+    new_xmax <- max(layout$xmax) - layout$xmin
+    new_xmin <- max(layout$xmax) - layout$xmax
+    layout$xmax <- new_xmax
+    layout$xmin <- new_xmin
+  }
+  layout
 }
 
 #' @rdname treemapify

@@ -1,4 +1,33 @@
-# v2.5.1
+# v2.5.0.9007
+
+## Bug fixes
+
+- Fix bugs in `start` argument
+
+## Minor changes
+
+- Restore `xlim` and `ylim` options to `treemapify()`
+- Add and improve tests
+
+# v2.5.0.9006
+
+## Bug fixes
+
+- Fixed bug in handling of subgroups in the 'squarified' algorithm, which should result in more aesthetically pleasing layouts
+
+# v2.5.0.9005
+
+## Major changes
+
+- Add new default 'sopt' layout, that tries to choose optimally between placing tiles in rows vs columns
+
+# v2.5.0.9004
+
+## Major changes
+
+- Added `layout` and `start` options to `treemapify` and all geoms
+
+# v2.5.0.9002
 
 ## Minor changes
 

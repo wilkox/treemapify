@@ -5,8 +5,10 @@
 \alias{treemapify_fixed}
 \title{Generate a treemap layout.}
 \usage{
-treemapify(data, area, subgroup, subgroup2, subgroup3, fixed = FALSE,
-  fill = NULL, label = NULL, group = NULL, xlim = NULL, ylim = NULL)
+treemapify(data, area, subgroup, subgroup2, subgroup3,
+  layout = "squarified", start = "bottomleft", fill = NULL,
+  label = NULL, group = NULL, fixed = NULL, xlim = c(0, 1),
+  ylim = c(0, 1))
 
 treemapify_fixed(...)
 }
@@ -20,12 +22,22 @@ area of treemap tiles.}
 (columns in `data`) by which the tiles should be grouped, at up to three
 nested levels.}
 
-\item{fixed}{If true, the alternative 'fixed' algorithm will be used (see
-Details).}
+\item{layout}{The layout algorithm, one of either "squarified" (the
+default), "scol", "srow" or "fixed". See Details for full details on the
+different layout algorithms.}
 
-\item{label, fill, xlim, ylim}{Deprecated. Will be removed in later versions.}
+\item{start}{The corner in which to start placing the tiles. One of
+'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
 
-\item{group}{Deprecated; use `subgroup` instead. Will be removed in later versions.}
+\item{label, fill}{Deprecated. Will be removed in later versions.}
+
+\item{group}{Deprecated. Use `subgroup` instead. Will be removed in later versions.}
+
+\item{fixed}{Deprecated. Use `layout = "fixed"` instead. Will be removed in
+later versions.}
+
+\item{xlim, ylim}{The boundaries of the treemap in the x and y dimensions.
+Must be a numeric vector of length two; both default to `c(0, 1)`.}
 
 \item{...}{Other arguments to be passed to `treemapify`.}
 }
@@ -45,22 +57,28 @@ the variable that will be represented by the area of each treemap tile with
 `subgroup`, `subgroup2` and `subgroup3`) to generate a layout in which the
 tiles are clustered into subgroups nested up to three levels deep.
 
-Two layout algorithms are provided. With the default 'squarified' algorithm,
-the priority is ensuring the tiles have an aesthetically pleasing aspect
-ratio; that is, they are not too narrow or too short. In this algorithm,
-tile placement proceeds from the bottom left corner, moving alternately
-rightwards and upwards until all tiles are placed. See Bruls et al. (1999)
-for the full algorithm.
+Four layout algorithms are provided. With the default 'squarified' algorithm
+(`layout = "squarified"`), the priority is ensuring the tiles have an
+aesthetically pleasing aspect ratio; that is, they are not too narrow or too
+short. In this algorithm, tile placement proceeds from one corner, placing
+the tiles in either rows or columns until all the tiles are placed. See
+Bruls et al. (1999) for the full algorithm.
 
-With the alternative 'fixed' layout algorithm (`fixed = TRUE`), the plot area
-is divided into vertical columns, which are filled from left to right with an
-equal number of tiles beginning at the bottom of each column. Unlike the
-default 'squarified' algorithm, with the 'fixed' algorithm the relative
-positions of the tiles are fixed by their order in the input data frame. This
-can result in aesthetically unpleasing tiles, but it allows side-by-side
-comparisons or animations to be created.
+There are two variants on the 'squarified' algorithm. 'scol' forces tile
+placement to begin with a column, regardless of the effect on aspect ratio;
+'srow' forces tile placement to been with a row. This will also apply to all
+subgroups. After the first row or column, the remaining tiles will be placed
+so as to optimise aspect ratios, as with the default algorithm.
 
-`treemapify_fixed` is an alias for `treemapify(fixed = TRUE)`.
+With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
+divided into vertical columns, which are each filled  with an equal number
+of tiles beginning at the starting corner. Unlike the 'squarified'
+algorithm, with the 'fixed' algorithm the relative positions of the tiles
+are fixed by their order in the input data frame. This can result in
+aesthetically unpleasing layouts, but it allows side-by-side comparisons or
+animations to be created.
+
+`treemapify_fixed` is an alias for `treemapify(layout = "fixed")`.
 }
 \details{
 `treemapify` is for generating a data frame of raw treemap coordinates. If

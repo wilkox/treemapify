@@ -6,11 +6,13 @@
 \alias{geom_treemap_subgroup3_text}
 \title{'ggplot2' geoms to add text labels to treemap subgroups.}
 \usage{
-geom_treemap_subgroup_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = FALSE,
-  inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
-  padding.y = grid::unit(1, "mm"), place = "bottom", min.size = 4,
-  grow = FALSE, reflow = FALSE, fixed = FALSE, level = "subgroup", ...)
+geom_treemap_subgroup_text(mapping = NULL, data = NULL,
+  stat = "identity", position = "identity", na.rm = FALSE,
+  show.legend = FALSE, inherit.aes = TRUE, padding.x = grid::unit(1,
+  "mm"), padding.y = grid::unit(1, "mm"), place = "bottom",
+  min.size = 4, grow = FALSE, reflow = FALSE, fixed = NULL,
+  layout = "squarified", start = "bottomleft", level = "subgroup",
+  ...)
 
 geom_treemap_subgroup2_text(...)
 
@@ -35,8 +37,15 @@ to 4 pt.}
 \item{reflow}{If `TRUE`, text will be reflowed (wrapped) to better fit the
 box.}
 
-\item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
-used.}
+\item{fixed}{Deprecated. Use `layout = "fixed"` instead. Will be removed in
+later versions.}
+
+\item{layout}{The layout algorithm, one of either "squarified" (the
+default), "scol", "srow" or "fixed". See Details for full details on the
+different layout algorithms.}
+
+\item{start}{The corner in which to start placing the tiles. One of
+'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
 
 \item{level}{One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
 subgrouping level for which to draw text labels. It is recommended to use
@@ -60,10 +69,10 @@ to the subgroup. All text drawing options available in
 here. For full details on how these options work, see the documentation for
 `ggfittext::geom_fit_text`.
 
-The `fixed` argument is used to set the treemap layout algorithm. All
-`treemapify` geoms added to a plot should have the same value for `fixed`,
-or they will not share a common layout (see `geom_treemap` for details on
-the layout algorithms).
+The `layout` argument is used to set the treemap layout algorithm. All
+`treemapify` geoms added to a plot should have the same value for `layout`
+and `start`, or they will not share a common layout (see `geom_treemap` for
+details on the layout algorithms).
 }
 \section{Aesthetics}{
 

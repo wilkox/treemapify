@@ -8,7 +8,8 @@ geom_treemap_text(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", na.rm = FALSE, show.legend = FALSE,
   inherit.aes = TRUE, padding.x = grid::unit(1, "mm"),
   padding.y = grid::unit(1, "mm"), place = "topleft", min.size = 4,
-  grow = FALSE, reflow = FALSE, fixed = FALSE, ...)
+  grow = FALSE, reflow = FALSE, fixed = NULL,
+  layout = "squarified", start = "bottomleft", ...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -29,8 +30,15 @@ to 4 pt.}
 \item{reflow}{If `TRUE`, text will be reflowed (wrapped) to better fit the
 box.}
 
-\item{fixed}{If `TRUE`, the alternative 'fixed' tile layout algorithm will be
-used.}
+\item{fixed}{Deprecated. Use `layout = "fixed"` instead. Will be removed in
+later versions.}
+
+\item{layout}{The layout algorithm, one of either "squarified" (the
+default), "scol", "srow" or "fixed". See Details for full details on the
+different layout algorithms.}
+
+\item{start}{The corner in which to start placing the tiles. One of
+'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
 }
 \description{
 `geom_treemap_text` can be used to add a text label to each tile in a treemap
@@ -45,8 +53,9 @@ text drawing options available in `ggfittext::geom_fit_text` (growing,
 reflowing, etc.) are also available here. For full details on how these
 options work, see the documentation for `ggfittext::geom_fit_text`.
 
-All `treemapify` geoms added to a plot should have the same value for
-`fixed`, or they will not share a common layout (see `geom_treemap` for
+The `layout` argument is used to set the treemap layout algorithm. All
+`treemapify` geoms added to a plot should have the same value for `layout`
+and `start`, or they will not share a common layout (see `geom_treemap` for
 details on the layout algorithms).
 }
 \section{Aesthetics}{
