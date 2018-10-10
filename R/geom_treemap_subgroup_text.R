@@ -116,6 +116,8 @@ geom_treemap_subgroup_text <- function(
 
 #' GeomTreemapSubgroupText
 #' @noRd
+#' @import grid
+#' @import ggfittext
 GeomSubgroupText <- ggplot2::ggproto(
   "GeomSubgroupText",
   ggplot2::Geom,
