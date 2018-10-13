@@ -1,3 +1,5 @@
+Apologies for the frequency of releases, this is to fix an important bug in the recent release.
+
 # Test environments
 
 * local macOS install, R 3.5.1
