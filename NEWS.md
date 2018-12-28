@@ -1,3 +1,9 @@
+# v2.5.2.9001
+
+## Bug fixes
+
+- Fix issue with correct drawing of aesthetics in `geom_tremap_subgroup*_text()` (#32, thanks @jonathan-g)
+
 # v2.5.2
 
 ## Bug fixes

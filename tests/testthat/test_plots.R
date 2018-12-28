@@ -43,4 +43,28 @@ test_that("plots look the way they should", {
       geom_treemap_subgroup_text(layout = "srow", start = "bottomright") +
       geom_treemap_subgroup_border(layout = "srow", start = "bottomright")
   })
+
+  vdiffr::expect_doppelganger("correct colours for subgroup text", {
+    ggplot2::ggplot(G20, ggplot2::aes(
+      area = gdp_mil_usd,
+      fill = hdi,
+      subgroup = hemisphere,
+      subgroup2 = region,
+      subgroup3 = country
+    )) + 
+      geom_treemap() +
+      geom_treemap_subgroup3_text(ggplot2::aes(colour = region))
+  })
+
+  vdiffr::expect_doppelganger("correct colours for subgroup text, differently", {
+    ggplot2::ggplot(G20, ggplot2::aes(
+      area = gdp_mil_usd,
+      fill = hdi,
+      subgroup = hemisphere,
+      subgroup2 = region,
+      subgroup3 = country
+    )) + 
+      geom_treemap() + 
+      geom_treemap_subgroup3_text(ggplot2::aes(colour = econ_classification))
+  })
 })

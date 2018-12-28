@@ -124,7 +124,6 @@ GeomSubgroupText <- ggplot2::ggproto(
   required_aes = c("area"),
   default_aes = ggplot2::aes(
     colour = "grey20",
-    fill = "white",
     size = 36,
     alpha = 1,
     family = "",
@@ -184,7 +183,9 @@ GeomSubgroupText <- ggplot2::ggproto(
       "lineheight"
     )
     for (aesthetic in aesthetics) {
-      areasums[aesthetic] <- unique(data[[aesthetic]])
+      values <- data[[aesthetic]]
+      names(values) <- data[[level]]
+      areasums[aesthetic] <- values[as.character(areasums[[level]])]
     }
     data <- areasums
 

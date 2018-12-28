@@ -1,6 +1,6 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
-Version: 2.5.2
+Version: 2.5.2.9001
 Author: David Wilkins <david@wilkox.org>
 Maintainer: David Wilkins <david@wilkox.org>
 URL: https://github.com/wilkox/treemapify
@@ -17,6 +17,6 @@ Suggests: knitr,
     vdiffr
 License: GPL (>=3)
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Encoding: UTF-8
