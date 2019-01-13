@@ -1,8 +1,6 @@
-Apologies for the frequency of releases, this is to fix an important bug in the recent release.
-
 # Test environments
 
-* local macOS install, R 3.5.1
+* local macOS install, R 3.5.2
 * ubuntu 14.04 (on travis-ci), R-devel, 3.5.1, 3.4.4, 3.2.5, 3.1.3
 * win-builder (with `devtools::build_win`)
 
