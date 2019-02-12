@@ -15,15 +15,15 @@ treemapify_fixed(...)
 \arguments{
 \item{data}{A tidy data frame.}
 
-\item{area}{Name of the variable (a column in `data`) to be mapped to the
+\item{area}{Name of the variable (a column in \code{data}) to be mapped to the
 area of treemap tiles.}
 
-\item{subgroup, subgroup2, subgroup3}{Optionally, names of variables
-(columns in `data`) by which the tiles should be grouped, at up to three
-nested levels.}
+\item{subgroup, subgroup2, subgroup3}{Optionally, names of variables (columns
+in \code{data}) by which the tiles should be grouped, at up to three nested
+levels.}
 
-\item{layout}{The layout algorithm, one of either "squarified" (the
-default), "scol", "srow" or "fixed". See Details for full details on the
+\item{layout}{The layout algorithm, one of either 'squarified' (the
+default), 'scol', 'srow' or 'fixed'. See Details for full details on the
 different layout algorithms.}
 
 \item{start}{The corner in which to start placing the tiles. One of
@@ -31,34 +31,35 @@ different layout algorithms.}
 
 \item{label, fill}{Deprecated. Will be removed in later versions.}
 
-\item{group}{Deprecated. Use `subgroup` instead. Will be removed in later versions.}
+\item{group}{Deprecated. Use \code{subgroup} instead. Will be removed in later
+versions.}
 
-\item{fixed}{Deprecated. Use `layout = "fixed"` instead. Will be removed in
+\item{fixed}{Deprecated. Use \code{layout = "fixed"} instead. Will be removed in
 later versions.}
 
 \item{xlim, ylim}{The boundaries of the treemap in the x and y dimensions.
-Must be a numeric vector of length two; both default to `c(0, 1)`.}
+Must be a numeric vector of length two; both default to \code{c(0, 1)}.}
 
-\item{...}{Other arguments to be passed to `treemapify`.}
+\item{...}{Additional arguments to be passed to \code{treemapify()}.}
 }
 \description{
-`treemapify` returns a data frame of tile coordinates for a treemap layout
+\code{treemapify()} returns a data frame of tile coordinates for a treemap layout
 of a set of observations. This is only useful if you wish to draw the
-treemap without the help of the `ggplot2` geoms, or for some edge cases such
+treemap without the help of the \code{ggplot2} geoms, or for some edge cases such
 as creating interactive treemaps with 'R Shiny' (see e.g.
-\url{https://stackoverflow.com/q/45021775}). The easiest way to draw a
-treemap with the 'treemapify' package is to use the provided 'ggplot2'
-geoms, such as `geom_treemap`.
+\url{https://stackoverflow.com/q/45021775}). The easiest way to draw a treemap
+with the 'treemapify' package is to use the provided 'ggplot2' geoms, such
+as \code{geom_treemap()}.
 
-`data` must be a tidy data frame, i.e. each row must represent a single
+\code{data} must be a tidy data frame, i.e. each row must represent a single
 observation and each column a single variable. You must provide the name of
 the variable that will be represented by the area of each treemap tile with
-`area`. Optionally, you can also select up to three variables (with
-`subgroup`, `subgroup2` and `subgroup3`) to generate a layout in which the
+\code{area}. Optionally, you can also select up to three variables (with
+\code{subgroup}, \code{subgroup2} and \code{subgroup3}) to generate a layout in which the
 tiles are clustered into subgroups nested up to three levels deep.
 
 Four layout algorithms are provided. With the default 'squarified' algorithm
-(`layout = "squarified"`), the priority is ensuring the tiles have an
+(\code{layout = "squarified"}), the priority is ensuring the tiles have an
 aesthetically pleasing aspect ratio; that is, they are not too narrow or too
 short. In this algorithm, tile placement proceeds from one corner, placing
 the tiles in either rows or columns until all the tiles are placed. See
@@ -70,7 +71,7 @@ placement to begin with a column, regardless of the effect on aspect ratio;
 subgroups. After the first row or column, the remaining tiles will be placed
 so as to optimise aspect ratios, as with the default algorithm.
 
-With the 'fixed' layout algorithm (`layout = "fixed"`), the plot area is
+With the 'fixed' layout algorithm (\code{layout = "fixed"}), the plot area is
 divided into vertical columns, which are each filled  with an equal number
 of tiles beginning at the starting corner. Unlike the 'squarified'
 algorithm, with the 'fixed' algorithm the relative positions of the tiles
@@ -78,11 +79,11 @@ are fixed by their order in the input data frame. This can result in
 aesthetically unpleasing layouts, but it allows side-by-side comparisons or
 animations to be created.
 
-`treemapify_fixed` is an alias for `treemapify(layout = "fixed")`.
+\code{treemapify_fixed} is an alias for \code{treemapify(layout = "fixed")}.
 }
 \details{
-`treemapify` is for generating a data frame of raw treemap coordinates. If
-you want to draw a treemap with 'ggplot2', use `geom_treemap` instead.
+\code{treemapify} is for generating a data frame of raw treemap coordinates. If
+you want to draw a treemap with 'ggplot2', use \code{geom_treemap()} instead.
 }
 \examples{
 
@@ -95,5 +96,5 @@ Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 }
 \seealso{
-geom_treemap
+\code{\link[=geom_treemap]{geom_treemap()}}
 }

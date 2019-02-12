@@ -4,18 +4,18 @@
 #' a single observation. The relative area of each tile expresses a continuous
 #' variable.
 #'
-#' `geom_treemap` requires an `area` aesthetic. It will ignore any aesthetics
+#' `geom_treemap()` requires an `area` aesthetic. It will ignore any aesthetics
 #' relating to the x and y axes (e.g. `xmin` or `y`), as the x and y axes are
 #' not meaningful in a treemap. Several other standard 'ggplot2' aesthetics are
 #' supported (see Aesthetics). To add text labels to tiles, see
-#' `geom_treemap_text`.
+#' `geom_treemap_text()`.
 #'
 #' An optional `subgroup` aesthetic will cause the tiles to be clustered in
-#' subgroups within the treemap. See `geom_treemap_subgroup_border` and
-#' `geom_treemap_subgroup_text` to draw borders around subgroups and label
+#' subgroups within the treemap. See `geom_treemap_subgroup_border()` and
+#' `geom_treemap_subgroup_text()` to draw borders around subgroups and label
 #' them, respectively. Up to three nested levels of subgrouping are supported,
 #' with `subgroup2` and `subgroup3` aesthetics and respective
-#' `geom_treemap_subgroup2_border` etc. geoms.
+#' `geom_treemap_subgroup2_border()` etc. geoms.
 #'
 #' Four layout algorithms are provided. With the default 'squarified' algorithm
 #' (`layout = "squarified"`), the priority is ensuring the tiles have an
@@ -38,40 +38,38 @@
 #' aesthetically unpleasing layouts, but it allows side-by-side comparisons or
 #' animations to be created.
 #'
-#' All `treemapify` geoms added to a plot should have the same value for
+#' All 'treemapify' geoms added to a plot should have the same value for
 #' `layout` and `start`, or they will not share a common layout.
 #'
 #' @section Aesthetics:
 #'
-#' \itemize{
-#'   \item area (required)
-#'   \item alpha
-#'   \item colour
-#'   \item fill
-#'   \item linetype
-#'   \item subgroup
-#'   \item subgroup2
-#'   \item subgroup3
-#' }
+#' - area (required)
+#' - alpha
+#' - colour
+#' - fill
+#' - linetype
+#' - subgroup
+#' - subgroup2
+#' - subgroup3
 #'
 #' @param mapping,data,stat,position,na.rm,show.legend,inherit.aes,... Standard
-#' geom arguments as for `ggplot2::geom_rect`.
-#' @param layout The layout algorithm, one of either "squarified" (the
-#' default), "scol", "srow" or "fixed". See Details for full details on the
+#' geom arguments as for `ggplot2::geom_rect()`.
+#' @param layout The layout algorithm, one of either 'squarified' (the
+#' default), 'scol', 'srow' or 'fixed'. See Details for full details on the
 #' different layout algorithms.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param fixed Deprecated. Use `layout = "fixed"` instead. Will be removed in
 #' later versions.
 #'
-#' @seealso geom_treemap_text, geom_treemap_subgroup_border,
-#' geom_treemap_subgroup_text
+#' @seealso [geom_treemap_text()], [geom_treemap_subgroup_border()],
+#' [geom_treemap_subgroup_text()]
 #'
 #' @references
 #'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42). Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-#' Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+#' Visualization. <http://www.win.tue.nl/~vanwijk/stm.pdf>
 #'
 #' @examples
 #'

@@ -4,12 +4,14 @@ Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://trav
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
-**‘treemapify’ provides ‘ggplot2’ geoms for drawing
-[treemaps](http://en.wikipedia.org/wiki/Treemap).**
+# treemapify
+
+treemapify provides [ggplot2](https://ggplot2.tidyverse.org) geoms for
+drawing [treemaps](http://en.wikipedia.org/wiki/Treemap).
 
 ## Installation
 
-Install the release version of ‘treemapify’ from CRAN:
+Install the release version of treemapify from CRAN:
 
 `install.packages("treemapify")`
 
@@ -19,7 +21,7 @@ If you want the development version, install it from GitHub:
 
 ## The G20 dataset
 
-‘treemapify’ includes an example dataset containing statistics about the
+treemapify includes an example dataset containing statistics about the
 G-20 group of major world economies.
 
 ``` r
@@ -89,13 +91,12 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
 This plot isn’t very useful without the knowing what country is
 represented by each tile. `geom_treemap_text` can be used to add a text
 label to each tile. It uses the
-[‘ggfittext’](https://github.com/wilkox/ggfittext) package to resize
-the text so it fits the tile. In addition to standard text formatting
+[ggfittext](https://github.com/wilkox/ggfittext) package to resize the
+text so it fits the tile. In addition to standard text formatting
 aesthetics you would use in `geom_text`, like `fontface` or `colour`, we
-can pass additional options specific for ‘ggfittext’. For example, we
-can place the text in the centre of the tile with `place = "centre"`,
-and expand it to fill as much of the tile as possible with `grow =
-TRUE`.
+can pass additional options specific for ggfittext. For example, we can
+place the text in the centre of the tile with `place = "centre"`, and
+expand it to fill as much of the tile as possible with `grow = TRUE`.
 
 ``` r
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
@@ -134,7 +135,7 @@ by default 4 points. This can be adjusted with the `min.size` argument.
 Up to three nested levels of subgrouping are supported with the
 `subgroup2` and `subgroup3` aesthetics. Borders and text labels for
 these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc.
-Note that ‘ggplot2’ draws plot layers in the order that they are added.
+Note that ggplot2 draws plot layers in the order that they are added.
 This means it is possible to accidentally hide one layer of subgroup
 borders with another. Usually, it’s best to add the border layers in
 order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border`
@@ -159,8 +160,7 @@ ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
 As demonstrated, there is no assurance that the resulting plot will look
 good.
 
-Like any ‘ggplot2’ plot, ‘treemapify’ plots can be faceted, scaled,
-themed,
+Like any ggplot2 plot, treemapify plots can be faceted, scaled, themed,
 etc.
 
 ``` r
@@ -190,10 +190,10 @@ of tiles within the plot area can change dramatically with even small
 changes to the dataset. This makes it difficult to compare treemaps
 side-by-side, or create animated treemaps.
 
-By providing the `layout = "fixed"` option to ‘treemapify’ geoms, an
+By providing the `layout = "fixed"` option to treemapify geoms, an
 alternative layout algorithm is used that will always position the tiles
 based on the order of observations in the data frame. It’s very
-important that the same value for `layout` is passed to all ‘treemapify’
+important that the same value for `layout` is passed to all treemapify
 geoms, otherwise different layers of the plot might not share the same
 layout.
 
@@ -222,4 +222,4 @@ p <- ggplot(gapminder, aes(
 anim_save("man/figures/animated_treemap.gif", p, nframes = 48)
 ```
 
-![animated\_treemap](man/figures/animated_treemap.gif)
+![An example of an animated treemap](man/figures/animated_treemap.gif)

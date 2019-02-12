@@ -13,5 +13,5 @@
 #'   \item{hemisphere}{the hemisphere in which the majority of the country's
 #'   landmass lies}
 #' }
-#' @source \url{http://en.wikipedia.org/wiki/G-20_major_economies}
+#' @source <http://en.wikipedia.org/wiki/G-20_major_economies>
 "G20"

@@ -20,28 +20,28 @@ geom_treemap_subgroup3_text(...)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
-geom arguments as for `ggplot2::geom_text`.}
+geom arguments as for \code{ggplot2::geom_text}.}
 
-\item{padding.x, padding.y}{`grid::unit` object, giving horizontal or vertical
-padding between text and edge of tile. Defaults to 1 mm.}
+\item{padding.x, padding.y}{\code{grid::unit()} object, giving horizontal or
+vertical padding between text and edge of tile. Defaults to 1 mm.}
 
-\item{place}{Where inside the box to place the text. Default is `bottom`;
-other options are `topleft`, `top`, `topright`, etc.}
+\item{place}{Where inside the box to place the text. Default is \code{bottom};
+other options are \code{topleft}, \code{top}, \code{topright}, etc.}
 
 \item{min.size}{Minimum font size, in points. If provided, text that would
 need to be shrunk below this size to fit the box will not be drawn. Defaults
 to 4 pt.}
 
-\item{grow}{If `TRUE`, text will be grown as well as shrunk to fill the box.}
+\item{grow}{If \code{TRUE}, text will be grown as well as shrunk to fill the box.}
 
-\item{reflow}{If `TRUE`, text will be reflowed (wrapped) to better fit the
+\item{reflow}{If \code{TRUE}, text will be reflowed (wrapped) to better fit the
 box.}
 
-\item{fixed}{Deprecated. Use `layout = "fixed"` instead. Will be removed in
+\item{fixed}{Deprecated. Use \code{layout = "fixed"} instead. Will be removed in
 later versions.}
 
-\item{layout}{The layout algorithm, one of either "squarified" (the
-default), "scol", "srow" or "fixed". See Details for full details on the
+\item{layout}{The layout algorithm, one of either 'squarified' (the
+default), 'scol', 'srow' or 'fixed'. See Details for full details on the
 different layout algorithms.}
 
 \item{start}{The corner in which to start placing the tiles. One of
@@ -49,44 +49,44 @@ different layout algorithms.}
 
 \item{level}{One of 'subgroup', 'subgroup2' or 'subgroup3', giving the
 subgrouping level for which to draw text labels. It is recommended to use
-the aliases `geom_treemap_subgroup2_text` and `geom_treemap_subgroup3_text`
-instead of this argument.}
+the aliases \code{geom_treemap_subgroup2_text()} and
+\code{geom_treemap_subgroup3_text()} instead of this argument.}
 }
 \description{
-When `geom_treemap` is used with the `subgroup`, `subgroup2` or `subgroup3`
-aesthetic to subgroup treemap tiles, `geom_treemap_subgroup_text`,
-`geom_treemap_subgroup2_text` or `geom_treemap_subgroup3_text` can be used
-to add a text label to each subgroup at the appropriate level.
+When \code{geom_treemap()} is used with the \code{subgroup}, \code{subgroup2} or
+\code{subgroup3} aesthetic to subgroup treemap tiles,
+\code{geom_treemap_subgroup_text()}, \code{geom_treemap_subgroup2_text()} or
+\code{geom_treemap_subgroup3_text()} can be used to add a text label to each
+subgroup at the appropriate level.
 }
 \details{
-`geom_treemap_subgroup_text` geoms require `area`, `label` and `subgroup`
-(or `subgroup2`, `subgroup3`) aesthetics. Several other standard 'ggplot2'
+\code{geom_treemap_subgroup_text()} geoms require \code{area}, \code{label} and \code{subgroup}
+(or \code{subgroup2}, \code{subgroup3}) aesthetics. Several other standard 'ggplot2'
 aesthetics are supported (see Aesthetics).
 
-`geom_treemap_subgroup_text` geoms use the 'ggfittext' package to fit text
+\code{geom_treemap_subgroup_text()} geoms use the 'ggfittext' package to fit text
 to the subgroup. All text drawing options available in
-`ggfittext::geom_fit_text` (growing, reflowing, etc.) are also available
+\code{ggfittext::geom_fit_text()} (growing, reflowing, etc.) are also available
 here. For full details on how these options work, see the documentation for
-`ggfittext::geom_fit_text`.
+\code{ggfittext::geom_fit_text()}.
 
-The `layout` argument is used to set the treemap layout algorithm. All
-`treemapify` geoms added to a plot should have the same value for `layout`
-and `start`, or they will not share a common layout (see `geom_treemap` for
-details on the layout algorithms).
+The \code{layout} argument is used to set the treemap layout algorithm. All
+'treemapify' geoms added to a plot should have the same value for \code{layout}
+and \code{start}, or they will not share a common layout (see \code{geom_treemap()}
+for details on the layout algorithms).
 }
 \section{Aesthetics}{
 
-
 \itemize{
-  \item area (required)
-  \item subgroup, subgroup2 or subgroup3 (required; the value of this
-  variable will be the text label)
-  \item colour
-  \item size
-  \item alpha
-  \item family
-  \item fontface
-  \item angle
+\item area (required)
+\item subgroup, subgroup2 or subgroup3 (required; the value of this variable
+will be the text label)
+\item colour
+\item size
+\item alpha
+\item family
+\item fontface
+\item angle
 }
 }
 
@@ -100,5 +100,5 @@ ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
 
 }
 \seealso{
-geom_treemap, geom_treemap_subgroup_border
+\code{\link[=geom_treemap]{geom_treemap()}}, \code{\link[=geom_treemap_subgroup_border]{geom_treemap_subgroup_border()}}
 }

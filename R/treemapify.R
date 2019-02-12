@@ -1,17 +1,17 @@
 #' Generate a treemap layout.
 #'
 #' `treemapify` is for generating a data frame of raw treemap coordinates. If
-#' you want to draw a treemap with 'ggplot2', use `geom_treemap` instead.
+#' you want to draw a treemap with 'ggplot2', use `geom_treemap()` instead.
 #'
 #' @description
 #'
-#' `treemapify` returns a data frame of tile coordinates for a treemap layout
+#' `treemapify()` returns a data frame of tile coordinates for a treemap layout
 #' of a set of observations. This is only useful if you wish to draw the
 #' treemap without the help of the `ggplot2` geoms, or for some edge cases such
 #' as creating interactive treemaps with 'R Shiny' (see e.g.
-#' \url{https://stackoverflow.com/q/45021775}). The easiest way to draw a
-#' treemap with the 'treemapify' package is to use the provided 'ggplot2'
-#' geoms, such as `geom_treemap`.
+#' <https://stackoverflow.com/q/45021775>). The easiest way to draw a treemap
+#' with the 'treemapify' package is to use the provided 'ggplot2' geoms, such
+#' as `geom_treemap()`.
 #'
 #' `data` must be a tidy data frame, i.e. each row must represent a single
 #' observation and each column a single variable. You must provide the name of
@@ -46,23 +46,24 @@
 #' @param data A tidy data frame.
 #' @param area Name of the variable (a column in `data`) to be mapped to the
 #' area of treemap tiles.
-#' @param subgroup,subgroup2,subgroup3 Optionally, names of variables
-#' (columns in `data`) by which the tiles should be grouped, at up to three
-#' nested levels.
-#' @param layout The layout algorithm, one of either "squarified" (the
-#' default), "scol", "srow" or "fixed". See Details for full details on the
+#' @param subgroup,subgroup2,subgroup3 Optionally, names of variables (columns
+#' in `data`) by which the tiles should be grouped, at up to three nested
+#' levels.
+#' @param layout The layout algorithm, one of either 'squarified' (the
+#' default), 'scol', 'srow' or 'fixed'. See Details for full details on the
 #' different layout algorithms.
 #' @param start The corner in which to start placing the tiles. One of
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
-#' @param group Deprecated. Use `subgroup` instead. Will be removed in later versions.
+#' @param group Deprecated. Use `subgroup` instead. Will be removed in later
+#' versions.
 #' @param label,fill Deprecated. Will be removed in later versions.
 #' @param fixed Deprecated. Use `layout = "fixed"` instead. Will be removed in
 #' later versions.
 #' @param xlim,ylim The boundaries of the treemap in the x and y dimensions.
 #' Must be a numeric vector of length two; both default to `c(0, 1)`.
-#' @param ... Other arguments to be passed to `treemapify`.
+#' @param ... Additional arguments to be passed to `treemapify()`.
 #'
-#' @seealso geom_treemap
+#' @seealso [geom_treemap()]
 #'
 #' @examples
 #'
@@ -72,7 +73,7 @@
 #'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42).Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-#' Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+#' Visualization. <http://www.win.tue.nl/~vanwijk/stm.pdf>
 #'
 #' @export
 treemapify <- function(
