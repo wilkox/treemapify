@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 [![Travis-CI Build Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://travis-ci.org/wilkox/treemapify)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 **'treemapify' provides 'ggplot2' geoms for drawing [treemaps](http://en.wikipedia.org/wiki/Treemap).**
 
@@ -141,36 +142,29 @@ of observations in the data frame. It's very important that the same value for
 `layout` is passed to all 'treemapify' geoms, otherwise different layers of the
 plot might not share the same layout.
 
-With the help of `layout = "fixed"`, and with the 
-[`tweenr`](https://github.com/thomasp85/tweenr) and
-[`gganimate`](https://github.com/dgrtwo/gganimate) packages, it becomes possible
+With the help of `layout = "fixed"`, and with the
+[`gganimate`](https://github.com/dgrtwo/gganimate) package, it becomes possible
 to create animated treemaps showing e.g. change over time.
 
-```{r animated treemap, message = FALSE}
-library(tweenr)
+```{r animated treemap, message = FALSE, results = FALSE}
 library(gganimate)
+library(gapminder)
 
-G20_alt <- G20
-set.seed(1)
-G20_alt$gdp_mil_usd <- sample(G20$gdp_mil_usd, nrow(G20))
-G20_alt$hdi <- sample(G20$hdi, nrow(G20))
-
-tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 8,
-                        statelength = 5, ease = 'cubic-in-out', nframes = 31)
-
-animated_plot <- ggplot(tweened, aes(area = gdp_mil_usd, fill = hdi,
-                                     label = country, subgroup = region,
-                                     frame = .frame)) +
+p <- ggplot(gapminder, aes(
+    label = country,
+    area = pop,
+    subgroup = continent,
+    fill = lifeExp
+  )) +
   geom_treemap(layout = "fixed") +
+  geom_treemap_text(layout = "fixed", place = "centre", grow = TRUE, colour = "white") +
+  geom_treemap_subgroup_text(layout = "fixed", place = "centre") +
   geom_treemap_subgroup_border(layout = "fixed") +
-  geom_treemap_subgroup_text(place = "centre", grow = T, alpha = 0.5,
-                             colour = "black", fontface = "italic", min.size = 0,
-                             layout = "fixed") +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T, layout = "fixed")
+  transition_time(year) +
+  ease_aes('linear') +
+  labs(title = "Year: {frame_time}")
 
-animation::ani.options(interval = 1/10)
-gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F,
-          ani.width = 200, ani.height = 200)
+anim_save("man/figures/animated_treemap.gif", p, nframes = 48)
 ```
 
 ![animated_treemap](man/figures/animated_treemap.gif)

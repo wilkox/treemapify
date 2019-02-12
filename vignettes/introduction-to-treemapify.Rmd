@@ -7,9 +7,6 @@ vignette: >
   %\VignetteIndexEntry{Introduction to 'treemapify'}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteDepends{ggplot2}
-  %\VignetteDepends{tweenr}
-  %\VignetteDepends{gganimate}
-  %\VignetteDepends{animation}
 ---
 
 ## The G20 dataset

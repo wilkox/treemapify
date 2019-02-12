@@ -2,6 +2,7 @@
 [![Travis-CI Build
 Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://travis-ci.org/wilkox/treemapify)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 **‘treemapify’ provides ‘ggplot2’ geoms for drawing
 [treemaps](http://en.wikipedia.org/wiki/Treemap).**
@@ -136,7 +137,7 @@ these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc.
 Note that ‘ggplot2’ draws plot layers in the order that they are added.
 This means it is possible to accidentally hide one layer of subgroup
 borders with another. Usually, it’s best to add the border layers in
-order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border`
+order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border`
 then `geom_treemap_subgroup2_border` then
 `geom_treemap_subgroup_border`.
 
@@ -197,35 +198,28 @@ geoms, otherwise different layers of the plot might not share the same
 layout.
 
 With the help of `layout = "fixed"`, and with the
-[`tweenr`](https://github.com/thomasp85/tweenr) and
-[`gganimate`](https://github.com/dgrtwo/gganimate) packages, it becomes
+[`gganimate`](https://github.com/dgrtwo/gganimate) package, it becomes
 possible to create animated treemaps showing e.g. change over time.
 
 ``` r
-library(tweenr)
 library(gganimate)
+library(gapminder)
 
-G20_alt <- G20
-set.seed(1)
-G20_alt$gdp_mil_usd <- sample(G20$gdp_mil_usd, nrow(G20))
-G20_alt$hdi <- sample(G20$hdi, nrow(G20))
-
-tweened <- tween_states(list(G20, G20_alt, G20), tweenlength = 8,
-                        statelength = 5, ease = 'cubic-in-out', nframes = 31)
-
-animated_plot <- ggplot(tweened, aes(area = gdp_mil_usd, fill = hdi,
-                                     label = country, subgroup = region,
-                                     frame = .frame)) +
+p <- ggplot(gapminder, aes(
+    label = country,
+    area = pop,
+    subgroup = continent,
+    fill = lifeExp
+  )) +
   geom_treemap(layout = "fixed") +
+  geom_treemap_text(layout = "fixed", place = "centre", grow = TRUE, colour = "white") +
+  geom_treemap_subgroup_text(layout = "fixed", place = "centre") +
   geom_treemap_subgroup_border(layout = "fixed") +
-  geom_treemap_subgroup_text(place = "centre", grow = T, alpha = 0.5,
-                             colour = "black", fontface = "italic", min.size = 0,
-                             layout = "fixed") +
-  geom_treemap_text(colour = "white", place = "topleft", reflow = T, layout = "fixed")
+  transition_time(year) +
+  ease_aes('linear') +
+  labs(title = "Year: {frame_time}")
 
-animation::ani.options(interval = 1/10)
-gganimate(animated_plot, "man/figures/animated_treemap.gif", title_frame = F,
-          ani.width = 200, ani.height = 200)
+anim_save("man/figures/animated_treemap.gif", p, nframes = 48)
 ```
 
 ![animated\_treemap](man/figures/animated_treemap.gif)
