@@ -1,3 +1,10 @@
+# treemapify 2.5.3.9001
+
+# Major changes
+
+- Increase R minimum version requirement to 3.2.3, to match ggfittext
+  requirement which in turn was due to bump in knitr requirement
+
 # treemapify 2.5.3
 
 ## Bug fixes
