@@ -5,7 +5,7 @@ Author: David Wilkins <david@wilkox.org>
 Authors@R: c(
   person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre"))
   )
-URL: https://github.com/wilkox/treemapify
+URL: https://wilkox.org/treemapify
 BugReports: https://github.com/wilkox/treemapify/issues
 Description: Provides 'ggplot2' geoms for drawing treemaps.
 Depends: R (>= 3.2.3)
