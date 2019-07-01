@@ -13,13 +13,16 @@ Imports:
     ggplot2 (>= 2.2.1),
     ggfittext (>= 0.5.0),
     grid (>= 3.1)
-Suggests: knitr,
+Suggests: 
+    knitr,
     rmarkdown,
     testthat,
-    vdiffr
+    vdiffr,
+    spelling
 License: GPL (>=3)
 LazyData: true
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Encoding: UTF-8
+Language: en-US
