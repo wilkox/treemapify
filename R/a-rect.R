@@ -1,3 +1,4 @@
+#' @importFrom ggplot2 layer
 geom_rrect <- function(mapping = NULL, data = NULL, # nocov start
                        stat = "identity", position = "identity",
                        radius = grid::unit(6, "pt"),
@@ -5,7 +6,7 @@ geom_rrect <- function(mapping = NULL, data = NULL, # nocov start
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
