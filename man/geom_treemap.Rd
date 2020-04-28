@@ -4,10 +4,20 @@
 \alias{geom_treemap}
 \title{A 'ggplot2' geom to draw a treemap.}
 \usage{
-geom_treemap(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, fixed = NULL, layout = "squarified",
-  start = "bottomleft", ...)
+geom_treemap(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fixed = NULL,
+  layout = "squarified",
+  start = "bottomleft",
+  radius = grid::unit(0, "pt"),
+  ...
+)
 }
 \arguments{
 \item{mapping, data, stat, position, na.rm, show.legend, inherit.aes, ...}{Standard
@@ -22,6 +32,8 @@ different layout algorithms.}
 
 \item{start}{The corner in which to start placing the tiles. One of
 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.}
+
+\item{radius}{corner radius (default 0pt)}
 }
 \description{
 A treemap is a rectangular plot divided into tiles, each of which represents

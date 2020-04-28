@@ -6,13 +6,26 @@
 \alias{geom_treemap_subgroup3_text}
 \title{'ggplot2' geoms to add text labels to treemap subgroups.}
 \usage{
-geom_treemap_subgroup_text(mapping = NULL, data = NULL,
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = FALSE, inherit.aes = TRUE, padding.x = grid::unit(1,
-  "mm"), padding.y = grid::unit(1, "mm"), place = "bottom",
-  min.size = 4, grow = FALSE, reflow = FALSE, fixed = NULL,
-  layout = "squarified", start = "bottomleft", level = "subgroup",
-  ...)
+geom_treemap_subgroup_text(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = FALSE,
+  inherit.aes = TRUE,
+  padding.x = grid::unit(1, "mm"),
+  padding.y = grid::unit(1, "mm"),
+  place = "bottom",
+  min.size = 4,
+  grow = FALSE,
+  reflow = FALSE,
+  fixed = NULL,
+  layout = "squarified",
+  start = "bottomleft",
+  level = "subgroup",
+  ...
+)
 
 geom_treemap_subgroup2_text(...)
 

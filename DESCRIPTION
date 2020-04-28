@@ -21,7 +21,7 @@ Suggests:
     spelling
 License: GPL (>=3)
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Encoding: UTF-8

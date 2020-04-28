@@ -61,6 +61,7 @@
 #' 'bottomleft' (the default), 'topleft', 'topright' or 'bottomright'.
 #' @param fixed Deprecated. Use `layout = "fixed"` instead. Will be removed in
 #' later versions.
+#' @param radius corner radius (default 0pt)
 #'
 #' @seealso [geom_treemap_text()], [geom_treemap_subgroup_border()],
 #' [geom_treemap_subgroup_text()]
@@ -76,6 +77,7 @@
 #' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = region)) +
 #'  geom_treemap()
 #'
+#' @importFrom ggplot2 alpha
 #' @export
 geom_treemap <- function(
   mapping = NULL,
@@ -88,6 +90,7 @@ geom_treemap <- function(
   fixed = NULL,
   layout = "squarified",
   start = "bottomleft",
+  radius = grid::unit(0, "pt"),
   ...
 ) {
   ggplot2::layer(
@@ -103,7 +106,27 @@ geom_treemap <- function(
       fixed = fixed,
       layout = layout,
       start = start,
+      radius = radius,
       ...
+    )
+  )
+}
+
+
+#' @importFrom grid roundRectGrob
+#' @export
+draw_key_rrect <- function(data, params, size) {
+
+  grid::roundrectGrob(
+    r = min(params$radius, unit(3, "pt")),
+    default.units = "native",
+    width = 0.9,
+    height = 0.9,
+    name = "lkey",
+    gp = grid::gpar(
+      col = params$color %l0% "white",
+      fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+      lty = data$linetype %||% 1
     )
   )
 }
@@ -121,7 +144,8 @@ GeomTreemap <- ggplot2::ggproto(
     linetype = 1,
     alpha = 1
   ),
-  draw_key = ggplot2::draw_key_rect,
+
+  draw_key = draw_key_rrect,
 
   draw_panel = function(
     data,
@@ -129,7 +153,8 @@ GeomTreemap <- ggplot2::ggproto(
     coord,
     fixed = NULL,
     layout = "squarified",
-    start = "bottomleft"
+    start = "bottomleft",
+    radius = grid::unit(3, "pt")
   ) {
 
     data <- coord$transform(data, panel_scales)
@@ -147,23 +172,31 @@ GeomTreemap <- ggplot2::ggproto(
     }
     data <- do.call(treemapify, tparams)
 
-    # Draw rects
-    grob <- grid::rectGrob(
-      x = data$xmin,
-      width = data$xmax - data$xmin,
-      y = data$ymax,
-      height = data$ymax - data$ymin,
-      default.units = "native",
-      just = c("left", "top"),
-      gp = grid::gpar(
-        col = data$colour,
-        fill = ggplot2::alpha(data$fill, data$alpha),
-        lwd = data$size,
-        lty = data$linetype,
-        lineend = "butt"
+    lapply(1:length(data$xmin), function(i) {
+
+      grid::roundrectGrob(
+        x = data$xmin[i],
+        width = data$xmax[i] - data$xmin[i],
+        y = data$ymax[i],
+        height = data$ymax[i] - data$ymin[i],
+        default.units = "native",
+        r = radius,
+        just = c("left", "top"),
+        gp = grid::gpar(
+          col = data$colour[i],
+          fill = ggplot2::alpha(data$fill[i], data$alpha[i]),
+          lwd = data$size[i],
+          lty = data$linetype[i]
+          # lineend = "butt"
+        )
       )
-    )
-    grob$name <- grid::grobName(grob, "geom_treemap")
-    grob
+
+    }) -> gl
+
+    grobs <- do.call(grid::gList, gl)
+
+    ggname("geom_treemap", grid::grobTree(children = grobs))
+
   }
+
 )

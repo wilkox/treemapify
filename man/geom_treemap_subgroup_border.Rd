@@ -6,11 +6,20 @@
 \alias{geom_treemap_subgroup3_border}
 \title{'ggplot2' geoms to draw a border around a subgroup of treemap tiles.}
 \usage{
-geom_treemap_subgroup_border(mapping = NULL, data = NULL,
-  stat = "identity", position = "identity", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, fixed = NULL,
-  layout = "squarified", start = "bottomleft", level = "subgroup",
-  ...)
+geom_treemap_subgroup_border(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fixed = NULL,
+  layout = "squarified",
+  start = "bottomleft",
+  level = "subgroup",
+  ...
+)
 
 geom_treemap_subgroup2_border(...)
 
@@ -43,7 +52,7 @@ be used to draw a border around each subgroup at the appropriate level.
 }
 \details{
 \code{geom_treemap_subgroup_border()} geoms require \code{area} and \code{subgroup} (or
-\code{subgroup2, }subgroup3`) aesthetics. Several other standard 'ggplot2'
+\verb{subgroup2, }subgroup3`) aesthetics. Several other standard 'ggplot2'
 aesthetics are supported (see Aesthetics).
 
 Note that 'ggplot2' draws plot layers in the order they are added to the
