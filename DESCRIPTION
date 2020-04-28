@@ -1,9 +1,11 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
-Version: 2.5.3.9001
+Version: 2.5.3.9002
 Author: David Wilkins <david@wilkox.org>
 Authors@R: c(
-  person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre"))
+  person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre")),
+  person("Bob", "Rudis", , "bob@rud.is", role = c("ctb"),
+         comment = c(ORCID = "0000-0001-5670-2640"))
   )
 URL: https://wilkox.org/treemapify
 BugReports: https://github.com/wilkox/treemapify/issues

@@ -107,3 +107,8 @@ Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
 \code{\link[=geom_treemap_text]{geom_treemap_text()}}, \code{\link[=geom_treemap_subgroup_border]{geom_treemap_subgroup_border()}},
 \code{\link[=geom_treemap_subgroup_text]{geom_treemap_subgroup_text()}}
 }
+\author{
+David Wilkins (david@wilkox.org)
+
+Bob Rudis (bob@rud.is)
+}

@@ -78,6 +78,8 @@
 #'  geom_treemap()
 #'
 #' @importFrom ggplot2 alpha
+#' @author David Wilkins (david@@wilkox.org)
+#' @author Bob Rudis (bob@@rud.is)
 #' @export
 geom_treemap <- function(
   mapping = NULL,
@@ -113,7 +115,13 @@ geom_treemap <- function(
 }
 
 
-#' @importFrom grid roundRectGrob
+#' Round rect key glyph for legend
+#'
+#' @param data A single row data frame containing the scaled aesthetics to display in this key
+#' @param params A list of additional parameters supplied to the geom.
+#' @param size Width and height of key in mm.
+#' @importFrom grid roundrectGrob
+#' @author Bob Rudis (bob@@rud.is)
 #' @export
 draw_key_rrect <- function(data, params, size) {
 
