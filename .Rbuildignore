@@ -6,3 +6,5 @@
 ^\.travis\.yml$
 ^cran-comments\.md$
 ^tests/figs$
+^.*\.Rproj$
+^\.Rproj\.user$

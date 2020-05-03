@@ -5,10 +5,21 @@
 \alias{treemapify_fixed}
 \title{Generate a treemap layout.}
 \usage{
-treemapify(data, area, subgroup, subgroup2, subgroup3,
-  layout = "squarified", start = "bottomleft", fill = NULL,
-  label = NULL, group = NULL, fixed = NULL, xlim = c(0, 1),
-  ylim = c(0, 1))
+treemapify(
+  data,
+  area,
+  subgroup,
+  subgroup2,
+  subgroup3,
+  layout = "squarified",
+  start = "bottomleft",
+  fill = NULL,
+  label = NULL,
+  group = NULL,
+  fixed = NULL,
+  xlim = c(0, 1),
+  ylim = c(0, 1)
+)
 
 treemapify_fixed(...)
 }
