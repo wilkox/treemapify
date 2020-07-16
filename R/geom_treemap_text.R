@@ -154,6 +154,11 @@ GeomTreemapText <- ggplot2::ggproto(
     }
     data <- do.call(treemapify, params)
 
+    # Standardise the place argument
+    if (place %in% c("middle", "center")) {
+      place <- "centre"
+    }
+
     # Use ggfittext's fittexttree to draw text
     gt <- grid::gTree(
       data = data,

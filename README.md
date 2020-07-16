@@ -78,8 +78,8 @@ In a treemap, each tile represents a single observation, with the area
 of the tile proportional to a variable. Let’s start by drawing a treemap
 with each tile representing a G-20 country. The area of the tile will be
 mapped to the country’s GDP, and the tile’s fill colour mapped to its
-HDI (Human Development Index). `geom_treemap` is the basic geom for this
-purpose.
+HDI (Human Development Index). `geom_treemap()` is the basic geom for
+this purpose.
 
 ``` r
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
@@ -89,14 +89,15 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
 ![](man/figures/README-basic_treemap-1.png)<!-- -->
 
 This plot isn’t very useful without the knowing what country is
-represented by each tile. `geom_treemap_text` can be used to add a text
-label to each tile. It uses the
+represented by each tile. `geom_treemap_text()` can be used to add a
+text label to each tile. It uses the
 [ggfittext](https://github.com/wilkox/ggfittext) package to resize the
 text so it fits the tile. In addition to standard text formatting
-aesthetics you would use in `geom_text`, like `fontface` or `colour`, we
-can pass additional options specific for ggfittext. For example, we can
-place the text in the centre of the tile with `place = "centre"`, and
-expand it to fill as much of the tile as possible with `grow = TRUE`.
+aesthetics you would use in `geom_text()`, like `fontface` or `colour`,
+we can pass additional options specific for ggfittext. For example, we
+can place the text in the centre of the tile with `place = "centre"`,
+and expand it to fill as much of the tile as possible with `grow =
+TRUE`.
 
 ``` r
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
@@ -109,12 +110,12 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
 
 ## Subgrouping tiles
 
-`geom_treemap` supports subgrouping of tiles within a treemap by passing
-a `subgroup` aesthetic. Let’s subgroup the countries by region, draw a
-border around each subgroup with `geom_treemap_subgroup_border`, and
-label each subgroup with `geom_treemap_subgroup_text`.
-`geom_treemap_subgroup_text` takes the same arguments for text placement
-and resizing as `geom_treemap_text`.
+`geom_treemap()` supports subgrouping of tiles within a treemap by
+passing a `subgroup` aesthetic. Let’s subgroup the countries by region,
+draw a border around each subgroup with
+`geom_treemap_subgroup_border()`, and label each subgroup with
+`geom_treemap_subgroup_text()`. `geom_treemap_subgroup_text()` takes the
+same arguments for text placement and resizing as `geom_treemap_text()`.
 
 ``` r
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
@@ -128,19 +129,20 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
 
 ![](man/figures/README-subgrouped_treemap-1.png)<!-- -->
 
-Note that Argentina is not labelled. `geom_treemap_text` will hide text
-labels that cannot fit a tile without being shrunk below a minimum size,
-by default 4 points. This can be adjusted with the `min.size` argument.
+Note that Argentina is not labelled. `geom_treemap_text()` will hide
+text labels that cannot fit a tile without being shrunk below a minimum
+size, by default 4 points. This can be adjusted with the `min.size`
+argument.
 
 Up to three nested levels of subgrouping are supported with the
 `subgroup2` and `subgroup3` aesthetics. Borders and text labels for
-these subgroups can be drawn with `geom_treemap_subgroup2_border`, etc.
-Note that ggplot2 draws plot layers in the order that they are added.
-This means it is possible to accidentally hide one layer of subgroup
-borders with another. Usually, it’s best to add the border layers in
-order from deepest to shallowest, i.e. `geom_treemap_subgroup3_border`
-then `geom_treemap_subgroup2_border` then
-`geom_treemap_subgroup_border`.
+these subgroups can be drawn with `geom_treemap_subgroup2_border()`,
+etc. Note that ggplot2 draws plot layers in the order that they are
+added. This means it is possible to accidentally hide one layer of
+subgroup borders with another. Usually, it’s best to add the border
+layers in order from deepest to shallowest, i.e.
+`geom_treemap_subgroup3_border()` then `geom_treemap_subgroup2_border()`
+then `geom_treemap_subgroup_border()`.
 
 ``` r
 ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,

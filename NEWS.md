@@ -1,9 +1,14 @@
-# treemapify 2.5.3.9001
+# treemapify (development version)
 
-# Major changes
+## Major changes
 
 - Increase R minimum version requirement to 3.2.3, to match ggfittext
   requirement which in turn was due to bump in knitr requirement
+
+## Bug fixes
+
+- Variants on `place = "centre"` ("middle" and "center") are now handled
+  correctly
 
 # treemapify 2.5.3
 

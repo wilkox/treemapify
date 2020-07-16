@@ -1,6 +1,6 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
-Version: 2.5.3.9002
+Version: 2.5.3.9003
 Author: David Wilkins <david@wilkox.org>
 Authors@R: c(
   person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre")),

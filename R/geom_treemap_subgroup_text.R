@@ -200,6 +200,11 @@ GeomSubgroupText <- ggplot2::ggproto(
     data <- do.call(treemapify, params)
     names(data)[names(data) == level] <- "label"
 
+    # Standardise the place argument
+    if (place %in% c("middle", "center")) {
+      place <- "centre"
+    }
+
     # Use treemapify's fittexttree to draw text
     grob <- grid::gTree(
       data = data,

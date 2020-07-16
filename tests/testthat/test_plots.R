@@ -67,4 +67,30 @@ test_that("plots look the way they should", {
       geom_treemap() + 
       geom_treemap_subgroup3_text(ggplot2::aes(colour = econ_classification))
   })
+
+  vdiffr::expect_doppelganger("understands variants of 'centre'", {
+    ggplot2::ggplot(G20, ggplot2::aes(
+      area = gdp_mil_usd,
+      fill = hdi,
+      label = country,
+      subgroup = region
+    )) +
+      geom_treemap(layout = "srow", start = "bottomright") +
+      geom_treemap_text(layout = "srow", start = "bottomright", place = "center") +
+      geom_treemap_subgroup_text(layout = "srow", start = "bottomright", place = "middle") +
+      geom_treemap_subgroup_border(layout = "srow", start = "bottomright")
+  })
+
+  vdiffr::expect_doppelganger("understands variants of 'centre' with subgroups", {
+    ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
+                    subgroup2 = region, subgroup3 = econ_classification)) +
+      geom_treemap() +
+      geom_treemap_subgroup3_border(colour = "blue", size = 1) +
+      geom_treemap_subgroup2_border(colour = "white", size = 3) +
+      geom_treemap_subgroup_border(colour = "red", size = 5) +
+      geom_treemap_subgroup_text(place = "middle", colour = "red", alpha = 0.5, grow = T) +
+      geom_treemap_subgroup2_text(colour = "white", alpha = 0.5, fontface = "italic") +
+      geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
+      geom_treemap_text(colour = "white", place = "middle", reflow = T)
+  })
 })
