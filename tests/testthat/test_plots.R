@@ -82,7 +82,7 @@ test_that("plots look the way they should", {
   })
 
   vdiffr::expect_doppelganger("understands variants of 'centre' with subgroups", {
-    ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
+      ggplot2::ggplot(G20, ggplot2::aes(area = 1, label = country, subgroup = hemisphere,
                     subgroup2 = region, subgroup3 = econ_classification)) +
       geom_treemap() +
       geom_treemap_subgroup3_border(colour = "blue", size = 1) +
