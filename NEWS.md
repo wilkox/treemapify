@@ -2,8 +2,7 @@
 
 ## Major changes
 
-- Increase R minimum version requirement to 3.2.3, to match ggfittext
-  requirement which in turn was due to bump in knitr requirement
+- Increase R minimum version requirement to 3.6
 
 ## Bug fixes
 

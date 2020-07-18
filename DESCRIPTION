@@ -10,7 +10,7 @@ Authors@R: c(
 URL: https://wilkox.org/treemapify
 BugReports: https://github.com/wilkox/treemapify/issues
 Description: Provides 'ggplot2' geoms for drawing treemaps.
-Depends: R (>= 3.2.3)
+Depends: R (>= 3.6)
 Imports:
     ggplot2 (>= 2.2.1),
     ggfittext (>= 0.5.0),

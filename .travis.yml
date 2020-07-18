@@ -5,10 +5,12 @@ sudo: false
 cache: packages
 
 r:
-- 3.2
 - oldrel
 - release
 - devel
+
+r_packages:
+- ggplot2
 
 after_success:
   - Rscript -e 'covr::codecov()'
