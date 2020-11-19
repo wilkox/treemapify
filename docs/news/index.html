@@ -8,21 +8,29 @@
 
 <title>Changelog • treemapify</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +38,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 
 
 
@@ -44,9 +54,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -60,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">treemapify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
       </span>
     </div>
 
@@ -68,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -91,11 +102,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/wilkox/treemapify">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/wilkox/treemapify/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,46 +116,66 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/wilkox/treemapify/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="treemapify-253" class="section level1">
-<h1 class="page-header">
-<a href="#treemapify-253" class="anchor"></a>treemapify 2.5.3<small> 2019-01-30 </small>
+    <div id="treemapify-254" class="section level1">
+<h1 class="page-header" data-toc-text="2.5.4">
+<a href="#treemapify-254" class="anchor"></a>treemapify 2.5.4<small> Unreleased </small>
 </h1>
+<div id="major-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<ul>
+<li>Increase R minimum version requirement to 3.6</li>
+</ul>
+</div>
 <div id="bug-fixes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Variants on <code>place = "centre"</code> (“middle” and “center”) are now handled correctly</li>
+</ul>
+</div>
+</div>
+    <div id="treemapify-253" class="section level1">
+<h1 class="page-header" data-toc-text="2.5.3">
+<a href="#treemapify-253" class="anchor"></a>treemapify 2.5.3<small> 2019-01-30 </small>
+</h1>
+<div id="bug-fixes-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix issue with correct drawing of aesthetics in <code>geom_tremap_subgroup*_text()</code> (<a href='https://github.com/wilkox/treemapify/issues/32'>#32</a>, thanks <a href='https://github.com/jonathan-g'>@jonathan-g</a>).</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-252" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.5.2">
 <a href="#treemapify-252" class="anchor"></a>treemapify 2.5.2<small> 2018-10-13 </small>
 </h1>
-<div id="bug-fixes-1" class="section level2">
+<div id="bug-fixes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix issue with importing ggfittext.</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-251" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.5.1">
 <a href="#treemapify-251" class="anchor"></a>treemapify 2.5.1<small> 2018-10-06 </small>
 </h1>
-<div id="major-changes" class="section level2">
+<div id="major-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Added new <code>layout</code> and <code>start</code> arguments to <code><a href="../reference/treemapify.html">treemapify()</a></code> and all geoms.</li>
 </ul>
@@ -159,9 +189,9 @@
 <li>Misc. code quality improvements.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level2">
+<div id="bug-fixes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fixed bug in handling of subgroups, which should result in more aesthetically pleasing layouts.</li>
 <li>Fix dereferencing of arguments in <code><a href="../reference/treemapify.html">treemapify()</a></code> (<a href='https://github.com/wilkox/treemapify/issues/22'>#22</a>, thanks <a href='https://github.com/GregorDeCillia'>@GregorDeCillia</a>).</li>
@@ -170,12 +200,12 @@
 </div>
 </div>
     <div id="treemapify-250" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.5.0">
 <a href="#treemapify-250" class="anchor"></a>treemapify 2.5.0<small> 2018-04-30 </small>
 </h1>
-<div id="major-changes-1" class="section level2">
+<div id="major-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-1" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Refactor treemap layout algorithms.</li>
 <li>Add support for nested subgroups with new <code>subgroup2</code> and <code>subgroup3</code> aesthetics, and <code>geom_treemap_subgroup2_border</code>, <code>geom_treemap_subgroup3_border</code>, <code>geom_treemap_subgroup2_text</code>, and <code>geom_treemap_subgroup3_text</code> geoms.</li>
@@ -188,16 +218,16 @@
 <li>Add ‘hemisphere’ column to G20 data.</li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level2">
+<div id="bug-fixes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix typo in README (<a href='https://github.com/wilkox/treemapify/issues/19'>#19</a>, thanks <a href='https://github.com/mruessler'>@mruessler</a>).</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-240" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.4.0">
 <a href="#treemapify-240" class="anchor"></a>treemapify 2.4.0<small> 2017-11-18 </small>
 </h1>
 <div id="minor-changes-2" class="section level2">
@@ -208,16 +238,16 @@
 <li>Remove reshape2 dependency.</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level2">
+<div id="bug-fixes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix handling of data where some observations have area 0 (<a href='https://github.com/wilkox/treemapify/issues/17'>#17</a>, thanks <a href='https://github.com/py'>@py</a>).</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-232" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.2">
 <a href="#treemapify-232" class="anchor"></a>treemapify 2.3.2<small> 2017-08-28 </small>
 </h1>
 <div id="minor-changes-3" class="section level2">
@@ -233,9 +263,9 @@
 <li>Misc. small changes in preparation for CRAN submission.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level2">
+<div id="bug-fixes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Remove README.html so README renders correctly on GitHub.</li>
 <li>Fix arguments to <code>geom_treemap_subgroup_text</code> so they actually work.</li>
@@ -246,24 +276,24 @@
 </div>
 </div>
     <div id="treemapify-231" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.1">
 <a href="#treemapify-231" class="anchor"></a>treemapify 2.3.1<small> Unreleased </small>
 </h1>
-<div id="bug-fixes-6" class="section level2">
+<div id="bug-fixes-7" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-7" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Remove wide characters causing problems in non-UTF-8 locales.</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-23" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3">
 <a href="#treemapify-23" class="anchor"></a>treemapify 2.3<small> Unreleased </small>
 </h1>
-<div id="major-changes-2" class="section level2">
+<div id="major-changes-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-2" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Add ‘treemapify_fixed’ function.</li>
 <li>Add ‘fixed’ options to geoms.</li>
@@ -272,7 +302,7 @@
 </div>
 </div>
     <div id="treemapify-223" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2.3">
 <a href="#treemapify-223" class="anchor"></a>treemapify 2.2.3<small> Unreleased </small>
 </h1>
 <div id="minor-changes-4" class="section level2">
@@ -285,7 +315,7 @@
 </div>
 </div>
     <div id="treemapify-222" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2.2">
 <a href="#treemapify-222" class="anchor"></a>treemapify 2.2.2<small> Unreleased </small>
 </h1>
 <div id="minor-changes-5" class="section level2">
@@ -297,12 +327,12 @@
 </div>
 </div>
     <div id="treemapify-221" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2.1">
 <a href="#treemapify-221" class="anchor"></a>treemapify 2.2.1<small> Unreleased </small>
 </h1>
-<div id="bug-fixes-7" class="section level2">
+<div id="bug-fixes-8" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-8" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix required <code>ggfittext</code> version.</li>
 <li>Fix typos.</li>
@@ -310,68 +340,68 @@
 </div>
 </div>
     <div id="treemapify-22" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2">
 <a href="#treemapify-22" class="anchor"></a>treemapify 2.2<small> Unreleased </small>
 </h1>
-<div id="major-changes-3" class="section level2">
+<div id="major-changes-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-3" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-4" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Add ‘reflow’ options to <code>geom_treemap_text</code> and <code>geom_treemap_subgroup_text</code>.</li>
 <li>Add ‘lineheight’ aesthetic to <code>geom_treemap_text</code> and <code>geom_treemap_subgroup_text</code>.</li>
 </ul>
 </div>
-<div id="bug-fixes-8" class="section level2">
+<div id="bug-fixes-9" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-9" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix namespace error causing text not to be drawn in some circumstances.</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-21" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.1">
 <a href="#treemapify-21" class="anchor"></a>treemapify 2.1<small> Unreleased </small>
 </h1>
-<div id="major-changes-4" class="section level2">
+<div id="major-changes-5" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-4" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-5" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Rename arguments for ggfittext v0.3.</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-20" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0">
 <a href="#treemapify-20" class="anchor"></a>treemapify 2.0<small> Unreleased </small>
 </h1>
-<div id="major-changes-5" class="section level2">
+<div id="major-changes-6" class="section level2">
 <h2 class="hasAnchor">
-<a href="#major-changes-5" class="anchor"></a>Major changes</h2>
+<a href="#major-changes-6" class="anchor"></a>Major changes</h2>
 <ul>
 <li>Added <code>geom_treemap</code>, <code>geom_treemap_text</code>, <code>geom_treemap_subgroup_border</code> and <code>geom_treemap_subgroup_text</code> ggplot2 geoms.</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-111" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1.1">
 <a href="#treemapify-111" class="anchor"></a>treemapify 1.1.1<small> Unreleased </small>
 </h1>
-<div id="bug-fixes-9" class="section level2">
+<div id="bug-fixes-10" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-10" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>Fix integer overflow error</li>
 </ul>
 </div>
 </div>
     <div id="treemapify-11" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.1">
 <a href="#treemapify-11" class="anchor"></a>treemapify 1.1<small> Unreleased </small>
 </h1>
-<div id="bug-fixes-10" class="section level2">
+<div id="bug-fixes-11" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bug-fixes-10" class="anchor"></a>Bug fixes</h2>
+<a href="#bug-fixes-11" class="anchor"></a>Bug fixes</h2>
 <ul>
 <li>All font sizes now consistently and correctly expressed in points.</li>
 </ul>
@@ -379,31 +409,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#treemapify-253">2.5.3</a></li>
-        <li><a href="#treemapify-252">2.5.2</a></li>
-        <li><a href="#treemapify-251">2.5.1</a></li>
-        <li><a href="#treemapify-250">2.5.0</a></li>
-        <li><a href="#treemapify-240">2.4.0</a></li>
-        <li><a href="#treemapify-232">2.3.2</a></li>
-        <li><a href="#treemapify-231">2.3.1</a></li>
-        <li><a href="#treemapify-23">2.3</a></li>
-        <li><a href="#treemapify-223">2.2.3</a></li>
-        <li><a href="#treemapify-222">2.2.2</a></li>
-        <li><a href="#treemapify-221">2.2.1</a></li>
-        <li><a href="#treemapify-22">2.2</a></li>
-        <li><a href="#treemapify-21">2.1</a></li>
-        <li><a href="#treemapify-20">2.0</a></li>
-        <li><a href="#treemapify-111">1.1.1</a></li>
-        <li><a href="#treemapify-11">1.1</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -411,13 +424,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

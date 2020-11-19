@@ -8,21 +8,29 @@
 
 <title>'ggplot2' geoms to add text labels to treemap subgroups. — geom_treemap_subgroup_text • treemapify</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,14 +38,14 @@
 
 
 
-<meta property="og:title" content="'ggplot2' geoms to add text labels to treemap subgroups. — geom_treemap_subgroup_text" />
 
+<meta property="og:title" content="'ggplot2' geoms to add text labels to treemap subgroups. — geom_treemap_subgroup_text" />
 <meta property="og:description" content="When geom_treemap() is used with the subgroup, subgroup2 or
 subgroup3 aesthetic to subgroup treemap tiles,
 geom_treemap_subgroup_text(), geom_treemap_subgroup2_text() or
 geom_treemap_subgroup3_text() can be used to add a text label to each
 subgroup at the appropriate level." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -51,9 +59,10 @@ subgroup at the appropriate level." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +76,7 @@ subgroup at the appropriate level." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">treemapify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
       </span>
     </div>
 
@@ -75,7 +84,7 @@ subgroup at the appropriate level." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,11 +107,10 @@ subgroup at the appropriate level." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/wilkox/treemapify">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/wilkox/treemapify/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -113,6 +121,7 @@ subgroup at the appropriate level." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -124,27 +133,38 @@ subgroup at the appropriate level." />
     </div>
 
     <div class="ref-description">
-    
     <p>When <code><a href='geom_treemap.html'>geom_treemap()</a></code> is used with the <code>subgroup</code>, <code>subgroup2</code> or
 <code>subgroup3</code> aesthetic to subgroup treemap tiles,
 <code>geom_treemap_subgroup_text()</code>, <code>geom_treemap_subgroup2_text()</code> or
 <code>geom_treemap_subgroup3_text()</code> can be used to add a text label to each
 subgroup at the appropriate level.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>geom_treemap_subgroup_text</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>padding.x</span> <span class='kw'>=</span> <span class='kw pkg'>grid</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>1</span>,
-  <span class='st'>"mm"</span>), <span class='kw'>padding.y</span> <span class='kw'>=</span> <span class='kw pkg'>grid</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>1</span>, <span class='st'>"mm"</span>), <span class='kw'>place</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>,
-  <span class='kw'>min.size</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>grow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>reflow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"squarified"</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"bottomleft"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>"subgroup"</span>,
-  <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>geom_treemap_subgroup_text</span><span class='op'>(</span>
+  mapping <span class='op'>=</span> <span class='cn'>NULL</span>,
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stat <span class='op'>=</span> <span class='st'>"identity"</span>,
+  position <span class='op'>=</span> <span class='st'>"identity"</span>,
+  na.rm <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  show.legend <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  inherit.aes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  padding.x <span class='op'>=</span> <span class='fu'>grid</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"mm"</span><span class='op'>)</span>,
+  padding.y <span class='op'>=</span> <span class='fu'>grid</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='st'>"mm"</span><span class='op'>)</span>,
+  place <span class='op'>=</span> <span class='st'>"bottom"</span>,
+  min.size <span class='op'>=</span> <span class='fl'>4</span>,
+  grow <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  reflow <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  fixed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  layout <span class='op'>=</span> <span class='st'>"squarified"</span>,
+  start <span class='op'>=</span> <span class='st'>"bottomleft"</span>,
+  level <span class='op'>=</span> <span class='st'>"subgroup"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>geom_treemap_subgroup2_text</span>(<span class='no'>...</span>)
+<span class='fu'>geom_treemap_subgroup2_text</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>geom_treemap_subgroup3_text</span>(<span class='no'>...</span>)</pre>
-    
+<span class='fu'>geom_treemap_subgroup3_text</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -155,7 +175,7 @@ geom arguments as for <code><a href='https://ggplot2.tidyverse.org/reference/geo
     </tr>
     <tr>
       <th>padding.x, padding.y</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object, giving horizontal or
+      <td><p><code><a href='https://rdrr.io/r/grid/unit.html'>grid::unit()</a></code> object, giving horizontal or
 vertical padding between text and edge of tile. Defaults to 1 mm.</p></td>
     </tr>
     <tr>
@@ -202,7 +222,7 @@ the aliases <code>geom_treemap_subgroup2_text()</code> and
 <code>geom_treemap_subgroup3_text()</code> instead of this argument.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>geom_treemap_subgroup_text()</code> geoms require <code>area</code>, <code>label</code> and <code>subgroup</code>
@@ -210,18 +230,18 @@ the aliases <code>geom_treemap_subgroup2_text()</code> and
 aesthetics are supported (see Aesthetics).</p>
 <p><code>geom_treemap_subgroup_text()</code> geoms use the 'ggfittext' package to fit text
 to the subgroup. All text drawing options available in
-<code><a href='https://www.rdocumentation.org/packages/ggfittext/topics/geom_fit_text'>ggfittext::geom_fit_text()</a></code> (growing, reflowing, etc.) are also available
+<code><a href='https://wilkox.org/ggfittext/reference/geom_fit_text.html'>ggfittext::geom_fit_text()</a></code> (growing, reflowing, etc.) are also available
 here. For full details on how these options work, see the documentation for
-<code><a href='https://www.rdocumentation.org/packages/ggfittext/topics/geom_fit_text'>ggfittext::geom_fit_text()</a></code>.</p>
+<code><a href='https://wilkox.org/ggfittext/reference/geom_fit_text.html'>ggfittext::geom_fit_text()</a></code>.</p>
 <p>The <code>layout</code> argument is used to set the treemap layout algorithm. All
 'treemapify' geoms added to a plot should have the same value for <code>layout</code>
 and <code>start</code>, or they will not share a common layout (see <code><a href='geom_treemap.html'>geom_treemap()</a></code>
 for details on the layout algorithms).</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
-    <ul>
+
+<ul>
 <li><p>area (required)</p></li>
 <li><p>subgroup, subgroup2 or subgroup3 (required; the value of this variable
 will be the text label)</p></li>
@@ -232,37 +252,28 @@ will be the text label)</p></li>
 <li><p>fontface</p></li>
 <li><p>angle</p></li>
 </ul>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_treemap.html'>geom_treemap()</a></code>, <code><a href='geom_treemap_subgroup_border.html'>geom_treemap_subgroup_border()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>G20</span>, <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>area</span> <span class='kw'>=</span> <span class='no'>gdp_mil_usd</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>hdi</span>,
-                                  <span class='kw'>subgroup</span> <span class='kw'>=</span> <span class='no'>hemisphere</span>, <span class='kw'>subgroup2</span> <span class='kw'>=</span> <span class='no'>region</span>)) +
-  <span class='fu'><a href='geom_treemap.html'>geom_treemap</a></span>() +
-  <span class='fu'>geom_treemap_subgroup_text</span>(<span class='kw'>place</span> <span class='kw'>=</span> <span class='st'>"centre"</span>, <span class='kw'>grow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) +
-  <span class='fu'>geom_treemap_subgroup2_text</span>()</div><div class='img'><img src='geom_treemap_subgroup_text-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>G20</span>, <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>area <span class='op'>=</span> <span class='va'>gdp_mil_usd</span>, fill <span class='op'>=</span> <span class='va'>hdi</span>,
+                                  subgroup <span class='op'>=</span> <span class='va'>hemisphere</span>, subgroup2 <span class='op'>=</span> <span class='va'>region</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_treemap.html'>geom_treemap</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_treemap_subgroup_text</span><span class='op'>(</span>place <span class='op'>=</span> <span class='st'>"centre"</span>, grow <span class='op'>=</span> <span class='cn'>TRUE</span>, alpha <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>geom_treemap_subgroup2_text</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='img'><img src='geom_treemap_subgroup_text-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#aesthetics">Aesthetics</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -270,13 +281,16 @@ will be the text label)</p></li>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

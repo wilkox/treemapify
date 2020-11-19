@@ -8,21 +8,29 @@
 
 <title>Generate a treemap layout. — treemapify • treemapify</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +38,8 @@
 
 
 
-<meta property="og:title" content="Generate a treemap layout. — treemapify" />
 
+<meta property="og:title" content="Generate a treemap layout. — treemapify" />
 <meta property="og:description" content="treemapify() returns a data frame of tile coordinates for a treemap layout
 of a set of observations. This is only useful if you wish to draw the
 treemap without the help of the ggplot2 geoms, or for some edge cases such
@@ -64,7 +72,7 @@ are fixed by their order in the input data frame. This can result in
 aesthetically unpleasing layouts, but it allows side-by-side comparisons or
 animations to be created.
 treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -78,9 +86,10 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -94,7 +103,7 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">treemapify</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.5.4</span>
       </span>
     </div>
 
@@ -102,7 +111,7 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -125,11 +134,10 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/wilkox/treemapify">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/wilkox/treemapify/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,6 +148,7 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -151,7 +160,6 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>treemapify()</code> returns a data frame of tile coordinates for a treemap layout
 of a set of observations. This is only useful if you wish to draw the
 treemap without the help of the <code>ggplot2</code> geoms, or for some edge cases such
@@ -184,16 +192,26 @@ are fixed by their order in the input data frame. This can result in
 aesthetically unpleasing layouts, but it allows side-by-side comparisons or
 animations to be created.</p>
 <p><code>treemapify_fixed</code> is an alias for <code>treemapify(layout = "fixed")</code>.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>treemapify</span>(<span class='no'>data</span>, <span class='no'>area</span>, <span class='no'>subgroup</span>, <span class='no'>subgroup2</span>, <span class='no'>subgroup3</span>,
-  <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"squarified"</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='st'>"bottomleft"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>))
+    <pre class="usage"><span class='fu'>treemapify</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>area</span>,
+  <span class='va'>subgroup</span>,
+  <span class='va'>subgroup2</span>,
+  <span class='va'>subgroup3</span>,
+  layout <span class='op'>=</span> <span class='st'>"squarified"</span>,
+  start <span class='op'>=</span> <span class='st'>"bottomleft"</span>,
+  fill <span class='op'>=</span> <span class='cn'>NULL</span>,
+  label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  group <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fixed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xlim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+  ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>treemapify_fixed</span>(<span class='no'>...</span>)</pre>
-    
+<span class='fu'>treemapify_fixed</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -240,33 +258,31 @@ later versions.</p></td>
     <tr>
       <th>xlim, ylim</th>
       <td><p>The boundaries of the treemap in the x and y dimensions.
-Must be a numeric vector of length two; both default to <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c(0, 1)</a></code>.</p></td>
+Must be a numeric vector of length two; both default to <code><a href='https://rdrr.io/r/base/c.html'>c(0, 1)</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments to be passed to <code>treemapify()</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>treemapify</code> is for generating a data frame of raw treemap coordinates. If
 you want to draw a treemap with 'ggplot2', use <code><a href='geom_treemap.html'>geom_treemap()</a></code> instead.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Bruls, M., Huizing, K., &amp; van Wijk, J. (1999). Squarified Treemaps (pp.
 33-42).Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
 Visualization. <a href='http://www.win.tue.nl/~vanwijk/stm.pdf'>http://www.win.tue.nl/~vanwijk/stm.pdf</a></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_treemap.html'>geom_treemap()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>treemapify</span>(<span class='no'>G20</span>, <span class='kw'>area</span> <span class='kw'>=</span> <span class='st'>"gdp_mil_usd"</span>)</div><div class='output co'>#&gt;           region        country   hdi econ_classification hemisphere      ymax
+<span class='fu'>treemapify</span><span class='op'>(</span><span class='va'>G20</span>, area <span class='op'>=</span> <span class='st'>"gdp_mil_usd"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           region        country   hdi econ_classification hemisphere      ymax
 #&gt; 14        Europe European Union 0.876            Advanced   Northern 0.5113668
 #&gt; 2  North America  United States 0.937            Advanced   Northern 1.0000000
 #&gt; 7           Asia          China 0.699          Developing   Northern 0.3561040
@@ -310,22 +326,13 @@ Visualization. <a href='http://www.win.tue.nl/~vanwijk/stm.pdf'>http://www.win.t
 #&gt; 1  0.9310513 0.9225305 1.0000000</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -333,13 +340,16 @@ Visualization. <a href='http://www.win.tue.nl/~vanwijk/stm.pdf'>http://www.win.t
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
