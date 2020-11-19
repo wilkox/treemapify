@@ -1,4 +1,4 @@
-# treemapify (development version)
+# treemapify 2.5.4
 
 ## Major changes
 
