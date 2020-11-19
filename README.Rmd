@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 # treemapify
 
-treemapify provides [ggplot2](https://ggplot2.tidyverse.org) geoms for drawing [treemaps](http://en.wikipedia.org/wiki/Treemap).
+treemapify provides [ggplot2](https://ggplot2.tidyverse.org) geoms for drawing [treemaps](https://en.wikipedia.org/wiki/Treemap).
 
 ## Installation
 
@@ -153,7 +153,7 @@ of observations in the data frame. It's very important that the same value for
 plot might not share the same layout.
 
 With the help of `layout = "fixed"`, and with the
-[`gganimate`](https://github.com/dgrtwo/gganimate) package, it becomes possible
+[`gganimate`](https://github.com/thomasp85/gganimate) package, it becomes possible
 to create animated treemaps showing e.g. change over time.
 
 ```{r animated treemap, message = FALSE, results = FALSE}

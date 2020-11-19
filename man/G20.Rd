@@ -17,7 +17,7 @@ landmass lies}
 }
 }
 \source{
-\url{http://en.wikipedia.org/wiki/G-20_major_economies}
+\url{https://en.wikipedia.org/wiki/G-20_major_economies}
 }
 \usage{
 G20

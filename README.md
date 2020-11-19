@@ -7,7 +7,7 @@ Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://trav
 # treemapify
 
 treemapify provides [ggplot2](https://ggplot2.tidyverse.org) geoms for
-drawing [treemaps](http://en.wikipedia.org/wiki/Treemap).
+drawing [treemaps](https://en.wikipedia.org/wiki/Treemap).
 
 ## Installation
 
@@ -200,8 +200,9 @@ geoms, otherwise different layers of the plot might not share the same
 layout.
 
 With the help of `layout = "fixed"`, and with the
-[`gganimate`](https://github.com/dgrtwo/gganimate) package, it becomes
-possible to create animated treemaps showing e.g. change over time.
+[`gganimate`](https://github.com/thomasp85/gganimate) package, it
+becomes possible to create animated treemaps showing e.g. change over
+time.
 
 ``` r
 library(gganimate)
