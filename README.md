@@ -96,8 +96,8 @@ text so it fits the tile. In addition to standard text formatting
 aesthetics you would use in `geom_text()`, like `fontface` or `colour`,
 we can pass additional options specific for ggfittext. For example, we
 can place the text in the centre of the tile with `place = "centre"`,
-and expand it to fill as much of the tile as possible with `grow =
-TRUE`.
+and expand it to fill as much of the tile as possible with
+`grow = TRUE`.
 
 ``` r
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +

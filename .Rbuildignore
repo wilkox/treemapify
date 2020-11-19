@@ -8,3 +8,5 @@
 ^tests/figs$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$
