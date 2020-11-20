@@ -6,8 +6,8 @@ Authors@R: c(
   person("Bob", "Rudis", , "bob@rud.is", role = c("ctb"),
          comment = c(ORCID = "0000-0001-5670-2640"))
   )
-URL: https://wilkox.org/treemapify
-BugReports: https://github.com/wilkox/treemapify/issues
+URL: https://wilkox.org/treemapify/
+BugReports: https://github.com/wilkox/treemapify/issues/
 Description: Provides 'ggplot2' geoms for drawing treemaps.
 Depends: R (>= 3.6)
 Imports:
