@@ -1,3 +1,9 @@
+# treemapify 2.5.5
+
+## Bug fixes
+
+- Make vdiffr tests conditional
+
 # treemapify 2.5.4
 
 ## Major changes

@@ -1,37 +1,37 @@
 context("visual tests of plots")
 
 test_that("plots look the way they should", {
-  vdiffr::expect_doppelganger("Basic treemap", {
+  expect_doppelganger("Basic treemap", {
     ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, label = country)) +
       geom_treemap() +
       geom_treemap_text()
   })
 
-  vdiffr::expect_doppelganger("Fixed layout", {
+  expect_doppelganger("Fixed layout", {
     ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, label = country)) +
       geom_treemap(layout = "fixed") +
       geom_treemap_text(layout = "fixed")
   })
 
-  vdiffr::expect_doppelganger("scol layout", {
+  expect_doppelganger("scol layout", {
     ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, label = country)) +
       geom_treemap(layout = "scol") +
       geom_treemap_text(layout = "scol")
   })
 
-  vdiffr::expect_doppelganger("srow layout", {
+  expect_doppelganger("srow layout", {
     ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, label = country)) +
       geom_treemap(layout = "srow") +
       geom_treemap_text(layout = "srow")
   })
 
-  vdiffr::expect_doppelganger("squarified layout starting from top right", {
+  expect_doppelganger("squarified layout starting from top right", {
     ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, label = country)) +
       geom_treemap(layout = "squarified", start = "topright") +
       geom_treemap_text(layout = "squarified", start = "topright")
   })
 
-  vdiffr::expect_doppelganger("srow layout starting from bottom right with subgroups", {
+  expect_doppelganger("srow layout starting from bottom right with subgroups", {
     ggplot2::ggplot(G20, ggplot2::aes(
       area = gdp_mil_usd,
       fill = hdi,
@@ -44,7 +44,7 @@ test_that("plots look the way they should", {
       geom_treemap_subgroup_border(layout = "srow", start = "bottomright")
   })
 
-  vdiffr::expect_doppelganger("correct colours for subgroup text", {
+  expect_doppelganger("correct colours for subgroup text", {
     ggplot2::ggplot(G20, ggplot2::aes(
       area = gdp_mil_usd,
       fill = hdi,
@@ -56,7 +56,7 @@ test_that("plots look the way they should", {
       geom_treemap_subgroup3_text(ggplot2::aes(colour = region))
   })
 
-  vdiffr::expect_doppelganger("correct colours for subgroup text, differently", {
+  expect_doppelganger("correct colours for subgroup text, differently", {
     ggplot2::ggplot(G20, ggplot2::aes(
       area = gdp_mil_usd,
       fill = hdi,
@@ -68,7 +68,7 @@ test_that("plots look the way they should", {
       geom_treemap_subgroup3_text(ggplot2::aes(colour = econ_classification))
   })
 
-  vdiffr::expect_doppelganger("understands variants of 'centre'", {
+  expect_doppelganger("understands variants of 'centre'", {
     ggplot2::ggplot(G20, ggplot2::aes(
       area = gdp_mil_usd,
       fill = hdi,
@@ -81,7 +81,7 @@ test_that("plots look the way they should", {
       geom_treemap_subgroup_border(layout = "srow", start = "bottomright")
   })
 
-  vdiffr::expect_doppelganger("understands variants of 'centre' with subgroups", {
+  expect_doppelganger("understands variants of 'centre' with subgroups", {
       ggplot2::ggplot(G20, ggplot2::aes(area = 1, label = country, subgroup = hemisphere,
                     subgroup2 = region, subgroup3 = econ_classification)) +
       geom_treemap() +
