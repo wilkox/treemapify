@@ -6,3 +6,9 @@ r:
 - oldrel
 - release
 - devel
+
+addons:
+  apt:
+    packages:
+      - libgit2-dev
+
