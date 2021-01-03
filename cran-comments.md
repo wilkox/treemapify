@@ -2,7 +2,7 @@
 
 * local macOS install, R 4.0.3
 * ubuntu 16.04.11 LTS (on travis-ci), R-devel, 4.0.2, 3.6.3
-* win-builder (with `devtools::build_win`)
+* win-builder (with `devtools::check_win_release()`)
 
 # R CMD check results
 
