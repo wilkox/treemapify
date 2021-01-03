@@ -3,6 +3,7 @@
 ## Bug fixes
 
 - Make vdiffr tests conditional
+- Fix use of `order()` on a data frame
 
 # treemapify 2.5.4
 
