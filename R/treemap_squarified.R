@@ -12,7 +12,7 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layou
   }
 
   # Sort the data by area, largest to smallest
-  data <- data[order(-data[area]), ]
+  data <- data[order(-data[[area]]), ]
 
   # Scale areas to sum to plot area
   plot_area <- diff(xlim) * diff(ylim)
