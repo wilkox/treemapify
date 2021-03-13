@@ -36,7 +36,7 @@ GeomRrect <- ggplot2::ggproto(
 
     coords <- coord$transform(data, panel_params)
 
-    lapply(1:length(coords$xmin), function(i) {
+    lapply(seq_along(coords$xmin), function(i) {
 
       grid::roundrectGrob(
         coords$xmin[i], coords$ymax[i],

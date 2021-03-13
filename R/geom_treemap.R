@@ -180,7 +180,7 @@ GeomTreemap <- ggplot2::ggproto(
     }
     data <- do.call(treemapify, tparams)
 
-    lapply(1:length(data$xmin), function(i) {
+    lapply(seq_along(data$xmin), function(i) {
 
       grid::roundrectGrob(
         x = data$xmin[i],
