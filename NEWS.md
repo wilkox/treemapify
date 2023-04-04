@@ -1,5 +1,3 @@
-# treemapify (development version)
-
 # treemapify 2.5.5
 
 ## Bug fixes
