@@ -1,7 +1,8 @@
 
-[![Travis-CI Build
-Status](https://travis-ci.org/wilkox/treemapify.svg?branch=master)](https://travis-ci.org/wilkox/treemapify)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/wilkox/treemapify/workflows/R-CMD-check/badge.svg)](https://github.com/wilkox/treemapify/actions)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 
 # treemapify
@@ -225,4 +226,9 @@ p <- ggplot(gapminder, aes(
 anim_save("man/figures/animated_treemap.gif", p, nframes = 48)
 ```
 
-![An example of an animated treemap](man/figures/animated_treemap.gif)
+<figure>
+<img src="man/figures/animated_treemap.gif"
+alt="An example of an animated treemap" />
+<figcaption aria-hidden="true">An example of an animated
+treemap</figcaption>
+</figure>
