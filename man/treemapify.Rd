@@ -104,7 +104,7 @@ treemapify(G20, area = "gdp_mil_usd")
 \references{
 Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 33-42).Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-Visualization. \url{http://www.win.tue.nl/~vanwijk/stm.pdf}
+Visualization. \url{https://www.win.tue.nl/~vanwijk/stm.pdf}
 }
 \seealso{
 \code{\link[=geom_treemap]{geom_treemap()}}

@@ -73,7 +73,7 @@
 #'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42).Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-#' Visualization. <http://www.win.tue.nl/~vanwijk/stm.pdf>
+#' Visualization. <https://www.win.tue.nl/~vanwijk/stm.pdf>
 #'
 #' @export
 treemapify <- function(
