@@ -1,5 +1,11 @@
 # treemapify (development version)
 
+## Minor changes
+
+- Replace `i:j` with `seq_along()` or similar
+- Update testing and continuous integration infrastructure
+- Small documentation updates
+
 # treemapify 2.5.5
 
 ## Bug fixes
