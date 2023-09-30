@@ -7,7 +7,8 @@
 draw_key_rrect(data, params, size)
 }
 \arguments{
-\item{data}{A single row data frame containing the scaled aesthetics to display in this key}
+\item{data}{A single row data frame containing the scaled aesthetics to
+display in this key}
 
 \item{params}{A list of additional parameters supplied to the geom.}
 

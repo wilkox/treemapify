@@ -117,7 +117,8 @@ geom_treemap <- function(
 
 #' Round rect key glyph for legend
 #'
-#' @param data A single row data frame containing the scaled aesthetics to display in this key
+#' @param data A single row data frame containing the scaled aesthetics to
+#' display in this key
 #' @param params A list of additional parameters supplied to the geom.
 #' @param size Width and height of key in mm.
 #' @importFrom grid roundrectGrob
@@ -132,7 +133,7 @@ draw_key_rrect <- function(data, params, size) {
     height = 0.9,
     name = "lkey",
     gp = grid::gpar(
-      col = params$color %l0% "white",
+      col = data$colour %l0% "white",
       fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
       lty = data$linetype %||% 1
     )

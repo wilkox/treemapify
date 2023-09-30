@@ -6,6 +6,10 @@
 - Update testing and continuous integration infrastructure
 - Small documentation updates
 
+## Bug fixes
+
+- Fix colour aesthetic in key for `geom_tremap()` (#47, thanks @jjbuonocore)
+
 # treemapify 2.5.5
 
 ## Bug fixes

@@ -93,4 +93,16 @@ test_that("plots look the way they should", {
       geom_treemap_subgroup3_text(place = "top", colour = "blue", alpha = 0.5) +
       geom_treemap_text(colour = "white", place = "middle", reflow = T)
   })
+
+  expect_doppelganger("colour is drawn correctly in legend", {
+    ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = region, 
+                             color = econ_classification, 
+                             linetype = econ_classification)) +
+      geom_treemap() +
+      ggplot2::scale_color_manual(values = c("red", "black")) +
+      ggplot2::scale_linetype_manual(values = c(1,3)) +
+      ggplot2::guides(color = ggplot2::guide_legend(override.aes = 
+                                           list(color = c("red", "black"))))
+  })
+
 })
