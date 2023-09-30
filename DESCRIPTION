@@ -2,7 +2,8 @@ Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
 Version: 2.5.5.9002
 Authors@R: c(
-  person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre")),
+  person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0002-3385-8981")),
   person("Bob", "Rudis", , "bob@rud.is", role = c("ctb"),
          comment = c(ORCID = "0000-0001-5670-2640"))
   )
