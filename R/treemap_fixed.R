@@ -7,7 +7,7 @@ treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = N
   data <- data[data[[area]] > 0, ]
 
   # Stop if there are no rows
-  if (nrow(data) == 0) stop("Must provide some rows with area > 0")
+  if (nrow(data) == 0) cli::cli_abort("Must provide some rows with area > 0")
 
   # Scale areas to sum to the plot area
   data[area] <- data[area] / sum(data[area])

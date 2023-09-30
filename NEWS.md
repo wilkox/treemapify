@@ -5,6 +5,7 @@
 - Replace `i:j` with `seq_along()` or similar
 - Update testing and continuous integration infrastructure
 - Small documentation updates
+- Use the cli package for errors and warnings
 
 ## Bug fixes
 

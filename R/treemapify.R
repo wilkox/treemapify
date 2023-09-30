@@ -94,53 +94,53 @@ treemapify <- function(
 
   # Check arguments
   if (missing(data)) {
-    stop("`data` is required", call. = FALSE)
+    cli::cli_abort("{.arg data} is required")
   }
   if (missing(area)) {
-    stop("`area` is required", call. = FALSE)
+    cli::cli_abort("{.arg area} is required")
   }
   if (!area %in% names(data)) {
-    stop("Column ", area, " not found in data", call. = FALSE)
+    cli::cli_abort("Column {.val {area}} not found in data")
   }
   if (!missing(group)) {
-    warning("`group` is deprecated, use `subgroup` instead")
+    cli::cli_warn("{.arg group} is deprecated, use {.arg subgroup} instead")
     subgroup <- group
   }
   if (!missing(subgroup)) {
     if (!subgroup %in% names(data)) {
-      stop("Column ", subgroup, " not found in data", call. = FALSE)
+      cli::cli_abort("Column {.val {subgroup}} not found in data")
     }
   }
   if (!missing(subgroup2)) {
     if (!subgroup2 %in% names(data)) {
-      stop("Column ", subgroup2, " not found in data", call. = FALSE)
+      cli::cli_abort("Column {.val {subgroup2}} not found in data")
     }
   }
   if (!missing(subgroup3)) {
     if (!subgroup3 %in% names(data)) {
-      stop("Column ", subgroup3, " not found in data", call. = FALSE)
+      cli::cli_abort("Column {.val {subgroup3}} not found in data")
     }
   }
   if (!missing(fill)) {
-    warning("`fill` is deprecated")
+    cli::cli_warn("{.arg fill} is deprecated")
   }
   if (!missing(label)) {
-    warning("`label` is deprecated")
+    cli::cli_warn("{.arg label} is deprecated")
   }
   if (!(missing(fixed) | is.null(fixed))) {
-    warning("`fixed` is deprecated. Use `layout = \"fixed\"` instead.")
+    cli::cli_warn("{.arg fixed} is deprecated. Use {.code layout = \"fixed\"} instead.")
     if (isTRUE(fixed)) {
       layout <- "fixed"
     }
   }
   if (!layout %in% c("squarified", "scol", "srow", "fixed")) {
-    stop("Invalid value for `layout`", call. = FALSE)
+    cli::cli_abort("Invalid value for {.arg layout}")
   }
   if (!(is.numeric(xlim) & length(xlim) == 2 & xlim[1] < xlim[2])) {
-    stop("`xlim` must be a numeric vector of length 2, with the minimum less than the maximum")
+    cli::cli_abort("{.arg xlim} must be a numeric vector of length 2, with the minimum less than the maximum")
   }
   if (!(is.numeric(ylim) & length(ylim) == 2 & ylim[1] < ylim[2])) {
-    stop("`ylim` must be a numeric vector of length 2, with the minimum less than the maximum")
+    cli::cli_abort("{.arg ylim} must be a numeric vector of length 2, with the minimum less than the maximum")
   }
 
   # Set layout function

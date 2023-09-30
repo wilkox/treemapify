@@ -116,18 +116,10 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     # Check that subgrouping level is valid and in data
     levels <- c("subgroup", "subgroup2", "subgroup3")
     if (!level %in% levels) {
-      stop(
-        "`level` must be one of 'subgroup', 'subgroup2' or 'subgroup3'",
-        call. = FALSE
-      )
+      cli::cli_abort("{.arg level} must be one of {.val subgroup}, {.val subgroup2}, or {.val subgroup3}")
     }
     if (!level %in% names(data)) {
-      stop(
-        "Can't draw a border for subgroup level ", 
-        level, 
-        " as it is not a plot aesthetic", 
-        call. = FALSE
-      )
+      cli::cli_abort("Can't draw a border for subgroup level {.val {level}} as it is not a plot aesthetic")
     }
 
     # Collapse data to groups at selected subgroup level

@@ -1,6 +1,6 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
-Version: 2.5.5.9001
+Version: 2.5.5.9002
 Authors@R: c(
   person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre")),
   person("Bob", "Rudis", , "bob@rud.is", role = c("ctb"),
@@ -13,7 +13,8 @@ Depends: R (>= 3.6)
 Imports:
     ggplot2 (>= 2.2.1),
     ggfittext (>= 0.5.0),
-    grid (>= 3.1)
+    grid (>= 3.1),
+    cli (>= 3.6.1)
 Suggests: 
     knitr,
     rmarkdown,
