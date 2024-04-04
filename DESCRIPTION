@@ -1,6 +1,6 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
-Version: 2.5.6
+Version: 2.5.6.9001
 Authors@R: c(
   person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-3385-8981")),
@@ -24,7 +24,7 @@ Suggests:
     spelling
 License: GPL (>=3)
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Encoding: UTF-8

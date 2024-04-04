@@ -163,7 +163,7 @@ GeomTreemap <- ggplot2::ggproto(
     fixed = NULL,
     layout = "squarified",
     start = "bottomleft",
-    radius = grid::unit(3, "pt")
+    radius = grid::unit(0, "pt")
   ) {
 
     data <- coord$transform(data, panel_scales)
@@ -196,7 +196,6 @@ GeomTreemap <- ggplot2::ggproto(
           fill = ggplot2::alpha(data$fill[i], data$alpha[i]),
           lwd = data$size[i],
           lty = data$linetype[i]
-          # lineend = "butt"
         )
       )
 
