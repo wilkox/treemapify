@@ -1,6 +1,8 @@
 Bruls
 CMD
 Eurographics
+GeomTreemap
+GeomTreemapText
 HDI
 Huizing
 Squarified
@@ -19,15 +21,18 @@ fontface
 geoms
 ggfittext
 ggplot
+ggproto
 lifecycle
 lineheight
 linetype
 org
 plyr
+pts
 rect
 reflow
 reflowed
 reflowing
+roundrect
 rud
 scol
 squarified

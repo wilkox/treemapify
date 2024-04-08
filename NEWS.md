@@ -3,6 +3,7 @@
 ## Minor changes
 
 - Change default roundrect radius in GeomTreemap to 0 pts
+- Export GeomTreemap and GeomTreemapText (#48)
 
 # treemapify 2.5.6
 

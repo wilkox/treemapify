@@ -141,7 +141,11 @@ draw_key_rrect <- function(data, params, size) {
 }
 
 #' GeomTreemap
-#' @noRd
+#'
+#' @rdname treemapify-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 GeomTreemap <- ggplot2::ggproto(
   "GeomTreemap",
   ggplot2::Geom,

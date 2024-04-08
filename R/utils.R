@@ -4,3 +4,10 @@ ggname <- function(prefix, grob) {
   grob$name <- grid::grobName(grob, prefix)
   grob
 }
+
+#' Base ggproto classes for treemapify extension to ggplot2
+#'
+#' @seealso ggplot2::ggproto
+#' @keywords internal
+#' @name treemapify-ggproto
+NULL

@@ -103,9 +103,13 @@ geom_treemap_text <- function(
 }
 
 #' GeomTreemapText
-#' @noRd
+#' 
 #' @import grid
 #' @import ggfittext
+#' @format NULL
+#' @usage NULL
+#' @rdname treemapify-ggproto
+#' @export
 GeomTreemapText <- ggplot2::ggproto(
   "GeomTreemapText",
   ggplot2::Geom,
