@@ -3,6 +3,10 @@
 #' @noRd
 treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = "squarified") {
 
+  # Preserve area column
+  if ("area_preserved_squarified" %in% names(data)) cli::cli_abort("{.val area_preserved_squarified} column is present")
+  data$area_preserved_squarified <- data[[area]]
+
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
 
@@ -38,6 +42,10 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layou
 
   # Remove the 'column' column
   layout["column"] <- NULL
+
+  # Restore the area column
+  layout[[area]] <- layout$area_preserved_squarified
+  layout$area_preserved_squarified <- NULL
 
   # Return layout
   layout

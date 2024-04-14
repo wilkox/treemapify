@@ -3,6 +3,10 @@
 #' @noRd
 treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = NULL) {
 
+  # Preserve area column
+  if ("area_preserved_fixed" %in% names(data)) cli::cli_abort("{.val area_preserved_fixed} column is present")
+  data$area_preserved_fixed <- data[[area]]
+
   # Remove any rows where area <= 0
   data <- data[data[[area]] > 0, ]
 
@@ -54,9 +58,6 @@ treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = N
   # Remove column column
   data$column <- NULL
 
-  # Remove area column
-  data[area] <- NULL
-
   # Rescale values to the plot area
   width <- diff(xlim)
   height <- diff(ylim)
@@ -64,6 +65,10 @@ treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = N
   data$xmax <- xlim[1] + (data$xmax * width)
   data$ymin <- ylim[1] + (data$ymin * height)
   data$ymax <- ylim[1] + (data$ymax * height)
+
+  # Restore the area column
+  data[[area]] <- data$area_preserved_fixed
+  data$area_preserved_fixed <- NULL
 
   # Return layout
   data

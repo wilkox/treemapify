@@ -79,3 +79,8 @@ test_that("treemapify() returns an error for invalid xlim or ylim arguments", {
   expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c(3, 2, 1)), "ylim")
   expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c("a", "b")), "ylim")
 })
+
+test_that("treemapify returns areas", {
+  expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "fixed"))}, TRUE)
+  expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "squarified"))}, TRUE)
+})

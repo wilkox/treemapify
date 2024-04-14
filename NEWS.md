@@ -2,8 +2,9 @@
 
 ## Minor changes
 
-- Change default roundrect radius in GeomTreemap to 0 pts
-- Export GeomTreemap and GeomTreemapText (#48)
+- Change default roundrect radius in GeomTreemap to 0 pts (#48, thanks @davidhodge931)
+- Export GeomTreemap and GeomTreemapText (#48, thanks @davidhodge931)
+- treemapify() includes the area column in its output (#49, thanks @davidhodge931)
 
 # treemapify 2.5.6
 
