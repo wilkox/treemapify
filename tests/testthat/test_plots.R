@@ -105,4 +105,18 @@ test_that("plots look the way they should", {
                                            list(color = c("red", "black"))))
   })
 
+  # vdiffr does not support patterns
+  expect_no_error({
+    patterns <- list(
+      linearGradient(c("red", "blue"), group = FALSE),
+      linearGradient(c("yellow", "orange"), group = FALSE),
+      linearGradient(c("purple", "white"), group = FALSE),
+      linearGradient(c("pink", "green"), group = FALSE)
+    )
+    G4 <- G20[1:4, ]
+    ggplot2::ggplot(G4, ggplot2::aes(area = gdp_mil_usd, fill = country)) +
+      geom_treemap() +
+      ggplot2::scale_fill_manual(values = patterns)
+  })
+
 })

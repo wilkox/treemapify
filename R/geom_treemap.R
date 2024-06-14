@@ -134,7 +134,7 @@ draw_key_rrect <- function(data, params, size) {
     name = "lkey",
     gp = grid::gpar(
       col = data$colour %l0% "white",
-      fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+      fill = ggplot2::fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
       lty = data$linetype %||% 1
     )
   )
@@ -197,7 +197,7 @@ GeomTreemap <- ggplot2::ggproto(
         just = c("left", "top"),
         gp = grid::gpar(
           col = data$colour[i],
-          fill = ggplot2::alpha(data$fill[i], data$alpha[i]),
+          fill = ggplot2::fill_alpha(data$fill[i], data$alpha[i]),
           lwd = data$size[i],
           lty = data$linetype[i]
         )

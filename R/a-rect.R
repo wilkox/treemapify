@@ -47,7 +47,7 @@ GeomRrect <- ggplot2::ggproto(
         just = c("left", "top"),
         gp = grid::gpar(
           col = coords$colour[i],
-          fill = alpha(coords$fill[i], coords$alpha[i]),
+          fill = ggplot2::fill_alpha(coords$fill[i], coords$alpha[i]),
           lwd = coords$size[i] * .pt,
           lty = coords$linetype[i],
           lineend = "butt"

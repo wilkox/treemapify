@@ -1,5 +1,11 @@
 # treemapify (development version)
 
+## Major changes
+
+- Add support for ggplot2 3.5 patterns and gradients (see
+  https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/#patterns-and-gradients;
+  #50, thanks @trevorld)
+
 ## Minor changes
 
 - Change default roundrect radius in GeomTreemap to 0 pts (#48, thanks @davidhodge931)
