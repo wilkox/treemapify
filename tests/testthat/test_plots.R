@@ -105,8 +105,19 @@ test_that("plots look the way they should", {
                                            list(color = c("red", "black"))))
   })
 
-  # vdiffr does not support patterns
-  expect_no_error({
+})
+
+test_that("pattern fills work", {
+
+  skip_if_not_installed("svglite", "2.1.3")
+
+  svglite_writer <- function(plot, file, ...) {
+    svglite::svglite(file)
+    print(plot)
+    dev.off()
+  }
+
+  vdiffr::expect_doppelganger("linearGradient fills", {
     patterns <- list(
       linearGradient(c("red", "blue"), group = FALSE),
       linearGradient(c("yellow", "orange"), group = FALSE),
@@ -117,6 +128,16 @@ test_that("plots look the way they should", {
     ggplot2::ggplot(G4, ggplot2::aes(area = gdp_mil_usd, fill = country)) +
       geom_treemap() +
       ggplot2::scale_fill_manual(values = patterns)
-  })
+  }, writer = svglite_writer)
+
+  vdiffr::expect_doppelganger("chequer pattern fill", {
+    chequer_pattern <- pattern(
+        rectGrob(x = c(0.25, 0.75), y = c(0.25, 0.75), width = 0.5, height = 0.5),
+        width = unit(5, "mm"), height = unit(5, "mm"), extend = "repeat",
+        gp = gpar(fill = "limegreen")
+    )
+    ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = country)) +
+      geom_treemap(fill = chequer_pattern)
+  }, writer = svglite_writer)
 
 })
