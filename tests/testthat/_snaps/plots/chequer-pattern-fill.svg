@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<g class='svglite'>
 <defs>
   <style type='text/css'><![CDATA[
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
@@ -11,6 +12,10 @@
     }
     .svglite text {
       white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
     }
   ]]></style>
 </defs>
@@ -332,5 +337,6 @@
 <polygon points='659.59,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,44.44 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 714.52,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,5.48 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 659.59,44.44 ' style='stroke-width: 0.38; stroke: #BEBEBE; fill: url(#pat-19);' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
 </g>
 </svg>
