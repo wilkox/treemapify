@@ -73,7 +73,7 @@
 #'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42).Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-#' Visualization. <https://www.win.tue.nl/~vanwijk/stm.pdf>
+#' Visualization. <https://vanwijk.win.tue.nl/stm.pdf>
 #'
 #' @export
 treemapify <- function(
@@ -91,7 +91,6 @@ treemapify <- function(
   xlim = c(0, 1),
   ylim = c(0, 1)
 ) {
-
   # Check arguments
   if (missing(data)) {
     cli::cli_abort("{.arg data} is required")
@@ -128,7 +127,9 @@ treemapify <- function(
     cli::cli_warn("{.arg label} is deprecated")
   }
   if (!(missing(fixed) | is.null(fixed))) {
-    cli::cli_warn("{.arg fixed} is deprecated. Use {.code layout = \"fixed\"} instead.")
+    cli::cli_warn(
+      "{.arg fixed} is deprecated. Use {.code layout = \"fixed\"} instead."
+    )
     if (isTRUE(fixed)) {
       layout <- "fixed"
     }
@@ -137,10 +138,14 @@ treemapify <- function(
     cli::cli_abort("Invalid value for {.arg layout}")
   }
   if (!(is.numeric(xlim) & length(xlim) == 2 & xlim[1] < xlim[2])) {
-    cli::cli_abort("{.arg xlim} must be a numeric vector of length 2, with the minimum less than the maximum")
+    cli::cli_abort(
+      "{.arg xlim} must be a numeric vector of length 2, with the minimum less than the maximum"
+    )
   }
   if (!(is.numeric(ylim) & length(ylim) == 2 & ylim[1] < ylim[2])) {
-    cli::cli_abort("{.arg ylim} must be a numeric vector of length 2, with the minimum less than the maximum")
+    cli::cli_abort(
+      "{.arg ylim} must be a numeric vector of length 2, with the minimum less than the maximum"
+    )
   }
 
   # Set layout function
@@ -164,16 +169,14 @@ treemapify <- function(
 
   # Work down subgrouping levels, laying out treemaps for each level
   do_layout <- function(data, subgroups, xlim = c(0, 1), ylim = c(0, 1)) {
-
     # If there are no subgrouping levels below this one, return a layout for
     # the given observations
     if (length(subgroups) == 0) {
       return(treemap_f(data, area, xlim, ylim, layout))
 
-    # Otherwise, generate a layout for this subgrouping level and fill each
-    # subgroup with its own layout
+      # Otherwise, generate a layout for this subgrouping level and fill each
+      # subgroup with its own layout
     } else {
-
       # Sum areas for groups at this subgrouping level
       this_level_data <- lapply(
         split(data, data[subgroups[[1]]], drop = TRUE),
@@ -185,16 +188,23 @@ treemapify <- function(
       )
 
       # Generate layout for this subgrouping level
-      this_level_layout <- treemap_f(this_level_data, "area", xlim, ylim, layout)
+      this_level_layout <- treemap_f(
+        this_level_data,
+        "area",
+        xlim,
+        ylim,
+        layout
+      )
 
       # For each group at this subgrouping level, generate sub-layouts
       generate_sublayout <- function(group) {
-
         groupdata <- data[data[subgroups[1]] == group, ]
 
         # Skip if there are no observations with area > 0
         groupdata <- groupdata[groupdata[[area]] > 0, ]
-        if (nrow(groupdata) == 0) { return() }
+        if (nrow(groupdata) == 0) {
+          return()
+        }
 
         # Generate sub-layout
         groupcoords <- this_level_layout[this_level_layout$key == group, ]

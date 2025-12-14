@@ -70,7 +70,7 @@
 #'
 #' Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 #' 33-42). Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-#' Visualization. <https://www.win.tue.nl/~vanwijk/stm.pdf>
+#' Visualization. <https://vanwijk.win.tue.nl/stm.pdf>
 #'
 #' @examples
 #'
@@ -125,7 +125,6 @@ geom_treemap <- function(
 #' @author Bob Rudis (bob@@rud.is)
 #' @export
 draw_key_rrect <- function(data, params, size) {
-
   grid::roundrectGrob(
     r = min(params$radius, unit(3, "pt")),
     default.units = "native",
@@ -134,7 +133,10 @@ draw_key_rrect <- function(data, params, size) {
     name = "lkey",
     gp = grid::gpar(
       col = data$colour %l0% "white",
-      fill = ggplot2::fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+      fill = ggplot2::fill_alpha(
+        data$fill %||% data$colour %||% "grey20",
+        data$alpha
+      ),
       lty = data$linetype %||% 1
     )
   )
@@ -169,7 +171,6 @@ GeomTreemap <- ggplot2::ggproto(
     start = "bottomleft",
     radius = grid::unit(0, "pt")
   ) {
-
     data <- coord$transform(data, panel_scales)
 
     # Generate treemap layout for data
@@ -186,7 +187,6 @@ GeomTreemap <- ggplot2::ggproto(
     data <- do.call(treemapify, tparams)
 
     lapply(seq_along(data$xmin), function(i) {
-
       grid::roundrectGrob(
         x = data$xmin[i],
         width = data$xmax[i] - data$xmin[i],
@@ -202,13 +202,10 @@ GeomTreemap <- ggplot2::ggproto(
           lty = data$linetype[i]
         )
       )
-
     }) -> gl
 
     grobs <- do.call(grid::gList, gl)
 
     ggname("geom_treemap", grid::grobTree(children = grobs))
-
   }
-
 )

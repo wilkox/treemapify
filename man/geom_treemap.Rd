@@ -101,7 +101,7 @@ ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = region)) +
 \references{
 Bruls, M., Huizing, K., & van Wijk, J. (1999). Squarified Treemaps (pp.
 33-42). Proceedings of the Joint Eurographics and IEEE TCVG Symposium on
-Visualization. \url{https://www.win.tue.nl/~vanwijk/stm.pdf}
+Visualization. \url{https://vanwijk.win.tue.nl/stm.pdf}
 }
 \seealso{
 \code{\link[=geom_treemap_text]{geom_treemap_text()}}, \code{\link[=geom_treemap_subgroup_border]{geom_treemap_subgroup_border()}},
