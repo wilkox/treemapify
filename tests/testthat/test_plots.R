@@ -169,6 +169,9 @@ test_that("plots look the way they should", {
 
 test_that("pattern fills work", {
   skip_if_not_installed("svglite", "2.1.3")
+  skip_if_not_installed("fontquiver", "0.2.1")
+  skip_if_not_installed("sysfonts", "0.8.9")
+  skip_if_not_installed("showtext", "0.9.7")
 
   # vdiffr uses an internal version of svglite to draw SVGs, which is not kept
   # in sync with the released version. So, vdiffr still does not support
