@@ -1,0 +1,31 @@
+navbar:
+  structure:
+    left:
+      - home
+      - intro
+      - reference
+      - articles
+      - tutorials
+      - news
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+        - text: Introduction to 'treemapify'
+          href: articles/introduction-to-treemapify.html
+    news:
+      text: Changelog
+      href: news/index.html
+    github:
+      icon: fa-github
+      href: https://github.com/wilkox/treemapify
+url: https://wilkox.org/treemapify
+template:
+  bootstrap: 5
