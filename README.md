@@ -28,6 +28,7 @@ G-20 group of major world economies.
 ``` r
 library(ggplot2)
 library(treemapify)
+#> systemfonts and textshaping have been compiled with different versions of Freetype. Because of this, textshaping will not use the font cache provided by systemfonts
 G20
 #>           region        country gdp_mil_usd   hdi econ_classification
 #> 1         Africa   South Africa      384315 0.629          Developing
@@ -223,7 +224,10 @@ p <- ggplot(gapminder, aes(
   ease_aes('linear') +
   labs(title = "Year: {frame_time}")
 
-anim_save("man/figures/animated_treemap.gif", p, nframes = 48)
+anim_save("man/figures/animated_treemap.gif", animation = animate(
+  p,
+  renderer = gifski_renderer(
+)), nframes = 48)
 ```
 
 <figure>
