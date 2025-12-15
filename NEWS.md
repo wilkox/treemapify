@@ -1,3 +1,5 @@
+# treemapify (development version)
+
 # treemapify 2.6.0
 
 ## Major changes
