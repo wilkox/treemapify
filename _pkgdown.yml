@@ -1,3 +1,6 @@
+url: https://wilkox.org/treemapify
+template:
+  bootstrap: 5
 navbar:
   structure:
     left:
@@ -26,6 +29,3 @@ navbar:
     github:
       icon: fa-github
       href: https://github.com/wilkox/treemapify
-url: https://wilkox.org/treemapify
-template:
-  bootstrap: 5
