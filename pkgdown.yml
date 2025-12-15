@@ -1,7 +1,9 @@
-pandoc: 2.11.1.1
-pkgdown: 1.6.1
+pandoc: 3.1.11
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   introduction-to-treemapify: introduction-to-treemapify.html
-last_built: 2020-12-10T03:59Z
-
+last_built: 2025-12-15T10:47Z
+urls:
+  reference: https://wilkox.org/treemapify/reference
+  article: https://wilkox.org/treemapify/articles

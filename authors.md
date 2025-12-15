@@ -10,15 +10,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/wilkox/treemapify/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/wilkox/treemapify/blob/update_pkgdown_2.6.0/DESCRIPTION)
 
 Wilkins D (2025). *treemapify: Draw Treemaps in 'ggplot2'*. R package
-version 2.6.0.9000, <https://wilkox.org/treemapify/>.
+version 2.6.0, <https://wilkox.org/treemapify/>.
 
     @Manual{,
       title = {treemapify: Draw Treemaps in 'ggplot2'},
       author = {David Wilkins},
       year = {2025},
-      note = {R package version 2.6.0.9000},
+      note = {R package version 2.6.0},
       url = {https://wilkox.org/treemapify/},
     }
