@@ -4,30 +4,38 @@
 # Define when the Workflow runs: on pushes to main and master (builds and
 # deploys), and on pull requests (builds only)
 on:
-  push:
-    branches: [main, master]
-  pull_request:
   release:
     types: [published]
   workflow_dispatch:
 
 name: pkgdown-build-and-deploy
 
-# Read only permission
 permissions: read-all
 
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
-    # Only restrict concurrency for non-PR jobs
     concurrency:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
+
+    # Only build site for the latest tagged release, not for every version
     steps:
+      - name: Get latest release tag
+        id: latest_release
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          LATEST_TAG=$(gh release view --json tagName -q .tagName)
+          echo "tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && steps.latest_release.outputs.tag || github.ref }}
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -45,7 +53,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
-        if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           clean: false
