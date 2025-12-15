@@ -11,6 +11,7 @@ Provides 'ggplot2' geoms for drawing treemaps.
 Useful links:
 \itemize{
   \item \url{https://wilkox.org/treemapify/}
+  \item \url{http://wilkox.org/treemapify/}
   \item Report bugs at \url{https://github.com/wilkox/treemapify/issues/}
 }
 
