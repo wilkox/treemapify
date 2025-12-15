@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   introduction-to-treemapify: introduction-to-treemapify.html
-last_built: 2025-12-14T06:01Z
+last_built: 2025-12-15T07:50Z
 urls:
   reference: https://wilkox.org/treemapify/reference
   article: https://wilkox.org/treemapify/articles
