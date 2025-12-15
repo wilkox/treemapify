@@ -1,5 +1,7 @@
 # Changelog
 
+## treemapify (development version)
+
 ## treemapify 2.6.0
 
 CRAN release: 2025-12-14
