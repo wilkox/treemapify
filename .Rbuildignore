@@ -13,3 +13,5 @@
 ^revdep$
 ^\.github$
 ^pkgdown$
+^CLAUDE\.md$
+^\.claude$
