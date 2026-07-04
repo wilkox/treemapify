@@ -69,7 +69,7 @@ treemapify_fixed is an alias for treemapify(layout = &quot;fixed&quot;)."><meta 
 
     <a class="navbar-brand me-2" href="../index.html">treemapify</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.6.0.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.6.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -208,6 +208,21 @@ Must be a numeric vector of length two; both default to <code>c(0, 1)</code>.</p
 <dd><p>Additional arguments to be passed to <code>treemapify()</code>.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A data frame with one row per tile. All columns from <code>data</code> are
+retained (including <code>area</code>, with its original values), plus four columns
+giving the tile boundaries: <code>xmin</code>, <code>xmax</code>, <code>ymin</code> and <code>ymax</code>. These
+coordinates fall within the <code>xlim</code> and <code>ylim</code> limits.</p>
+<p>Note the following behaviours of the returned layout:</p><ul><li><p>Rows with a missing (<code>NA</code>) <code>area</code> value are dropped, with a warning.</p></li>
+<li><p>Rows with a zero or negative <code>area</code> value are silently dropped, as they
+cannot be given a tile.</p></li>
+<li><p>If every row has a zero or negative <code>area</code> value, an error is raised.</p></li>
+<li><p>Row order is not necessarily preserved. The 'squarified' layouts
+(<code>squarified</code>, <code>scol</code> and <code>srow</code>) sort the tiles by area, largest first,
+so the returned rows will not match the order of <code>data</code>. The 'fixed'
+layout does preserve the input row order.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><code>treemapify</code> is for generating a data frame of raw treemap coordinates. If

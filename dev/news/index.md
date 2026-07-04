@@ -2,6 +2,18 @@
 
 ## treemapify (development version)
 
+### Minor changes
+
+- The ‘svglite’ package is now suggested rather than imported, so it is
+  no longer a hard installation dependency; it is only needed to run the
+  package’s pattern-fill visual tests
+  ([\#66](https://github.com/wilkox/treemapify/issues/66)).
+- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)’s
+  help page now documents its return value: the columns of the returned
+  layout data frame, and how rows with zero, negative, or missing `area`
+  values are handled
+  ([\#69](https://github.com/wilkox/treemapify/issues/69)).
+
 ### Bug fixes
 
 - [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
