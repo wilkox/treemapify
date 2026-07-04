@@ -6,6 +6,7 @@
 G-20 group of major world economies.
 
 ``` r
+
 library(ggplot2)
 library(treemapify)
 G20
@@ -65,6 +66,7 @@ HDI (Human Development Index).
 is the basic geom for this purpose.
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
   geom_treemap()
 ```
@@ -85,6 +87,7 @@ tile with `place = "centre"`, and expand it to fill as much of the tile
 as possible with `grow = TRUE`.
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
   geom_treemap() +
   geom_treemap_text(fontface = "italic", colour = "white", place = "centre",
@@ -113,6 +116,7 @@ takes the same arguments for text placement and resizing as
 [`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md).
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
                 subgroup = region)) +
   geom_treemap() +
@@ -139,6 +143,7 @@ then
 [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md).
 
 ``` r
+
 ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
                 subgroup2 = region, subgroup3 = econ_classification)) +
   geom_treemap() +

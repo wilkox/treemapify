@@ -2,6 +2,13 @@
 
 ## treemapify (development version)
 
+### Bug fixes
+
+- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  now keeps tiles within the requested `xlim` and `ylim` when a
+  non-default `start` corner is set
+  ([\#52](https://github.com/wilkox/treemapify/issues/52)).
+
 ## treemapify 2.6.0
 
 CRAN release: 2025-12-14

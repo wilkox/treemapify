@@ -132,6 +132,7 @@ Visualization. <https://vanwijk.win.tue.nl/stm.pdf>
 ## Examples
 
 ``` r
+
 treemapify(G20, area = "gdp_mil_usd")
 #>           region        country   hdi econ_classification hemisphere      ymax
 #> 14        Europe European Union 0.876            Advanced   Northern 0.5113668

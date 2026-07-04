@@ -19,6 +19,7 @@ treemapify includes an example dataset containing statistics about the
 G-20 group of major world economies.
 
 ``` r
+
 library(ggplot2)
 library(treemapify)
 #> systemfonts and textshaping have been compiled with different versions of Freetype. Because of this, textshaping will not use the font cache provided by systemfonts
@@ -78,6 +79,7 @@ HDI (Human Development Index).
 is the basic geom for this purpose.
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
   geom_treemap()
 ```
@@ -98,6 +100,7 @@ with `place = "centre"`, and expand it to fill as much of the tile as
 possible with `grow = TRUE`.
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
   geom_treemap() +
   geom_treemap_text(fontface = "italic", colour = "white", place = "centre",
@@ -120,6 +123,7 @@ takes the same arguments for text placement and resizing as
 [`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md).
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
                 subgroup = region)) +
   geom_treemap() +
@@ -152,6 +156,7 @@ then
 [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md).
 
 ``` r
+
 ggplot(G20, aes(area = 1, label = country, subgroup = hemisphere,
                 subgroup2 = region, subgroup3 = econ_classification)) +
   geom_treemap() +
@@ -173,6 +178,7 @@ Like any ggplot2 plot, treemapify plots can be faceted, scaled, themed,
 etc.
 
 ``` r
+
 ggplot(G20, aes(area = gdp_mil_usd, fill = region, label = country, subgroup = region)) +
   geom_treemap() +
   geom_treemap_text(grow = T, reflow = T, colour = "black") +
@@ -212,6 +218,7 @@ becomes possible to create animated treemaps showing e.g. change over
 time.
 
 ``` r
+
 library(gganimate)
 library(gapminder)
 

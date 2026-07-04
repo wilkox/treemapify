@@ -100,6 +100,7 @@ for details on the layout algorithms).
 ## Examples
 
 ``` r
+
 ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
                                   subgroup = hemisphere, subgroup2 = region)) +
   geom_treemap() +
