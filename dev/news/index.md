@@ -16,6 +16,10 @@
   now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set
   ([\#52](https://github.com/wilkox/treemapify/issues/52)).
+- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  now validates the `start` argument and errors on an unrecognised
+  value, rather than silently treating it as `"bottomleft"`
+  ([\#55](https://github.com/wilkox/treemapify/issues/55)).
 
 ## treemapify 2.6.0
 
