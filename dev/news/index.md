@@ -5,6 +5,11 @@
 ### Bug fixes
 
 - [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  now drops rows with a missing `area` value and issues an informative
+  warning, rather than failing with a cryptic error
+  ([\#53](https://github.com/wilkox/treemapify/issues/53)).
+
+- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
   now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set
   ([\#52](https://github.com/wilkox/treemapify/issues/52)).
