@@ -66,9 +66,19 @@ test_that("geoms work with basic parameters", {
 
 test_that("geom_treemap_subgroup_text works with a colour aesthetic", {
   expect_silent( {
-    p <- ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, subgroup = hemisphere, subgroup2 = region, subgroup3 = country)) + 
+    p <- ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, subgroup = hemisphere, subgroup2 = region, subgroup3 = country)) +
       treemapify::geom_treemap() +
       treemapify::geom_treemap_subgroup3_text(ggplot2::aes(colour = region))
     print(p)
   } )
+})
+
+test_that("geom_treemap_subgroup_border works when an inherited aesthetic varies within subgroups", {
+  # region (the colour aesthetic) has more unique values than hemisphere (the
+  # subgroup), so collapsing to subgroup level must map colours by name rather
+  # than assign all unique values (#54)
+  p <- ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, subgroup = hemisphere)) +
+    treemapify::geom_treemap() +
+    treemapify::geom_treemap_subgroup_border(ggplot2::aes(colour = region))
+  expect_no_error(ggplot2::ggplotGrob(p))
 })

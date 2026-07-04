@@ -129,7 +129,9 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     names(areasums) <- c(levels, "area")
     aesthetics <- c("colour", "size", "linetype", "alpha")
     for (aesthetic in aesthetics) {
-      areasums[aesthetic] <- unique(data[[aesthetic]])
+      values <- data[[aesthetic]]
+      names(values) <- data[[level]]
+      areasums[aesthetic] <- values[as.character(areasums[[level]])]
     }
     data <- areasums
 

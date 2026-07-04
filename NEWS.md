@@ -2,9 +2,11 @@
 
 ## Bug fixes
 
+- `geom_treemap_subgroup_border()` now works when an inherited aesthetic such
+  as `colour` varies within subgroups, mapping each subgroup's aesthetic by
+  name rather than erroring (#54).
 - `treemapify()` now drops rows with a missing `area` value and issues an
   informative warning, rather than failing with a cryptic error (#53).
-
 - `treemapify()` now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set (#52).
 
