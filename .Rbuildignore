@@ -9,7 +9,7 @@
 ^\.Rproj\.user$
 ^doc$
 ^Meta$
-^CRAN-RELEASE$
+^CRAN-SUBMISSION$
 ^revdep$
 ^\.github$
 ^pkgdown$
