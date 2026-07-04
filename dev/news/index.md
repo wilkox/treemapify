@@ -5,6 +5,12 @@
 ### Bug fixes
 
 - [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+  (and its `subgroup2`/`subgroup3` variants) now defaults to
+  `show.legend = FALSE`, so adding a border no longer inflates the
+  legend keys or overrides `theme(legend.key.size)`
+  ([\#36](https://github.com/wilkox/treemapify/issues/36),
+  [\#58](https://github.com/wilkox/treemapify/issues/58)).
+- [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
   now works when an inherited aesthetic such as `colour` varies within
   subgroups, mapping each subgroup’s aesthetic by name rather than
   erroring ([\#54](https://github.com/wilkox/treemapify/issues/54)).
