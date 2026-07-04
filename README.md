@@ -4,6 +4,7 @@
 [![R-CMD-check](https://github.com/wilkox/treemapify/workflows/R-CMD-check/badge.svg)](https://github.com/wilkox/treemapify/actions)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+<!-- badges: end -->
 
 # treemapify
 
@@ -28,7 +29,6 @@ G-20 group of major world economies.
 ``` r
 library(ggplot2)
 library(treemapify)
-#> systemfonts and textshaping have been compiled with different versions of Freetype. Because of this, textshaping will not use the font cache provided by systemfonts
 G20
 #>           region        country gdp_mil_usd   hdi econ_classification
 #> 1         Africa   South Africa      384315 0.629          Developing
