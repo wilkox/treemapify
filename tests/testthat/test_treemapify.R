@@ -1,5 +1,3 @@
-context("treemapify()")
-
 test_that("treemapify() works with basic parameters", {
   expect_silent(
     treemapify(
@@ -129,4 +127,49 @@ test_that("treemapify() drops rows with a missing area and warns", {
 test_that("treemapify returns areas", {
   expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "fixed"))}, TRUE)
   expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "squarified"))}, TRUE)
+})
+
+test_that("treemapify() returns the documented layout columns", {
+  for (layout in c("squarified", "scol", "srow", "fixed")) {
+    lay <- treemapify(G20, area = "gdp_mil_usd", layout = layout)
+    # The four tile-boundary columns are always present
+    expect_true(all(c("xmin", "xmax", "ymin", "ymax") %in% names(lay)))
+    # Every input column, including the area column, is retained
+    expect_true(all(names(G20) %in% names(lay)))
+  }
+})
+
+test_that("treemapify() silently drops rows with zero or negative area", {
+  G20zn <- G20
+  G20zn$gdp_mil_usd[1] <- 0
+  G20zn$gdp_mil_usd[2] <- -5
+
+  for (layout in c("squarified", "fixed")) {
+    expect_silent(lay <- treemapify(G20zn, area = "gdp_mil_usd", layout = layout))
+    expect_identical(nrow(lay), nrow(G20) - 2L)
+  }
+})
+
+test_that("treemapify() errors when every area is zero or negative", {
+  G20allzero <- G20
+  G20allzero$gdp_mil_usd <- rep(0, nrow(G20allzero))
+
+  for (layout in c("squarified", "fixed")) {
+    expect_error(
+      treemapify(G20allzero, area = "gdp_mil_usd", layout = layout),
+      "area > 0"
+    )
+  }
+})
+
+test_that("treemapify() row order follows the layout algorithm", {
+  # The squarified layouts sort tiles by area, largest first
+  for (layout in c("squarified", "scol", "srow")) {
+    lay <- treemapify(G20, area = "gdp_mil_usd", layout = layout)
+    expect_identical(lay$gdp_mil_usd, sort(G20$gdp_mil_usd, decreasing = TRUE))
+  }
+
+  # The fixed layout preserves the input row order
+  lay <- treemapify(G20, area = "gdp_mil_usd", layout = "fixed")
+  expect_identical(lay$country, G20$country)
 })

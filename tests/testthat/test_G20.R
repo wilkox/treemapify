@@ -1,5 +1,3 @@
-context("G20 data frame")
-
 test_that("G20 data frame is present", {
   expect_equal(
     names(G20),

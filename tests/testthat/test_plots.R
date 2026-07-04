@@ -1,5 +1,3 @@
-context("visual tests of plots")
-
 test_that("plots look the way they should", {
   expect_doppelganger("Basic treemap", {
     ggplot2::ggplot(

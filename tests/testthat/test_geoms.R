@@ -1,5 +1,3 @@
-context("geoms")
-
 test_that("geoms work with basic parameters", {
   expect_silent( {
     p <- ggplot2::ggplot(G20, ggplot2::aes(
