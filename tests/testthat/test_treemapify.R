@@ -80,6 +80,24 @@ test_that("treemapify() returns an error for invalid xlim or ylim arguments", {
   expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c("a", "b")), "ylim")
 })
 
+test_that("treemapify() keeps tiles within xlim/ylim for every start corner", {
+  xlim <- c(2, 5)
+  ylim <- c(10, 20)
+  for (start in c("bottomleft", "topleft", "topright", "bottomright")) {
+    lay <- treemapify(
+      G20,
+      area = "gdp_mil_usd",
+      xlim = xlim,
+      ylim = ylim,
+      start = start
+    )
+    expect_gte(min(lay$xmin, lay$xmax), xlim[1])
+    expect_lte(max(lay$xmin, lay$xmax), xlim[2])
+    expect_gte(min(lay$ymin, lay$ymax), ylim[1])
+    expect_lte(max(lay$ymin, lay$ymax), ylim[2])
+  }
+})
+
 test_that("treemapify returns areas", {
   expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "fixed"))}, TRUE)
   expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "squarified"))}, TRUE)

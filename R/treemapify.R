@@ -223,24 +223,26 @@ treemapify <- function(
   }
   layout <- do_layout(data, subgroups, xlim, ylim)
 
-  # Flip the coordinates to set the starting corner
+  # Flip the coordinates to set the starting corner. The tiles are reflected
+  # around the midpoint of the limits (e.g. `xlim[1] + xlim[2] - x`) so that
+  # they stay within the requested `xlim`/`ylim`.
   if (start == "topleft") {
-    new_ymax <- max(layout$ymax) - layout$ymin
-    new_ymin <- max(layout$ymax) - layout$ymax
+    new_ymax <- ylim[1] + ylim[2] - layout$ymin
+    new_ymin <- ylim[1] + ylim[2] - layout$ymax
     layout$ymax <- new_ymax
     layout$ymin <- new_ymin
   } else if (start == "topright") {
-    new_ymax <- max(layout$ymax) - layout$ymin
-    new_ymin <- max(layout$ymax) - layout$ymax
+    new_ymax <- ylim[1] + ylim[2] - layout$ymin
+    new_ymin <- ylim[1] + ylim[2] - layout$ymax
     layout$ymax <- new_ymax
     layout$ymin <- new_ymin
-    new_xmax <- max(layout$xmax) - layout$xmin
-    new_xmin <- max(layout$xmax) - layout$xmax
+    new_xmax <- xlim[1] + xlim[2] - layout$xmin
+    new_xmin <- xlim[1] + xlim[2] - layout$xmax
     layout$xmax <- new_xmax
     layout$xmin <- new_xmin
   } else if (start == "bottomright") {
-    new_xmax <- max(layout$xmax) - layout$xmin
-    new_xmin <- max(layout$xmax) - layout$xmax
+    new_xmax <- xlim[1] + xlim[2] - layout$xmin
+    new_xmin <- xlim[1] + xlim[2] - layout$xmax
     layout$xmax <- new_xmax
     layout$xmin <- new_xmin
   }

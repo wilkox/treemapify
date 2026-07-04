@@ -1,5 +1,10 @@
 # treemapify (development version)
 
+## Bug fixes
+
+- `treemapify()` now keeps tiles within the requested `xlim` and `ylim` when a
+  non-default `start` corner is set (#52).
+
 # treemapify 2.6.0
 
 ## Major changes
