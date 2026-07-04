@@ -137,6 +137,9 @@ treemapify <- function(
   if (!layout %in% c("squarified", "scol", "srow", "fixed")) {
     cli::cli_abort("Invalid value for {.arg layout}")
   }
+  if (!start %in% c("bottomleft", "topleft", "topright", "bottomright")) {
+    cli::cli_abort("Invalid value for {.arg start}")
+  }
   if (!(is.numeric(xlim) & length(xlim) == 2 & xlim[1] < xlim[2])) {
     cli::cli_abort(
       "{.arg xlim} must be a numeric vector of length 2, with the minimum less than the maximum"

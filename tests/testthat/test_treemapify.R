@@ -46,6 +46,13 @@ test_that("treemapify() returns an error when passed an invalid layout algorithm
   expect_error(treemapify(G20, area = "gdp_mil_usd", layout = "fake"), "Invalid value")
 })
 
+test_that("treemapify() returns an error when passed an invalid start corner", {
+  expect_error(
+    treemapify(G20, area = "gdp_mil_usd", start = "topLeft"),
+    "Invalid value"
+  )
+})
+
 test_that("treemapify() returns an error when passed non-existent columns", {
   expect_error(
     treemapify(G20, area = "fake"),

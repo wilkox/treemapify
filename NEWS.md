@@ -9,6 +9,9 @@
   informative warning, rather than failing with a cryptic error (#53).
 - `treemapify()` now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set (#52).
+- `treemapify()` now validates the `start` argument and errors on an
+  unrecognised value, rather than silently treating it as `"bottomleft"`
+  (#55).
 
 # treemapify 2.6.0
 
