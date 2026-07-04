@@ -81,6 +81,37 @@ test_that("geom_treemap_subgroup_border works when an inherited aesthetic varies
   expect_no_error(ggplot2::ggplotGrob(p))
 })
 
+test_that("geom_treemap_subgroup_border maps aesthetics by full subgroup path", {
+  # When the same subgroup2 label appears under two different subgroup parents,
+  # the collapsed borders must be keyed on the full (subgroup, subgroup2) path.
+  # Keying on the deepest level alone made both parents' borders inherit the
+  # first parent's aesthetic (#71).
+  d <- data.frame(
+    area = c(10, 10, 10, 10),
+    subgroup = c("A", "A", "B", "B"),
+    subgroup2 = c("shared", "shared", "shared", "shared"),
+    region = c("red", "red", "blue", "blue")
+  )
+  p <- ggplot2::ggplot(d, ggplot2::aes(area = area, subgroup = subgroup,
+                                       subgroup2 = subgroup2)) +
+    treemapify::geom_treemap() +
+    treemapify::geom_treemap_subgroup2_border(ggplot2::aes(colour = region))
+
+  border_colours <- function(gr, acc = character(0)) {
+    if (!is.null(gr$name) && grepl("subgroup_border", gr$name) &&
+        !is.null(gr$gp$col)) {
+      acc <- c(acc, gr$gp$col)
+    }
+    for (child in c(gr$children, gr$grobs)) {
+      acc <- border_colours(child, acc)
+    }
+    acc
+  }
+
+  cols <- border_colours(ggplot2::ggplotGrob(p))
+  expect_length(unique(cols), 2)
+})
+
 test_that("geom_treemap_subgroup_border does not affect legend key sizing", {
   # The border layer inherits the fill aesthetic and so would join the fill
   # legend, where its large default size inflates the legend keys and overrides

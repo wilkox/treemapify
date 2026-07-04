@@ -15,8 +15,7 @@
   now defaults to `show.legend = FALSE`, so adding a border no longer inflates
   the legend keys or overrides `theme(legend.key.size)` (#36, #58).
 - `geom_treemap_subgroup_border()` now works when an inherited aesthetic such
-  as `colour` varies within subgroups, mapping each subgroup's aesthetic by
-  name rather than erroring (#54).
+  as `colour` varies within subgroups, rather than erroring (#54, #71).
 - `treemapify()` now drops rows with a missing `area` value and issues an
   informative warning, rather than failing with a cryptic error (#53).
 - `treemapify()` now keeps tiles within the requested `xlim` and `ylim` when a

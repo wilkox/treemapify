@@ -127,12 +127,11 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     bys <- lapply(levels, function(x) data[[x]])
     areasums <- aggregate(data$area, by = bys, FUN = sum)
     names(areasums) <- c(levels, "area")
+    row_key <- interaction(bys, drop = TRUE)
+    group_key <- interaction(areasums[levels], drop = TRUE)
+    first_rows <- match(group_key, row_key)
     aesthetics <- c("colour", "size", "linetype", "alpha")
-    for (aesthetic in aesthetics) {
-      values <- data[[aesthetic]]
-      names(values) <- data[[level]]
-      areasums[aesthetic] <- values[as.character(areasums[[level]])]
-    }
+    areasums[aesthetics] <- data[first_rows, aesthetics]
     data <- areasums
 
     # Generate treemap layout for data
