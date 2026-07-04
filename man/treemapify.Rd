@@ -53,6 +53,24 @@ Must be a numeric vector of length two; both default to \code{c(0, 1)}.}
 
 \item{...}{Additional arguments to be passed to \code{treemapify()}.}
 }
+\value{
+A data frame with one row per tile. All columns from \code{data} are
+retained (including \code{area}, with its original values), plus four columns
+giving the tile boundaries: \code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}. These
+coordinates fall within the \code{xlim} and \code{ylim} limits.
+
+Note the following behaviours of the returned layout:
+\itemize{
+\item Rows with a missing (\code{NA}) \code{area} value are dropped, with a warning.
+\item Rows with a zero or negative \code{area} value are silently dropped, as they
+cannot be given a tile.
+\item If every row has a zero or negative \code{area} value, an error is raised.
+\item Row order is not necessarily preserved. The 'squarified' layouts
+(\code{squarified}, \code{scol} and \code{srow}) sort the tiles by area, largest first,
+so the returned rows will not match the order of \code{data}. The 'fixed'
+layout does preserve the input row order.
+}
+}
 \description{
 \code{treemapify()} returns a data frame of tile coordinates for a treemap layout
 of a set of observations. This is only useful if you wish to draw the

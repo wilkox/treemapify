@@ -63,6 +63,22 @@
 #' Must be a numeric vector of length two; both default to `c(0, 1)`.
 #' @param ... Additional arguments to be passed to `treemapify()`.
 #'
+#' @return A data frame with one row per tile. All columns from `data` are
+#' retained (including `area`, with its original values), plus four columns
+#' giving the tile boundaries: `xmin`, `xmax`, `ymin` and `ymax`. These
+#' coordinates fall within the `xlim` and `ylim` limits.
+#'
+#' Note the following behaviours of the returned layout:
+#'
+#' - Rows with a missing (`NA`) `area` value are dropped, with a warning.
+#' - Rows with a zero or negative `area` value are silently dropped, as they
+#'   cannot be given a tile.
+#' - If every row has a zero or negative `area` value, an error is raised.
+#' - Row order is not necessarily preserved. The 'squarified' layouts
+#'   (`squarified`, `scol` and `srow`) sort the tiles by area, largest first,
+#'   so the returned rows will not match the order of `data`. The 'fixed'
+#'   layout does preserve the input row order.
+#'
 #' @seealso [geom_treemap()]
 #'
 #' @examples

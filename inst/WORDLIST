@@ -17,6 +17,7 @@ center
 ci
 cli
 david
+erroring
 etc
 fontface
 geoms
@@ -40,6 +41,7 @@ squarified
 squarified’
 srow
 subgrouping
+svglite
 tiles’
 topleft
 topright

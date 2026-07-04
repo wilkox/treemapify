@@ -1,5 +1,14 @@
 # treemapify (development version)
 
+## Minor changes
+
+- The 'svglite' package is now suggested rather than imported, so it is no
+  longer a hard installation dependency; it is only needed to run the package's
+  pattern-fill visual tests (#66).
+- `treemapify()`'s help page now documents its return value: the columns of the
+  returned layout data frame, and how rows with zero, negative, or missing
+  `area` values are handled (#69).
+
 ## Bug fixes
 
 - `geom_treemap_subgroup_border()` (and its `subgroup2`/`subgroup3` variants)
