@@ -82,3 +82,29 @@ test_that("geom_treemap_subgroup_border works when an inherited aesthetic varies
     treemapify::geom_treemap_subgroup_border(ggplot2::aes(colour = region))
   expect_no_error(ggplot2::ggplotGrob(p))
 })
+
+test_that("geom_treemap_subgroup_border does not affect legend key sizing", {
+  # The border layer inherits the fill aesthetic and so would join the fill
+  # legend, where its large default size inflates the legend keys and overrides
+  # theme(legend.key.size). Defaulting show.legend = FALSE keeps it out of the
+  # legend, so adding a border must leave the legend box unchanged (#36, #58).
+  d <- data.frame(
+    area = c(1, 2, 3, 4, 5, 6),
+    fill = c("a", "b", "c", "d", "e", "f"),
+    subgroup = c("x", "x", "x", "y", "y", "y")
+  )
+
+  guidebox_height <- function(p) {
+    g <- ggplot2::ggplotGrob(p)
+    i <- which(g$layout$name == "guide-box-right")
+    sum(grid::convertHeight(g$grobs[[i]]$heights, "mm", valueOnly = TRUE))
+  }
+
+  base <- ggplot2::ggplot(d, ggplot2::aes(area = area, fill = fill, subgroup = subgroup)) +
+    treemapify::geom_treemap() +
+    ggplot2::theme(legend.key.size = grid::unit(0.3, "cm"))
+  with_border <- base + treemapify::geom_treemap_subgroup_border(size = 20)
+
+  expect_false(isTRUE(treemapify::geom_treemap_subgroup_border()$show.legend))
+  expect_equal(guidebox_height(with_border), guidebox_height(base))
+})

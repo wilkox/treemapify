@@ -59,7 +59,7 @@ geom_treemap_subgroup_border <- function(
   stat = "identity",
   position = "identity",
   na.rm = FALSE,
-  show.legend = NA,
+  show.legend = FALSE,
   inherit.aes = TRUE,
   fixed = NULL,
   layout = "squarified",
