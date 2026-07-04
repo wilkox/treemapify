@@ -1,6 +1,6 @@
 Package: treemapify
 Title: Draw Treemaps in 'ggplot2'
-Version: 2.6.0.9005
+Version: 2.6.0.9006
 Authors@R: c(
   person("David", "Wilkins", , "david@wilkox.org", role = c("aut", "cre"),
          comment = c(ORCID = "0000-0002-3385-8981")),
@@ -15,17 +15,17 @@ Imports:
     ggplot2 (>= 3.5),
     ggfittext (>= 0.5.0),
     grid (>= 3.1),
-    cli (>= 3.6.1),
-    svglite
-Suggests: 
+    cli (>= 3.6.1)
+Suggests:
     knitr,
     rmarkdown,
-    testthat,
+    testthat (>= 3.0.0),
     vdiffr,
     spelling,
     fontquiver,
     showtext,
-    sysfonts
+    sysfonts,
+    svglite (>= 2.1.3)
 License: GPL (>=3)
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -33,3 +33,4 @@ VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-GB
 Config/roxygen2/version: 8.0.0
+Config/testthat/edition: 3
