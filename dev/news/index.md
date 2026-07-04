@@ -4,11 +4,14 @@
 
 ### Bug fixes
 
+- [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+  now works when an inherited aesthetic such as `colour` varies within
+  subgroups, mapping each subgroup’s aesthetic by name rather than
+  erroring ([\#54](https://github.com/wilkox/treemapify/issues/54)).
 - [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
   now drops rows with a missing `area` value and issues an informative
   warning, rather than failing with a cryptic error
   ([\#53](https://github.com/wilkox/treemapify/issues/53)).
-
 - [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
   now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set
