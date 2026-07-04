@@ -2,6 +2,9 @@
 
 ## Bug fixes
 
+- `treemapify()` now drops rows with a missing `area` value and issues an
+  informative warning, rather than failing with a cryptic error (#53).
+
 - `treemapify()` now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set (#52).
 

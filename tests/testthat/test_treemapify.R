@@ -98,6 +98,27 @@ test_that("treemapify() keeps tiles within xlim/ylim for every start corner", {
   }
 })
 
+test_that("treemapify() drops rows with a missing area and warns", {
+  G20na <- G20
+  G20na$gdp_mil_usd[3] <- NA
+
+  expect_warning(
+    treemapify(G20na, area = "gdp_mil_usd"),
+    "Dropping 1 row"
+  )
+
+  lay <- suppressWarnings(treemapify(G20na, area = "gdp_mil_usd"))
+  expect_identical(nrow(lay), nrow(G20) - 1L)
+  expect_false(anyNA(lay[c("xmin", "xmax", "ymin", "ymax")]))
+
+  # Multiple missing-area rows are reported with a pluralised message
+  G20na$gdp_mil_usd[5] <- NA
+  expect_warning(
+    treemapify(G20na, area = "gdp_mil_usd"),
+    "Dropping 2 rows"
+  )
+})
+
 test_that("treemapify returns areas", {
   expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "fixed"))}, TRUE)
   expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "squarified"))}, TRUE)

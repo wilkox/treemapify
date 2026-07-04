@@ -7,8 +7,8 @@ treemap_squarified <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layou
   if ("area_preserved_squarified" %in% names(data)) cli::cli_abort("{.val area_preserved_squarified} column is present")
   data$area_preserved_squarified <- data[[area]]
 
-  # Remove any rows where area <= 0
-  data <- data[data[[area]] > 0, ]
+  # Remove any rows where area is missing or <= 0
+  data <- data[!is.na(data[[area]]) & data[[area]] > 0, ]
 
   # Stop if there are no rows
   if (nrow(data) == 0) {

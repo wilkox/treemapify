@@ -148,6 +148,15 @@ treemapify <- function(
     )
   }
 
+  # Drop rows with a missing area, which cannot be laid out
+  n_missing <- sum(is.na(data[[area]]))
+  if (n_missing > 0) {
+    cli::cli_warn(
+      "Dropping {n_missing} row{?s} with a missing {.field {area}} value."
+    )
+    data <- data[!is.na(data[[area]]), ]
+  }
+
   # Set layout function
   if (layout %in% c("squarified", "scol", "srow")) {
     treemap_f <- treemap_squarified
