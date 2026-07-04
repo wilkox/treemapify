@@ -28,8 +28,8 @@ Suggests:
     sysfonts
 License: GPL (>=3)
 LazyData: true
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-GB
+Config/roxygen2/version: 8.0.0

@@ -19,6 +19,11 @@ Useful links:
 \author{
 \strong{Maintainer}: David Wilkins \email{david@wilkox.org} (\href{https://orcid.org/0000-0002-3385-8981}{ORCID})
 
+Authors:
+\itemize{
+  \item David Wilkins \email{david@wilkox.org} (\href{https://orcid.org/0000-0002-3385-8981}{ORCID})
+}
+
 Other contributors:
 \itemize{
   \item Bob Rudis \email{bob@rud.is} (\href{https://orcid.org/0000-0001-5670-2640}{ORCID}) [contributor]
