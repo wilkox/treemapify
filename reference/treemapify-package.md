@@ -8,12 +8,19 @@ Useful links:
 
 - <https://wilkox.org/treemapify/>
 
+- <http://wilkox.org/treemapify/>
+
 - Report bugs at <https://github.com/wilkox/treemapify/issues/>
 
 ## Author
 
 **Maintainer**: David Wilkins <david@wilkox.org>
 ([ORCID](https://orcid.org/0000-0002-3385-8981))
+
+Authors:
+
+- David Wilkins <david@wilkox.org>
+  ([ORCID](https://orcid.org/0000-0002-3385-8981))
 
 Other contributors:
 

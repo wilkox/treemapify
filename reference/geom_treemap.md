@@ -134,6 +134,7 @@ Bob Rudis (bob@rud.is)
 ## Examples
 
 ``` r
+
 ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = region)) +
  geom_treemap()
 

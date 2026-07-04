@@ -1,5 +1,45 @@
 # Changelog
 
+## treemapify 2.6.1
+
+### Minor changes
+
+- The ‘svglite’ package is now suggested rather than imported, so it is
+  no longer a hard installation dependency; it is only needed to run the
+  package’s pattern-fill visual tests
+  ([\#66](https://github.com/wilkox/treemapify/issues/66)).
+- [`treemapify()`](https://wilkox.org/treemapify/reference/treemapify.md)’s
+  help page now documents its return value: the columns of the returned
+  layout data frame, and how rows with zero, negative, or missing `area`
+  values are handled
+  ([\#69](https://github.com/wilkox/treemapify/issues/69)).
+
+### Bug fixes
+
+- [`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/reference/geom_treemap_subgroup_border.md)
+  (and its `subgroup2`/`subgroup3` variants) now defaults to
+  `show.legend = FALSE`, so adding a border no longer inflates the
+  legend keys or overrides `theme(legend.key.size)`
+  ([\#36](https://github.com/wilkox/treemapify/issues/36),
+  [\#58](https://github.com/wilkox/treemapify/issues/58)).
+- [`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/reference/geom_treemap_subgroup_border.md)
+  now works when an inherited aesthetic such as `colour` varies within
+  subgroups, rather than erroring
+  ([\#54](https://github.com/wilkox/treemapify/issues/54),
+  [\#71](https://github.com/wilkox/treemapify/issues/71)).
+- [`treemapify()`](https://wilkox.org/treemapify/reference/treemapify.md)
+  now drops rows with a missing `area` value and issues an informative
+  warning, rather than failing with a cryptic error
+  ([\#53](https://github.com/wilkox/treemapify/issues/53)).
+- [`treemapify()`](https://wilkox.org/treemapify/reference/treemapify.md)
+  now keeps tiles within the requested `xlim` and `ylim` when a
+  non-default `start` corner is set
+  ([\#52](https://github.com/wilkox/treemapify/issues/52)).
+- [`treemapify()`](https://wilkox.org/treemapify/reference/treemapify.md)
+  now validates the `start` argument and errors on an unrecognised
+  value, rather than silently treating it as `"bottomleft"`
+  ([\#55](https://github.com/wilkox/treemapify/issues/55)).
+
 ## treemapify 2.6.0
 
 CRAN release: 2025-12-14

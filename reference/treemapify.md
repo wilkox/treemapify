@@ -112,6 +112,27 @@ treemapify_fixed(...)
 
   Additional arguments to be passed to `treemapify()`.
 
+## Value
+
+A data frame with one row per tile. All columns from `data` are retained
+(including `area`, with its original values), plus four columns giving
+the tile boundaries: `xmin`, `xmax`, `ymin` and `ymax`. These
+coordinates fall within the `xlim` and `ylim` limits.
+
+Note the following behaviours of the returned layout:
+
+- Rows with a missing (`NA`) `area` value are dropped, with a warning.
+
+- Rows with a zero or negative `area` value are silently dropped, as
+  they cannot be given a tile.
+
+- If every row has a zero or negative `area` value, an error is raised.
+
+- Row order is not necessarily preserved. The 'squarified' layouts
+  (`squarified`, `scol` and `srow`) sort the tiles by area, largest
+  first, so the returned rows will not match the order of `data`. The
+  'fixed' layout does preserve the input row order.
+
 ## Details
 
 `treemapify` is for generating a data frame of raw treemap coordinates.
@@ -132,6 +153,7 @@ Visualization. <https://vanwijk.win.tue.nl/stm.pdf>
 ## Examples
 
 ``` r
+
 treemapify(G20, area = "gdp_mil_usd")
 #>           region        country   hdi econ_classification hemisphere      ymax
 #> 14        Europe European Union 0.876            Advanced   Northern 0.5113668
