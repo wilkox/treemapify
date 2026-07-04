@@ -22,7 +22,6 @@ G-20 group of major world economies.
 
 library(ggplot2)
 library(treemapify)
-#> systemfonts and textshaping have been compiled with different versions of Freetype. Because of this, textshaping will not use the font cache provided by systemfonts
 G20
 #>           region        country gdp_mil_usd   hdi econ_classification
 #> 1         Africa   South Africa      384315 0.629          Developing
