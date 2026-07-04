@@ -8,7 +8,7 @@
   no longer a hard installation dependency; it is only needed to run the
   package’s pattern-fill visual tests
   ([\#66](https://github.com/wilkox/treemapify/issues/66)).
-- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)’s
+- [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)’s
   help page now documents its return value: the columns of the returned
   layout data frame, and how rows with zero, negative, or missing `area`
   values are handled
@@ -16,25 +16,26 @@
 
 ### Bug fixes
 
-- [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+- [`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
   (and its `subgroup2`/`subgroup3` variants) now defaults to
   `show.legend = FALSE`, so adding a border no longer inflates the
   legend keys or overrides `theme(legend.key.size)`
   ([\#36](https://github.com/wilkox/treemapify/issues/36),
   [\#58](https://github.com/wilkox/treemapify/issues/58)).
-- [`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+- [`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
   now works when an inherited aesthetic such as `colour` varies within
-  subgroups, mapping each subgroup’s aesthetic by name rather than
-  erroring ([\#54](https://github.com/wilkox/treemapify/issues/54)).
-- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  subgroups, rather than erroring
+  ([\#54](https://github.com/wilkox/treemapify/issues/54),
+  [\#71](https://github.com/wilkox/treemapify/issues/71)).
+- [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)
   now drops rows with a missing `area` value and issues an informative
   warning, rather than failing with a cryptic error
   ([\#53](https://github.com/wilkox/treemapify/issues/53)).
-- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+- [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)
   now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set
   ([\#52](https://github.com/wilkox/treemapify/issues/52)).
-- [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+- [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)
   now validates the `start` argument and errors on an unrecognised
   value, rather than silently treating it as `"bottomleft"`
   ([\#55](https://github.com/wilkox/treemapify/issues/55)).
@@ -129,13 +130,13 @@ CRAN release: 2018-10-06
 ### Major changes
 
 - Added new `layout` and `start` arguments to
-  [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)
   and all geoms.
 
 ### Minor changes
 
 - Restore `xlim` and `ylim` options to
-  [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md).
+  [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md).
 - Add and improve tests.
 - Misc. code quality improvements.
 
@@ -144,11 +145,11 @@ CRAN release: 2018-10-06
 - Fixed bug in handling of subgroups, which should result in more
   aesthetically pleasing layouts.
 - Fix dereferencing of arguments in
-  [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)
   ([\#22](https://github.com/wilkox/treemapify/issues/22), thanks
   [@GregorDeCillia](https://github.com/GregorDeCillia)).
 - Fix deprecation of `fill`, `label` and `group` arguments in
-  [`treemapify()`](http://wilkox.org/treemapify/dev/reference/treemapify.md)
+  [`treemapify()`](https://wilkox.org/treemapify/dev/reference/treemapify.md)
   to maintain backwards compatibility (thanks
   [@GregorDeCillia](https://github.com/GregorDeCillia)).
 

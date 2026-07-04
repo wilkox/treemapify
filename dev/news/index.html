@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treemapify</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.6.0.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.6.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@
 <ul><li>
 <code><a href="../reference/geom_treemap_subgroup_border.html">geom_treemap_subgroup_border()</a></code> (and its <code>subgroup2</code>/<code>subgroup3</code> variants) now defaults to <code>show.legend = FALSE</code>, so adding a border no longer inflates the legend keys or overrides <code>theme(legend.key.size)</code> (<a href="https://github.com/wilkox/treemapify/issues/36" class="external-link">#36</a>, <a href="https://github.com/wilkox/treemapify/issues/58" class="external-link">#58</a>).</li>
 <li>
-<code><a href="../reference/geom_treemap_subgroup_border.html">geom_treemap_subgroup_border()</a></code> now works when an inherited aesthetic such as <code>colour</code> varies within subgroups, mapping each subgroup’s aesthetic by name rather than erroring (<a href="https://github.com/wilkox/treemapify/issues/54" class="external-link">#54</a>).</li>
+<code><a href="../reference/geom_treemap_subgroup_border.html">geom_treemap_subgroup_border()</a></code> now works when an inherited aesthetic such as <code>colour</code> varies within subgroups, rather than erroring (<a href="https://github.com/wilkox/treemapify/issues/54" class="external-link">#54</a>, <a href="https://github.com/wilkox/treemapify/issues/71" class="external-link">#71</a>).</li>
 <li>
 <code><a href="../reference/treemapify.html">treemapify()</a></code> now drops rows with a missing <code>area</code> value and issues an informative warning, rather than failing with a cryptic error (<a href="https://github.com/wilkox/treemapify/issues/53" class="external-link">#53</a>).</li>
 <li>

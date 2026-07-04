@@ -57,17 +57,17 @@ aesthetics relating to the x and y axes (e.g. `xmin` or `y`), as the x
 and y axes are not meaningful in a treemap. Several other standard
 'ggplot2' aesthetics are supported (see Aesthetics). To add text labels
 to tiles, see
-[`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md).
+[`geom_treemap_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_text.md).
 
 An optional `subgroup` aesthetic will cause the tiles to be clustered in
 subgroups within the treemap. See
-[`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+[`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
 and
-[`geom_treemap_subgroup_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
+[`geom_treemap_subgroup_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
 to draw borders around subgroups and label them, respectively. Up to
 three nested levels of subgrouping are supported, with `subgroup2` and
 `subgroup3` aesthetics and respective
-[`geom_treemap_subgroup2_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+[`geom_treemap_subgroup2_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
 etc. geoms.
 
 Four layout algorithms are provided. With the default 'squarified'
@@ -121,9 +121,9 @@ Visualization. <https://vanwijk.win.tue.nl/stm.pdf>
 
 ## See also
 
-[`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md),
-[`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md),
-[`geom_treemap_subgroup_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
+[`geom_treemap_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_text.md),
+[`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md),
+[`geom_treemap_subgroup_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
 
 ## Author
 

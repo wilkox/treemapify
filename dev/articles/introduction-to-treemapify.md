@@ -62,7 +62,7 @@ of the tile proportional to a variable. Let’s start by drawing a treemap
 with each tile representing a G-20 country. The area of the tile will be
 mapped to the country’s GDP, and the tile’s fill colour mapped to its
 HDI (Human Development Index).
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 is the basic geom for this purpose.
 
 ``` r
@@ -75,7 +75,7 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi)) +
 
 This plot isn’t very useful without the knowing what country is
 represented by each tile.
-[`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md)
+[`geom_treemap_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_text.md)
 can be used to add a text label to each tile. It uses the
 [‘ggfittext’](https://github.com/wilkox/ggfittext) package to resize the
 text so it fits the tile. In addition to standard text formatting
@@ -97,23 +97,23 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country)) +
 ![](introduction-to-treemapify_files/figure-html/geom_treemap_text-1.png)
 
 Note that several tiles in the top right corner have no labels.
-[`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md)
+[`geom_treemap_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_text.md)
 will hide text labels that cannot fit a tile without being shrunk below
 a minimum size, by default 4 points. This can be adjusted with the
 `min.size` argument.
 
 ## Subgrouping tiles
 
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 supports subgrouping of tiles within a treemap by passing a `subgroup`
 aesthetic. Let’s subgroup the countries by region, draw a border around
 each subgroup with
-[`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md),
+[`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md),
 and label each subgroup with
-[`geom_treemap_subgroup_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md).
-[`geom_treemap_subgroup_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
+[`geom_treemap_subgroup_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md).
+[`geom_treemap_subgroup_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
 takes the same arguments for text placement and resizing as
-[`geom_treemap_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_text.md).
+[`geom_treemap_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_text.md).
 
 ``` r
 
@@ -131,16 +131,16 @@ ggplot(G20, aes(area = gdp_mil_usd, fill = hdi, label = country,
 Up to three nested levels of subgrouping are supported with the
 `subgroup2` and `subgroup3` aesthetics. Borders and text labels for
 these subgroups can be drawn with
-[`geom_treemap_subgroup2_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md),
+[`geom_treemap_subgroup2_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md),
 etc. Note that ‘ggplot2’ draws plot layers in the order that they are
 added. This means it is possible to accidentally hide one layer of
 subgroup borders with another. Usually, it’s best to add the border
 layers in order from deepest to shallowest, i.e.
-[`geom_treemap_subgroup3_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+[`geom_treemap_subgroup3_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
 then
-[`geom_treemap_subgroup2_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
+[`geom_treemap_subgroup2_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md)
 then
-[`geom_treemap_subgroup_border()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md).
+[`geom_treemap_subgroup_border()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_border.md).
 
 ``` r
 

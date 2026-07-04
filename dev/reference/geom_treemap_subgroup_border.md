@@ -1,7 +1,7 @@
 # 'ggplot2' geoms to draw a border around a subgroup of treemap tiles.
 
 When
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 is used with a `subgroup`, `subgroup2` or `subgroup3` aesthetic to
 subgroup treemap tiles, `geom_treemap_subgroup_border`,
 `geom_treemap_subgroup2_border()` or `geom_treemap_subgroup3_border()`
@@ -75,7 +75,7 @@ layer will be drawn on top of the first and may hide it.
 The `layout` argument is used to set the treemap layout algorithm. All
 'treemapify' geoms added to a plot should have the same value for
 `layout` and `start`, or they will not share a common layout (see
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 for details on the layout algorithms).
 
 ## Aesthetics
@@ -94,8 +94,8 @@ for details on the layout algorithms).
 
 ## See also
 
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md),
-[`geom_treemap_subgroup_text()`](http://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md),
+[`geom_treemap_subgroup_text()`](https://wilkox.org/treemapify/dev/reference/geom_treemap_subgroup_text.md)
 
 ## Examples
 

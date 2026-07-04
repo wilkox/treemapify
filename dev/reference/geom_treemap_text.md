@@ -2,7 +2,7 @@
 
 `geom_treemap_text()` can be used to add a text label to each tile in a
 treemap created with
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md).
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md).
 
 ## Usage
 
@@ -91,7 +91,7 @@ how these options work, see the documentation for
 The `layout` argument is used to set the treemap layout algorithm. All
 'treemapify' geoms added to a plot should have the same value for
 `layout` and `start`, or they will not share a common layout (see
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 for details on the layout algorithms).
 
 ## Aesthetics
@@ -116,7 +116,7 @@ for details on the layout algorithms).
 
 ## See also
 
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 
 ## Examples
 

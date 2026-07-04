@@ -7,7 +7,7 @@ cases such as creating interactive treemaps with 'R Shiny' (see e.g.
 <https://stackoverflow.com/q/45021775>). The easiest way to draw a
 treemap with the 'treemapify' package is to use the provided 'ggplot2'
 geoms, such as
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md).
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md).
 
 `data` must be a tidy data frame, i.e. each row must represent a single
 observation and each column a single variable. You must provide the name
@@ -137,7 +137,7 @@ Note the following behaviours of the returned layout:
 
 `treemapify` is for generating a data frame of raw treemap coordinates.
 If you want to draw a treemap with 'ggplot2', use
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 instead.
 
 ## References
@@ -148,7 +148,7 @@ Visualization. <https://vanwijk.win.tue.nl/stm.pdf>
 
 ## See also
 
-[`geom_treemap()`](http://wilkox.org/treemapify/dev/reference/geom_treemap.md)
+[`geom_treemap()`](https://wilkox.org/treemapify/dev/reference/geom_treemap.md)
 
 ## Examples
 
