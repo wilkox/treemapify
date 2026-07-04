@@ -2,6 +2,6 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom svglite svglite
+#' @importFrom stats aggregate
 ## usethis namespace: end
 NULL
