@@ -4,7 +4,6 @@
 ^README\.html$
 ^README-.*\.png$
 ^cran-comments\.md$
-^tests/figs$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^doc$
