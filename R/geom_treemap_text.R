@@ -103,7 +103,7 @@ geom_treemap_text <- function(
 }
 
 #' GeomTreemapText
-#' 
+#'
 #' @import grid
 #' @import ggfittext
 #' @format NULL
@@ -140,7 +140,6 @@ GeomTreemapText <- ggplot2::ggproto(
     start = "bottomleft",
     place = "centre"
   ) {
-
     data <- coord$transform(data, panel_scales)
 
     # Generate treemap layout for data

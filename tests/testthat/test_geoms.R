@@ -1,13 +1,16 @@
 test_that("geoms work with basic parameters", {
-  expect_silent( {
-    p <- ggplot2::ggplot(G20, ggplot2::aes(
-      fill = hdi,
-      area = gdp_mil_usd,
-      subgroup = econ_classification,
-      subgroup2 = hemisphere,
-      subgroup3 = region,
-      label = country
-    )) +
+  expect_silent({
+    p <- ggplot2::ggplot(
+      G20,
+      ggplot2::aes(
+        fill = hdi,
+        area = gdp_mil_usd,
+        subgroup = econ_classification,
+        subgroup2 = hemisphere,
+        subgroup3 = region,
+        label = country
+      )
+    ) +
       geom_treemap(layout = "scol", start = "bottomright") +
       geom_treemap_text(
         grow = T,
@@ -63,19 +66,31 @@ test_that("geoms work with basic parameters", {
 })
 
 test_that("geom_treemap_subgroup_text works with a colour aesthetic", {
-  expect_silent( {
-    p <- ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi, subgroup = hemisphere, subgroup2 = region, subgroup3 = country)) +
+  expect_silent({
+    p <- ggplot2::ggplot(
+      G20,
+      ggplot2::aes(
+        area = gdp_mil_usd,
+        fill = hdi,
+        subgroup = hemisphere,
+        subgroup2 = region,
+        subgroup3 = country
+      )
+    ) +
       treemapify::geom_treemap() +
       treemapify::geom_treemap_subgroup3_text(ggplot2::aes(colour = region))
     print(p)
-  } )
+  })
 })
 
 test_that("geom_treemap_subgroup_border works when an inherited aesthetic varies within subgroups", {
   # region (the colour aesthetic) has more unique values than hemisphere (the
   # subgroup), so collapsing to subgroup level must map colours by name rather
   # than assign all unique values (#54)
-  p <- ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, subgroup = hemisphere)) +
+  p <- ggplot2::ggplot(
+    G20,
+    ggplot2::aes(area = gdp_mil_usd, subgroup = hemisphere)
+  ) +
     treemapify::geom_treemap() +
     treemapify::geom_treemap_subgroup_border(ggplot2::aes(colour = region))
   expect_no_error(ggplot2::ggplotGrob(p))
@@ -92,14 +107,19 @@ test_that("geom_treemap_subgroup_border maps aesthetics by full subgroup path", 
     subgroup2 = c("shared", "shared", "shared", "shared"),
     region = c("red", "red", "blue", "blue")
   )
-  p <- ggplot2::ggplot(d, ggplot2::aes(area = area, subgroup = subgroup,
-                                       subgroup2 = subgroup2)) +
+  p <- ggplot2::ggplot(
+    d,
+    ggplot2::aes(area = area, subgroup = subgroup, subgroup2 = subgroup2)
+  ) +
     treemapify::geom_treemap() +
     treemapify::geom_treemap_subgroup2_border(ggplot2::aes(colour = region))
 
   border_colours <- function(gr, acc = character(0)) {
-    if (!is.null(gr$name) && grepl("subgroup_border", gr$name) &&
-        !is.null(gr$gp$col)) {
+    if (
+      !is.null(gr$name) &&
+        grepl("subgroup_border", gr$name) &&
+        !is.null(gr$gp$col)
+    ) {
       acc <- c(acc, gr$gp$col)
     }
     for (child in c(gr$children, gr$grobs)) {
@@ -129,7 +149,10 @@ test_that("geom_treemap_subgroup_border does not affect legend key sizing", {
     sum(grid::convertHeight(g$grobs[[i]]$heights, "mm", valueOnly = TRUE))
   }
 
-  base <- ggplot2::ggplot(d, ggplot2::aes(area = area, fill = fill, subgroup = subgroup)) +
+  base <- ggplot2::ggplot(
+    d,
+    ggplot2::aes(area = area, fill = fill, subgroup = subgroup)
+  ) +
     treemapify::geom_treemap() +
     ggplot2::theme(legend.key.size = grid::unit(0.3, "cm"))
   with_border <- base + treemapify::geom_treemap_subgroup_border(size = 20)

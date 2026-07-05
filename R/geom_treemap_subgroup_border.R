@@ -110,16 +110,19 @@ GeomSubgroupBorder <- ggplot2::ggproto(
     start = "bottomleft",
     level = "subgroup"
   ) {
-
     data <- coord$transform(data, panel_scales)
 
     # Check that subgrouping level is valid and in data
     levels <- c("subgroup", "subgroup2", "subgroup3")
     if (!level %in% levels) {
-      cli::cli_abort("{.arg level} must be one of {.val subgroup}, {.val subgroup2}, or {.val subgroup3}")
+      cli::cli_abort(
+        "{.arg level} must be one of {.val subgroup}, {.val subgroup2}, or {.val subgroup3}"
+      )
     }
     if (!level %in% names(data)) {
-      cli::cli_abort("Can't draw a border for subgroup level {.val {level}} as it is not a plot aesthetic")
+      cli::cli_abort(
+        "Can't draw a border for subgroup level {.val {level}} as it is not a plot aesthetic"
+      )
     }
 
     # Collapse data to groups at selected subgroup level
@@ -142,7 +145,9 @@ GeomSubgroupBorder <- ggplot2::ggproto(
       layout = layout,
       start = start
     )
-    for (l in levels[1:(length(levels) - 1)]) { params[l] <- l }
+    for (l in levels[1:(length(levels) - 1)]) {
+      params[l] <- l
+    }
     data <- do.call(treemapify, params)
 
     # Draw rects
@@ -168,12 +173,12 @@ GeomSubgroupBorder <- ggplot2::ggproto(
 
 #' @rdname geom_treemap_subgroup_border
 #' @export
-geom_treemap_subgroup2_border <- function(...) { 
+geom_treemap_subgroup2_border <- function(...) {
   geom_treemap_subgroup_border(level = "subgroup2", ...)
 }
 
 #' @rdname geom_treemap_subgroup_border
 #' @export
-geom_treemap_subgroup3_border <- function(...) { 
+geom_treemap_subgroup3_border <- function(...) {
   geom_treemap_subgroup_border(level = "subgroup3", ...)
 }

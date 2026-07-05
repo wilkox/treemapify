@@ -58,7 +58,7 @@
 #' - family
 #' - fontface
 #' - angle
-#' 
+#'
 #' @examples
 #'
 #' ggplot2::ggplot(G20, ggplot2::aes(area = gdp_mil_usd, fill = hdi,
@@ -147,16 +147,19 @@ GeomSubgroupText <- ggplot2::ggproto(
     start = "bottomleft",
     level = "subgroup"
   ) {
-
     data <- coord$transform(data, panel_scales)
 
     # Check that subgrouping level is valid and in data
     levels <- c("subgroup", "subgroup2", "subgroup3")
     if (!level %in% levels) {
-      cli::cli_abort("{.arg level} must be one of {.val subgroup}, {.val subgroup2}, or {.val subgroup3}")
+      cli::cli_abort(
+        "{.arg level} must be one of {.val subgroup}, {.val subgroup2}, or {.val subgroup3}"
+      )
     }
     if (!level %in% names(data)) {
-      cli::cli_abort("Can't draw text for subgroup level {.val {level}} as it is not a plot aesthetic")
+      cli::cli_abort(
+        "Can't draw text for subgroup level {.val {level}} as it is not a plot aesthetic"
+      )
     }
 
     # Collapse data to groups at selected subgroup level
@@ -187,7 +190,9 @@ GeomSubgroupText <- ggplot2::ggproto(
       layout = layout,
       start = start
     )
-    for (l in levels[1:(length(levels) - 1)]) { params[l] <- l }
+    for (l in levels[1:(length(levels) - 1)]) {
+      params[l] <- l
+    }
     data <- do.call(treemapify, params)
     names(data)[names(data) == level] <- "label"
 
@@ -215,12 +220,12 @@ GeomSubgroupText <- ggplot2::ggproto(
 
 #' @rdname geom_treemap_subgroup_text
 #' @export
-geom_treemap_subgroup2_text <- function(...) { 
+geom_treemap_subgroup2_text <- function(...) {
   geom_treemap_subgroup_text(level = "subgroup2", ...)
 }
 
 #' @rdname geom_treemap_subgroup_text
 #' @export
-geom_treemap_subgroup3_text <- function(...) { 
+geom_treemap_subgroup3_text <- function(...) {
   geom_treemap_subgroup_text(level = "subgroup3", ...)
 }

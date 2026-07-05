@@ -16,15 +16,14 @@
 - `geom_treemap_subgroup_border()` (and its `subgroup2`/`subgroup3` variants)
   now defaults to `show.legend = FALSE`, so adding a border no longer inflates
   the legend keys or overrides `theme(legend.key.size)` (#36, #58).
-- `geom_treemap_subgroup_border()` now works when an inherited aesthetic such
-  as `colour` varies within subgroups, rather than erroring (#54, #71).
+- `geom_treemap_subgroup_border()` now works when an inherited aesthetic such as
+  `colour` varies within subgroups, rather than erroring (#54, #71).
 - `treemapify()` now drops rows with a missing `area` value and issues an
   informative warning, rather than failing with a cryptic error (#53).
 - `treemapify()` now keeps tiles within the requested `xlim` and `ylim` when a
   non-default `start` corner is set (#52).
 - `treemapify()` now validates the `start` argument and errors on an
-  unrecognised value, rather than silently treating it as `"bottomleft"`
-  (#55).
+  unrecognised value, rather than silently treating it as `"bottomleft"` (#55).
 
 # treemapify 2.6.0
 
@@ -36,9 +35,11 @@
 
 ## Minor changes
 
-- Change default roundrect radius in GeomTreemap to 0 pts (#48, thanks @davidhodge931)
+- Change default roundrect radius in GeomTreemap to 0 pts (#48, thanks
+  @davidhodge931)
 - Export GeomTreemap and GeomTreemapText (#48, thanks @davidhodge931)
-- treemapify() includes the area column in its output (#49, thanks @davidhodge931)
+- treemapify() includes the area column in its output (#49, thanks
+  @davidhodge931)
 
 # treemapify 2.5.6
 
@@ -75,8 +76,8 @@
 
 ## Bug fixes
 
-- Fix issue with correct drawing of aesthetics in
-  `geom_tremap_subgroup*_text()` (#32, thanks @jonathan-g).
+- Fix issue with correct drawing of aesthetics in `geom_tremap_subgroup*_text()`
+  (#32, thanks @jonathan-g).
 
 # treemapify 2.5.2
 
@@ -193,7 +194,8 @@
 ## Major changes
 
 - Add 'reflow' options to `geom_treemap_text` and `geom_treemap_subgroup_text`.
-- Add 'lineheight' aesthetic to `geom_treemap_text` and `geom_treemap_subgroup_text`.
+- Add 'lineheight' aesthetic to `geom_treemap_text` and
+  `geom_treemap_subgroup_text`.
 
 ## Bug fixes
 

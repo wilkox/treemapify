@@ -178,9 +178,9 @@ test_that("pattern fills work", {
   # prevent snapshot mismatches.
   #
   # https://github.com/r-lib/vdiffr/issues/132#issuecomment-1545074881
-  svglite_writer = function(plot, file, title = "") {
-    liberation_sans = fontquiver::font_styles("Liberation", "Sans")
-    symbola = fontquiver::font("Symbola", "Symbols", "Regular")
+  svglite_writer <- function(plot, file, title = "") {
+    liberation_sans <- fontquiver::font_styles("Liberation", "Sans")
+    symbola <- fontquiver::font("Symbola", "Symbols", "Regular")
     sysfonts::font_add(
       "Liberation Sans",
       regular = liberation_sans$Regular$ttf,

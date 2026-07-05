@@ -18,7 +18,7 @@ test_that("treemapify() works with basic parameters", {
       xlim = c(-100, pi * 7),
       ylim = c(0.4, 1235)
     )
-    )
+  )
 })
 
 test_that("treemapify() returns a warning for deprecated arguments", {
@@ -41,7 +41,10 @@ test_that("treemapify() returns a warning for deprecated arguments", {
 })
 
 test_that("treemapify() returns an error when passed an invalid layout algorithm", {
-  expect_error(treemapify(G20, area = "gdp_mil_usd", layout = "fake"), "Invalid value")
+  expect_error(
+    treemapify(G20, area = "gdp_mil_usd", layout = "fake"),
+    "Invalid value"
+  )
 })
 
 test_that("treemapify() returns an error when passed an invalid start corner", {
@@ -61,7 +64,12 @@ test_that("treemapify() returns an error when passed non-existent columns", {
     "not found in data"
   )
   expect_error(
-    treemapify(G20, area = "gdp_mil_usd", subgroup = "region", subgroup2 = "fake"),
+    treemapify(
+      G20,
+      area = "gdp_mil_usd",
+      subgroup = "region",
+      subgroup2 = "fake"
+    ),
     "not found in data"
   )
   expect_error(
@@ -79,10 +87,16 @@ test_that("treemapify() returns an error when passed non-existent columns", {
 test_that("treemapify() returns an error for invalid xlim or ylim arguments", {
   expect_error(treemapify(G20, area = "gdp_mil_usd", xlim = c(1, 2, 3)), "xlim")
   expect_error(treemapify(G20, area = "gdp_mil_usd", xlim = c(3, 2, 1)), "xlim")
-  expect_error(treemapify(G20, area = "gdp_mil_usd", xlim = c("a", "b")), "xlim")
+  expect_error(
+    treemapify(G20, area = "gdp_mil_usd", xlim = c("a", "b")),
+    "xlim"
+  )
   expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c(1, 2, 3)), "ylim")
   expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c(3, 2, 1)), "ylim")
-  expect_error(treemapify(G20, area = "gdp_mil_usd", ylim = c("a", "b")), "ylim")
+  expect_error(
+    treemapify(G20, area = "gdp_mil_usd", ylim = c("a", "b")),
+    "ylim"
+  )
 })
 
 test_that("treemapify() keeps tiles within xlim/ylim for every start corner", {
@@ -125,8 +139,20 @@ test_that("treemapify() drops rows with a missing area and warns", {
 })
 
 test_that("treemapify returns areas", {
-  expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "fixed"))}, TRUE)
-  expect_identical({"gdp_mil_usd" %in% names(treemapify(G20, area = "gdp_mil_usd", layout = "squarified"))}, TRUE)
+  expect_identical(
+    {
+      "gdp_mil_usd" %in%
+        names(treemapify(G20, area = "gdp_mil_usd", layout = "fixed"))
+    },
+    TRUE
+  )
+  expect_identical(
+    {
+      "gdp_mil_usd" %in%
+        names(treemapify(G20, area = "gdp_mil_usd", layout = "squarified"))
+    },
+    TRUE
+  )
 })
 
 test_that("treemapify() returns the documented layout columns", {
@@ -145,7 +171,9 @@ test_that("treemapify() silently drops rows with zero or negative area", {
   G20zn$gdp_mil_usd[2] <- -5
 
   for (layout in c("squarified", "fixed")) {
-    expect_silent(lay <- treemapify(G20zn, area = "gdp_mil_usd", layout = layout))
+    expect_silent(
+      lay <- treemapify(G20zn, area = "gdp_mil_usd", layout = layout)
+    )
     expect_identical(nrow(lay), nrow(G20) - 2L)
   }
 })

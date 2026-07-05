@@ -1,17 +1,26 @@
 #' Internal function for the 'fixed' treemap layout algorithm.
-#' 
+#'
 #' @noRd
-treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = NULL) {
-
+treemap_fixed <- function(
+  data,
+  area,
+  xlim = c(0, 1),
+  ylim = c(0, 1),
+  layout = NULL
+) {
   # Preserve area column
-  if ("area_preserved_fixed" %in% names(data)) cli::cli_abort("{.val area_preserved_fixed} column is present")
+  if ("area_preserved_fixed" %in% names(data)) {
+    cli::cli_abort("{.val area_preserved_fixed} column is present")
+  }
   data$area_preserved_fixed <- data[[area]]
 
   # Remove any rows where area is missing or <= 0
   data <- data[!is.na(data[[area]]) & data[[area]] > 0, ]
 
   # Stop if there are no rows
-  if (nrow(data) == 0) cli::cli_abort("Must provide some rows with area > 0")
+  if (nrow(data) == 0) {
+    cli::cli_abort("Must provide some rows with area > 0")
+  }
 
   # Scale areas to sum to the plot area
   data[area] <- data[area] / sum(data[area])
@@ -29,7 +38,6 @@ treemap_fixed <- function(data, area, xlim = c(0, 1), ylim = c(0, 1), layout = N
 
   # Place each tile
   for (i in seq_len(nrow(data))) {
-
     # The width of the column is set by the sum of the areas of all column tiles
     # as a proportion of the total area
     width <- sum(data[data$column == data[i, "column"], area])

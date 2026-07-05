@@ -14,3 +14,6 @@
 ^pkgdown$
 ^CLAUDE\.md$
 ^\.claude$
+^air\.toml$
+^\.prettierrc$
+^\.git-blame-ignore-revs$
