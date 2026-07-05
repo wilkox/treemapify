@@ -4,6 +4,8 @@
 
 ## treemapify 2.6.1
 
+CRAN release: 2026-07-05
+
 ### Minor changes
 
 - The ‘svglite’ package is now suggested rather than imported, so it is
@@ -57,13 +59,12 @@ CRAN release: 2025-12-14
 
 - Change default roundrect radius in GeomTreemap to 0 pts
   ([\#48](https://github.com/wilkox/treemapify/issues/48), thanks
-  [@davidhodge931](https://github.com/davidhodge931))
+  1.  
 - Export GeomTreemap and GeomTreemapText
-  ([\#48](https://github.com/wilkox/treemapify/issues/48), thanks
-  [@davidhodge931](https://github.com/davidhodge931))
+  ([\#48](https://github.com/wilkox/treemapify/issues/48), thanks 1)
 - treemapify() includes the area column in its output
   ([\#49](https://github.com/wilkox/treemapify/issues/49), thanks
-  [@davidhodge931](https://github.com/davidhodge931))
+  1.  
 
 ## treemapify 2.5.6
 
