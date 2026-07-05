@@ -1,8 +1,8 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/wilkox/treemapify/workflows/R-CMD-check/badge.svg)](https://github.com/wilkox/treemapify/actions)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
+[![R-CMD-check](https://github.com/wilkox/treemapify/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/wilkox/treemapify/actions/workflows/R-CMD-check.yaml)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/treemapify)](https://cran.r-project.org/package=treemapify)
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
