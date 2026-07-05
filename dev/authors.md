@@ -13,12 +13,12 @@ Source:
 [`DESCRIPTION`](https://github.com/wilkox/treemapify/blob/master/DESCRIPTION)
 
 Wilkins D (2026). *treemapify: Draw Treemaps in 'ggplot2'*. R package
-version 2.6.0.9007, <https://wilkox.org/treemapify/>.
+version 2.6.1.9000, <https://wilkox.org/treemapify/>.
 
     @Manual{,
       title = {treemapify: Draw Treemaps in 'ggplot2'},
       author = {David Wilkins},
       year = {2026},
-      note = {R package version 2.6.0.9007},
+      note = {R package version 2.6.1.9000},
       url = {https://wilkox.org/treemapify/},
     }

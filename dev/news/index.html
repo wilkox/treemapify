@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">treemapify</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.6.0.9007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.6.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,14 +38,17 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="treemapify-development-version">treemapify (development version)<a class="anchor" aria-label="anchor" href="#treemapify-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.6.1" id="treemapify-261">treemapify 2.6.1<a class="anchor" aria-label="anchor" href="#treemapify-261"></a></h2>
 <div class="section level3">
-<h3 id="minor-changes-development-version">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-development-version"></a></h3>
+<h3 id="minor-changes-2-6-1">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-2-6-1"></a></h3>
 <ul><li>The ‘svglite’ package is now suggested rather than imported, so it is no longer a hard installation dependency; it is only needed to run the package’s pattern-fill visual tests (<a href="https://github.com/wilkox/treemapify/issues/66" class="external-link">#66</a>).</li>
 <li>
 <code><a href="../reference/treemapify.html">treemapify()</a></code>’s help page now documents its return value: the columns of the returned layout data frame, and how rows with zero, negative, or missing <code>area</code> values are handled (<a href="https://github.com/wilkox/treemapify/issues/69" class="external-link">#69</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-2-6-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-1"></a></h3>
 <ul><li>
 <code><a href="../reference/geom_treemap_subgroup_border.html">geom_treemap_subgroup_border()</a></code> (and its <code>subgroup2</code>/<code>subgroup3</code> variants) now defaults to <code>show.legend = FALSE</code>, so adding a border no longer inflates the legend keys or overrides <code>theme(legend.key.size)</code> (<a href="https://github.com/wilkox/treemapify/issues/36" class="external-link">#36</a>, <a href="https://github.com/wilkox/treemapify/issues/58" class="external-link">#58</a>).</li>
 <li>

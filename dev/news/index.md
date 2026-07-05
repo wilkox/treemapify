@@ -2,6 +2,8 @@
 
 ## treemapify (development version)
 
+## treemapify 2.6.1
+
 ### Minor changes
 
 - The ‘svglite’ package is now suggested rather than imported, so it is
