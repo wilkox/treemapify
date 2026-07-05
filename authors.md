@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/wilkox/treemapify/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/wilkox/treemapify/blob/v2.6.1/DESCRIPTION)
 
 Wilkins D (2026). *treemapify: Draw Treemaps in 'ggplot2'*. R package
 version 2.6.1, <https://wilkox.org/treemapify/>.
